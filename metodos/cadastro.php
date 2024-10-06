@@ -14,6 +14,8 @@ $estado = $_POST['estado'];
 $senha = $_POST['senha'];
 $confsenha = $_POST['confSenha'];
 
+enviarEmail($nome, $email);
+
 try {
     $senhaHash = hash('sha256', $senha);
 
@@ -25,7 +27,7 @@ try {
     $sql->execute();
 
     if ($sql->execute() == true) {
-        enviarEmail($email);
+        enviarEmail($nome, $email);
         header("Location: ../index.html");
         exit;
     }
@@ -49,32 +51,37 @@ try {
     }
 }
 
-function enviarEmail($email)
+function enviarEmail($nome, $email)
 {
-    $mail = new PHPMailer(true); // PHPMailer com tratamento de exceções
+
+    $email_body = file_get_contents('../PHPMailer/src/templates/cadastro.html');
+
+    $action_url = 'apple.com';
+    $email_body = str_replace('{{nome}}', $nome, $email_body);
+    $email_body = str_replace('{{email}}', $email, $email_body);
+    $email_body = str_replace('{{action_url}}', $action_url, $email_body);
+    $mail = new PHPMailer(true);
 
     try {
-        // Configuração do servidor SMTP
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com'; // Servidor SMTP
+        $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'seuemail@gmail.com'; // Usuário de e-mail
-        $mail->Password = 'suasenha'; // Sua senha
+        $mail->Username = 'pedrooosxz@gmail.com'; // Usuário de e-mail
+        $mail->Password = 'zolp wzgo pvcr ucpb'; // senha
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
         // Configurações do remetente e destinatário
-        $mail->setFrom('seuemail@gmail.com', 'Seu Nome');
+        $mail->setFrom('pedrooosxz@gmail.com', 'php bonito');
         $mail->addAddress($email); // E-mail do destinatário
 
         // Conteúdo do e-mail
         $mail->isHTML(true); // Enviar como HTML
-        $mail->Subject = 'Assunto do e-mail';
-        $mail->Body = 'Este é o corpo do e-mail em <b>HTML</b>';
+        $mail->Subject = 'hmmm php';
+        $mail->Body = $email_body;
         $mail->AltBody = 'Este é o corpo do e-mail em texto plano, para clientes de e-mail sem suporte a HTML';
-
-        // Envia o e-mail
         $mail->send();
+
         echo 'E-mail enviado com sucesso!';
     } catch (Exception $e) {
         echo "Erro ao enviar e-mail: {$mail->ErrorInfo}";
