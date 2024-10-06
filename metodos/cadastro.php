@@ -1,5 +1,12 @@
 <?php
+require '../PHPMailer/src/PHPMailer.php';
+require '../PHPMailer/src/Exception.php';
+require '../PHPMailer/src/SMTP.php';
+require '../vendor/autoload.php';
 require 'config.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 $nome = $_POST['nome'];
 $email = $_POST['email'];
@@ -42,4 +49,34 @@ try {
     }
 }
 
-function enviarEmail($email) {}
+function enviarEmail($email)
+{
+    $mail = new PHPMailer(true); // PHPMailer com tratamento de exceções
+
+    try {
+        // Configuração do servidor SMTP
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com'; // Servidor SMTP
+        $mail->SMTPAuth = true;
+        $mail->Username = 'seuemail@gmail.com'; // Usuário de e-mail
+        $mail->Password = 'suasenha'; // Sua senha
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        // Configurações do remetente e destinatário
+        $mail->setFrom('seuemail@gmail.com', 'Seu Nome');
+        $mail->addAddress($email); // E-mail do destinatário
+
+        // Conteúdo do e-mail
+        $mail->isHTML(true); // Enviar como HTML
+        $mail->Subject = 'Assunto do e-mail';
+        $mail->Body = 'Este é o corpo do e-mail em <b>HTML</b>';
+        $mail->AltBody = 'Este é o corpo do e-mail em texto plano, para clientes de e-mail sem suporte a HTML';
+
+        // Envia o e-mail
+        $mail->send();
+        echo 'E-mail enviado com sucesso!';
+    } catch (Exception $e) {
+        echo "Erro ao enviar e-mail: {$mail->ErrorInfo}";
+    }
+}
