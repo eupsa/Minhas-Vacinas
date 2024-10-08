@@ -73,8 +73,32 @@
 
             </nav>
         </footer>
+
     </section>
-    <script src="script.js"></script>
+    <div>
+        <button id="abre">iso</button>
+        <dialog id="modal">
+            <h2>ola</h2>
+            <button id="fecha">faz pix ai</button>
+        </dialog>
+        <script>
+            const dialog = document.querySelector("#modal");
+            const abre = document.querySelector("#abre");
+            const fecha = document.querySelector("#fecha");
+
+            abre.addEventListener("click", (e) => { 
+                dialog.showModal();
+            })
+            fecha.addEventListener("click", (e) => { 
+                dialog.close();
+            })
+            dialog.addEventListener("click", (e) => {
+                if (event.target === dialog) {
+                    dialog.close();
+                }
+            })
+        </script>
+    </div>
 </body>
 
 </html>
