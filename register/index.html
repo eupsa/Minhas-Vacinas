@@ -12,16 +12,16 @@
     <header>
         <nav>
             <img src="" alt="Logo Vacinas">
-            <ul>
+            <div>
                 <a href="/index.html">Início</a>
                 <a href="">Sobre</a>
                 <a href="">Suporte</a>
                 <a href="">Baixe o App</a>
-            </ul>
-            <ul>
+            </div>
+            <div>
                 <a href="index.html">Cadastro</a>
                 <a href="/entrar/index.html">Login</a>
-            </ul>
+            </div>
         </nav>
     </header>
     <section>
@@ -68,37 +68,33 @@
             <label>Aceito os Termos de Serviço e Termos de Privacidade</label>
             <a href="/metodos/config.php">Teste</a>
         </form>
-        <footer>
-            <nav>
-
-            </nav>
-        </footer>
-
     </section>
-    <div>
-        <button id="abre">iso</button>
-        <dialog id="modal">
-            <h2>ola</h2>
-            <button id="fecha">faz pix ai</button>
-        </dialog>
-        <script>
-            const dialog = document.querySelector("#modal");
-            const abre = document.querySelector("#abre");
-            const fecha = document.querySelector("#fecha");
+    <section>
+        <div>
+            <button id="abre">iso</button>
+            <dialog id="modal">
+                <h2>ola</h2>
+                <button id="fecha">faz pix ai</button>
+            </dialog>
+            <script>
+                const dialog = document.querySelector("#modal");
+                const abre = document.querySelector("#abre");
+                const fecha = document.querySelector("#fecha");
 
-            abre.addEventListener("click", (e) => { 
-                dialog.showModal();
-            })
-            fecha.addEventListener("click", (e) => { 
-                dialog.close();
-            })
-            dialog.addEventListener("click", (e) => {
-                if (event.target === dialog) {
+                abre.addEventListener("click", (e) => {
+                    dialog.showModal();
+                })
+                fecha.addEventListener("click", (e) => {
                     dialog.close();
-                }
-            })
-        </script>
-    </div>
+                })
+                dialog.addEventListener("click", (e) => {
+                    if (event.target === dialog) {
+                        dialog.close();
+                    }
+                })
+            </script>
+        </div>
+    </section>
 </body>
 
 </html>
