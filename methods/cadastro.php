@@ -25,7 +25,7 @@ if ($senha == $confsenha) {
         $sql->execute();
 
         enviarEmail($nome, $email);
-        header("Location: ../entrar/index.html");
+        header("Location: ../register/index.html?sucesso=true");
         exit;
     } catch (PDOException $e) {
         // Capturando erros específicos

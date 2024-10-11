@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Vacinas - Cadastro</title>
 </head>
 
@@ -26,7 +27,7 @@
     </header>
     <section>
         <h2>Crie sua conta</h2>
-        <form action="/metodos/cadastro.php" method="post" class="entrar">
+        <form action="/methods/cadastro.php" method="post" class="entrar">
             <input type="text" name="nome" placeholder="Nome completo" autocomplete="off" required>
             <input type="email" name="email" placeholder="E-Mail" autocomplete="off" required>
             <select name="estado" id="estado" required>
@@ -70,31 +71,19 @@
         </form>
     </section>
     <section>
-        <div>
-            <button id="abre">iso</button>
-            <dialog id="modal">
-                <h2>ola</h2>
-                <button id="fecha">faz pix ai</button>
-            </dialog>
-            <script>
-                const dialog = document.querySelector("#modal");
-                const abre = document.querySelector("#abre");
-                const fecha = document.querySelector("#fecha");
 
-                abre.addEventListener("click", (e) => {
-                    dialog.showModal();
-                })
-                fecha.addEventListener("click", (e) => {
-                    dialog.close();
-                })
-                dialog.addEventListener("click", (e) => {
-                    if (event.target === dialog) {
-                        dialog.close();
-                    }
-                })
-            </script>
-        </div>
     </section>
+    <script>
+        if (window.location.search.includes('sucesso=true')) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Cadastro realizado com sucesso!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+    </script>
 </body>
 
 </html>
