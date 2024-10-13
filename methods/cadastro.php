@@ -8,51 +8,55 @@ require 'config.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$nome = strtolower($_POST['nome']);
-$email = strtolower($_POST['email']);
-$estado = $_POST['estado'];
-$senha = $_POST['senha'];
-$confsenha = $_POST['confSenha'];
+$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-if ($senha == $confsenha) {
+$nome = strtolower(trim($dados['nome'] ?? '')); // Utilizando trim() para remover espaços em branco
+$email = strtolower(trim($dados['email'] ?? ''));
+$estado = trim($dados['estado'] ?? '');
+$senha = trim($dados['senha'] ?? '');
+$confsenha = trim($dados['confSenha'] ?? '');
+
+// Verificar se os campos estão vazios
+if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($confsenha)) {
+    $retorna = ['status' => false, 'msg' => "Preencha todos os campos"];
+    header('Content-Type: application/json'); // Definindo o tipo de conteúdo para JSON
+    echo json_encode($retorna);
+    exit();
+}
+
+// Verificar se as senhas coincidem
+if ($senha === $confsenha) {
     try {
-        $senhaHash = hash('sha256', $senha);
+        $senhaHash = hash('sha256', $senha); // Hasheando a senha
         $sql = $pdo->prepare("INSERT INTO usuarios (nome, email, estado, senha) VALUES (:nome, :email, :estado, :senha)");
         $sql->bindValue(':nome', $nome);
         $sql->bindValue(':email', $email);
         $sql->bindValue(':estado', $estado);
-        $sql->bindValue(':senha', $senhaHash);
+        $sql->bindValue(':senha', $senhaHash); // Usando a senha hasheada
         $sql->execute();
 
-        enviarEmail($nome, $email);
-        header("Location: ../register/index.html?sucesso=true");
-        exit;
-    } catch (PDOException $e) {
-        // Capturando erros específicos
-        switch ($e->getCode()) {
-            case 23000: // Duplicidade de entrada
-                echo "Esse e-mail já está cadastrado. Por favor, use um e-mail diferente.";
-                break;
-            case 42000: // Erro de sintaxe SQL
-                echo "Erro no banco de dados. Por favor, tente novamente mais tarde.";
-                break; // Erro de conexão
-                //case 08004:
-                //echo "Não foi possível conectar ao banco de dados. Por favor, verifique a conexão.";
-                //break;
-            case 22007: // Formato de dados inválido
-                echo "Formato de dados inválido. Por favor, verifique os campos e tente novamente.";
-                break;
-            default: // Mensagem genérica para outros erros
-                echo "Erro ao cadastrar: " . $e->getMessage();
+        if ($sql->rowCount()) {
+            enviarEmail($nome, $email); // Enviar e-mail de confirmação
+            $retorna = ['status' => true, 'msg' => "Usuário cadastrado com sucesso!"];
+            header('Content-Type: application/json');
+            echo json_encode($retorna);
+            exit;
         }
+    } catch (PDOException $e) {
+        $retorna = ['status' => false, 'msg' => "Erro ao cadastrar: " . $e->getMessage()];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit;
     }
 } else {
-    echo "As senhas estão diferentes.";
+    $retorna = ['status' => false, 'msg' => "As senhas precisam ser iguais."];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit;
 }
 
 function enviarEmail($nome, $email)
 {
-
     $email_body = file_get_contents('../PHPMailer/src/templates/cadastro.html');
 
     $action_url = 'apple.com';
@@ -65,24 +69,23 @@ function enviarEmail($nome, $email)
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'pedrooosxz@gmail.com'; // Usuário de e-mail
-        $mail->Password = 'zolp wzgo pvcr ucpb'; // senha
+        $mail->Username = 'pedrooosxz@gmail.com';
+        $mail->Password = 'zolp wzgo pvcr ucpb';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
-        // Configurações do remetente e destinatário
         $mail->setFrom('pedrooosxz@gmail.com', 'php bonito');
-        $mail->addAddress($email); // E-mail do destinatário
+        $mail->addAddress($email);
 
-        // Conteúdo do e-mail
-        $mail->isHTML(true); // Enviar como HTML
+        $mail->isHTML(true);
         $mail->Subject = 'hmmm php';
         $mail->Body = $email_body;
         $mail->AltBody = 'Este é o corpo do e-mail em texto plano, para clientes de e-mail sem suporte a HTML';
+
         $mail->send();
 
-        echo 'E-mail enviado com sucesso!';
+        return true;
     } catch (Exception $e) {
-        echo "Erro ao enviar e-mail: {$mail->ErrorInfo}";
+        return false;
     }
 }

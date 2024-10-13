@@ -5,85 +5,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Vacinas - Cadastro</title>
 </head>
 
 <body>
     <header>
-        <nav>
-            <img src="" alt="Logo Vacinas">
-            <div>
-                <a href="/index.html">Início</a>
-                <a href="">Sobre</a>
-                <a href="">Suporte</a>
-                <a href="">Baixe o App</a>
-            </div>
-            <div>
-                <a href="index.html">Cadastro</a>
-                <a href="/entrar/index.html">Login</a>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="path/to/logo.png" alt="Logo Vacinas" style="height: 50px;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/index.html">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sobre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Suporte</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Baixe o App</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="btn btn-light" href="index.html">Cadastro</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light btn-login" href="/entrar/index.html">Login</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
-    <section>
-        <h2>Crie sua conta</h2>
-        <form action="/methods/cadastro.php" method="post" class="entrar">
-            <input type="text" name="nome" placeholder="Nome completo" autocomplete="off" required>
-            <input type="email" name="email" placeholder="E-Mail" autocomplete="off" required>
-            <select name="estado" id="estado" required>
-                <option value="">Selecione um estado</option>
-                <option value="AC">Acre</option>
-                <option value="AL">Alagoas</option>
-                <option value="AP">Amapá</option>
-                <option value="AM">Amazonas</option>
-                <option value="BA">Bahia</option>
-                <option value="CE">Ceará</option>
-                <option value="DF">Distrito Federal</option>
-                <option value="ES">Espírito Santo</option>
-                <option value="GO">Goiás</option>
-                <option value="MA">Maranhão</option>
-                <option value="MT">Mato Grosso</option>
-                <option value="MS">Mato Grosso do Sul</option>
-                <option value="MG">Minas Gerais</option>
-                <option value="PA">Pará</option>
-                <option value="PB">Paraíba</option>
-                <option value="PR">Paraná</option>
-                <option value="PE">Pernambuco</option>
-                <option value="PI">Piauí</option>
-                <option value="RJ">Rio de Janeiro</option>
-                <option value="RN">Rio Grande do Norte</option>
-                <option value="RS">Rio Grande do Sul</option>
-                <option value="RO">Rondônia</option>
-                <option value="RR">Roraima</option>
-                <option value="SC">Santa Catarina</option>
-                <option value="SP">São Paulo</option>
-                <option value="SE">Sergipe</option>
-                <option value="TO">Tocantins</option>
-            </select>
-            <input type="password" name="senha" placeholder="Crie sua senha" autocomplete="off" required minlength="8"
-                maxlength="20">
-            <input type="password" name="confSenha" placeholder="Repita sua senha" autocomplete="off" required
-                minlength="8" maxlength="20">
-            <input type="submit" value="Cadastrar" name="btnCad">
-            <input type="checkbox" value="confTermos" required>
-            <label>Aceito os Termos de Serviço e Termos de Privacidade</label>
-            <a href="/metodos/config.php">Teste</a>
-        </form>
-    </section>
-    <section>
 
-    </section>
-    <script>
-        if (window.location.search.includes('sucesso=true')) {
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Cadastro realizado com sucesso!",
-                showConfirmButton: false,
-                timer: 1500
-            });
-        }
-    </script>
+    <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
+        <div class="row w-100">
+            <div class="col-12 col-md-8 col-lg-6 mx-auto">
+                <form action="/methods/cadastro.php" class="needs-validation bg-light p-5 rounded shadow-lg"
+                    id="formcad" method="post" novalidate>
+                    <h4 class="mb-4 text-center">Cadastro de Usuário</h4>
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required>
+                        <div class="invalid-feedback">Por favor, insira seu nome.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">E-mail</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        <div class="invalid-feedback">Por favor, insira um e-mail válido.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="senha" class="form-label">Senha</label>
+                        <input type="password" class="form-control" id="senha" name="senha" required>
+                        <div id="passwordHelpBlock" class="form-text">
+                            Sua senha deve ter de 8 a 20 caracteres, conter letras e números e não deve conter espaços,
+                            caracteres especiais ou emojis.
+                        </div>
+                        <div class="invalid-feedback">Por favor, insira uma senha.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confSenha" class="form-label">Confirme a Senha</label>
+                        <input type="password" class="form-control" id="confSenha" name="confSenha" required>
+                        <div class="invalid-feedback">As senhas precisam ser iguais.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="estado" class="form-label">Selecione um estado</label>
+                        <select class="form-select" id="estado" name="estado" required>
+                            <option value="">Selecione um estado</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor, selecione um estado.</div>
+                    </div>
+                    <button class="btn btn-primary w-100" type="submit">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <script src="/js/sweetalert2.js"></script>
+
+    <footer class="footer text-center">
+        <div class="container">
+            <p class="mb-0">© 2024 Vacinas - Todos os direitos reservados</p>
+            <a href="#" class="text-white">Termos de Uso</a> |
+            <a href="#" class="text-white">Política de Privacidade</a>
+        </div>
+    </footer>
+
 </body>
 
 </html>
