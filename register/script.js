@@ -75,3 +75,24 @@ if (formcad) {
     }
   });
 }
+
+const togglePassword = document.getElementById("togglePassword");
+const passwordInput = document.getElementById("password");
+const ConftogglePassword = document.getElementById("ConftogglePassword");
+const ConfpasswordInput = document.getElementById("Confpassword");
+
+ConftogglePassword.addEventListener("click", function () {
+  const type =
+    ConfpasswordInput.getAttribute("type") === "password" ? "text" : "password";
+  ConfpasswordInput.setAttribute("type", type);
+  this.querySelector("i").classList.toggle("bi-eye");
+  this.querySelector("i").classList.toggle("bi-eye-slash");
+});
+
+togglePassword.addEventListener("click", function () {
+  const type =
+    passwordInput.getAttribute("type") === "password" ? "text" : "password";
+  passwordInput.setAttribute("type", type);
+  this.querySelector("i").classList.toggle("bi-eye");
+  this.querySelector("i").classList.toggle("bi-eye-slash");
+});

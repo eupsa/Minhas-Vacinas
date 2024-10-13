@@ -1,5 +1,5 @@
 body {
-  padding-top: 70px;
+  padding-top: 70px; /* Espaço para o cabeçalho */
 }
 
 .navbar {
@@ -75,7 +75,7 @@ body {
 }
 
 .noticias {
-    background: #B0B0B0;
+  background: #b0b0b0;
 }
 
 .sec-end {
@@ -84,4 +84,83 @@ body {
   justify-items: center;
   justify-content: center;
   padding: 2%;
+}
+
+h2 {
+  font-size: 2.5rem;
+  color: #ffffff;
+}
+
+.lead {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+h5 {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.card {
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+h2 {
+  font-size: 2.5rem;
+  color: #008545;
+}
+
+.carousel-item {
+  min-height: 600px; /* Ajuste conforme necessário */
+}
+
+.carousel-item img {
+  height: 100%; /* Ajustar conforme necessário */
+  width: 100%; /* Para preencher a largura do contêiner */
+  object-fit: cover; /* Garante que a imagem cubra o contêiner */
+}
+
+.header {
+  z-index: 9999; /* Um valor alto para garantir que o cabeçalho fique sobre a imagem */
+}
+
+.carousel-spacing {
+  margin-top: 100px; /* Aumente conforme necessário */
+  margin-bottom: 60px;
+}
+
+.container-slider {
+  display: flex;
+  width: 100%;
+  min-height: 80vh; /* Aumente para ocupar mais altura */
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.container-images {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 700px; /* Mantenha ou ajuste conforme necessário */
+  height: 100%; /* Adicione isso para permitir a altura total */
+}
+
+.slider {
+  opacity: 0;
+  transition: opacity 0.2s;
+  position: absolute;
+  width: 100%;
+  height: 100%; /* Adicione isso para que as imagens ocupem todo o espaço */
+  border-radius: 10px;
+  object-fit: cover; /* Certifique-se de que as imagens se ajustem corretamente */
+}
+
+.on {
+  opacity: 1;
 }
