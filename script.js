@@ -1,36 +1,14 @@
-const slider = document.querySelectorAll(".slider");
-const btnPrev = document.getElementById("prev-button");
-const btnNext = document.getElementById("next-button");
+const backToTopButton = document.querySelector(".back-to-top");
 
-let currentSlide = 0;
-
-function hideSlider() {
-  slider.forEach((item) => item.classList.remove("on"));
-}
-
-function showSlider() {
-  slider[currentSlide].classList.add("on");
-}
-
-function nextSlider() {
-  hideSlider();
-  if (currentSlide === slider.length - 1) {
-    currentSlide = 0;
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    backToTopButton.style.display = "block";
   } else {
-    currentSlide++;
+    backToTopButton.style.display = "none";
   }
-  showSlider();
-}
+});
 
-function prevSlider() {
-  hideSlider();
-  if (currentSlide === 0) {
-    currentSlide = slider.length - 1;
-  } else {
-    currentSlide--;
-  }
-  showSlider();
-}
-
-btnNext.addEventListener("click", nextSlider);
-btnPrev.addEventListener("click", prevSlider);
+backToTopButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
