@@ -52,3 +52,36 @@ body {
 .footer a:hover {
   text-decoration: underline;
 }
+
+.carousel-inner > .carousel-item > img {
+  width: 700px;
+  height: 400px;
+}
+
+.carousel-item img {
+  height: 50vh; /* Ajusta a altura do carrossel para 50% da altura da viewport */
+  object-fit: cover; /* Mantém a proporção da imagem sem distorcer */
+}
+
+.carousel-spacing {
+  margin-bottom: 60px; /* Ajuste o valor conforme necessário */
+}
+
+.custom-hr {
+  border: 3px solid #000;
+  /* Altere a cor e a espessura conforme necessário */
+  margin: 2rem 0;
+  /* Ajuste o espaço acima e abaixo */
+}
+
+.noticias {
+    background: #B0B0B0;
+}
+
+.sec-end {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  padding: 2%;
+}

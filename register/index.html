@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/assets/img-web.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Vacinas - Cadastro</title>
 </head>
@@ -14,7 +15,7 @@
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img src="path/to/logo.png" alt="Logo Vacinas" style="height: 50px;">
+                    <img src="/assets/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +70,7 @@
             <div class="col-12 col-md-8 col-lg-6 mx-auto">
                 <form action="/methods/cadastro.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                     id="formcad" method="post" novalidate>
-                    <h4 class="mb-4 text-center">Cadastro de Usuário</h4>
+                    <h4 class="mb-4 text-center">Faça seu Cadastro</h4>
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome</label>
                         <input type="text" class="form-control" id="nome" name="nome" required>
@@ -130,6 +131,11 @@
                     </div>
                     <button class="btn btn-primary w-100" type="submit">Cadastrar</button>
                 </form>
+                <hr class="custom-hr">
+                <div class="text-center mt-3">
+                    <p class="mb-1">Já tem conta?</p>
+                    <a href="/login/index.html" class="btn btn-primary">Faça login aqui</a>
+                </div>
             </div>
         </div>
     </div>

@@ -1,6 +1,5 @@
 body {
   padding-top: 70px;
-  
 }
 
 .full-height {
@@ -58,3 +57,11 @@ body {
 .footer a:hover {
   text-decoration: underline;
 }
+
+.custom-hr {
+  border: 3px solid #000;
+  /* Altere a cor e a espessura conforme necessário */
+  margin: 2rem 0;
+  /* Ajuste o espaço acima e abaixo */
+}
+
