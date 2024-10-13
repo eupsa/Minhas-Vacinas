@@ -66,47 +66,44 @@
         </nav>
     </header>
 
-    <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
-        <div class="row w-100">
-            <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                <form action="/methods/entrar.php" class="needs-validation bg-light p-5 rounded shadow-lg" id="formcad"
-                    method="post" novalidate>
-                    <h4 class="mb-4 text-center">Entre na sua conta</h4>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">E-mail</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                        <div class="invalid-feedback">Por favor, insira um e-mail válido.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Senha</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control" id="password" placeholder="Digite sua senha">
-                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                <i class="bi bi-eye"></i>
-                            </button>
+    <section>
+        <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
+            <div class="row w-100">
+                <div class="col-12 col-md-8 col-lg-6 mx-auto">
+                    <form action="/methods/entrar.php" class="needs-validation bg-light p-5 rounded shadow-lg"
+                        id="formcad" method="post" novalidate>
+                        <h4 class="mb-4 text-center">Entre na sua conta</h4>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                            <div class="invalid-feedback">Por favor, insira um e-mail válido.</div>
                         </div>
-                        <div class="mt-2 text-end">
-                            <a href="#" class="text-muted">
-                                <i class="bi bi-question-circle me-1"></i> Esqueceu a senha?
-                            </a>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Senha</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password"
+                                    placeholder="Digite sua senha">
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2 text-end">
+                                <a href="#" class="text-muted">
+                                    <i class="bi bi-question-circle me-1"></i> Esqueceu a senha?
+                                </a>
+                            </div>
                         </div>
+                        <button class="btn btn-primary w-100" type="submit">Entrar</button>
+                    </form>
+                    <hr class="custom-hr">
+                    <div class="text-center mt-3">
+                        <p class="mb-1">Ainda não tem uma conta?</p>
+                        <a href="/register/index.html" class="btn btn-primary">Faça seu registro aqui</a>
                     </div>
-                    <button class="btn btn-primary w-100" type="submit">Entrar</button>
-                </form>
-                <hr class="custom-hr">
-                <div class="text-center mt-3">
-                    <p class="mb-1">Ainda não tem uma conta?</p>
-                    <a href="/register/index.html" class="btn btn-primary">Faça seu registro aqui</a>
                 </div>
             </div>
         </div>
-    </div>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
-    <script src="/js/sweetalert2.js"></script>
+    </section>
 
     <footer class="footer text-center">
         <div class="container">
@@ -116,6 +113,10 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <script src="/js/sweetalert2.js"></script>
 </body>
 
 </html>

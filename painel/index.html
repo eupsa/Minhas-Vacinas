@@ -6,29 +6,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="/assets/img-web.png" type="image/x-icon">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Vacinas - Painel do Usuário</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Vacinas - Painel</title>
 </head>
 
 <body>
     <header>
-        <nav>
-            <img src="" alt="Logo Vacinas">
-            <ul>
-                <a href="/index.html">Início</a>
-                <a href="">Sobre</a>
-                <a href="">Suporte</a>
-                <a href="">Baixe o App</a>
-            </ul>
-            <ul>
-                <a href="" class="user_Nome"></a>
-            </ul>
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="/assets/logo-head.png" alt="Logo Vacinas" style="height: 60px;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="sidebarToggle">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
         </nav>
     </header>
-    <section>
-        <a href="">onnnnnn</a>
+
+    <section class="side-bar">
+        <div class="wrapper">
+            <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
+                <div class="d-flex align-items-center justify-content-center" style="height: 5vh;">
+                    <a href="/" class="d-flex align-items-center text-white text-decoration-none">
+                        <span class="fs-4">VacciLife</span>
+                        <img src="/assets/logo-head.png" alt="Logo" style="height: 40px;">
+                    </a>
+                </div>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" aria-current="page">
+                            <i class="bi bi-house-door"></i>
+                            Início
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                            <i class="bi bi-person"></i>
+                            Perfil
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                            <i class="bi bi-gear"></i>
+                            Configurações
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                            <i class="bi bi-box-arrow-right"></i>
+                            Sair
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://via.placeholder.com/40" alt="Foto do Usuário" class="rounded-circle me-2"
+                            width="40" height="40">
+                        <strong>Usuário</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="#">Novo projeto...</a></li>
+                        <li><a class="dropdown-item" href="#">Configurações</a></li>
+                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Sair</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content">
+                <h1>Página Principal</h1>
+                <p>Bem-vindo ao conteúdo principal da página.</p>
+            </div>
+        </div>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
