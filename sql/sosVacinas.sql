@@ -11,7 +11,8 @@ create table usuarios (
     genero varchar (10),
     cpf varchar (11) unique,
     telefone varchar (11),
-    cidade varchar (20)
+    cidade varchar (20),
+    emailConf boolean
 );
 
 create table vacinas (
@@ -33,6 +34,8 @@ create table usuario_vacina (
     foreign key (idVacina) references vacinas(idVacina)
 );
 
+
+
 #insert into usuarios (nome, email, senha, estado)
 #values 
 #('Pedro', 'peu@gmail.com', SHA2('Chicote1@', 256), 'BA');
@@ -45,3 +48,5 @@ create table usuario_vacina (
 #SHOW CREATE TABLE usuarios;
 
 #INSERT INTO usuarios (nome, email, estado, senha) VALUES ('Teste', 'teste@exemplo.com', 'SP', 'senha123');
+
+

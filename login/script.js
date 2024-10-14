@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
           confirmButtonColor: "#3085d6",
           confirmButtonText: "Fechar",
         }).then(() => {
-          window.location.href = "../painel/index.html";
+          window.location.href = "../painel/index.php";
         });
         formalog.reset();
       } else {

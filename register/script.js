@@ -87,7 +87,7 @@ if (formcad) {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       }).then(() => {
-        window.location.href = "../login/index.html";
+        window.location.href = "../login/index.php";
       });
       formcad.reset();
     } else {

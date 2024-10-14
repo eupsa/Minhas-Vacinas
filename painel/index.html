@@ -1,4 +1,6 @@
-<?php require('../methods/auth.php'); ?>
+<?php include('../methods/auth.php');
+authLog();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -30,11 +32,7 @@
     <section class="side-bar">
         <div class="wrapper">
             <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
-                <div class="d-flex align-items-center justify-content-center" style="height: 5vh;">
-                    <a href="/" class="d-flex align-items-center text-white text-decoration-none">
-                        <span class="fs-4">VacciLife</span>
-                        <img src="/assets/logo-head.png" alt="Logo" style="height: 40px;">
-                    </a>
+                <div class="d-flex align-items-center justify-content-center" style="height: 10vh;">
                 </div>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">

@@ -57,7 +57,7 @@ if ($senha === $confsenha) {
 
 function enviarEmail($nome, $email)
 {
-    $email_body = file_get_contents('../PHPMailer/src/templates/cadastro.html');
+    $email_body = file_get_contents('../PHPMailer/src/templates/cadastro.php');
 
     $action_url = 'apple.com';
     $email_body = str_replace('{{nome}}', $nome, $email_body);
