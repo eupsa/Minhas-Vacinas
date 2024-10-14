@@ -11,6 +11,18 @@
     <title>Vacinas - Painel</title>
 </head>
 
+<script>
+    setTimeout(() => {
+        document.body.innerHTML = `
+                <h1>Bem-vindo à sua página!</h1>
+                <p>Conteúdo carregado após 2 milissegundos.</p>
+            `;
+    }, 2);
+    window.onload = function () {
+        window.location.href = "../methods/auth.php";
+    };
+</script>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
@@ -77,7 +89,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Sair</a></li>
+                        <li><a class="dropdown-item" href="/methods/logout.php">Sair</a></li>
                     </ul>
                 </div>
             </div>
