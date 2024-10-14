@@ -6,7 +6,6 @@ $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = strtolower(trim($dados['email']));
 $senha = $dados['senha'];
 
-
 if (empty($email) || empty($senha)) {
     $retorna = ['status' => false, 'msg' => "Preencha todos os campos"];
     header('Content-Type: application/json');

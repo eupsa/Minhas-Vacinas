@@ -1,3 +1,4 @@
+<?php require('../methods/auth.php'); ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -10,18 +11,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Vacinas - Painel</title>
 </head>
-
-<script>
-    setTimeout(() => {
-        document.body.innerHTML = `
-                <h1>Bem-vindo à sua página!</h1>
-                <p>Conteúdo carregado após 2 milissegundos.</p>
-            `;
-    }, 2);
-    window.onload = function () {
-        window.location.href = "../methods/auth.php";
-    };
-</script>
 
 <body>
     <header>
