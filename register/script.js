@@ -1,10 +1,8 @@
-// Selecionar os elementos dos campos de senha e o botão para alternar a visibilidade
 const togglePassword = document.querySelector("#togglePassword");
 const toggleConfPassword = document.querySelector("#ConftogglePassword");
 const password = document.querySelector("#senha");
 const confPassword = document.querySelector("#confSenha");
 
-// Função para alternar a visibilidade do campo de senha
 const toggleVisibility = (field, toggleBtn) => {
   const type = field.getAttribute("type") === "password" ? "text" : "password";
   field.setAttribute("type", type);
@@ -12,7 +10,6 @@ const toggleVisibility = (field, toggleBtn) => {
   toggleBtn.querySelector("i").classList.toggle("bi-eye-slash");
 };
 
-// Event listeners para os botões de alternar visibilidade
 togglePassword.addEventListener("click", () => {
   toggleVisibility(password, togglePassword);
 });
@@ -21,25 +18,20 @@ toggleConfPassword.addEventListener("click", () => {
   toggleVisibility(confPassword, toggleConfPassword);
 });
 
-// Validação e envio do formulário
 const formcad = document.querySelector("#formcad");
 
 if (formcad) {
   formcad.addEventListener("submit", async (e) => {
-    // Bloquear o recarregamento da página
     e.preventDefault();
 
-    // Receber os dados do formulário
     const dadosForm = new FormData(formcad);
 
-    // Capturar os valores dos campos do formulário
     const nome = dadosForm.get("nome");
     const email = dadosForm.get("email");
     const estado = dadosForm.get("estado");
     const senha = dadosForm.get("senha");
     const confSenha = dadosForm.get("confSenha");
 
-    // Verificar se todos os campos estão preenchidos e se as senhas coincidem
     if (!nome || !email || !estado || !senha || !confSenha) {
       Swal.fire({
         text: "Preencha todos os campos.",
@@ -60,7 +52,6 @@ if (formcad) {
       return;
     }
 
-    // Exibir a animação de carregamento
     Swal.fire({
       title: "Processando...",
       html: "Aguarde enquanto estamos cadastrando...",
@@ -71,7 +62,6 @@ if (formcad) {
       },
     });
 
-    // Enviar os dados para o PHP
     const dados = await fetch("../methods/cadastro.php", {
       method: "POST",
       body: dadosForm,
@@ -79,7 +69,6 @@ if (formcad) {
 
     const resposta = await dados.json();
 
-    // Verificar se o cadastro foi bem-sucedido
     if (resposta["status"]) {
       Swal.fire({
         text: resposta["msg"],

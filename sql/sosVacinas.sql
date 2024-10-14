@@ -34,8 +34,6 @@ create table usuario_vacina (
     foreign key (idVacina) references vacinas(idVacina)
 );
 
-
-
 #insert into usuarios (nome, email, senha, estado)
 #values 
 #('Pedro', 'peu@gmail.com', SHA2('Chicote1@', 256), 'BA');
@@ -48,5 +46,3 @@ create table usuario_vacina (
 #SHOW CREATE TABLE usuarios;
 
 #INSERT INTO usuarios (nome, email, estado, senha) VALUES ('Teste', 'teste@exemplo.com', 'SP', 'senha123');
-
-
