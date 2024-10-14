@@ -10,16 +10,16 @@ use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-$nome = strtolower(trim($dados['nome'] ?? '')); // Utilizando trim() para remover espaços em branco
-$email = strtolower(trim($dados['email'] ?? ''));
-$estado = trim($dados['estado'] ?? '');
-$senha = trim($dados['senha'] ?? '');
-$confsenha = trim($dados['confSenha'] ?? '');
+$nome = strtolower(trim($dados['nome']));
+$email = strtolower(trim($dados['email']));
+$estado = trim($dados['estado']);
+$senha = $dados['senha'];
+$confsenha = $dados['confSenha'];
 
 // Verificar se os campos estão vazios
 if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($confsenha)) {
     $retorna = ['status' => false, 'msg' => "Preencha todos os campos"];
-    header('Content-Type: application/json'); // Definindo o tipo de conteúdo para JSON
+    header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
 }
@@ -27,16 +27,16 @@ if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($c
 // Verificar se as senhas coincidem
 if ($senha === $confsenha) {
     try {
-        $senhaHash = hash('sha256', $senha); // Hasheando a senha
+        $senhaHash = hash('sha256', $senha);
         $sql = $pdo->prepare("INSERT INTO usuarios (nome, email, estado, senha) VALUES (:nome, :email, :estado, :senha)");
         $sql->bindValue(':nome', $nome);
         $sql->bindValue(':email', $email);
         $sql->bindValue(':estado', $estado);
-        $sql->bindValue(':senha', $senhaHash); // Usando a senha hasheada
+        $sql->bindValue(':senha', $senhaHash);
         $sql->execute();
 
         if ($sql->rowCount()) {
-            enviarEmail($nome, $email); // Enviar e-mail de confirmação
+            enviarEmail($nome, $email);
             $retorna = ['status' => true, 'msg' => "Usuário cadastrado com sucesso!"];
             header('Content-Type: application/json');
             echo json_encode($retorna);

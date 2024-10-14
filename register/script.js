@@ -1,98 +1,102 @@
+// Selecionar os elementos dos campos de senha e o botão para alternar a visibilidade
+const togglePassword = document.querySelector("#togglePassword");
+const toggleConfPassword = document.querySelector("#ConftogglePassword");
+const password = document.querySelector("#senha");
+const confPassword = document.querySelector("#confSenha");
+
+// Função para alternar a visibilidade do campo de senha
+const toggleVisibility = (field, toggleBtn) => {
+  const type = field.getAttribute("type") === "password" ? "text" : "password";
+  field.setAttribute("type", type);
+  toggleBtn.querySelector("i").classList.toggle("bi-eye");
+  toggleBtn.querySelector("i").classList.toggle("bi-eye-slash");
+};
+
+// Event listeners para os botões de alternar visibilidade
+togglePassword.addEventListener("click", () => {
+  toggleVisibility(password, togglePassword);
+});
+
+toggleConfPassword.addEventListener("click", () => {
+  toggleVisibility(confPassword, toggleConfPassword);
+});
+
+// Validação e envio do formulário
 const formcad = document.querySelector("#formcad");
 
 if (formcad) {
   formcad.addEventListener("submit", async (e) => {
-    // Bloquear o recarregamento da página com JavaScript
+    // Bloquear o recarregamento da página
     e.preventDefault();
 
-    // Receber os dados do formulário com JavaScript
+    // Receber os dados do formulário
     const dadosForm = new FormData(formcad);
 
-    // Verificar se os campos estão vazios
+    // Capturar os valores dos campos do formulário
     const nome = dadosForm.get("nome");
     const email = dadosForm.get("email");
     const estado = dadosForm.get("estado");
     const senha = dadosForm.get("senha");
     const confSenha = dadosForm.get("confSenha");
 
+    // Verificar se todos os campos estão preenchidos e se as senhas coincidem
     if (!nome || !email || !estado || !senha || !confSenha) {
-      // Exibir alerta se algum campo estiver vazio
       Swal.fire({
-        icon: "error",
-        title: "Erro!",
         text: "Preencha todos os campos.",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       });
-      return; // Impede o envio do formulário
+      return;
     }
 
-    // Exibir a animação de carregamento antes de enviar
+    if (senha !== confSenha) {
+      Swal.fire({
+        text: "As senhas precisam ser iguais.",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Fechar",
+      });
+      return;
+    }
+
+    // Exibir a animação de carregamento
     Swal.fire({
       title: "Processando...",
       html: "Aguarde enquanto estamos cadastrando...",
       timer: 5000,
       timerProgressBar: true,
       didOpen: () => {
-        Swal.showLoading(); // Inicia o loading
-      },
-      willClose: () => {
-        // Aqui não precisamos do setInterval, pois o SweetAlert já gerencia isso
+        Swal.showLoading();
       },
     });
 
-    // Enviar os dados do JavaScript para o PHP
+    // Enviar os dados para o PHP
     const dados = await fetch("../methods/cadastro.php", {
-      method: "POST", // Enviar os dados do JavaScript para o PHP através do método POST
-      body: dadosForm, // Enviar os dados do JavaScript para o PHP
+      method: "POST",
+      body: dadosForm,
     });
 
-    // Ler o retorno do PHP com JavaScript
     const resposta = await dados.json();
 
-    // Verificar com JavaScript se cadastrou no banco de dados
+    // Verificar se o cadastro foi bem-sucedido
     if (resposta["status"]) {
       Swal.fire({
         text: resposta["msg"],
         icon: "success",
-        showCancelButton: false,
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       }).then(() => {
-        window.location.href = "../painel/index.html"; // Redireciona após o alerta
+        window.location.href = "../painel/index.html";
       });
-
-      // Limpar o formulário com JavaScript
       formcad.reset();
     } else {
-      // Usar o SweetAlert para apresentar a mensagem de erro após não cadastrar no banco de dados com PHP
       Swal.fire({
         text: resposta["msg"],
         icon: "error",
-        showCancelButton: false,
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       });
     }
   });
 }
-
-const togglePassword = document.getElementById("togglePassword");
-const passwordInput = document.getElementById("password");
-const ConftogglePassword = document.getElementById("ConftogglePassword");
-const ConfpasswordInput = document.getElementById("Confpassword");
-
-ConftogglePassword.addEventListener("click", function () {
-  const type =
-    ConfpasswordInput.getAttribute("type") === "password" ? "text" : "password";
-  ConfpasswordInput.setAttribute("type", type);
-  this.querySelector("i").classList.toggle("bi-eye");
-  this.querySelector("i").classList.toggle("bi-eye-slash");
-});
-
-togglePassword.addEventListener("click", function () {
-  const type =
-    passwordInput.getAttribute("type") === "password" ? "text" : "password";
-  passwordInput.setAttribute("type", type);
-  this.querySelector("i").classList.toggle("bi-eye");
-  this.querySelector("i").classList.toggle("bi-eye-slash");
-});
