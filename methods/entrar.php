@@ -2,41 +2,42 @@
 session_start();
 require 'config.php';
 
-$email = $_REQUEST['email'];
-$senha = $_REQUEST['senha'];
-$senhaHash = hash('sha256', $senha);
+$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+$email = strtolower(trim($dados['email']));
+$senha = $dados['senha'];
 
-function entrar($pdo, $email, $senha, $senhaHash)
-{
+
+if (empty($email) || empty($senha)) {
+    $retorna = ['status' => false, 'msg' => "Preencha todos os campos"];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
+} else {
     try {
+        $senhaHash = hash('sha256', $senha);
         $sql = $pdo->prepare("SELECT * FROM usuarios WHERE email = :email AND senha = :senha");
         $sql->bindValue(':email', $email);
         $sql->bindValue(':senha', $senhaHash);
         $sql->execute();
 
-        if ($sql->rowCount() > 0) {
+        if ($sql->rowCount() === 1) {
             $usuario = $sql->fetch(PDO::FETCH_BOTH);
-
-            $_SESSION['user_id'] = $usuario['id'];
+            $_SESSION['user_id'] = $usuario['idUsuarios'];
             $_SESSION['user_nome'] = $usuario['nome'];
             $_SESSION['user_email'] = $usuario['email'];
-            header("Location: ../painel/index.html");
-            exit;
+            $retorna = ['status' => true, 'msg' => "Login bem-sucedido!"];
+            header('Content-Type: application/json');
+            echo json_encode($retorna);
         } else {
-            echo "E-mail ou senha incorretos. Tente novamente.";
+            $retorna = ['status' => false, 'msg' => "Usuário ou senha incorretos."];
+            header('Content-Type: application/json');
+            echo json_encode($retorna);
+            exit;
         }
     } catch (PDOException $e) {
-        echo "Erro ao acessar o banco de dados: " . $e->getMessage();
+        $retorna = ['status' => false, 'msg' => "Erro ao logar: " . $e->getMessage()];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit();
     }
-}
-
-if (session_status() === PHP_SESSION_ACTIVE && !empty($_SESSION)) {
-    header("Location: ../painel/index.html");
-}
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['login'])) {
-        entrar($pdo, $email, $senha, $senhaHash);
-    }
-} else {
-    header("Location: ../cadastro/index.html");
 }
