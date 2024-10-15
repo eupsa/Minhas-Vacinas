@@ -1,77 +1,49 @@
-Aqui está um exemplo de README para o seu projeto **VacciLife** no GitHub. Sinta-se à vontade para personalizar conforme necessário!
-
-```markdown
 # VacciLife
 
-VacciLife é um sistema de controle de vacinação desenvolvido para ajudar no combate à alfabetização funcional no Brasil. Este projeto visa facilitar o gerenciamento de vacinas, permitindo que os usuários tenham acesso rápido às informações sobre vacinas disponíveis, agendamentos e registros.
+**VacciLife** é um sistema de controle de vacinação desenvolvido para enfrentar a alfabetização funcional no Brasil. O projeto proporciona uma maneira simples e eficaz de gerenciar informações sobre vacinas, permitindo que os usuários acessem facilmente dados relevantes, agendamentos e lembretes de vacinação.
 
 ## Índice
 
-- [Recursos](#recursos)
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Recursos Principais](#recursos-principais)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Instalação](#instalação)
+- [Instalação e Configuração](#instalação-e-configuração)
 - [Uso](#uso)
 - [Contribuição](#contribuição)
 - [Licença](#licença)
+- [Contato](#contato)
 
-## Recursos
+## Sobre o Projeto
 
-- Registro e gerenciamento de usuários
-- Agendamento de vacinas
-- Consulta a informações sobre vacinas
-- Notificações por e-mail para lembretes de vacinação
-- Interface responsiva e amigável
+O VacciLife foi criado com o objetivo de melhorar o controle de vacinação em comunidades com alta taxa de funcionalidade de letramento. O sistema oferece uma interface intuitiva que ajuda os usuários a registrar e acompanhar suas vacinas de forma eficiente.
+
+## Recursos Principais
+
+- **Registro e Gerenciamento de Usuários**: Usuários podem criar contas, fazer login e atualizar suas informações pessoais.
+- **Agendamento de Vacinas**: Permite que os usuários agendem vacinas de acordo com suas necessidades.
+- **Consulta a Informações sobre Vacinas**: Acesso a informações detalhadas sobre diferentes vacinas disponíveis.
+- **Notificações por E-mail**: Envio de lembretes automáticos sobre vacinas agendadas.
+- **Interface Responsiva**: Design otimizado para funcionar em dispositivos móveis e desktops.
 
 ## Tecnologias Utilizadas
 
-- PHP
-- MySQL
-- Bootstrap
-- JavaScript
-- PHPMailer
+- **Backend**: PHP
+- **Banco de Dados**: MySQL
+- **Frontend**: HTML, CSS, JavaScript
+- **Framework CSS**: Bootstrap
+- **Envio de E-mails**: PHPMailer
 
-## Instalação
+## Instalação e Configuração
+
+### Pré-requisitos
+
+- Servidor local (ex: XAMPP ou WAMP)
+- PHP 7.0 ou superior
+- MySQL
+
+### Passos para Instalação
 
 1. **Clone o repositório:**
 
    ```bash
    git clone https://github.com/psilvagg/VacciLife.git
-   ```
-
-2. **Navegue até o diretório do projeto:**
-
-   ```bash
-   cd VacciLife
-   ```
-
-3. **Configure o banco de dados:**
-   - Crie um banco de dados MySQL.
-   - Importe o arquivo SQL localizado em `db/schema.sql` para criar as tabelas necessárias.
-
-4. **Configuração do servidor:**
-   - Configure seu servidor local (ex: XAMPP) para servir os arquivos do projeto.
-
-5. **Configuração do PHPMailer:**
-   - Configure o PHPMailer conforme suas credenciais de SMTP.
-
-## Uso
-
-- Acesse o sistema através do navegador na URL `http://localhost/VacciLife`.
-- Registre-se como um novo usuário ou faça login se já tiver uma conta.
-- Navegue pelas funcionalidades para agendar vacinas e acessar informações.
-
-## Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests. Para maiores informações, consulte o arquivo [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Licença
-
-Este projeto é licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
-```
-
-### Dicas para Personalização
-- **Recursos**: Adicione ou modifique a lista de recursos conforme as funcionalidades específicas do seu sistema.
-- **Tecnologias Utilizadas**: Liste todas as tecnologias que você utilizou.
-- **Instruções de Instalação**: Adapte as instruções conforme necessário, especialmente se houver etapas específicas para a configuração do seu projeto.
-
-Se precisar de mais informações ou ajustes, estou aqui para ajudar!
