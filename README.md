@@ -1,67 +1,77 @@
+# Versão em Português 
+
+
 # VacciLife
 
-**VacciLife** é um sistema de gerenciamento de vacinas projetado para facilitar o registro e a gestão de informações de vacinação. O projeto oferece aos usuários uma maneira fácil e eficaz de gerenciar seus dados de vacinação, permitindo o acesso rápido a informações relevantes, o agendamento de vacinas e o recebimento de lembretes automáticos.
+**VacciLife** is a vaccine management system designed to facilitate the registration and management of vaccination information. The project provides users with an easy and effective way to manage their vaccination data, allowing quick access to relevant information, scheduling vaccines, and receiving automated reminders.
 
-## Índice
+## Table of Contents
 
-- [Sobre o Projeto](#sobre-o-projeto)
-- [Principais Funcionalidades](#principais-funcionalidades)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Instalação e Configuração](#instalação-e-configuração)
-- [Uso](#uso)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
-- [Contato](#contato)
+- [About the Project](#about-the-project)
+- [Key Features](#key-features)
+- [Technologies Used](#technologies-used)
+- [Installation and Setup](#installation-and-setup)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-## Sobre o Projeto
+## About the Project
 
-VacciLife foi criado para melhorar a gestão de registros de vacinação em comunidades com alta taxa de alfabetização funcional. O sistema oferece uma interface intuitiva que ajuda os usuários a registrar e acompanhar suas vacinas de forma eficiente.
+VacciLife was created to improve the management of vaccination records in communities with high functional literacy rates. The system offers an intuitive interface that helps users register and track their vaccinations efficiently.
 
-## Principais Funcionalidades
+## Key Features
 
-- **Registro e Gerenciamento de Usuários**: Usuários podem criar contas, fazer login e atualizar suas informações pessoais.
-- **Agendamento de Vacinas**: Permite que os usuários agendem suas vacinas de acordo com suas necessidades.
-- **Consulta de Informações sobre Vacinas**: Acesso a informações detalhadas sobre várias vacinas disponíveis.
-- **Notificações por Email**: Lembretes automáticos para vacinas agendadas.
-- **Interface Responsiva**: Design otimizado para funcionar em dispositivos móveis e desktops.
+- **User Registration and Management**: Users can create accounts, log in, and update their personal information.
+- **Vaccine Scheduling**: Allows users to schedule their vaccinations according to their needs.
+- **Vaccine Information Lookup**: Access to detailed information about various available vaccines.
+- **Email Notifications**: Automated reminders for scheduled vaccinations.
+- **Responsive Interface**: Optimized design to work on both mobile devices and desktops.
 
-## Tecnologias Utilizadas
+## Technologies Used
 
 - **Backend**: PHP
-- **Banco de Dados**: MySQL
+- **Database**: MySQL
 - **Frontend**: HTML, CSS, JavaScript
-- **Framework de CSS**: Bootstrap
-- **Envio de Emails**: PHPMailer
+- **CSS Framework**: Bootstrap
+- **Email Sending**: PHPMailer
 
-## Instalação e Configuração
+## Installation and Configuration
 
-### Pré-requisitos
+### Prerequisites
 
-- Servidor local (ex.: XAMPP ou WAMP)
-- PHP 7.0 ou superior
+- Local server (ex.: XAMPP ou WAMP)
+- PHP 7.0 or higher
 - MySQL
 
-### Passos de Instalação
+### Installation Steps
 
-1. **Clone o repositório ou baixe o Zip [aqui](https://codeload.github.com/psilvagg/VacciLife/zip/refs/heads/main?token=AZI7DN33BRMFMT2WIKIKLY3HB2TGO)**
-   
+1. **Clone the repository or download the Zip [here](https://codeload.github.com/psilvagg/VacciLife/zip/refs/heads/main?token=AZI7DN33BRMFMT2WIKIKLY3HB2TGO)**
+
    ```bash
    git clone https://github.com/psilvagg/VacciLife.git
 
-2. **Navegue até o diretório do projeto:**
-   
+   ```
+
+2. **Navigate to the project directory:**
+
    ```bash
    cd VacciLife
 
-3. **Configure o banco de dados:**
-   > Execute o script SQL localizado em `sql/Vacina.sql`
+   ```
+
+3. **Set up the database:**
+
+   > Execute the SQL script located in `sql/Vacina.sql`
 
    ```bash
     cd VacciLife/sql/Vacina.sql
 
-5. **Configuração do Servidor**
-   > Coloque o conteúdo do diretório clonado na pasta `htdocs` do XAMPP ou na raiz do seu servidor local.
+   ```
 
+4. **Server Configuration**
+   > Place the contents of the cloned directory in the `htdocs` folder of XAMPP or at the root of your local server.
 
-## Observação
-- Configure o PHPMailer conforme necessário.
+## Note
+
+- Configure PHPMailer as needed.
