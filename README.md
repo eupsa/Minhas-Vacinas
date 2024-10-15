@@ -1,5 +1,4 @@
-# Versão em Português 
-
+# Sobre em [Português] (https://github.com/psilvagg/VacciLife/blob/main/README-pt.md)
 
 # VacciLife
 
