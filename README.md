@@ -1,11 +1,11 @@
 # VacciLife
 
-**VacciLife** é um sistema de controle de vacinação desenvolvido para enfrentar a alfabetização funcional no Brasil. O projeto proporciona uma maneira simples e eficaz de gerenciar informações sobre vacinas, permitindo que os usuários acessem facilmente dados relevantes, agendamentos e lembretes de vacinação.
+**VacciLife** é um sistema de gerenciamento de vacinas projetado para facilitar o registro e a gestão de informações de vacinação. O projeto oferece aos usuários uma maneira fácil e eficaz de gerenciar seus dados de vacinação, permitindo o acesso rápido a informações relevantes, o agendamento de vacinas e o recebimento de lembretes automáticos.
 
 ## Índice
 
 - [Sobre o Projeto](#sobre-o-projeto)
-- [Recursos Principais](#recursos-principais)
+- [Principais Funcionalidades](#principais-funcionalidades)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Instalação e Configuração](#instalação-e-configuração)
 - [Uso](#uso)
@@ -15,14 +15,14 @@
 
 ## Sobre o Projeto
 
-O VacciLife foi criado com o objetivo de melhorar o controle de vacinação em comunidades com alta taxa de funcionalidade de letramento. O sistema oferece uma interface intuitiva que ajuda os usuários a registrar e acompanhar suas vacinas de forma eficiente.
+VacciLife foi criado para melhorar a gestão de registros de vacinação em comunidades com alta taxa de alfabetização funcional. O sistema oferece uma interface intuitiva que ajuda os usuários a registrar e acompanhar suas vacinas de forma eficiente.
 
-## Recursos Principais
+## Principais Funcionalidades
 
 - **Registro e Gerenciamento de Usuários**: Usuários podem criar contas, fazer login e atualizar suas informações pessoais.
-- **Agendamento de Vacinas**: Permite que os usuários agendem vacinas de acordo com suas necessidades.
-- **Consulta a Informações sobre Vacinas**: Acesso a informações detalhadas sobre diferentes vacinas disponíveis.
-- **Notificações por E-mail**: Envio de lembretes automáticos sobre vacinas agendadas.
+- **Agendamento de Vacinas**: Permite que os usuários agendem suas vacinas de acordo com suas necessidades.
+- **Consulta de Informações sobre Vacinas**: Acesso a informações detalhadas sobre várias vacinas disponíveis.
+- **Notificações por Email**: Lembretes automáticos para vacinas agendadas.
 - **Interface Responsiva**: Design otimizado para funcionar em dispositivos móveis e desktops.
 
 ## Tecnologias Utilizadas
@@ -30,20 +30,38 @@ O VacciLife foi criado com o objetivo de melhorar o controle de vacinação em c
 - **Backend**: PHP
 - **Banco de Dados**: MySQL
 - **Frontend**: HTML, CSS, JavaScript
-- **Framework CSS**: Bootstrap
-- **Envio de E-mails**: PHPMailer
+- **Framework de CSS**: Bootstrap
+- **Envio de Emails**: PHPMailer
 
 ## Instalação e Configuração
 
 ### Pré-requisitos
 
-- Servidor local (ex: XAMPP ou WAMP)
+- Servidor local (ex.: XAMPP ou WAMP)
 - PHP 7.0 ou superior
 - MySQL
 
-### Passos para Instalação
+### Passos de Instalação
 
-1. **Clone o repositório:**
-
+1. **Clone o repositório ou baixe o Zip [aqui](https://codeload.github.com/psilvagg/VacciLife/zip/refs/heads/main?token=AZI7DN33BRMFMT2WIKIKLY3HB2TGO)**
+   
    ```bash
    git clone https://github.com/psilvagg/VacciLife.git
+
+2. **Navegue até o diretório do projeto:**
+   
+   ```bash
+   cd VacciLife
+
+3. **Configure o banco de dados:**
+   > Execute o script SQL localizado em `sql/Vacina.sql`
+
+   ```bash
+    cd VacciLife/sql/Vacina.sql
+
+5. **Configuração do Servidor**
+   > Coloque o conteúdo do diretório clonado na pasta `htdocs` do XAMPP ou na raiz do seu servidor local.
+
+
+## Observação
+- Configure o PHPMailer conforme necessário.
