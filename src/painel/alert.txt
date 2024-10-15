@@ -1,0 +1,2 @@
+#Incluir o src\backend\scripts\auth.php em todos os arquivos do usuário logado
+#Func VefNoLogin

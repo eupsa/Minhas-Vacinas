@@ -59,12 +59,12 @@ body {
 }
 
 .carousel-item img {
-  height: 50vh; 
-  object-fit: cover; 
+  height: 50vh;
+  object-fit: cover;
 }
 
 .carousel-spacing {
-  margin-bottom: 60px; 
+  margin-bottom: 60px;
 }
 
 .custom-hr {
@@ -112,14 +112,10 @@ h2 {
   color: #008545;
 }
 
-.carousel-item {
-  min-height: 600px;
-}
-
 .carousel-item img {
-  height: 100%; 
-  width: 100%; 
-  object-fit: cover; 
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .header {
@@ -134,7 +130,7 @@ h2 {
 .container-slider {
   display: flex;
   width: 100%;
-  min-height: 80vh; 
+  min-height: 80vh;
   align-items: center;
   justify-content: center;
   gap: 1rem;
@@ -145,8 +141,8 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 700px; 
-  height: 100%; 
+  width: 700px;
+  height: 100%;
 }
 
 .slider {
@@ -154,9 +150,9 @@ h2 {
   transition: opacity 0.2s;
   position: absolute;
   width: 100%;
-  height: 100%; 
+  height: 100%;
   border-radius: 10px;
-  object-fit: cover; 
+  object-fit: cover;
 }
 
 .on {
