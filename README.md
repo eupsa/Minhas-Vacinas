@@ -37,7 +37,7 @@ VacciLife was created to improve the management of vaccination records in commun
 
 ## Installation and Configuration
 
-### Prerequisites
+### Requirements
 
 - Local server (ex.: XAMPP ou WAMP)
 - PHP 7.0 or higher
