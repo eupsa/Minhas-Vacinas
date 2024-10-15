@@ -62,7 +62,7 @@ if (formcad) {
       },
     });
 
-    const dados = await fetch("../methods/cadastro.php", {
+    const dados = await fetch("../backend/register.php", {
       method: "POST",
       body: dadosForm,
     });

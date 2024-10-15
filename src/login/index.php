@@ -79,7 +79,7 @@ VefLogin();
         </nav>
     </header>
 
-    <section>
+    <section class="form-log">
         <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
             <div class="row w-100">
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">

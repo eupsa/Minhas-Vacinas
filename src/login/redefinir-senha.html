@@ -9,19 +9,19 @@ authPainel();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="/assets/img-web.png" type="image/x-icon">
+    <link rel="icon" href="../../assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <title>Vacinas - Cadastro</title>
+    <title>Recuperação de Senha</title>
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img src="/assets/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
+                <a class="navbar-brand" href="/index.html">
+                    <img src="../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,13 +33,13 @@ authPainel();
                             <a class="nav-link" href="/index.html">Início</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Sobre</a>
+                            <a class="nav-link" href="">Sobre</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Suporte</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Baixe o App
                             </a>
@@ -76,45 +76,25 @@ authPainel();
         </nav>
     </header>
 
-    <section>
+    <section class="form-resetPassword">
         <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
             <div class="row w-100">
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                    <form action="/methods/entrar.php" class="needs-validation bg-light p-5 rounded shadow-lg"
-                        id="formalog" method="post" novalidate>
-                        <h4 class="mb-4 text-center">Redefina sua Senha</h4>
-                        <div id="passwordHelpBlock" class="form-text">
-                            Se o E-Mail for cadastrado em nosso sistema será enviado um código de redefinição, que
-                            precisa ser inserido no campo abaixo.
-                            <br><br>
-                        </div>
+                    <form action="../backend/reset-password.php" class="needs-validation bg-light p-5 rounded shadow-lg"
+                        id="formResetPassword" method="post" novalidate>
+                        <h4 class="mb-4 text-center">Recupere sua Senha</h4>
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>
                             <input type="email" class="form-control" id="email" name="email" required name="email">
-                            <div class="invalid-feedback">Por favor, insira um e-mail válido.</div>
                         </div>
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Redefinir Senha</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <label for="text" class="form-label">Código de Recuperação</label>
-                                        <input type="text" class="form-control" id="codeReset" name="codeReset"
-                                            required>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary">Concluir</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="mt-2 text-end">
+                            <a href="index.php" class="text-muted">
+                                <i class="bi bi-question-circle me-1"></i> Voltar para login?
+                            </a>
                         </div>
+                        <br>
                         <button class="btn btn-primary w-100" type="submit" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop">Enviar E-Mail</button>
+                            data-bs-target="#staticBackdrop">Enviar código</button>
                     </form>
                     <hr class="custom-hr">
                     <div class="text-center mt-3">
@@ -126,18 +106,54 @@ authPainel();
         </div>
     </section>
 
+    <section class="modal-codeReset">
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Recuperação de Senha</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enviamos um e-mail com o código de recuperação para o endereço fornecido. Por favor,
+                            verifique
+                            sua caixa de entrada. Caso não o encontre, não se esqueça de verificar
+                            também a pasta de spam ou lixo eletrônico.</p>
+                        <form action="../backend/reset-password.php"
+                            class="needs-validation bg-light p-5 rounded shadow-lg" id="formCodeSend" method="post"
+                            novalidate>
+                            <div class="mb-3">
+                                <label for="text-center" class="form-label">Código de Verificação</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                        </form>
+                        <span id="timer" class="ml-3"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary" id="verifyBtn">Verificar código</button>
+                        <button type="button" class="btn btn-outline-primary" id="resendBtn" disabled>Reenviar
+                            código</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer class="footer text-center">
         <div class="container">
             <p class="mb-0">© 2024 Vacinas - Todos os direitos reservados</p>
-            <a href="#" class="text-white">Termos de Uso</a> |
-            <a href="#" class="text-white">Política de Privacidade</a>
+            <a href="" class="text-white">Termos de Uso</a> |
+            <a href="" class="text-white">Política de Privacidade</a>
         </div>
     </footer>
 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
-    <script src="../js/sweetalert2.js"></script>
+    <script src="reset.js"></script>
+    <script src="../../assets/js/sweetalert2.js"></script>
 </body>
 
 </html>

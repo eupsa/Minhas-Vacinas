@@ -1,49 +1,109 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const formalog = document.querySelector("#formalog");
+function startTimer(duration, display, button) {
+  let timer = duration,
+    minutes,
+    seconds;
+  let interval = setInterval(function () {
+    minutes = parseInt(timer / 60, 10);
+    seconds = parseInt(timer % 60, 10);
 
-  if (formalog) {
-    formalog.addEventListener("submit", async (e) => {
-      e.preventDefault();
+    seconds = seconds < 10 ? "0" + seconds : seconds;
 
-      const dadosForm = new FormData(formalog);
-      const email = dadosForm.get("email");
-      const senha = dadosForm.get("senha");
+    display.textContent =
+      "Em " +
+      minutes +
+      ":" +
+      seconds +
+      " você poderá solicitar um novo código.";
 
-      if (!email || !senha) {
-        Swal.fire({
-          text: "Preencha todos os campos.",
-          icon: "error",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Fechar",
-        });
-        return;
-      }
+    if (--timer < 0) {
+      clearInterval(interval);
+      button.disabled = false;
+      display.textContent = "Solicite um novo código";
+    }
+  }, 1000);
+}
 
-      const dados = await fetch("../methods/entrar.php", {
-        method: "POST",
-        body: dadosForm,
-      });
+function disableResendButton() {
+  let resendBtn = document.getElementById("resendBtn");
+  let display = document.getElementById("timer");
 
-      const resposta = await dados.json();
+  resendBtn.disabled = true;
+  startTimer(60, display, resendBtn);
+}
 
-      if (resposta["status"]) {
-        Swal.fire({
-          text: resposta["msg"],
-          icon: "success",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Fechar",
-        }).then(() => {
-          window.location.href = "../painel/index.php";
-        });
-        formalog.reset();
-      } else {
-        Swal.fire({
-          text: resposta["msg"],
-          icon: "error",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Fechar",
-        });
-      }
-    });
-  }
+document.getElementById("verifyBtn").addEventListener("click", function () {
+  disableResendButton();
 });
+
+document.getElementById("resendBtn").addEventListener("click", function () {
+  disableResendButton();
+  Swal.fire({
+    text: "Um novo código foi enviado para o seu e-mail. Caso não o encontre, não se esqueça de verificar também a pasta de spam ou lixo eletrônico.",
+    icon: "success",
+    confirmButtonColor: "#3085d6",
+    confirmButtonText: "Fechar",
+  });
+});
+
+//formCodeSend
+//formEmailSend
+
+const formResetPassword = document.querySelector("#formResetPassword");
+
+if (formResetPassword) {
+  formResetPassword.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const dadosForm = new FormData(formResetPassword);
+    const email = dadosForm.get("email");
+
+    if (!email) {
+      Swal.fire({
+        text: "Todos os campos devem estar preenchidos!",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Fechar",
+      });
+      return;
+    }
+
+    Swal.fire({
+      title: "Processando...",
+      html: "Enviando E-Mail...",
+      timer: 5000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    const dados = await fetch("../backend/reset-password.php", {
+      method: "POST",
+      body: dadosForm,
+    });
+
+    const resposta = await dados.json();
+
+    if (resposta["status"]) {
+      Swal.fire({
+        text: resposta["msg"],
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Fechar",
+      }).then(() => {
+        var modal = new bootstrap.Modal(
+          document.getElementById("staticBackdrop")
+        );
+        modal.show();
+      });
+      formcad.reset();
+    } else {
+      Swal.fire({
+        text: resposta["msg"],
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Fechar",
+      });
+    }
+  });
+}

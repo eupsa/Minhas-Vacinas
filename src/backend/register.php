@@ -1,10 +1,9 @@
 <?php
-require '../vendor\phpmailer\phpmailer\src\PHPMailer.php';
-require '../vendor\phpmailer\phpmailer\src\Exception.php';
-require '../vendor\phpmailer\phpmailer\src\SMTP.php';
-require '../vendor\autoload.php';
+require '../../vendor\phpmailer\phpmailer\src\PHPMailer.php';
+require '../../vendor\phpmailer\phpmailer\src\Exception.php';
+require '../../vendor\phpmailer\phpmailer\src\SMTP.php';
+require '../../vendor\autoload.php';
 require '../backend/scripts/conn.php';
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -16,7 +15,6 @@ $estado = trim($dados['estado']);
 $senha = $dados['senha'];
 $confsenha = $dados['confSenha'];
 
-// Verificar se os campos estão vazios
 if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($confsenha)) {
     $retorna = ['status' => false, 'msg' => "Preencha todos os campos"];
     header('Content-Type: application/json');
@@ -56,7 +54,7 @@ if ($senha === $confsenha) {
 
 function enviarEmail($nome, $email)
 {
-    $email_body = file_get_contents('../PHPMailer/src/templates/cadastro.php');
+    $email_body = file_get_contents('../../assets/templates/register.php');
 
     $action_url = 'apple.com';
     $email_body = str_replace('{{nome}}', $nome, $email_body);
