@@ -3,10 +3,6 @@ require '../backend/scripts/conn.php';
 require '../backend/scripts/auth.php';
 VefLogin();
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = strtolower(trim($dados['email']));
 $senha = $dados['senha'];

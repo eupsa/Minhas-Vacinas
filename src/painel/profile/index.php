@@ -1,12 +1,7 @@
 <?php
-
 require '../../backend/scripts/auth.php';
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 VefNoLogin();
-CreateSessions();
+CreateSessions($pdo);
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +80,7 @@ CreateSessions();
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://via.placeholder.com/40" alt="Foto do Usuário" class="rounded-circle me-2"
                             width="40" height="40">
-                        <strong>######</strong>
+                        <span><?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                         <li><a class="dropdown-item" href="index.html">Perfil</a></li>
@@ -112,9 +107,9 @@ CreateSessions();
                             value="<?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : ''; ?>" readonly>
                     </div>
                     <div class="col">
-                        <label for="estado" class="form-label">Estado</label>
-                        <input type="text" class="form-control" id="estado" name="estado"
-                            value="<?php echo isset($_SESSION['user_estado']) ? $_SESSION['user_estado'] : ''; ?>" readonly>
+                        <label for="E-Mail" class="form-label">E-Mail</label>
+                        <input type="E-Mail" class="form-control" id="E-Mail" name="E-Mail"
+                            value="<?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : ''; ?>" readonly>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -124,9 +119,9 @@ CreateSessions();
                             value="<?php echo isset($_SESSION['user_idade']) ? $_SESSION['user_idade'] : ''; ?>" readonly>
                     </div>
                     <div class="col">
-                        <label for="genero" class="form-label">Gênero</label>
-                        <input type="text" class="form-control" id="genero" name="genero"
-                            value="<?php echo isset($_SESSION['user_genero']) ? $_SESSION['user_genero'] : ''; ?>" readonly>
+                        <label for="telefone" class="form-label">Telefone</label>
+                        <input type="text" class="form-control" id="telefone" name="telefone"
+                            value="<?php echo isset($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : ''; ?>" readonly>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -136,9 +131,21 @@ CreateSessions();
                             value="<?php echo isset($_SESSION['user_cpf']) ? $_SESSION['user_cpf'] : ''; ?>" readonly>
                     </div>
                     <div class="col">
-                        <label for="telefone" class="form-label">Telefone</label>
-                        <input type="text" class="form-control" id="telefone" name="telefone"
-                            value="<?php echo isset($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : ''; ?>" readonly>
+                        <label for="estado" class="form-label">Estado</label>
+                        <input type="text" class="form-control" id="estado" name="estado"
+                            value="<?php echo isset($_SESSION['user_estado']) ? $_SESSION['user_estado'] : ''; ?>" readonly>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="genero" class="form-label">Gênero</label>
+                        <input type="text" class="form-control" id="genero" name="genero"
+                            value="<?php echo isset($_SESSION['user_genero']) ? $_SESSION['user_genero'] : ''; ?>" readonly>
+                    </div>
+                    <div class="col">
+                        <label for="cidade" class="form-label">Cidade</label>
+                        <input type="text" class="form-control" id="cidade" name="cidade"
+                            value="<?php echo isset($_SESSION['user_cidade']) ? $_SESSION['user_cidade'] : ''; ?>" readonly>
                     </div>
                 </div>
                 <div class="mb-3">

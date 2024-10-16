@@ -38,6 +38,6 @@ INSERT INTO usuario (nome, email, estado, senha, emailConf, idade, genero, cpf, 
 VALUES 
 ('Pedro', 'viskp2537@gmail.com', 'BA', SHA2('Chicote1@', 256), 1, 17, 'Masculino', '123.456.789-09', '(11) 91234-5678', 'São Paulo');
 
-select nome, estado, emailConf, idade, genero, cpf, telefone, cidade from usuario where email = 'joao.silva@example.com';
+select , estado, emailConf, , , , telefone, cidade from usuario where email = 'joao.silva@example.com';
 
 UPDATE usuario SET nome = 'Paula', estado = 'SP' WHERE idUsuarios = 4
