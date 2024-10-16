@@ -1,8 +1,12 @@
 <?php
 
-require('../backend/scripts/auth.php');
-VefNoLogin();
+require '../../backend/scripts/auth.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
+VefNoLogin();
+CreateSessions();
 ?>
 
 <!DOCTYPE html>
@@ -38,32 +42,27 @@ VefNoLogin();
     <section>
         <div>
             <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
-                <div class="d-flex align-items-center justify-content-center" style="height: 10vh;">
-                </div>
+                <div class="d-flex align-items-center justify-content-center" style="height: 10vh;"></div>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
                         <a href="../index.html" class="nav-link text-white" aria-current="page">
-                            <i class="bi bi-house-door"></i>
-                            Início
+                            <i class="bi bi-house-door"></i> Início
                         </a>
                     </li>
                     <li>
                         <a href="../vaccines/index.html" class="nav-link text-white">
-                            <i class="fas fa-syringe"></i>
-                            Vacinas
+                            <i class="fas fa-syringe"></i> Vacinas
                         </a>
                     </li>
                     <li>
                         <a href="/src/campaigns/index.html" class="nav-link text-white">
-                            <i class="fas fa-bullhorn"></i>
-                            Campanhas
+                            <i class="fas fa-bullhorn"></i> Campanhas
                         </a>
                     </li>
                     <li>
                         <a href="index.html" class="nav-link active">
-                            <i class="bi bi-person"></i>
-                            Perfil
+                            <i class="bi bi-person"></i> Perfil
                         </a>
                     </li>
                     <li>
@@ -89,8 +88,6 @@ VefNoLogin();
                         <strong>######</strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <!-- <li><a class="dropdown-item" href="">Novo projeto...</a></li>
-                        <li><a class="dropdown-item" href="">Configurações</a></li> -->
                         <li><a class="dropdown-item" href="index.html">Perfil</a></li>
                         <li>
                             <hr class="dropdown-divider">
@@ -99,20 +96,57 @@ VefNoLogin();
                     </ul>
                 </div>
             </div>
+        </div>
     </section>
 
     <section class="side-bar">
         <div class="content">
-            <h1>Vacinas</h1>
-        </div>
+            <div class="alert alert-primary text-center" role="alert">
+                Bem-vindo ao seu perfil! Aqui você pode gerenciar suas informações e configurações.
+            </div>
+            <form>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="Nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome"
+                            value="<?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : ''; ?>" readonly>
+                    </div>
+                    <div class="col">
+                        <label for="estado" class="form-label">Estado</label>
+                        <input type="text" class="form-control" id="estado" name="estado"
+                            value="<?php echo isset($_SESSION['user_estado']) ? $_SESSION['user_estado'] : ''; ?>" readonly>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="idade" class="form-label">Idade</label>
+                        <input type="number" class="form-control" id="idade" name="idade"
+                            value="<?php echo isset($_SESSION['user_idade']) ? $_SESSION['user_idade'] : ''; ?>" readonly>
+                    </div>
+                    <div class="col">
+                        <label for="genero" class="form-label">Gênero</label>
+                        <input type="text" class="form-control" id="genero" name="genero"
+                            value="<?php echo isset($_SESSION['user_genero']) ? $_SESSION['user_genero'] : ''; ?>" readonly>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="cpf" class="form-label">CPF</label>
+                        <input type="text" class="form-control" id="cpf" name="cpf"
+                            value="<?php echo isset($_SESSION['user_cpf']) ? $_SESSION['user_cpf'] : ''; ?>" readonly>
+                    </div>
+                    <div class="col">
+                        <label for="telefone" class="form-label">Telefone</label>
+                        <input type="text" class="form-control" id="telefone" name="telefone"
+                            value="<?php echo isset($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : ''; ?>" readonly>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <a href="editar_perfil.php" class="btn btn-primary">Editar Perfil</a>
+                </div>
+            </form>
         </div>
     </section>
-
-    <!-- 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
-    -->
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

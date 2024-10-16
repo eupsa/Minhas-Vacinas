@@ -1,3 +1,7 @@
+<?php
+require '../backend/scripts/auth.php';
+VefLogin();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 

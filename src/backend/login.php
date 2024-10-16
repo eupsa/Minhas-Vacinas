@@ -1,6 +1,11 @@
 <?php
-session_start();
 require '../backend/scripts/conn.php';
+require '../backend/scripts/auth.php';
+VefLogin();
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = strtolower(trim($dados['email']));
@@ -24,6 +29,7 @@ if (empty($email) || empty($senha)) {
             $_SESSION['user_id'] = $usuario['idUsuarios'];
             $_SESSION['user_nome'] = $usuario['nome'];
             $_SESSION['user_email'] = $usuario['email'];
+
             $retorna = ['status' => true, 'msg' => "Login bem-sucedido!"];
             header('Content-Type: application/json');
             echo json_encode($retorna);

@@ -33,3 +33,11 @@ CREATE TABLE IF NOT EXISTS usuario_vacina (
     FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuarios) ON DELETE CASCADE,
     FOREIGN KEY (idVacina) REFERENCES vacina(idVacina) ON DELETE CASCADE
 );
+
+INSERT INTO usuario (nome, email, estado, senha, emailConf, idade, genero, cpf, telefone, cidade)
+VALUES 
+('Pedro', 'viskp2537@gmail.com', 'BA', SHA2('Chicote1@', 256), 1, 17, 'Masculino', '123.456.789-09', '(11) 91234-5678', 'São Paulo');
+
+select nome, estado, emailConf, idade, genero, cpf, telefone, cidade from usuario where email = 'joao.silva@example.com';
+
+UPDATE usuario SET nome = 'Paula', estado = 'SP' WHERE idUsuarios = 4

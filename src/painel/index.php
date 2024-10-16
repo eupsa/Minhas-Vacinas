@@ -1,8 +1,7 @@
 <?php
-
-require('../backend/scripts/auth.php');
+require '../backend/scripts/auth.php';
 VefNoLogin();
-
+CreateSessions();
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +85,7 @@ VefNoLogin();
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://via.placeholder.com/40" alt="Foto do Usuário" class="rounded-circle me-2"
                             width="40" height="40">
-                        <strong>######</strong>
+                        <a href="" value="<?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : ''; ?>" readonly></a>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                         <!-- <li><a class="dropdown-item" href="">Novo projeto...</a></li>
