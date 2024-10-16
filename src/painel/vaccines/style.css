@@ -1,0 +1,92 @@
+body {
+  padding-top: 80px;
+}
+
+.navbar {
+  background-color: #007bff;
+}
+
+.navbar-brand img {
+  height: 50px;
+}
+
+.nav-link {
+  color: white;
+  margin-right: 15px;
+}
+
+.nav-link:hover {
+  color: #f8f9fa;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  color: #0d6efd;
+}
+
+.wrapper {
+  display: flex;
+  min-height: 92vh;
+}
+
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s;
+}
+
+.sidebar.hide {
+  transform: translateX(-100%);
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  margin-left: 280px;
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.show {
+    transform: translateX(0);
+  }
+
+  .content {
+    margin-left: 0;
+  }
+}
+
+body {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+.form-check-input {
+  width: 50px;
+  height: 25px;
+  background-color: #6c757d;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  appearance: none;
+  outline: none;
+  position: relative;
+}
+
+.form-check-input:checked {
+  background-color: #0d6efd;
+}
+
+.preto {
+  padding-left: 15px;
+}

@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const password = document.querySelector("#senha");
   const confPassword = document.querySelector("#confSenha");
 
-  // Função para alternar a visibilidade do campo de senha
   const toggleVisibility = (field, toggleBtn) => {
     const type =
       field.getAttribute("type") === "password" ? "text" : "password";
@@ -13,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleBtn.querySelector("i").classList.toggle("bi-eye-slash");
   };
 
-  // Event listeners para os botões de alternar visibilidade
   if (togglePassword) {
     togglePassword.addEventListener("click", () => {
       toggleVisibility(password, togglePassword);
@@ -46,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const dados = await fetch("../methods/entrar.php", {
+      const dados = await fetch("../backend/login.php", {
         method: "POST",
         body: dadosForm,
       });

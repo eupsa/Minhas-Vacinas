@@ -5,5 +5,5 @@ $_SESSION = [];
 
 session_destroy();
 
-header("Location: ../login/index.html");
+header("Location: ../../login/index.php");
 exit();
