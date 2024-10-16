@@ -57,7 +57,7 @@ CreateSessions($pdo);
                     </li>
                     <li>
                         <a href="index.html" class="nav-link active">
-                            <i class="bi bi-person"></i> Perfil
+                            <i class="bi bi-person"></i> Conta
                         </a>
                     </li>
                     <li>
@@ -91,70 +91,79 @@ CreateSessions($pdo);
                     </ul>
                 </div>
             </div>
-        </div>
+            <div class="content flex-grow-1">
+                <div class="container d-flex justify-content-start align-items-start mt-4" style="margin-left: -15px;">
+                    <div class="card mb-4" style="width: 35rem;">
+                        <div class="d-flex align-items-center p-3">
+                            <img src="https://via.placeholder.com/150" class="rounded-circle" alt="Foto do Usuário" style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px;">
+                            <div>
+                                <h5 class="card-title" style="font-size: 1.25rem;"><?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : 'Nome do Usuário'; ?></h5>
+                                <p class="card-text" style="font-size: 0.875rem;"><?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : 'email@exemplo.com'; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </section>
 
-    <section class="side-bar">
+    <section>
         <div class="content">
-            <div class="alert alert-primary text-center" role="alert">
-                Bem-vindo ao seu perfil! Aqui você pode gerenciar suas informações e configurações.
-            </div>
-            <form>
+            <form id="profileForm">
                 <div class="row mb-3">
                     <div class="col">
                         <label for="Nome" class="form-label">Nome</label>
                         <input type="text" class="form-control" id="nome" name="nome"
-                            value="<?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : ''; ?>" readonly>
+                            value="<?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : ''; ?>">
                     </div>
                     <div class="col">
                         <label for="E-Mail" class="form-label">E-Mail</label>
-                        <input type="E-Mail" class="form-control" id="E-Mail" name="E-Mail"
-                            value="<?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : ''; ?>" readonly>
+                        <input type="email" class="form-control" id="E-Mail" name="E-Mail"
+                            value="<?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : ''; ?>">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="idade" class="form-label">Idade</label>
                         <input type="number" class="form-control" id="idade" name="idade"
-                            value="<?php echo isset($_SESSION['user_idade']) ? $_SESSION['user_idade'] : ''; ?>" readonly>
+                            value="<?php echo isset($_SESSION['user_idade']) ? $_SESSION['user_idade'] : ''; ?>">
                     </div>
                     <div class="col">
                         <label for="telefone" class="form-label">Telefone</label>
                         <input type="text" class="form-control" id="telefone" name="telefone"
-                            value="<?php echo isset($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : ''; ?>" readonly>
+                            value="<?php echo isset($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : ''; ?>">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="cpf" class="form-label">CPF</label>
                         <input type="text" class="form-control" id="cpf" name="cpf"
-                            value="<?php echo isset($_SESSION['user_cpf']) ? $_SESSION['user_cpf'] : ''; ?>" readonly>
+                            value="<?php echo isset($_SESSION['user_cpf']) ? $_SESSION['user_cpf'] : ''; ?>">
                     </div>
                     <div class="col">
                         <label for="estado" class="form-label">Estado</label>
                         <input type="text" class="form-control" id="estado" name="estado"
-                            value="<?php echo isset($_SESSION['user_estado']) ? $_SESSION['user_estado'] : ''; ?>" readonly>
+                            value="<?php echo isset($_SESSION['user_estado']) ? $_SESSION['user_estado'] : ''; ?>">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
                         <label for="genero" class="form-label">Gênero</label>
                         <input type="text" class="form-control" id="genero" name="genero"
-                            value="<?php echo isset($_SESSION['user_genero']) ? $_SESSION['user_genero'] : ''; ?>" readonly>
+                            value="<?php echo isset($_SESSION['user_genero']) ? $_SESSION['user_genero'] : ''; ?>">
                     </div>
                     <div class="col">
                         <label for="cidade" class="form-label">Cidade</label>
                         <input type="text" class="form-control" id="cidade" name="cidade"
-                            value="<?php echo isset($_SESSION['user_cidade']) ? $_SESSION['user_cidade'] : ''; ?>" readonly>
+                            value="<?php echo isset($_SESSION['user_cidade']) ? $_SESSION['user_cidade'] : ''; ?>">
                     </div>
                 </div>
-                <div class="mb-3">
-                    <a href="editar_perfil.php" class="btn btn-primary">Editar Perfil</a>
-                </div>
+                <button type="submit" class="btn btn-primary">Atualizar Perfil</button>
+                <button type="button" class="btn btn-danger" id="deleteAccountBtn">Excluir Conta</button>
             </form>
         </div>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="script.js"></script>

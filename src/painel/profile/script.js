@@ -2,24 +2,25 @@ document.addEventListener("DOMContentLoaded", function () {
   const sidebarToggle = document.getElementById("sidebarToggle");
   const sidebar = document.querySelector(".sidebar");
 
+  // Alternar a visibilidade da sidebar
   sidebarToggle.addEventListener("click", function () {
     sidebar.classList.toggle("show");
     sidebar.classList.toggle("hide");
   });
-});
 
-function toggleDarkMode() {
-  document.body.classList.toggle("dark-mode");
-}
+  // Função para alternar o modo escuro
+  function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+  }
 
-document.addEventListener("DOMContentLoaded", () => {
+  // Verificar o estado do modo escuro na inicialização
   const darkModeSwitch = document.getElementById("darkModeSwitch");
-
   if (localStorage.getItem("darkMode") === "enabled") {
     document.body.classList.add("dark-mode");
     darkModeSwitch.checked = true;
   }
 
+  // Alterar o modo escuro quando o interruptor é mudado
   darkModeSwitch.addEventListener("change", () => {
     if (darkModeSwitch.checked) {
       document.body.classList.add("dark-mode");

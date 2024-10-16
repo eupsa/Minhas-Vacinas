@@ -1,9 +1,10 @@
 body {
   padding-top: 80px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .navbar {
-  background-color: #007bff;
+  background-color: #1d1f21; /* Novo tom para o header */
 }
 
 .navbar-brand img {
@@ -11,59 +12,63 @@ body {
 }
 
 .nav-link {
-  color: white;
+  color: #b0b3b8; /* Cinza suave para os links */
   margin-right: 15px;
 }
 
 .nav-link:hover {
-  color: #f8f9fa;
+  color: #ffffff; /* Branco ao passar o mouse */
 }
 
 .nav-link.active {
   font-weight: bold;
-  color: #0d6efd;
+  color: #ffffff; /* Branco para o link ativo */
 }
 
 .wrapper {
   display: flex;
   min-height: 92vh;
+  position: relative; /* Para controle de sobreposição */
 }
 
 .sidebar {
-  width: 280px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  transition: transform 0.3s;
+  width: 280px; /* Largura fixa da sidebar */
+  height: 100vh; /* Para ocupar toda a altura da tela */
+  position: fixed; /* Fixa a sidebar na tela */
+  top: 0; /* Alinha no topo */
+  left: 0; /* Alinha à esquerda */
+  z-index: 1000; /* Para que fique acima do conteúdo */
+  transition: transform 0.3s; /* Para animação suave */
+  background-color: #2c2f33; /* Cor escura para a sidebar */
+  color: #ffffff; /* Texto branco na sidebar */
 }
 
 .sidebar.hide {
-  transform: translateX(-100%);
+  transform: translateX(-100%); /* Oculta a sidebar */
 }
 
 .content {
   flex-grow: 1;
   padding: 20px;
-  margin-left: 280px;
+  margin-left: 280px; /* Margem correspondente à largura da sidebar */
 }
 
-@media (max-width: 992px) {
+/* Mídia Queries para dispositivos móveis */
+@media (max-width: 768px) {
   .sidebar {
-    transform: translateX(-100%);
-  }
-
-  .sidebar.show {
-    transform: translateX(0);
+    width: 100%; /* Sidebar ocupa toda a largura da tela em dispositivos móveis */
+    height: auto; /* Permite que a sidebar ajuste a altura conforme necessário */
+    z-index: 1000; /* Garante que a sidebar fique acima do card */
   }
 
   .content {
-    margin-left: 0;
+    margin-left: 0; /* Remove a margem esquerda no mobile */
   }
-}
 
-body {
-  transition: background-color 0.3s, color 0.3s;
+  .container {
+    position: relative; /* Para que o conteúdo esteja em relação ao seu contêiner */
+    z-index: 1; /* Coloca o conteúdo atrás da sidebar */
+  }
 }
 
 body.dark-mode {
@@ -71,22 +76,38 @@ body.dark-mode {
   color: #e0e0e0;
 }
 
-.form-check-input {
-  width: 50px;
-  height: 25px;
-  background-color: #6c757d;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-  appearance: none;
-  outline: none;
-  position: relative;
+/* Estilos para inputs no tema escuro */
+input[type="text"],
+input[type="email"],
+input[type="number"] {
+  background-color: #444; /* Cor de fundo escura para os inputs */
+  color: #ffffff; /* Cor do texto nos inputs */
+  border: 1px solid #666; /* Borda mais clara para um leve contraste */
+  border-radius: 5px; /* Arredondar os cantos dos inputs */
+  padding: 10px; /* Um pouco de preenchimento para os inputs */
+  transition: background-color 0.3s, border-color 0.3s; /* Transição suave para hover */
 }
 
-.form-check-input:checked {
-  background-color: #0d6efd;
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus {
+  background-color: #555; /* Fundo um pouco mais claro ao focar */
+  border-color: #007bff; /* Borda azul ao focar */
+  outline: none; /* Remove o contorno padrão */
 }
 
-.preto {
-  padding-left: 15px;
+/* Estilos para botões */
+button {
+  background-color: #007bff; /* Cor de fundo do botão */
+  color: #ffffff; /* Cor do texto no botão */
+  border: none; /* Remove a borda padrão do botão */
+  border-radius: 5px; /* Arredondar os cantos do botão */
+  padding: 10px 20px; /* Preenchimento do botão */
+  transition: background-color 0.3s; /* Transição suave ao passar o mouse */
 }
+
+button:hover {
+  background-color: #0056b3; /* Cor mais escura ao passar o mouse */
+}
+
+/* Outros estilos que você já possui */
