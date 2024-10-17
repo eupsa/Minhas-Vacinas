@@ -88,7 +88,7 @@ VefLogin();
                         <h4 class="mb-4 text-center">Entre na sua conta</h4>
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="email" name="email" required name="email">
+                            <input type="email" class="form-control" id="email" name="email" required name="email" autocomplete="off">
                             <div class="invalid-feedback">Por favor, insira um e-mail válido.</div>
                         </div>
                         <div class="mb-3">
