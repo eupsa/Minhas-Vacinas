@@ -71,7 +71,7 @@ VefLogin();
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-outline-light btn-login" href="../register/index.html">CADASTRE-SE</a>
+                            <a class="btn btn-outline-light btn-login" href="../register/index.php">CADASTRE-SE</a>
                         </li>
                     </ul>
                 </div>
@@ -110,7 +110,7 @@ VefLogin();
                     <hr class="custom-hr">
                     <div class="text-center mt-3">
                         <p class="mb-1">Ainda não tem uma conta?</p>
-                        <a href="../register/index.html" class="btn btn-primary">Faça seu registro aqui</a>
+                        <a href="../register/index.php" class="btn btn-primary">Faça seu registro aqui</a>
                     </div>
                 </div>
             </div>

@@ -78,7 +78,7 @@ CreateSessions($pdo);
                 <div class="dropdown">
                     <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://via.placeholder.com/40" alt="Foto do Usuário" class="rounded-circle me-2"
+                        <img src="ex.png" alt="sua foto aqui" class="rounded-circle me-2"
                             width="40" height="40">
                         <span><?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : 'Usuário'; ?></span>
                     </a>
@@ -95,7 +95,7 @@ CreateSessions($pdo);
                 <div class="container d-flex justify-content-start align-items-start mt-4" style="margin-left: -15px;">
                     <div class="card mb-4" style="width: 35rem;">
                         <div class="d-flex align-items-center p-3">
-                            <img src="https://via.placeholder.com/150" class="rounded-circle" alt="Foto do Usuário" style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px;">
+                            <img src="ex.png" class="rounded-circle" alt="Foto do Usuário" style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px;">
                             <div>
                                 <h5 class="card-title" style="font-size: 1.25rem;"><?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : 'Nome do Usuário'; ?></h5>
                                 <p class="card-text" style="font-size: 0.875rem;"><?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : 'email@exemplo.com'; ?></p>
