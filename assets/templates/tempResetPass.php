@@ -497,8 +497,7 @@ require('../../src\backend\scripts\const.php')
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                               <tr>
                                 <td align="center">
-                                  <a class="f-fallback button" target="_blank">{{token}}</a>
-                                </td>
+                                  <a href="http://localhost:8091/src/backend/resetPassword.php?token={{token}}" class="f-fallback button" target="_blank">Mude sua senha</a>
                               </tr>
                             </table>
                           </td>

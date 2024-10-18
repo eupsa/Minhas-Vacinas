@@ -54,7 +54,7 @@ if ($senha === $confsenha) {
 
 function enviarEmail($nome, $email)
 {
-    $email_body = file_get_contents('../../assets/templates/register.php');
+    $email_body = file_get_contents('../../assets/templates/tempRegister.php');
 
     $action_url = 'apple.com';
     $email_body = str_replace('{{nome}}', $nome, $email_body);

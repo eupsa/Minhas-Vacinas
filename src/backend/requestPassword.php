@@ -22,6 +22,7 @@ if (empty($email)) {
         $sql->bindValue(':email', $email);
         $sql->execute();
         if ($sql->rowCount() === 1) {
+            $usuario = $sql->fetch(PDO::FETCH_BOTH);
             $nome = $usuario['nome'];
             $token = bin2hex(random_bytes(50));
             $expiry = date('Y-m-d H:i:s', strtotime('+1 hour'));
@@ -47,7 +48,7 @@ if (empty($email)) {
 
 function enviarEmail($nome, $email, $token)
 {
-    $email_body = file_get_contents('../../assets/templates/register.php');
+    $email_body = file_get_contents('../../assets/templates/tempResetPass.php');
     $email_body = str_replace('{{nome}}', $nome, $email_body);
     $email_body = str_replace('{{token}}', $token, $email_body);
     $mail = new PHPMailer(true);
