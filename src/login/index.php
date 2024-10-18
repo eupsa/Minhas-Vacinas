@@ -100,7 +100,7 @@ VefLogin();
                                 </button>
                             </div>
                             <div class="mt-2 text-end">
-                                <a href="redefinir-senha.html" class="text-muted">
+                                <a href="redefinir-senha.html" class="text-muted" data-bs-toggle="modal" data-bs-target="#modal-senha">
                                     <i class="bi bi-question-circle me-1"></i> Esqueceu a senha?
                                 </a>
                             </div>
@@ -111,6 +111,40 @@ VefLogin();
                     <div class="text-center mt-3">
                         <p class="mb-1">Ainda não tem uma conta?</p>
                         <a href="../register/index.php" class="btn btn-primary">Faça seu registro aqui</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="modal-esqueci-a-senha">
+        <div class="modal fade" id="modal-senha" tabindex="-1" aria-labelledby="modalSuporteLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalSuporteLabel">Redefina sua senha</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="passwordHelpBlock" class="form-text">
+                            Um e-mail será enviado para você com um <strong>link de redefinição de senha</strong>.<br><br>
+                        </div>
+                        
+                        
+                        
+                        <form action="../backend/request-password.php" id="request-reset-password" method="post">
+                            <div class="mb-3" id="requestForm">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input type="email" name="email" class="form-control" id="email" placeholder="" required>
+                            </div>
+                        </form>
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button class="btn btn-primary w-100" type="submit">Cadastrar</button>
                     </div>
                 </div>
             </div>

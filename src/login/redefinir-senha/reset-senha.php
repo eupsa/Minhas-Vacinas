@@ -1,5 +1,6 @@
-<?php include('../methods/auth.php');
-authPainel();
+<?php
+require '../../backend/reset-password.php';
+VefToken($pdo);
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +10,7 @@ authPainel();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="../../assets/img/img-web.png" type="image/x-icon">
+    <link rel="icon" href="../../../assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -21,7 +22,7 @@ authPainel();
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="/index.html">
-                    <img src="../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
+                    <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,8 +34,11 @@ authPainel();
                             <a class="nav-link" href="/index.html">Início</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Sobre</a>
+                            <a class="nav-link" href="/index.html#nossa-missao">Sobre</a>
                         </li>
+
+                        <!-- ADD O MODAL DE SUPORTE EMBAIXO-->
+
                         <li class="nav-item">
                             <a class="nav-link" href="#">Suporte</a>
                         </li>
@@ -63,12 +67,12 @@ authPainel();
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-outline-light btn-login" href="/register/index.html">CADASTRE-SE</a>
+                            <a class="btn btn-outline-light btn-login" href="../../register/index.php">CADASTRE-SE</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-light btn-login" href="/register/index.html">LOGIN</a>
+                            <a class="btn btn-light btn-login" href="../index.php">LOGIN</a>
                         </li>
                     </ul>
                 </div>
@@ -80,30 +84,44 @@ authPainel();
         <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
             <div class="row w-100">
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                    <form action="../backend/requestPassword.php"
+                    <form action="../backend/reset-password.php"
                         class="needs-validation bg-light p-5 rounded shadow-lg" id="formResetPassword" method="post"
                         novalidate>
-                        <h4 class="mb-4 text-center">Recupere sua Senha</h4>
-                        <p class="text-center text-muted">Informe seu e-mail abaixo para receber um <strong>link de
-                                redefinição de senha</strong>. Siga as instruções contidas no e-mail para redefinir sua
-                            senha.</p>
+                        <h4 class="mb-4 text-center">Crie sua nova senha</h4>
                         <div class="mb-3">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="email" name="email" required name="email">
+                            <label for="email" class="form-label">Seu E-Mail</label>
+                            <input type="email" class="form-control" id="email" name="email" required name="email"
+                                value="<?php echo isset($email) ? : ''; ?>"
+                                disabled>
                         </div>
-                        <div class="mt-2 text-end">
-                            <a href="index.php" class="text-muted">
-                                <i class="bi bi-question-circle me-1"></i> Voltar para login?
-                            </a>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Crie sua senha</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="senha" name="senha">
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <div class="invalid-feedback">Por favor, insira uma senha.</div>
+                            </div>
+                            <div id="passwordHelpBlock" class="form-text">
+                                Sua senha deve ter de 8 a 20 caracteres, conter letras e números e não deve conter
+                                espaços, caracteres especiais ou emojis.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password2" class="form-label">Confirme sua senha</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="confSenha" name="confSenha">
+                                <button class="btn btn-outline-secondary" type="button" id="ConftogglePassword">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <div class="invalid-feedback">Por favor, insira uma senha.</div>
+                            </div>
                         </div>
                         <br>
-                        <button class="btn btn-primary w-100" type="submit">Enviar código</button>
+                        <button class="btn btn-primary w-100" type="submit">Mudar senha</button>
                     </form>
                     <hr class="custom-hr">
-                    <div class="text-center mt-3">
-                        <p class="mb-1">Ainda não tem uma conta?</p>
-                        <a href="../register/index.php" class="btn btn-primary">Faça seu registro aqui</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -117,11 +135,16 @@ authPainel();
         </div>
     </footer>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <!-- 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="reset.js"></script>
-    <script src="../../assets/js/sweetalert2.js"></script>
+    <script src="script.js"></script>
+    -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <script src="../../../assets/js/sweetalert2.js"></script>
 </body>
 
 </html>

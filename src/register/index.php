@@ -107,7 +107,6 @@ VefLogin();
                                 espaços, caracteres especiais ou emojis.
                             </div>
                         </div>
-
                         <div class="mb-3">
                             <label for="password2" class="form-label">Confirme sua senha</label>
                             <div class="input-group">

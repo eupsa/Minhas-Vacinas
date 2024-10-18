@@ -24,17 +24,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const formalog = document.querySelector("#formalog");
+  const formcad = document.querySelector("#requestForm");
 
-  if (formalog) {
-    formalog.addEventListener("submit", async (e) => {
+  if (requestForm) {
+    requestForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-
-      const dadosForm = new FormData(formalog);
+  
+      const dadosForm = new FormData(requestForm);
+  
+      const nome = dadosForm.get("nome");
       const email = dadosForm.get("email");
+      const estado = dadosForm.get("estado");
       const senha = dadosForm.get("senha");
-
-      if (!email || !senha) {
+      const confSenha = dadosForm.get("confSenha");
+  
+      if (!nome || !email || !estado || !senha || !confSenha) {
         Swal.fire({
           text: "Preencha todos os campos.",
           icon: "error",
@@ -43,14 +47,34 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         return;
       }
-
-      const dados = await fetch("../backend/login.php", {
+  
+      if (senha !== confSenha) {
+        Swal.fire({
+          text: "As senhas precisam ser iguais.",
+          icon: "error",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Fechar",
+        });
+        return;
+      }
+  
+      Swal.fire({
+        title: "Processando...",
+        html: "Aguarde enquanto estamos cadastrando...",
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+  
+      const dados = await fetch("../backend/register.php", {
         method: "POST",
         body: dadosForm,
       });
-
+  
       const resposta = await dados.json();
-
+  
       if (resposta["status"]) {
         Swal.fire({
           text: resposta["msg"],
@@ -58,9 +82,9 @@ document.addEventListener("DOMContentLoaded", () => {
           confirmButtonColor: "#3085d6",
           confirmButtonText: "Fechar",
         }).then(() => {
-          window.location.href = "../painel/index.php";
+          window.location.href = "../login/index.php";
         });
-        formalog.reset();
+        formcad.reset();
       } else {
         Swal.fire({
           text: resposta["msg"],

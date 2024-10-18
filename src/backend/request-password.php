@@ -8,8 +8,10 @@ require '../backend/scripts/conn.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-$email = strtolower(trim($dados['email']));
+// $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+// $email = strtolower(trim($dados['email']));
+
+$email = $_POST['email'];
 
 if (empty($email)) {
     $retorna = ['status' => false, 'msg' => "Por favor, complete todos os campos."];
