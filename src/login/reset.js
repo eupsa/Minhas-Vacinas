@@ -31,23 +31,17 @@ function disableResendButton() {
   startTimer(60, display, resendBtn);
 }
 
-document.getElementById("verifyBtn").addEventListener("click", function () {
-  disableResendButton();
-});
-
 document.getElementById("resendBtn").addEventListener("click", function () {
   disableResendButton();
   Swal.fire({
-    text: "Um novo código foi enviado para o seu e-mail. Caso não o encontre, não se esqueça de verificar também a pasta de spam ou lixo eletrônico.",
+    text: "Um novo link de redefinição de senha foi enviado para o seu e-mail. Caso não o encontre, não se esqueça de verificar também a pasta de spam ou lixo eletrônico.",
     icon: "success",
     confirmButtonColor: "#3085d6",
     confirmButtonText: "Fechar",
   });
 });
 
-//formCodeSend
-//formEmailSend
-
+// Formulário de envio de redefinição de senha
 const formResetPassword = document.querySelector("#formResetPassword");
 
 if (formResetPassword) {
@@ -77,7 +71,7 @@ if (formResetPassword) {
       },
     });
 
-    const dados = await fetch("../backend/reset-password.php", {
+    const dados = await fetch("../backend/requestPassword.php", {
       method: "POST",
       body: dadosForm,
     });
@@ -91,12 +85,9 @@ if (formResetPassword) {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       }).then(() => {
-        var modal = new bootstrap.Modal(
-          document.getElementById("staticBackdrop")
-        );
-        modal.show();
+        disableResendButton(); // Desabilitar o botão de reenvio
       });
-      formcad.reset();
+      formResetPassword.reset();
     } else {
       Swal.fire({
         text: resposta["msg"],

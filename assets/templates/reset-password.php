@@ -497,7 +497,7 @@ require('../../src\backend\scripts\const.php')
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                               <tr>
                                 <td align="center">
-                                  <a class="f-fallback button" target="_blank">{{codeReset}}</a>
+                                  <a class="f-fallback button" target="_blank">{{token}}</a>
                                 </td>
                               </tr>
                             </table>

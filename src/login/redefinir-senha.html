@@ -80,9 +80,13 @@ authPainel();
         <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
             <div class="row w-100">
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                    <form action="../backend/reset-password.php" class="needs-validation bg-light p-5 rounded shadow-lg"
-                        id="formResetPassword" method="post" novalidate>
+                    <form action="../backend/requestPassword.php"
+                        class="needs-validation bg-light p-5 rounded shadow-lg" id="formResetPassword" method="post"
+                        novalidate>
                         <h4 class="mb-4 text-center">Recupere sua Senha</h4>
+                        <p class="text-center text-muted">Informe seu e-mail abaixo para receber um <strong>link de
+                                redefinição de senha</strong>. Siga as instruções contidas no e-mail para redefinir sua
+                            senha.</p>
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>
                             <input type="email" class="form-control" id="email" name="email" required name="email">
@@ -93,48 +97,12 @@ authPainel();
                             </a>
                         </div>
                         <br>
-                        <button class="btn btn-primary w-100" type="submit" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop">Enviar código</button>
+                        <button class="btn btn-primary w-100" type="submit">Enviar código</button>
                     </form>
                     <hr class="custom-hr">
                     <div class="text-center mt-3">
                         <p class="mb-1">Ainda não tem uma conta?</p>
-                        <a href="/register/index.html" class="btn btn-primary">Faça seu registro aqui</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="modal-codeReset">
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Recuperação de Senha</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Enviamos um e-mail com o código de recuperação para o endereço fornecido. Por favor,
-                            verifique
-                            sua caixa de entrada. Caso não o encontre, não se esqueça de verificar
-                            também a pasta de spam ou lixo eletrônico.</p>
-                        <form action="../backend/reset-password.php"
-                            class="needs-validation bg-light p-5 rounded shadow-lg" id="formCodeSend" method="post"
-                            novalidate>
-                            <div class="mb-3">
-                                <label for="text-center" class="form-label">Código de Verificação</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                        </form>
-                        <span id="timer" class="ml-3"></span>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary" id="verifyBtn">Verificar código</button>
-                        <button type="button" class="btn btn-outline-primary" id="resendBtn" disabled>Reenviar
-                            código</button>
+                        <a href="../register/index.php" class="btn btn-primary">Faça seu registro aqui</a>
                     </div>
                 </div>
             </div>

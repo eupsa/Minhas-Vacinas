@@ -69,16 +69,6 @@ CreateSessions($pdo);
                         <hr>
                     </li>
                 </ul>
-                <div class="preto">
-                    <div class="d-flex align-items-center">
-                        <label class="me-2" for="darkModeSwitch">
-                            <i class="fas fa-moon"></i> Modo Escuro
-                        </label>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="darkModeSwitch">
-                        </div>
-                    </div>
-                </div>
                 <hr>
                 <div class="dropdown">
                     <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"

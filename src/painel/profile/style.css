@@ -77,24 +77,6 @@ body.dark-mode {
 }
 
 /* Estilos para inputs no tema escuro */
-input[type="text"],
-input[type="email"],
-input[type="number"] {
-  background-color: #444; /* Cor de fundo escura para os inputs */
-  color: #ffffff; /* Cor do texto nos inputs */
-  border: 1px solid #666; /* Borda mais clara para um leve contraste */
-  border-radius: 5px; /* Arredondar os cantos dos inputs */
-  padding: 10px; /* Um pouco de preenchimento para os inputs */
-  transition: background-color 0.3s, border-color 0.3s; /* Transição suave para hover */
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="number"]:focus {
-  background-color: #555; /* Fundo um pouco mais claro ao focar */
-  border-color: #007bff; /* Borda azul ao focar */
-  outline: none; /* Remove o contorno padrão */
-}
 
 /* Estilos para botões */
 button {

@@ -64,16 +64,6 @@ CreateSessions($pdo);
                         <hr>
                     </li>
                 </ul>
-                <div class="preto">
-                    <div class="d-flex align-items-center">
-                        <label class="me-2" for="darkModeSwitch">
-                            <i class="fas fa-moon"></i> Modo Escuro
-                        </label>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="darkModeSwitch">
-                        </div>
-                    </div>
-                </div>
                 <hr>
                 <div class="dropdown">
                     <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
@@ -118,7 +108,7 @@ CreateSessions($pdo);
                     <div class="col">
                         <label for="E-Mail" class="form-label">E-Mail</label>
                         <input type="email" class="form-control" id="E-Mail" name="E-Mail"
-                            value="<?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : ''; ?>">
+                            value="<?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : ''; ?>" disabled>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -137,7 +127,7 @@ CreateSessions($pdo);
                     <div class="col">
                         <label for="cpf" class="form-label">CPF</label>
                         <input type="text" class="form-control" id="cpf" name="cpf"
-                            value="<?php echo isset($_SESSION['user_cpf']) ? $_SESSION['user_cpf'] : ''; ?>">
+                            value="<?php echo isset($_SESSION['user_cpf']) ? $_SESSION['user_cpf'] : ''; ?>" disabled>
                     </div>
                     <div class="col">
                         <label for="estado" class="form-label">Estado</label>
