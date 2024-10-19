@@ -1,7 +1,6 @@
 <?php
 include('../../../methods/const.php');
 require('../../src\backend\scripts\const.php')
-
 ?>
 
 <!DOCTYPE html

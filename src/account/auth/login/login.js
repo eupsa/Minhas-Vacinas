@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const togglePassword = document.querySelector("#togglePassword");
-  const toggleConfPassword = document.querySelector("#ConftogglePassword");
   const password = document.querySelector("#senha");
-  const confPassword = document.querySelector("#confSenha");
 
   const toggleVisibility = (field, toggleBtn) => {
     const type =
@@ -18,27 +16,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if (toggleConfPassword) {
-    toggleConfPassword.addEventListener("click", () => {
-      toggleVisibility(confPassword, toggleConfPassword);
-    });
-  }
+  const form_login = document.querySelector("#form_login");
 
-  const formcad = document.querySelector("#requestForm");
-
-  if (requestForm) {
-    requestForm.addEventListener("submit", async (e) => {
+  if (form_login) {
+    form_login.addEventListener("submit", async (e) => {
       e.preventDefault();
-  
-      const dadosForm = new FormData(requestForm);
-  
-      const nome = dadosForm.get("nome");
+
+      const dadosForm = new FormData(form_login);
+
       const email = dadosForm.get("email");
-      const estado = dadosForm.get("estado");
       const senha = dadosForm.get("senha");
-      const confSenha = dadosForm.get("confSenha");
-  
-      if (!nome || !email || !estado || !senha || !confSenha) {
+
+      if (!email || !senha) {
         Swal.fire({
           text: "Preencha todos os campos.",
           icon: "error",
@@ -47,34 +36,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         return;
       }
-  
-      if (senha !== confSenha) {
-        Swal.fire({
-          text: "As senhas precisam ser iguais.",
-          icon: "error",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Fechar",
-        });
-        return;
-      }
-  
+
       Swal.fire({
         title: "Processando...",
-        html: "Aguarde enquanto estamos cadastrando...",
         timer: 5000,
         timerProgressBar: true,
         didOpen: () => {
           Swal.showLoading();
         },
       });
-  
-      const dados = await fetch("../backend/register.php", {
+
+      const dados = await fetch("../../../backend/login.php", {
         method: "POST",
         body: dadosForm,
       });
-  
+
       const resposta = await dados.json();
-  
+
       if (resposta["status"]) {
         Swal.fire({
           text: resposta["msg"],
@@ -82,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
           confirmButtonColor: "#3085d6",
           confirmButtonText: "Fechar",
         }).then(() => {
-          window.location.href = "../login/index.php";
+          window.location.href = "../../painel/index.php  ";
         });
         formcad.reset();
       } else {

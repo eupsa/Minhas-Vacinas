@@ -62,7 +62,7 @@ if (formcad) {
       },
     });
 
-    const dados = await fetch("../backend/register.php", {
+    const dados = await fetch("../../../backend/register.php", {
       method: "POST",
       body: dadosForm,
     });
@@ -76,7 +76,7 @@ if (formcad) {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       }).then(() => {
-        window.location.href = "../login/index.php";
+        window.location.href = "../login/login.php";
       });
       formcad.reset();
     } else {

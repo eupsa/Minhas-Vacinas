@@ -8,10 +8,8 @@ require '../backend/scripts/conn.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-// $email = strtolower(trim($dados['email']));
-
-$email = $_POST['email'];
+$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+$email = strtolower(trim($dados['email']));
 
 if (empty($email)) {
     $retorna = ['status' => false, 'msg' => "Por favor, complete todos os campos."];
@@ -23,6 +21,7 @@ if (empty($email)) {
         $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
         $sql->bindValue(':email', $email);
         $sql->execute();
+
         if ($sql->rowCount() === 1) {
             $usuario = $sql->fetch(PDO::FETCH_BOTH);
             $nome = $usuario['nome'];
@@ -34,6 +33,10 @@ if (empty($email)) {
             $sql->bindValue(':dataExpiracao', $expiry);
             $sql->execute();
             enviarEmail($nome, $email, $token);
+            $retorna = ['status' => false, 'msg' => "enviou"];
+            header('Content-Type: application/json');
+            echo json_encode($retorna);
+            exit;
         } else {
             $retorna = ['status' => false, 'msg' => "Usuário não encontrado."];
             header('Content-Type: application/json');
@@ -50,7 +53,7 @@ if (empty($email)) {
 
 function enviarEmail($nome, $email, $token)
 {
-    $email_body = file_get_contents('../../assets/templates/tempResetPass.php');
+    $email_body = file_get_contents('../../assets/templates/email_forgot_password.php');
     $email_body = str_replace('{{nome}}', $nome, $email_body);
     $email_body = str_replace('{{token}}', $token, $email_body);
     $mail = new PHPMailer(true);
@@ -63,15 +66,12 @@ function enviarEmail($nome, $email, $token)
         $mail->Password = 'zolp wzgo pvcr ucpb';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-
         $mail->setFrom('pedrooosxz@gmail.com', 'muda senha poha');
         $mail->addAddress($email);
-
         $mail->isHTML(true);
         $mail->Subject = 'ivadiru';
         $mail->Body = $email_body;
         $mail->AltBody = 'Este é o corpo do e-mail em texto plano, para clientes de e-mail sem suporte a HTML';
-
         $mail->send();
 
         return true;

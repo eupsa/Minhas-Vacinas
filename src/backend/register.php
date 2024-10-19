@@ -4,13 +4,14 @@ require '../../vendor\phpmailer\phpmailer\src\Exception.php';
 require '../../vendor\phpmailer\phpmailer\src\SMTP.php';
 require '../../vendor\autoload.php';
 require '../backend/scripts/conn.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
 $nome = strtolower(trim($dados['nome']));
 $email = strtolower(trim($dados['email']));
+$email = filter_var($email, FILTER_SANITIZE_EMAIL);
 $estado = trim($dados['estado']);
 $senha = $dados['senha'];
 $confsenha = $dados['confSenha'];
@@ -20,42 +21,75 @@ if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($c
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
-}
+} else {
+    if ($senha === $confsenha) {
+        try {
+            $senhaHash = hash('sha256', $senha);
+            $sql = $pdo->prepare("INSERT INTO usuario (nome, email, estado, senha) VALUES (:nome, :email, :estado, :senha)");
+            $sql->bindValue(':nome', $nome);
+            $sql->bindValue(':email', $email);
+            $sql->bindValue(':estado', $estado);
+            $sql->bindValue(':senha', $senhaHash);
+            $sql->execute();
 
-if ($senha === $confsenha) {
-    try {
-        $senhaHash = hash('sha256', $senha);
-        $sql = $pdo->prepare("INSERT INTO usuario (nome, email, estado, senha) VALUES (:nome, :email, :estado, :senha)");
-        $sql->bindValue(':nome', $nome);
-        $sql->bindValue(':email', $email);
-        $sql->bindValue(':estado', $estado);
-        $sql->bindValue(':senha', $senhaHash);
-        $sql->execute();
-
-        if ($sql->rowCount()) {
-            enviarEmail($nome, $email);
-            $retorna = ['status' => true, 'msg' => "Usuário cadastrado com sucesso!"];
-            header('Content-Type: application/json');
-            echo json_encode($retorna);
-            exit;
+            if ($sql->rowCount() ===  1) {
+                enviarEmail($nome, $email);
+                $retorna = ['status' => true, 'msg' => "Usuário cadastrado com sucesso!"];
+                header('Content-Type: application/json');
+                echo json_encode($retorna);
+                exit;
+            }
+        } catch (PDOException $e) {
+            switch ($e) {
+                case '23000':
+                    $retorna = ['status' => false, 'msg' => "Este e-mail já está registrado. Por favor, tente outro."];
+                    header('Content-Type: application/json');
+                    echo json_encode($retorna);
+                    exit;
+                    break;
+                case '42000':
+                    $retorna = ['status' => false, 'msg' => "Houve um erro no processamento da sua solicitação. Tente novamente mais tarde."];
+                    header('Content-Type: application/json');
+                    echo json_encode($retorna);
+                    exit;
+                    break;
+                case '42S02':
+                    $retorna = ['status' => false, 'msg' => "Erro interno: Recurso não encontrado. Tente novamente mais tarde."];
+                    header('Content-Type: application/json');
+                    echo json_encode($retorna);
+                    exit;
+                    break;
+                case 'HY000':
+                    $retorna = ['status' => false, 'msg' => "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde."];
+                    header('Content-Type: application/json');
+                    echo json_encode($retorna);
+                    exit;
+                    break;
+                case '28000':
+                    $retorna = ['status' => false, 'msg' => "Erro de acesso ao sistema. Contate o suporte."];
+                    header('Content-Type: application/json');
+                    echo json_encode($retorna);
+                    exit;
+                    break;
+                default:
+                    $retorna = ['status' => false, 'msg' => "Erro inesperado: Por favor, tente novamente mais tarde."];
+                    header('Content-Type: application/json');
+                    echo json_encode($retorna);
+                    exit;
+                    break;
+            }
         }
-    } catch (PDOException $e) {
-        $retorna = ['status' => false, 'msg' => "Erro ao cadastrar: " . $e->getMessage()];
+    } else {
+        $retorna = ['status' => false, 'msg' => "As senhas precisam ser iguais."];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit;
     }
-} else {
-    $retorna = ['status' => false, 'msg' => "As senhas precisam ser iguais."];
-    header('Content-Type: application/json');
-    echo json_encode($retorna);
-    exit;
 }
 
 function enviarEmail($nome, $email)
 {
-    $email_body = file_get_contents('../../assets/templates/tempRegister.php');
-
+    $email_body = file_get_contents('../../assets/templates/email_register.php');
     $action_url = 'apple.com';
     $email_body = str_replace('{{nome}}', $nome, $email_body);
     $email_body = str_replace('{{email}}', $email, $email_body);
@@ -70,17 +104,12 @@ function enviarEmail($nome, $email)
         $mail->Password = 'zolp wzgo pvcr ucpb';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-
         $mail->setFrom('pedrooosxz@gmail.com', 'php bonito');
         $mail->addAddress($email);
-
         $mail->isHTML(true);
         $mail->Subject = 'hmmm php';
         $mail->Body = $email_body;
-        $mail->AltBody = 'Este é o corpo do e-mail em texto plano, para clientes de e-mail sem suporte a HTML';
-
         $mail->send();
-
         return true;
     } catch (Exception $e) {
         return false;

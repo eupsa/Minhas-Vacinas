@@ -1,20 +1,15 @@
-<?php
-require '../../backend/reset-password.php';
-VefToken($pdo);
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="../../../assets/img/img-web.png" type="image/x-icon">
+    <link rel="stylesheet" href="forgot_password.css">
+    <link rel="icon" href="../../../../assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <title>Recuperação de Senha</title>
+    <title>Vacinas - Recuperação</title>
 </head>
 
 <body>
@@ -22,7 +17,7 @@ VefToken($pdo);
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="/index.html">
-                    <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
+                    <img src="../../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,11 +31,13 @@ VefToken($pdo);
                         <li class="nav-item">
                             <a class="nav-link" href="/index.html#nossa-missao">Sobre</a>
                         </li>
-
-                        <!-- ADD O MODAL DE SUPORTE EMBAIXO-->
-
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Suporte</a>
+                            <a class="nav-link" href="../../../campaigns/index.html">Campanhas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../../../support/support.php" class="nav-link">
+                                Suporte
+                            </a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
@@ -49,14 +46,14 @@ VefToken($pdo);
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="">
                                         <img src="https://api.iconify.design/logos:apple-app-store.svg" alt="App Store"
                                             style="width: 20px; height: 20px;" class="me-2">
                                         App Store
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="">
                                         <img src="https://api.iconify.design/logos:google-play-icon.svg"
                                             alt="Google Play" style="width: 20px; height: 20px;" class="me-2">
                                         Google Play
@@ -65,61 +62,31 @@ VefToken($pdo);
                             </ul>
                         </li>
                     </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="btn btn-outline-light btn-login" href="../../register/index.php">CADASTRE-SE</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="btn btn-light btn-login" href="../index.php">LOGIN</a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </nav>
     </header>
 
-    <section class="form-resetPassword">
+    <section class="form-log">
         <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
             <div class="row w-100">
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                    <form action="../backend/reset-password.php"
-                        class="needs-validation bg-light p-5 rounded shadow-lg" id="formResetPassword" method="post"
-                        novalidate>
-                        <h4 class="mb-4 text-center">Crie sua nova senha</h4>
+                    <form action="../../../backend/forgot_password.php" class="needs-validation bg-light p-5 rounded shadow-lg"
+                        id="form_recovery" method="post" novalidate>
+                        <h4 class="mb-4 text-center">Redefina sua senha</h4>
+                        <div id="passwordHelpBlock" class="form-text">
+                            Após o envio do formulário você receberá um e-mail com instruções para redefinir sua senha.
+                        </div><br>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Seu E-Mail</label>
-                            <input type="email" class="form-control" id="email" name="email" required name="email"
-                                value="<?php echo isset($email) ? : ''; ?>"
-                                disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Crie sua senha</label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="senha" name="senha">
-                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                    <i class="bi bi-eye"></i>
-                                </button>
-                                <div class="invalid-feedback">Por favor, insira uma senha.</div>
-                            </div>
-                            <div id="passwordHelpBlock" class="form-text">
-                                Sua senha deve ter de 8 a 20 caracteres, conter letras e números e não deve conter
-                                espaços, caracteres especiais ou emojis.
+                            <label for="email" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email" required name="email" autocomplete="off">
+                            <div class="mt-2 text-end">
+                                <a href="../login/login.php" class="text-muted">
+                                    <i class="bi bi-question-circle me-1"></i> Voltar para login?
+                                </a>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="password2" class="form-label">Confirme sua senha</label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="confSenha" name="confSenha">
-                                <button class="btn btn-outline-secondary" type="button" id="ConftogglePassword">
-                                    <i class="bi bi-eye"></i>
-                                </button>
-                                <div class="invalid-feedback">Por favor, insira uma senha.</div>
-                            </div>
-                        </div>
-                        <br>
-                        <button class="btn btn-primary w-100" type="submit">Mudar senha</button>
+                        <button class="btn btn-primary w-100" type="submit">Enviar e-mail</button>
                     </form>
                     <hr class="custom-hr">
                 </div>
@@ -143,8 +110,8 @@ VefToken($pdo);
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
-    <script src="../../../assets/js/sweetalert2.js"></script>
+    <script src="forgot_password.js"></script>
+    <script src="../../../../assets/js/sweetalert2.js"></script>
 </body>
 
 </html>
