@@ -1,3 +1,78 @@
+<?php
+require '../../../backend/scripts/conn.php';
+
+$senha = $_POST['senha'];
+$confsenha = $_POST['confSenha'];
+
+if (isset($_GET['token'])) {
+    $token = $_GET['token'];
+    $sql = $pdo->prepare("SELECT * FROM redefinicaoSenha WHERE token = :token");
+    $sql->bindValue(':token', $token);
+    $sql->execute();
+
+    if ($sql->rowCount() === 1) {
+        $redefinicao = $sql->fetch(PDO::FETCH_ASSOC);
+        $email = $redefinicao['email'];
+        $dataExpiracao = $redefinicao['dataExpiracao'];
+
+        if (date('Y-m-d H:i:s', strtotime($dataExpiracao)) > date('Y-m-d H:i:s')) {
+            if (empty($senha) || empty($confsenha)) {
+                $retorna = ['status' => false, 'msg' => "Preencha todos os campos."];
+                header('Content-Type: application/json');
+                echo json_encode($retorna);
+                exit;
+            } else {
+                if ($senha === $confsenha) {
+                    try {
+                        $senhaHash = hash('sha256', $senha);
+                        $sql = $pdo->prepare("UPDATE usuario SET senha = :senha WHERE email = :email");
+                        $sql->bindValue(':senha', $senhaHash);
+                        $sql->bindValue(':email', $email);
+                        $sql->execute();
+
+                        $sql = $pdo->prepare("DELETE FROM redefinicaoSenha WHERE token = :token");
+                        $sql->bindValue(':token', $token);
+                        $sql->execute();
+
+                        $retorna = ['status' => true, 'msg' => "Senha alterada com sucesso!"];
+                        header('Content-Type: application/json');
+                        echo json_encode($retorna);
+                        exit;
+                    } catch (PDOException $e) {
+                        $retorna = ['status' => false, 'msg' => "Erro ao atualizar a senha: " . $e->getMessage()];
+                        header('Content-Type: application/json');
+                        echo json_encode($retorna);
+                        exit;
+                    }
+                } else {
+                    $retorna = ['status' => false, 'msg' => "As senhas precisam ser iguais."];
+                    header('Content-Type: application/json');
+                    echo json_encode($retorna);
+                    exit;
+                }
+            }
+        } else {
+            $retorna = ['status' => false, 'msg' => "O link de redefinição de senha expirou."];
+            header('Content-Type: application/json');
+            echo json_encode($retorna);
+            exit;
+        }
+    } else {
+        $retorna = ['status' => false, 'msg' => "Token inválido."];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit;
+    }
+} else {
+    $retorna = ['status' => false, 'msg' => "Token não encontrado."];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit;
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -36,7 +111,7 @@
         <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
             <div class="row w-100">
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                    <form action="../backend/reset-password.php"
+                    <form action="reset_password.php"
                         class="needs-validation bg-light p-5 rounded shadow-lg" id="form_reset" method="post"
                         novalidate>
                         <h4 class="mb-4 text-center">Crie sua senha</h4>
