@@ -60,7 +60,7 @@ if (form_reset) {
 
     // const dados = await fetch("../../../backend/new_password.php",
 
-    const dados = await fetch("reset_password.php", {
+    const dados = await fetch("new_password.php", {
       method: "POST",
       body: dadosForm,
     });

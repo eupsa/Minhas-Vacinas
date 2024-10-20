@@ -1,85 +1,10 @@
-<?php
-require '../../../backend/scripts/conn.php';
-
-$senha = $_POST['senha'];
-$confsenha = $_POST['confSenha'];
-
-if (isset($_GET['token'])) {
-    $token = $_GET['token'];
-    $sql = $pdo->prepare("SELECT * FROM redefinicaoSenha WHERE token = :token");
-    $sql->bindValue(':token', $token);
-    $sql->execute();
-
-    if ($sql->rowCount() === 1) {
-        $redefinicao = $sql->fetch(PDO::FETCH_ASSOC);
-        $email = $redefinicao['email'];
-        $dataExpiracao = $redefinicao['dataExpiracao'];
-
-        if (date('Y-m-d H:i:s', strtotime($dataExpiracao)) > date('Y-m-d H:i:s')) {
-            if (empty($senha) || empty($confsenha)) {
-                $retorna = ['status' => false, 'msg' => "Preencha todos os campos."];
-                header('Content-Type: application/json');
-                echo json_encode($retorna);
-                exit;
-            } else {
-                if ($senha === $confsenha) {
-                    try {
-                        $senhaHash = hash('sha256', $senha);
-                        $sql = $pdo->prepare("UPDATE usuario SET senha = :senha WHERE email = :email");
-                        $sql->bindValue(':senha', $senhaHash);
-                        $sql->bindValue(':email', $email);
-                        $sql->execute();
-
-                        $sql = $pdo->prepare("DELETE FROM redefinicaoSenha WHERE token = :token");
-                        $sql->bindValue(':token', $token);
-                        $sql->execute();
-
-                        $retorna = ['status' => true, 'msg' => "Senha alterada com sucesso!"];
-                        header('Content-Type: application/json');
-                        echo json_encode($retorna);
-                        exit;
-                    } catch (PDOException $e) {
-                        $retorna = ['status' => false, 'msg' => "Erro ao atualizar a senha: " . $e->getMessage()];
-                        header('Content-Type: application/json');
-                        echo json_encode($retorna);
-                        exit;
-                    }
-                } else {
-                    $retorna = ['status' => false, 'msg' => "As senhas precisam ser iguais."];
-                    header('Content-Type: application/json');
-                    echo json_encode($retorna);
-                    exit;
-                }
-            }
-        } else {
-            $retorna = ['status' => false, 'msg' => "O link de redefinição de senha expirou."];
-            header('Content-Type: application/json');
-            echo json_encode($retorna);
-            exit;
-        }
-    } else {
-        $retorna = ['status' => false, 'msg' => "Token inválido."];
-        header('Content-Type: application/json');
-        echo json_encode($retorna);
-        exit;
-    }
-} else {
-    $retorna = ['status' => false, 'msg' => "Token não encontrado."];
-    header('Content-Type: application/json');
-    echo json_encode($retorna);
-    exit;
-}
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="reset_password.css">
+    <link rel="stylesheet" href="new_password.css">
     <link rel="icon" href="../../../../assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -163,7 +88,7 @@ if (isset($_GET['token'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="reset_password.js"></script>
+    <script src="new_password.js"></script>
     <script src="../../../../assets/js/sweetalert2.js"></script>
 </body>
 

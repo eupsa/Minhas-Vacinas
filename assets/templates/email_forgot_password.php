@@ -496,7 +496,7 @@ require('../../src\backend\scripts\const.php')
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                               <tr>
                                 <td align="center">
-                                  <a href="http://localhost:8091/src/account/auth/reset_password/reset_password.php?token={{token}}" class="f-fallback button" target="_blank">Mude sua senha</a>
+                                  <a href="http://localhost:8091/src/account/auth/new_password/new_password?token={{token}}" class="f-fallback button" target="_blank">Mude sua senha</a>
                               </tr>
                             </table>
                           </td>
