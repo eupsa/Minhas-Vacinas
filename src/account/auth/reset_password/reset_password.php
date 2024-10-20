@@ -1,5 +1,5 @@
 <?php
-require '../../../backend/reset-password.php';
+require '../../../backend/new_password.php';
 VefToken($pdo);
 ?>
 
@@ -9,7 +9,7 @@ VefToken($pdo);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="forgot_password.css">
+    <link rel="stylesheet" href="reset_password.css">
     <link rel="icon" href="../../../../assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -42,13 +42,13 @@ VefToken($pdo);
             <div class="row w-100">
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
                     <form action="../backend/reset-password.php"
-                        class="needs-validation bg-light p-5 rounded shadow-lg" id="formResetPassword" method="post"
+                        class="needs-validation bg-light p-5 rounded shadow-lg" id="form_reset" method="post"
                         novalidate>
-                        <h4 class="mb-4 text-center">Crie sua nova senha</h4>
+                        <h4 class="mb-4 text-center">Crie sua senha</h4>
                         <div class="mb-3">
                             <label for="email" class="form-label">Seu E-Mail</label>
-                            <input type="email" class="form-control" id="email" name="email" required name="email"
-                                value="<?php echo isset($email) ?: ''; ?>"
+                            <input type="email" class="form-control" id="email" name="email" required
+                                value="<?php echo isset($email) ? $email : ''; ?>"
                                 disabled>
                         </div>
                         <div class="mb-3">
@@ -72,11 +72,10 @@ VefToken($pdo);
                                 <button class="btn btn-outline-secondary" type="button" id="ConftogglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
-                                <div class="invalid-feedback">Por favor, insira uma senha.</div>
                             </div>
                         </div>
                         <br>
-                        <button class="btn btn-primary w-100" type="submit">Mudar senha</button>
+                        <button class="btn btn-primary w-100" type="submit">Criar senha</button>
                     </form>
                     <hr class="custom-hr">
                 </div>
@@ -100,7 +99,7 @@ VefToken($pdo);
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="forgot_password.js"></script>
+    <script src="reset_password.js"></script>
     <script src="../../../../assets/js/sweetalert2.js"></script>
 </body>
 

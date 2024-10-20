@@ -44,14 +44,24 @@ CREATE TABLE IF NOT EXISTS redefinicaoSenha (
     FOREIGN KEY (email) REFERENCES usuario(email) ON DELETE CASCADE
 );
 
-/*
 
-INSERT INTO usuario (nome, email, estado, senha, emailConf, idade, genero, cpf, telefone, cidade)
-VALUES 
-('Pedro', 'viskp2537@gmail.com', 'BA', SHA2('Chicote1@', 256), 1, 17, 'Masculino', '123.456.789-09', '(71) 98344-2945', 'Salvador');
+-- INSERT INTO usuario (nome, email, estado, senha, emailConf, idade, genero, cpf, telefone, cidade)
+-- VALUES 
+-- ('Pedro', 'viskp25a37a@gmail.com', 'BA', SHA2('Chicote1@', 256), 1, 17, 'Masculino', '123.126.789-09', '(71) 98344-2945', 'Salvador');
 
-#select , estado, emailConf, , , , telefone, cidade from usuario where email = 'joao.silva@example.com';
+-- -------------------------------------------------------
 
-UPDATE usuario SET nome = 'Paula', estado = 'SP' WHERE idUsuarios = 4
+-- select , estado, emailConf, , , , telefone, cidade from usuario where email = 'joao.silva@example.com';
 
-*/
+-- UPDATE usuario SET nome = 'Paula', estado = 'SP' WHERE idUsuarios = 4
+
+
+-- DELETE FROM usuario WHERE email = 'viskp2537@gmail.com';
+
+-- DELETE FROM usuario;
+
+-- SET SQL_SAFE_UPDATES = 0;
+
+-- SET @@global.time_zone = '+3:00';
+
+-- SELECT @@global.time_zone, @@session.time_zone;

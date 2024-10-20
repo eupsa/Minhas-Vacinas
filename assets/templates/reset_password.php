@@ -1,6 +1,7 @@
 <?php
 include('../../../methods/const.php');
 require('../../src\backend\scripts\const.php')
+
 ?>
 
 <!DOCTYPE html
@@ -484,25 +485,26 @@ require('../../src\backend\scripts\const.php')
                 <tr>
                   <td class="content-cell">
                     <div class="f-fallback">
-                      <h1>aqui seu codigo, {{nome}}!</h1>
-                      <p>pega seu codigo ai</p>
+                      <h1>Sua senha foi alterada</h1>
+                      <p>Estamos escrevendo para informá-lo de que sua senha foi alterada com sucesso. Para garantir a segurança da sua conta, por favor, mantenha essa informação em um local seguro.</p>
                       <!-- Action -->
                       <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0"
                         role="presentation">
                         <tr>
+                          <!-- <p>Após confirmar seu cadastro, aqui estão algumas informações importantes para você:</p> -->
                           <td align="center">
                             <!-- Border based button
            https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                               <tr>
                                 <td align="center">
-                                  <a href="http://localhost:8091/src/account/auth/reset_password/reset_password.php?token={{token}}" class="f-fallback button" target="_blank">Mude sua senha</a>
+                                  <a href="{{action_url}}" class="f-fallback button" target="_blank">Se não foi você clique aqui</a>
+                                </td>
                               </tr>
                             </table>
                           </td>
                         </tr>
                       </table>
-                      <p>insira o codigo la</p>
                       <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                         <tr>
                           <td class="attributes_content">
@@ -510,10 +512,15 @@ require('../../src\backend\scripts\const.php')
                               <tr>
                                 <td class="attributes_item">
                                   <span class="f-fallback">
-                                    <strong>seu condigo vence ta</strong>
+                                    <strong>Página de Login:</strong>
+                                    <a
+                                      href="<?= URL; ?>"
+                                      target="_blank"><?= URL; ?></a>
                                   </span>
                                 </td>
                               </tr>
+                              <tr>
+                                <td class="attributes_item">
                             </table>
                           </td>
                         </tr>

@@ -33,7 +33,7 @@ if (empty($email)) {
             $sql->bindValue(':dataExpiracao', $expiry);
             $sql->execute();
             enviarEmail($nome, $email, $token);
-            $retorna = ['status' => false, 'msg' => "enviou"];
+            $retorna = ['status' => true, 'msg' => "enviou"];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit;
