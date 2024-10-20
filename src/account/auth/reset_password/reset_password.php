@@ -1,8 +1,3 @@
-<?php
-require '../../../backend/new_password.php';
-VefToken($pdo);
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -45,12 +40,6 @@ VefToken($pdo);
                         class="needs-validation bg-light p-5 rounded shadow-lg" id="form_reset" method="post"
                         novalidate>
                         <h4 class="mb-4 text-center">Crie sua senha</h4>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Seu E-Mail</label>
-                            <input type="email" class="form-control" id="email" name="email" required
-                                value="<?php echo isset($email) ? $email : ''; ?>"
-                                disabled>
-                        </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Crie sua senha</label>
                             <div class="input-group">
