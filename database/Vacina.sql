@@ -45,6 +45,8 @@ CREATE TABLE IF NOT EXISTS redefinicaoSenha (
 );
 
 
+#SELECT * FROM usuario WHERE email = 'pedruuu291@gmail.com' AND senha = SHA2('Chicote1@', 256) AND emailConf = 0;
+
 -- INSERT INTO usuario (nome, email, estado, senha, emailConf, idade, genero, cpf, telefone, cidade)
 -- VALUES 
 -- ('Pedro', 'viskp25a37a@gmail.com', 'BA', SHA2('Chicote1@', 256), 1, 17, 'Masculino', '123.126.789-09', '(71) 98344-2945', 'Salvador');

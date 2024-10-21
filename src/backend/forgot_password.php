@@ -55,6 +55,7 @@ function enviarEmail($nome, $email, $token)
 {
     $email_body = file_get_contents('../../assets/templates/email_forgot_password.php');
     $email_body = str_replace('{{nome}}', $nome, $email_body);
+    $email_body = str_replace('{{email}}', $email, $email_body);
     $email_body = str_replace('{{token}}', $token, $email_body);
     $mail = new PHPMailer(true);
 
@@ -66,10 +67,11 @@ function enviarEmail($nome, $email, $token)
         $mail->Password = 'zolp wzgo pvcr ucpb';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom('pedrooosxz@gmail.com', 'muda senha poha');
+        $mail->setFrom('pedrooosxz@gmail.com', 'Redefinição de Senha');
         $mail->addAddress($email);
         $mail->isHTML(true);
-        $mail->Subject = 'ivadiru';
+        $mail->CharSet = 'UTF-8';
+        $mail->Subject = 'Solicitação de Redefinição de Senha';
         $mail->Body = $email_body;
         $mail->AltBody = 'Este é o corpo do e-mail em texto plano, para clientes de e-mail sem suporte a HTML';
         $mail->send();

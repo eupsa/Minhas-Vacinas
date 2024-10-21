@@ -18,6 +18,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         try {
             $senhaHash = hash('sha256', $senha);
             $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email AND senha = :senha");
+            // $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email AND senha = :senha AND emailConf = 1");
             $sql->bindValue(':email', $email);
             $sql->bindValue(':senha', $senhaHash);
             $sql->execute();
@@ -31,7 +32,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
             } else {
-                $retorna = ['status' => false, 'msg' => "Usuário ou senha incorretos."];
+                $retorna = ['status' => false, 'msg' => "Usuário ou senha incorretos ou Cadastro não confirmado."];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
                 exit;

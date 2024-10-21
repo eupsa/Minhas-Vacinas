@@ -462,8 +462,8 @@ require('../../src\backend\scripts\const.php')
 </head>
 
 <body>
-  <span class="preheader">Obrigado por experimentar o Vacinas. Estamos muito felizes em ter você a bordo! Para
-    aproveitar ao máximo o Vacinas, aqui está o próximo passo importante:</span>
+  <!-- <span class="preheader">Obrigado por experimentar o Vacinas. Estamos muito felizes em ter você a bordo! Para
+    aproveitar ao máximo o Vacinas, aqui está o próximo passo importante:</span> -->
   <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
     <tr>
       <td align="center">
@@ -484,8 +484,8 @@ require('../../src\backend\scripts\const.php')
                 <tr>
                   <td class="content-cell">
                     <div class="f-fallback">
-                      <h1>aqui seu codigo, {{nome}}!</h1>
-                      <p>pega seu codigo ai</p>
+                      <h1>Olá, {{nome}}!</h1>
+                      <p>Recebemos uma solicitação para alterar a senha associada ao seu e-mail {{email}}. Se você fez essa solicitação, por favor, clique no link abaixo para redefinir sua senha:</p>
                       <!-- Action -->
                       <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0"
                         role="presentation">
@@ -496,13 +496,13 @@ require('../../src\backend\scripts\const.php')
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                               <tr>
                                 <td align="center">
-                                  <a href="http://localhost:8091/src/account/auth/new_password/new_password?token={{token}}" class="f-fallback button" target="_blank">Mude sua senha</a>
+                                  <a href="http://localhost:8091/src/account/auth/new_password/new_password?token={{token}}" class="f-fallback button" target="_blank">Redefinir Senha</a>
                               </tr>
                             </table>
                           </td>
                         </tr>
                       </table>
-                      <p>insira o codigo la</p>
+                      <p>Se você não solicitou a alteração de senha, ignore este e-mail. Sua conta permanecerá segura.</p>
                       <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                         <tr>
                           <td class="attributes_content">
@@ -510,7 +510,8 @@ require('../../src\backend\scripts\const.php')
                               <tr>
                                 <td class="attributes_item">
                                   <span class="f-fallback">
-                                    <strong>seu condigo vence ta</strong>
+                                    <p>Atenciosamente</p>
+                                    <strong>Equipe de Suporte - Vacinas</strong>
                                   </span>
                                 </td>
                               </tr>

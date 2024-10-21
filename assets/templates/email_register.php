@@ -463,8 +463,6 @@ require('../../src\backend\scripts\const.php')
 </head>
 
 <body>
-  <span class="preheader">Obrigado por experimentar o Vacinas. Estamos muito felizes em ter você a bordo! Para
-    aproveitar ao máximo o Vacinas, aqui está o próximo passo importante:</span>
   <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
     <tr>
       <td align="center">
@@ -472,7 +470,6 @@ require('../../src\backend\scripts\const.php')
           <tr>
             <td class="email-masthead">
               <a href="content.html" class="f-fallback email-masthead_name">
-                VACINAS
               </a>
             </td>
           </tr>
@@ -485,9 +482,8 @@ require('../../src\backend\scripts\const.php')
                 <tr>
                   <td class="content-cell">
                     <div class="f-fallback">
-                      <h1>Bem-vindo(a), {{nome}}!</h1>
-                      <p>Obrigado por experimentar o Vacinas. Estamos muito felizes em ter você a bordo! Para aproveitar
-                        ao máximo o Vacinas, aqui está o próximo passo importante:</p>
+                      <h1>Olá, {{nome}}!</h1>
+                      <p>Bem-vindo(a) ao Vacinas! Estamos muito felizes por tê-lo(a) conosco. Para concluir o seu cadastro e começar a utilizar nossos serviços, por favor, clique no botão abaixo:</p>
                       <!-- Action -->
                       <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0"
                         role="presentation">
@@ -498,15 +494,14 @@ require('../../src\backend\scripts\const.php')
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                               <tr>
                                 <td align="center">
-                                  <a href="{{action_url}}" class="f-fallback button" target="_blank">Confirme seu
-                                    cadastro</a>
+                                  <a href="localhost:8091/src/backend/conf_register.php?emailConf={{action_url}}" class="f-fallback button" target="_blank">Confirmar cadastro (ainda n tá on)</a>
                                 </td>
                               </tr>
                             </table>
                           </td>
                         </tr>
                       </table>
-                      <p>Após confirmar seu cadastro, aqui estão algumas informações importantes para você:</p>
+                      <p>Se você não se cadastrou em nossa plataforma, ignore este e-mail.</p>
                       <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                         <tr>
                           <td class="attributes_content">
@@ -514,18 +509,11 @@ require('../../src\backend\scripts\const.php')
                               <tr>
                                 <td class="attributes_item">
                                   <span class="f-fallback">
-                                    <strong>Página de Login:</strong>
-                                    <a
-                                      href="<?= URL; ?>"
-                                      target="_blank"><?= URL; ?></a>
+                                    <p>Atenciosamente</p>
+                                    <strong>Equipe de Suporte - Vacinas</strong>
                                   </span>
                                 </td>
                               </tr>
-                              <tr>
-                                <td class="attributes_item">
-                                  <span class="f-fallback">
-                                    <strong>Email:</strong> {{email}}
-                                  </span>
                             </table>
                           </td>
                         </tr>
@@ -535,8 +523,8 @@ require('../../src\backend\scripts\const.php')
                 role="presentation">
                 <td class="content-cell" align="center">
                   <p class="f-fallback sub align-center">
-                    Vacinas, LLC
-                    <br>Vacinas.com.br
+                    Vacinas Agenci, LLC
+                    <br>http://vacinas.agenci.one/
                   </p>
                 </td>
           </tr>

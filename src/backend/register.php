@@ -24,16 +24,18 @@ if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($c
 } else {
     if ($senha === $confsenha) {
         try {
+            $emailConf = bin2hex(random_bytes(50));
             $senhaHash = hash('sha256', $senha);
-            $sql = $pdo->prepare("INSERT INTO usuario (nome, email, estado, senha) VALUES (:nome, :email, :estado, :senha)");
+            $sql = $pdo->prepare("INSERT INTO usuario (nome, email, estado, senha, emailConf) VALUES (:nome, :email, :estado, :senha, :emailConf)");
             $sql->bindValue(':nome', $nome);
             $sql->bindValue(':email', $email);
             $sql->bindValue(':estado', $estado);
             $sql->bindValue(':senha', $senhaHash);
+            $sql->bindValue(':emailConf', $emailConf);
             $sql->execute();
 
             if ($sql->rowCount() ===  1) {
-                enviarEmail($nome, $email);
+                enviarEmail($nome, $email, $emailConf);
                 $retorna = ['status' => true, 'msg' => "Usuário cadastrado com sucesso!"];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
@@ -87,10 +89,10 @@ if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($c
     }
 }
 
-function enviarEmail($nome, $email)
+function enviarEmail($nome, $email, $emailConf)
 {
     $email_body = file_get_contents('../../assets/templates/email_register.php');
-    $action_url = 'apple.com';
+    $action_url = $emailConf;
     $email_body = str_replace('{{nome}}', $nome, $email_body);
     $email_body = str_replace('{{email}}', $email, $email_body);
     $email_body = str_replace('{{action_url}}', $action_url, $email_body);
@@ -104,10 +106,11 @@ function enviarEmail($nome, $email)
         $mail->Password = 'zolp wzgo pvcr ucpb';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom('pedrooosxz@gmail.com', 'php bonito');
+        $mail->setFrom('pedrooosxz@gmail.com', 'Bem-Vindo ao Vacinas!');
         $mail->addAddress($email);
         $mail->isHTML(true);
-        $mail->Subject = 'hmmm php';
+        $mail->CharSet = 'UTF-8';
+        $mail->Subject = 'Confirmação de Cadastro';
         $mail->Body = $email_body;
         $mail->send();
         return true;
