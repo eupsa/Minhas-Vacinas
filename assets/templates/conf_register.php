@@ -481,25 +481,23 @@ require '../../src/backend/scripts/const.php';
                   <td class="content-cell">
                     <div class="f-fallback">
                       <h1>Olá, {{nome}}!</h1>
-                      <p>Bem-vindo(a) ao Vacinas! Estamos muito felizes por tê-lo(a) conosco. Para concluir o seu cadastro e começar a utilizar nossos serviços, por favor, clique no botão abaixo:</p>
-                      <!-- Action -->
+                      <p>Parabéns! Seu cadastro foi confirmado com sucesso!<br>
+                        Agradecemos por se juntar a nós. Agora você pode explorar todas as nossas funcionalidades.<br>
+                        Se precisar de assistência, não hesite em nos contatar.</p>
                       <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0"
                         role="presentation">
                         <tr>
                           <td align="center">
-                            <!-- Border based button
-           https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                               <tr>
                                 <td align="center">
-                                  <a href="http://vacinas.agenci.one/src/account/auth/conf_register/conf.php" class="f-fallback button" target="_blank">Confirmar cadastro</a>
+                                  <a href="http://vacinas.agenci.one/src/account/auth/login/login.php" class="f-fallback button" target="_blank">Entre na sua conta</a>
                                 </td>
                               </tr>
                             </table>
                           </td>
                         </tr>
                       </table>
-                      <p>Se você não se cadastrou em nossa plataforma, ignore este e-mail.</p>
                       <table class="attributes" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                         <tr>
                           <td class="attributes_content">

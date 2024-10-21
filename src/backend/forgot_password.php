@@ -4,6 +4,7 @@ require '../../vendor\phpmailer\phpmailer\src\Exception.php';
 require '../../vendor\phpmailer\phpmailer\src\SMTP.php';
 require '../../vendor\autoload.php';
 require '../backend/scripts/conn.php';
+require '../backend/scripts/const.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -12,7 +13,7 @@ $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = strtolower(trim($dados['email']));
 
 if (empty($email)) {
-    $retorna = ['status' => false, 'msg' => "Por favor, complete todos os campos."];
+    $retorna = ['status' => false, 'msg' => "Todos os campos devem ser preenchidos."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
@@ -38,7 +39,7 @@ if (empty($email)) {
             echo json_encode($retorna);
             exit;
         } else {
-            $retorna = ['status' => false, 'msg' => "Usuário não encontrado."];
+            $retorna = ['status' => false, 'msg' => "O usuário informado não foi encontrado em nosso sistema."];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit;
@@ -63,11 +64,11 @@ function enviarEmail($nome, $email, $token)
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'pedrooosxz@gmail.com';
-        $mail->Password = 'zolp wzgo pvcr ucpb';
+        $mail->Username = '<?= email ?>';
+        $mail->Password = '<?= senha ?>';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom('pedrooosxz@gmail.com', 'Redefinição de Senha');
+        $mail->setFrom('<?= email ?>', 'Redefinição de Senha');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';

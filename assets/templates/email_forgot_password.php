@@ -1,6 +1,5 @@
 <?php
-include('../../../methods/const.php');
-require('../../src\backend\scripts\const.php')
+require '../../src/backend/scripts/const.php';
 ?>
 
 <!DOCTYPE html
@@ -475,28 +474,23 @@ require('../../src\backend\scripts\const.php')
               </a>
             </td>
           </tr>
-          <!-- Email Body -->
           <tr>
             <td class="email-body" width="570" cellpadding="0" cellspacing="0">
               <table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0"
                 role="presentation">
-                <!-- Body content -->
                 <tr>
                   <td class="content-cell">
                     <div class="f-fallback">
                       <h1>Olá, {{nome}}!</h1>
                       <p>Recebemos uma solicitação para alterar a senha associada ao seu e-mail {{email}}. Se você fez essa solicitação, por favor, clique no link abaixo para redefinir sua senha:</p>
-                      <!-- Action -->
                       <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0"
                         role="presentation">
                         <tr>
                           <td align="center">
-                            <!-- Border based button
-           https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                               <tr>
                                 <td align="center">
-                                  <a href="http://localhost:8091/src/account/auth/new_password/new_password?token={{token}}" class="f-fallback button" target="_blank">Redefinir Senha</a>
+                                  <a href="http://vacinas.agenci.one/src/account/auth/new_password/new_password.php" class="f-fallback button" target="_blank">Redefinir Senha</a>
                               </tr>
                             </table>
                           </td>

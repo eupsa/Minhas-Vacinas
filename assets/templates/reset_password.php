@@ -1,7 +1,5 @@
 <?php
-include('../../../methods/const.php');
-require('../../src\backend\scripts\const.php')
-
+require '../../src/backend/scripts/const.php';
 ?>
 
 <!DOCTYPE html
@@ -491,15 +489,11 @@ require('../../src\backend\scripts\const.php')
                       <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0"
                         role="presentation">
                         <tr>
-                          <!-- <p>Após confirmar seu cadastro, aqui estão algumas informações importantes para você:</p> -->
                           <td align="center">
                             <!-- Border based button
            https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                               <tr>
-                                <td align="center">
-                                  <a href="{{action_url}}" class="f-fallback button" target="_blank">Se não foi você clique aqui</a>
-                                </td>
                               </tr>
                             </table>
                           </td>
@@ -510,17 +504,11 @@ require('../../src\backend\scripts\const.php')
                           <td class="attributes_content">
                             <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
                               <tr>
-                                <td class="attributes_item">
-                                  <span class="f-fallback">
-                                    <strong>Página de Login:</strong>
-                                    <a
-                                      href="<?= URL; ?>"
-                                      target="_blank"><?= URL; ?></a>
-                                  </span>
+                                <td align="center">
+                                  <a href="http://vacinas.agenci.one/src/account/auth/login/login.php" class="f-fallback button" target="_blank">Entre na sua conta</a>
                                 </td>
                               </tr>
-                              <tr>
-                                <td class="attributes_item">
+                              <td class="attributes_item">
                             </table>
                           </td>
                         </tr>

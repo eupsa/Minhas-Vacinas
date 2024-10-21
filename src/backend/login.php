@@ -10,15 +10,15 @@ $senha = $dados['senha'];
 
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     if (empty($email) || empty($senha)) {
-        $retorna = ['status' => false, 'msg' => "Preencha todos os campos"];
+        $retorna = ['status' => false, 'msg' => "Todos os campos devem ser preenchidos."];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();
     } else {
         try {
             $senhaHash = hash('sha256', $senha);
-            $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email AND senha = :senha");
-            // $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email AND senha = :senha AND emailConf = 1");
+            //$sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email AND senha = :senha");
+            $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email AND senha = :senha AND emailConf = 1");
             $sql->bindValue(':email', $email);
             $sql->bindValue(':senha', $senhaHash);
             $sql->execute();
@@ -28,24 +28,34 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $_SESSION['user_id'] = $usuario['idUsuarios'];
                 $_SESSION['user_nome'] = $usuario['nome'];
                 $_SESSION['user_email'] = $usuario['email'];
-                $retorna = ['status' => true, 'msg' => "Login bem-sucedido!"];
-                header('Content-Type: application/json');
-                echo json_encode($retorna);
+                $emailConf = $usuario['emailConf'];
+
+                if ($emailConf !== 1) {
+                    $retorna = ['status' => false, 'msg' => "É necessário confirmar seu cadastro para acessar o sistema."];
+                    header('Content-Type: application/json');
+                    echo json_encode($retorna);
+                    exit;
+                } else {
+                    $retorna = ['status' => true, 'msg' => "Login bem-sucedido! Bem-vindo, " . htmlspecialchars($usuario['nome']) . "."];
+                    header('Content-Type: application/json');
+                    echo json_encode($retorna);
+                    exit;
+                }
             } else {
-                $retorna = ['status' => false, 'msg' => "Usuário ou senha incorretos ou Cadastro não confirmado."];
+                $retorna = ['status' => false, 'msg' => "As credenciais fornecidas estão incorretas ou o seu cadastro ainda não foi confirmado."];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
                 exit;
             }
         } catch (PDOException $e) {
-            $retorna = ['status' => false, 'msg' => "Erro ao logar: " . $e->getMessage()];
+            $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar fazer o login: " . $e->getMessage()];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit();
         }
     }
 } else {
-    $retorna = ['status' => false, 'msg' => "E-Mail inválido."];
+    $retorna = ['status' => false, 'msg' => "E-mail fornecido é inválido."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();

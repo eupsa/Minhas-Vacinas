@@ -45,18 +45,15 @@ CREATE TABLE IF NOT EXISTS redefinicaoSenha (
 );
 
 
-#SELECT * FROM usuario WHERE email = 'pedruuu291@gmail.com' AND senha = SHA2('Chicote1@', 256) AND emailConf = 0;
+-- SELECT * FROM usuario WHERE email = 'pedruuu291@gmail.com' AND senha = SHA2('Chicote1@', 256) AND emailConf = 0;
 
 -- INSERT INTO usuario (nome, email, estado, senha, emailConf, idade, genero, cpf, telefone, cidade)
 -- VALUES 
 -- ('Pedro', 'viskp25a37a@gmail.com', 'BA', SHA2('Chicote1@', 256), 1, 17, 'Masculino', '123.126.789-09', '(71) 98344-2945', 'Salvador');
 
--- -------------------------------------------------------
-
 -- select , estado, emailConf, , , , telefone, cidade from usuario where email = 'joao.silva@example.com';
 
 -- UPDATE usuario SET nome = 'Paula', estado = 'SP' WHERE idUsuarios = 4
-
 
 -- DELETE FROM usuario WHERE email = 'viskp2537@gmail.com';
 
@@ -67,3 +64,5 @@ CREATE TABLE IF NOT EXISTS redefinicaoSenha (
 -- SET @@global.time_zone = '+3:00';
 
 -- SELECT @@global.time_zone, @@session.time_zone;
+
+-- UPDATE usuario SET emailConf = 0 WHERE email = 'pedruuu291@gmail.com'
