@@ -238,40 +238,6 @@
         </div>
     </section>
 
-    <section id="modal-suporte">
-        <div class="modal fade" id="modalSuporte" tabindex="-1" aria-labelledby="modalSuporte" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalSuporte">Entre em Contato</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="src/backend/support.php" method="post">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="name" placeholder="Seu nome">
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">E-mail</label>
-                                <input type="email" class="form-control" id="email" placeholder="Seu e-mail">
-                            </div>
-                            <div class="mb-3">
-                                <label for="message" class="form-label">Mensagem</label>
-                                <textarea class="form-control" id="message" rows="3"
-                                    placeholder="Sua mensagem"></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary">Enviar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <footer class="footer text-center bg-dark text-white py-4">
         <div class="container">
             <div class="mb-3">
@@ -284,9 +250,9 @@
             </div>
             <div class="mb-3">
                 <p class="mb-1">Precisa de ajuda?</p>
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalSuporte">
+                <a href="src/support/support.php" class="btn btn-secondary">
                     Falar com o suporte
-                </button>
+                </a>
             </div>
             <div>
                 <p class="mb-0">© 2024 Vacinas - Todos os direitos reservados</p>

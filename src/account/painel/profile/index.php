@@ -1,5 +1,5 @@
 <?php
-require '../../backend/scripts/auth.php';
+require '../../../backend/scripts/auth.php';
 VefNoLogin();
 CreateSessions($pdo);
 ?>
@@ -11,7 +11,7 @@ CreateSessions($pdo);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="../../../assets/img/img-web.png" type="image/x-icon">
+    <link rel="icon" href="../../../../assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -24,7 +24,7 @@ CreateSessions($pdo);
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="/index.html">
-                    <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 60px;">
+                    <img src="../../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 60px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="sidebarToggle">

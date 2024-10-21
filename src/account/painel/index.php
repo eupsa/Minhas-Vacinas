@@ -80,7 +80,7 @@ CreateSessions($pdo);
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                         <!-- <li><a class="dropdown-item" href="">Novo projeto...</a></li>
                         <li><a class="dropdown-item" href="">Configurações</a></li> -->
-                        <li><a class="dropdown-item" href="profile/index.html">Perfil</a></li>
+                        <li><a class="dropdown-item" href="profile/index.php">Perfil</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
