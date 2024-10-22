@@ -93,6 +93,42 @@ CreateSessions($pdo);
     <section class="side-bar">
         <div class="content">
             <h1>Painel</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-syringe fa-3x"></i>
+                            <h5 class="card-title mt-3">Minhas Vacinas</h5>
+                            <a href="vaccines/index.html" class="btn btn-primary">Ver Vacinas</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-bullhorn fa-3x"></i>
+                            <h5 class="card-title mt-3">Campanhas Ativas</h5>
+                            <a href="/src/campaigns/index.html" class="btn btn-primary">Ver Campanhas</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="bi bi-person fa-3x"></i>
+                            <h5 class="card-title mt-3">Perfil</h5>
+                            <a href="profile/index.php" class="btn btn-primary">Ver Perfil</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
         </div>
         </div>
     </section>
@@ -106,6 +142,42 @@ CreateSessions($pdo);
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="assets/script.js"></script>
+    <script src="../../../assets/js/sweetalert2.min.js"></script>
+
 </body>
 
 </html>
+
+
+<!-- <div class="content">
+            <h1>Painel</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-syringe fa-3x"></i>
+                            <h5 class="card-title mt-3">Minhas Vacinas</h5>
+                            <a href="vaccines/index.html" class="btn btn-primary">Ver Vacinas</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-bullhorn fa-3x"></i>
+                            <h5 class="card-title mt-3">Campanhas Ativas</h5>
+                            <a href="/src/campaigns/index.html" class="btn btn-primary">Ver Campanhas</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="bi bi-person fa-3x"></i>
+                            <h5 class="card-title mt-3">Perfil</h5>
+                            <a href="profile/index.php" class="btn btn-primary">Ver Perfil</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
