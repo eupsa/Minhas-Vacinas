@@ -28,6 +28,7 @@ if (form_reset) {
 
     const senha = dadosForm.get("senha");
     const confSenha = dadosForm.get("confSenha");
+    const token = dadosForm.get("token");
 
     if (!senha || !confSenha) {
       Swal.fire({

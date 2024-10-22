@@ -9,7 +9,7 @@ require '../backend/scripts/const.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT); //verificar
 $nome = strtolower(trim($dados['nome']));
 $email = strtolower(trim($dados['email']));
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);

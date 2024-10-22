@@ -1,3 +1,10 @@
+<?php
+if (empty($_GET['token'])) {
+    // header('Location: ../index.php');
+    // exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -64,6 +71,7 @@
                             </div>
                         </div>
                         <br>
+                        <input type="hidden" name="token" value="<?php echo !empty($_GET['token']) ? $_GET['token'] : null; ?>">
                         <button class="btn btn-primary w-100" type="submit">Criar senha</button>
                     </form>
                     <hr class="custom-hr">

@@ -64,11 +64,11 @@ function enviarEmail($nome, $email, $token)
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = '<?= email ?>';
-        $mail->Password = '<?= senha ?>';
+        $mail->Username = 'equipevaccilife@gmail.com';
+        $mail->Password = 'sfii esho quah qkjd';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom('<?= email ?>', 'Redefinição de Senha');
+        $mail->setFrom('equipevaccilife@gmail.com', 'Redefinição de Senha');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';

@@ -61,8 +61,9 @@ CREATE TABLE IF NOT EXISTS redefinicaoSenha (
 
 -- SET SQL_SAFE_UPDATES = 0;
 
--- SET @@global.time_zone = '+3:00';
+SET @@global.time_zone = '-3:00';
 
--- SELECT @@global.time_zone, @@session.time_zone;
+SELECT @@global.time_zone, @@session.time_zone;
 
 -- UPDATE usuario SET emailConf = 0 WHERE email = 'pedruuu291@gmail.com'
+
