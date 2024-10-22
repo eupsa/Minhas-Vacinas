@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS usuario_vacina (
     PRIMARY KEY (idUsuario, idVacina),
     FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuarios) ON DELETE CASCADE,
     FOREIGN KEY (idVacina) REFERENCES vacina(idVacina) ON DELETE CASCADE
+    -- id adm
 );
 
 CREATE TABLE IF NOT EXISTS redefinicaoSenha (
