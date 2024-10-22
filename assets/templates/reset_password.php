@@ -461,8 +461,6 @@ require '../../src/backend/scripts/const.php';
 </head>
 
 <body>
-  <span class="preheader">Obrigado por experimentar o Vacinas. Estamos muito felizes em ter você a bordo! Para
-    aproveitar ao máximo o Vacinas, aqui está o próximo passo importante:</span>
   <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
     <tr>
       <td align="center">
