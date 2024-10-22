@@ -1,32 +1,44 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const sidebarToggle = document.getElementById("sidebarToggle");
-  const sidebar = document.querySelector(".sidebar");
+/**
+ * The easiest way to take a break at work.
+ * Just launch the fullscreen version here :
+ * http://emilienleroy.fr/codepen/wu/
+ * Press F11 and go take a coffee :p
+ *
+ * Follow me :D
+ * https://github.com/EmilienLeroy
+ * https://codepen.io/emilienleroy/
+ * https://twitter.com/EmilienLeroyIT
+ */
 
-  sidebarToggle.addEventListener("click", function () {
-    sidebar.classList.toggle("show");
-    sidebar.classList.toggle("hide");
-  });
-});
+//init percentage
+let percentage = 0;
+//init the current time
+let currentTime;
+//time of windows update in ms (default 5 min)
+let time = 500000;
+//refresh interval of the percentage in ms (default 1 seconde)
+let refresh = 1000;
 
-function toggleDarkMode() {
-  document.body.classList.toggle("dark-mode");
-}
+//on windows load
+window.onload = function () {
+  //get the begin current time
+  currentTime = time;
+  //start the loading
+  loading();
+};
 
-document.addEventListener("DOMContentLoaded", () => {
-  const darkModeSwitch = document.getElementById("darkModeSwitch");
+//infinite loop while the counter is not at zero
+function loading() {
+  //calucl the percentage time
+  currentTime = currentTime - refresh;
+  percentage = ((time - currentTime) * 100) / time;
 
-  if (localStorage.getItem("darkMode") === "enabled") {
-    document.body.classList.add("dark-mode");
-    darkModeSwitch.checked = true;
+  //display the percentage
+  document.querySelector("#update__percentage").innerHTML =
+    parseInt(percentage) + "% complete";
+
+  //is the time isn't finish reload the function
+  if (currentTime != 0) {
+    setTimeout(loading, refresh);
   }
-
-  darkModeSwitch.addEventListener("change", () => {
-    if (darkModeSwitch.checked) {
-      document.body.classList.add("dark-mode");
-      localStorage.setItem("darkMode", "enabled");
-    } else {
-      document.body.classList.remove("dark-mode");
-      localStorage.removeItem("darkMode");
-    }
-  });
-});
+}
