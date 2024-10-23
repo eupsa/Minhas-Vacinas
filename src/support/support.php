@@ -8,7 +8,7 @@
     <link rel="icon" href="../../../../assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Vacinas - Cadastro</title>
+    <title>Minhas Vacinas - Suporte</title>
 </head>
 
 <body>
@@ -109,14 +109,14 @@
         </div>
     </section>
 
-
-
-
-    <footer class="footer text-center">
+    <footer class="footer text-center py-3" style="background-color: #343a40; color: #fff;">
         <div class="container">
-            <p class="mb-0">© 2024 Vacinas - Todos os direitos reservados</p>
-            <a href="" class="text-white">Termos de Uso</a> |
-            <a href="" class="text-white">Política de Privacidade</a>
+            <p class="mb-1">© 2024 Vacinas - Todos os direitos reservados</p>
+            <div class="d-flex justify-content-center">
+                <a href="" class="text-white me-3">Termos de Uso</a>
+                <span>|</span>
+                <a href="" class="text-white ms-3">Política de Privacidade</a>
+            </div>
         </div>
     </footer>
 
