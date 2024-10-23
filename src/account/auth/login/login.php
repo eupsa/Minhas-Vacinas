@@ -1,6 +1,10 @@
 <?php
 require '../../../backend/scripts/auth.php';
-VefLogin();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ./../painel/index.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>

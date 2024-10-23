@@ -85,22 +85,18 @@
                         <div class="mb-3">
                             <label for="suporteNome" class="form-label">Nome</label>
                             <input type="text" class="form-control" id="suporteNome" name="suporteNome" required>
-                            <div class="invalid-feedback">Por favor, insira seu nome.</div>
                         </div>
                         <div class="mb-3">
                             <label for="suporteEmail" class="form-label">E-mail</label>
                             <input type="email" class="form-control" id="suporteEmail" name="suporteEmail" required>
-                            <div class="invalid-feedback">Por favor, insira um e-mail válido.</div>
                         </div>
                         <div class="mb-3">
-                            <label for="data" class="form-label">Data</label>
+                            <label for="data" class="form-label">Data do Ocorrido</label>
                             <input type="date" class="form-control" id="data" name="data" required>
-                            <div class="invalid-feedback">Por favor, selecione uma data.</div>
                         </div>
                         <div class="mb-3">
                             <label for="mensagem" class="form-label">Mensagem</label>
                             <textarea class="form-control" id="mensagem" name="mensagem" rows="3" required></textarea>
-                            <div class="invalid-feedback">Por favor, insira sua mensagem.</div>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Enviar</button>
                     </form>

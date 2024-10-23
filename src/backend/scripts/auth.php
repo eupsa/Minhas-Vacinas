@@ -5,7 +5,7 @@ session_start();
 function VefNoLogin()
 {
     if (!isset($_SESSION['user_id'])) {
-        header("Location: ../login/index.php");
+        header("Location: ../painel/index.php");
         exit();
     }
 }
@@ -37,14 +37,14 @@ function CreateSessions($pdo)
                 }
             } else {
                 session_destroy();
-                header("Location: ../login/index.php");
+                header("Location: ../painel/index.php");
                 exit();
             }
         } catch (PDOException $e) {
             echo "Erro: " . $e->getMessage();
         }
     } else {
-        header("Location:../login/index.php");
+        header("Location: ../painel/index.php");
         exit();
     }
 }

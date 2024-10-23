@@ -10,11 +10,11 @@ use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-$nome = strtolower(trim($dados['suporteNome'])); // Nome do campo
-$email = strtolower(trim($dados['suporteEmail'])); // E-mail do campo
+$nome = strtolower(trim($dados['suporteNome'])); 
+$email = strtolower(trim($dados['suporteEmail'])); 
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-$mensagem = trim($dados['mensagem']); // Mensagem do suporte
-$data = trim($dados['data']); // Capturando a data
+$mensagem = trim($dados['mensagem']); 
+$data = trim($dados['data']); 
 
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     if (empty($nome) || empty($email) || empty($mensagem) || empty($data)) {
