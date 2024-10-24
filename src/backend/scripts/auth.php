@@ -2,22 +2,24 @@
 require 'conn.php';
 session_start();
 
-function VefNoLogin()
+function SeNaoLogado()
 {
     if (!isset($_SESSION['user_id'])) {
-        header("Location: ../painel/index.php");
+        header("Location: ../../account/auth/login/login.php");
         exit();
     }
 }
 
-function VefLogin()
+function SeLogado()
 {
     if (isset($_SESSION['user_id'])) {
-        header("Location: ../painel/index.php");
+        header("Location: ../../painel/index.php");
         exit();
     }
 }
 
+
+// usada no perfil
 function CreateSessions($pdo)
 {
 

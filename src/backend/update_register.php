@@ -31,9 +31,7 @@ try {
     $sql->bindValue(':cidade', $cidade);
     $sql->bindValue(':id', $user_id);
 
-    // Executa a query
     if ($sql->execute()) {
-        // Atualiza os dados da sessão
         $_SESSION['user_nome'] = $nome;
         $_SESSION['user_data_nascimento'] = $data_nascimento;
         $_SESSION['user_telefone'] = $telefone;

@@ -1,6 +1,6 @@
 <?php
 require '../../../backend/scripts/auth.php';
-VefNoLogin();
+SeNaoLogado();
 CreateSessions($pdo);
 ?>
 
@@ -46,7 +46,7 @@ CreateSessions($pdo);
                         </a>
                     </li>
                     <li>
-                        <a href="../vaccines/index.html" class="nav-link text-white">
+                        <a href="../vaccines/index.php" class="nav-link text-white">
                             <i class="fas fa-syringe"></i> Vacinas
                         </a>
                     </li>
@@ -56,7 +56,7 @@ CreateSessions($pdo);
                         </a>
                     </li>
                     <li>
-                        <a href="index.html" class="nav-link active">
+                        <a href="index.php" class="nav-link active">
                             <i class="bi bi-person"></i> Conta
                         </a>
                     </li>
@@ -73,7 +73,7 @@ CreateSessions($pdo);
                         <span><?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="index.html">Perfil</a></li>
+                        <li><a class="dropdown-item" href="index.php">Conta</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

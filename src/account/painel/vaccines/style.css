@@ -1,90 +1,86 @@
-*{
-    padding: 0;
-    margin: 0;
+body {
+  padding-top: 80px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.update{
-    background-color: #005aa0;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.navbar {
+  background-color: #007bff;
 }
 
-.update__content{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.navbar-brand img {
+  height: 50px;
 }
 
-.update__spinner{
-    text-align: center;
-    margin: 20px;
+.nav-link {
+  color: white;
+  margin-right: 15px;
 }
 
-.update__text{
-    text-align: center;
-    color: #fbfdfd;
-    font-family: sans-serif;
-    font-size: 20px;
-    line-height: 30px;
+.nav-link:hover {
+  color: #f8f9fa;
 }
 
-.update__loader{
-    height: 50px;
-    width: 50px;
-    margin: 20px;
+.nav-link.active {
+  font-weight: bold;
+  color: #0d6efd;
 }
 
-.update__spinner{
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
-    position: absolute;
-    margin: 0;
-    animation-name: rotate;
-    animation-duration: 1.4s;
-    animation-timing-function: cubic-bezier(0.05, 0.57, 0.63, 0.38);
-    animation-delay: 0s;
-    animation-iteration-count: infinite;
+.wrapper {
+  display: flex;
+  min-height: 92vh;
 }
 
-.update__spinner--second{
-    animation-delay: 0.2s;
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s;
+  padding-top: 20px;
+  z-index: 1000; /* Sidebar appears above cards */
 }
 
-.update__spinner--third{
-    animation-delay: 0.4s;
+.sidebar.hide {
+  transform: translateX(-100%);
 }
 
-.update__spinner--four{
-    animation-delay: 0.6s;
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  margin-left: 500px;
 }
 
-.update__spinner--five{
-    animation-delay: 0.8s;
+@media (max-width: 992px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.show {
+    transform: translateX(0);
+  }
+
+  .content {
+    margin-left: 0; /* Remove margin in mobile view */
+  }
 }
 
-.update__spinner--six{
-    animation-delay: 1s;
+body.dark-mode {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
 }
 
-.spinner__point{
-    width: 7px;
-    height: 7px;
-    border-radius: 10px;
-    background-color: white
+.card {
+  margin: 20px; /* Spacing between cards */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s; /* Adding hover effect */
 }
 
-@keyframes rotate{
-    0% {
-        transform: rotate(0.7turn)
-    }       
-    100%{
-        transform: rotate(1.7turn)
-    }
+.card:hover {
+  transform: translateY(-5px); /* Hover effect */
 }
 
-  
+.card-body {
+  padding: 20px;
+}

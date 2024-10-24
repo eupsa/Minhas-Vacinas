@@ -68,7 +68,7 @@ function enviarEmail($nome, $email)
         $mail->Password = 'sfii esho quah qkjd';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom('equipevaccilife@gmail.com', 'Confirmação de Cadastro');
+        $mail->setFrom('equipevaccilife@gmail.com', 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';

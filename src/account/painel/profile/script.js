@@ -1,4 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const sidebarToggle = document.getElementById("sidebarToggle");
+  const sidebar = document.querySelector(".sidebar");
+
+  sidebarToggle.addEventListener("click", function () {
+    sidebar.classList.toggle("show");
+    sidebar.classList.toggle("hide");
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
   const profileForm = document.getElementById("profileForm");
   const updateButton = profileForm.querySelector('button[type="submit"]');
 
@@ -55,26 +65,9 @@ if (form_perfil) {
     const genero = dadosForm.get("genero");
     const cidade = dadosForm.get("cidade");
 
-    // if (
-    //   !nome ||
-    //   !data_nascimento ||
-    //   !telefone ||
-    //   !estado ||
-    //   !genero ||
-    //   !cidade
-    // ) {
-    //   Swal.fire({
-    //     text: "Preencha todos os campos.",
-    //     icon: "error",
-    //     confirmButtonColor: "#3085d6",
-    //     confirmButtonText: "Fechar",
-    //   });
-    //   return;
-    // }
-
     Swal.fire({
       title: "Processando...",
-      timer: 5000,
+      timer: 7000,
       timerProgressBar: true,
       didOpen: () => {
         Swal.showLoading();

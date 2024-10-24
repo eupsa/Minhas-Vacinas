@@ -1,7 +1,7 @@
 <?php
-if (empty($_GET['token'])) {
-    // header('Location: ../index.php');
-    // exit();
+if (!isset($_GET['token'])) {
+    header('Location: ../../../not-found/index.php');
+    exit();
 }
 ?>
 

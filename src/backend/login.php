@@ -1,7 +1,13 @@
 <?php
+require '../../vendor\phpmailer\phpmailer\src\PHPMailer.php';
+require '../../vendor\phpmailer\phpmailer\src\Exception.php';
+require '../../vendor\phpmailer\phpmailer\src\SMTP.php';
+require '../../vendor\autoload.php';
 require '../backend/scripts/conn.php';
-require '../backend/scripts/auth.php';
-VefLogin();
+session_start();
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = strtolower(trim($dados['email']));
@@ -17,7 +23,6 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     } else {
         try {
             $senhaHash = hash('sha256', $senha);
-            //$sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email AND senha = :senha");
             $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email AND senha = :senha AND emailConf = 1");
             $sql->bindValue(':email', $email);
             $sql->bindValue(':senha', $senhaHash);
@@ -60,3 +65,5 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo json_encode($retorna);
     exit();
 }
+
+

@@ -1,49 +1,89 @@
 <?php
 require '../backend/scripts/conn.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $token = $_POST['token'];
-    $novaSenha = $_POST['nova_senha'];
-    $confirmarSenha = $_POST['confirmar_senha'];
-    // var_dump($_POST);
-    
-    if (empty($novaSenha) || empty($confirmarSenha)) {
-        echo json_encode(['status' => false, 'msg' => 'Por favor, preencha todos os campos.']);
-        exit();
-    }
+$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+$senha = $dados['senha'];
+$confsenha = $dados['confSenha'];
+$token = $dados['token'];
 
-    if ($novaSenha !== $confirmarSenha) {
-        echo json_encode(['status' => false, 'msg' => 'As senhas não coincidem.']);
-        exit();
-    }
-
-    try {
-        $sql = $pdo->prepare("SELECT * FROM redefinicaoSenha WHERE token = :token AND dataExpiracao > NOW()"); //now eh agora
-        $sql->bindValue(':token', $token);
-        $sql->execute();
-
-        if ($sql->rowCount() === 1) {
-            $dadosToken = $sql->fetch(PDO::FETCH_ASSOC);
-            $email = $dadosToken['email'];
-
-            $senhaHash = hash('sha256', $senha);
-            $sqlUpdateSenha = $pdo->prepare("UPDATE usuario SET senha = :senha WHERE email = :email");
-            $sqlUpdateSenha->bindValue(':senha', $senhaHash);
-            $sqlUpdateSenha->bindValue(':email', $email);
-            $sqlUpdateSenha->execute();
-
-            // Deleta o token após uso
-            $sqlDeleteToken = $pdo->prepare("DELETE FROM redefinicaoSenha WHERE token = :token");
-            $sqlDeleteToken->bindValue(':token', $token);
-            $sqlDeleteToken->execute();
-
-            echo json_encode(['status' => true, 'msg' => 'Senha alterada com sucesso!']);
-        } else {
-            echo json_encode(['status' => false, 'msg' => 'Token inválido ou expirado.']);
-        }
-    } catch (PDOException $e) {
-        echo json_encode(['status' => false, 'msg' => 'Erro ao alterar a senha: ' . $e->getMessage()]);
-    }
+if (empty($senha) || empty($confsenha) || empty($token)) {
+    $retorna = ['status' => false, 'msg' => "Todos os campos devem ser preenchidos."];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
 } else {
-    echo json_encode(['status' => false, 'msg' => 'Método inválido.']);
+    if ($senha === $confsenha) {
+        try {
+            $sql = $pdo->prepare("SELECT * FROM redefinicaoSenha WHERE token = :token");
+            $sql->bindValue(':token', $token);
+            $sql->execute();
+
+            if ($sql->rowCount() === 1) {
+                $tokenData = $sql->fetch(PDO::FETCH_ASSOC);
+                $email = $tokenData['email'];
+
+                try {
+                    $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
+                    $sql->bindValue(':email', $email);
+                    $sql->execute();
+
+                    if ($sql->rowCount() === 1) {
+                        $senhaHash = hash('sha256', $senha);
+                        $sql = $pdo->prepare("UPDATE usuario SET senha = :senha WHERE email = :email");
+                        $sql->bindValue(':senha', $senhaHash);
+                        $sql->bindValue(':email', $email);
+                        $sql->execute();
+
+                        if ($sql->rowCount() === 1) {
+                            try {
+                                $sql = $pdo->prepare("DELETE FROM redefinicaoSenha WHERE token = :token");
+                                $sql->bindValue(':token', $token);
+                                $sql->execute();
+
+                                $retorna = ['status' => true, 'msg' => "Senha atualizada com sucesso."];
+                                header('Content-Type: application/json');
+                                echo json_encode($retorna);
+                                exit();
+                            } catch (PDOException $e) {
+                                $retorna = ['status' => false, 'msg' => "Erro ao remover o token: " . $e->getMessage()];
+                                header('Content-Type: application/json');
+                                echo json_encode($retorna);
+                                exit();
+                            }
+                        } else {
+                            $retorna = ['status' => false, 'msg' => "Erro ao atualizar a senha."];
+                            header('Content-Type: application/json');
+                            echo json_encode($retorna);
+                            exit();
+                        }
+                    } else {
+                        $retorna = ['status' => false, 'msg' => "Usuário não encontrado."];
+                        header('Content-Type: application/json');
+                        echo json_encode($retorna);
+                        exit();
+                    }
+                } catch (PDOException $e) {
+                    $retorna = ['status' => false, 'msg' => "Erro ao buscar usuário: " . $e->getMessage()];
+                    header('Content-Type: application/json');
+                    echo json_encode($retorna);
+                    exit();
+                }
+            } else {
+                $retorna = ['status' => false, 'msg' => "Token inválido ou expirado."];
+                header('Content-Type: application/json');
+                echo json_encode($retorna);
+                exit();
+            }
+        } catch (PDOException $e) {
+            $retorna = ['status' => false, 'msg' => "Erro ao buscar o token: " . $e->getMessage()];
+            header('Content-Type: application/json');
+            echo json_encode($retorna);
+            exit();
+        }
+    } else {
+        $retorna = ['status' => false, 'msg' => "As senhas não coincidem."];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit();
+    }
 }

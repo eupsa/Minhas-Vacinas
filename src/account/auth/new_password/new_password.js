@@ -59,9 +59,7 @@ if (form_reset) {
       },
     });
 
-    // const dados = await fetch("../../../backend/new_password.php",
-
-    const dados = await fetch("new_password.php", {
+    const dados = await fetch("../../../backend/new_password.php", {
       method: "POST",
       body: dadosForm,
     });
@@ -85,6 +83,10 @@ if (form_reset) {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       });
+      then(() => {
+        window.location.href = "../forgot_password/forgot_password.php";
+      });
+      formcad.reset();
     }
   });
 }

@@ -46,13 +46,13 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $mail->isSMTP();
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
-                $mail->Username = 'pedrooosxz@gmail.com'; // Seu e-mail
-                $mail->Password = 'lbfn mois wxon hbxo'; // Sua senha
+                $mail->Username = 'pedrooosxz@gmail.com';
+                $mail->Password = 'lbfn mois wxon hbxo'; 
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
 
-                $mail->setFrom('pedrooosxz@gmail.com', 'Suporte Vacinas!'); // De
-                $mail->addAddress('equipevaccilife@gmail.com'); // Para
+                $mail->setFrom('pedrooosxz@gmail.com', 'Suporte Vacinas'); 
+                $mail->addAddress('equipevaccilife@gmail.com'); 
                 $mail->isHTML(true);
                 $mail->CharSet = 'UTF-8';
                 $mail->Subject = 'Nova Mensagem de Suporte';
