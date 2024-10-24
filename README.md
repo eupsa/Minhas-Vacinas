@@ -1,8 +1,8 @@
-# Sobre em [Português](https://github.com/psilvagg/VacciLife/blob/main/README-pt.md)
+# Sobre em [Português](https://github.com/psilvagg/Minhas-Vacinas/blob/main/README-pt.md)
 
-# VacciLife
+# Minhas Vacinas
 
-**VacciLife** is a vaccine management system designed to facilitate the registration and management of vaccination information. The project provides users with an easy and effective way to manage their vaccination data, allowing quick access to relevant information, scheduling vaccines, and receiving automated reminders.
+**Minhas Vacinas** is a vaccine management system designed to facilitate the registration and management of vaccination information. The project provides users with an easy and effective way to manage their vaccination data, allowing quick access to relevant information, scheduling vaccines, and receiving automated reminders.
 
 ## Table of Contents
 
@@ -17,7 +17,7 @@
 
 ## About the Project
 
-VacciLife was created to improve the management of vaccination records in communities with high functional literacy rates. The system offers an intuitive interface that helps users register and track their vaccinations efficiently.
+Minhas Vacinas was created to improve the management of vaccination records in communities with high functional literacy rates. The system offers an intuitive interface that helps users register and track their vaccinations efficiently.
 
 ## Key Features
 
@@ -45,17 +45,17 @@ VacciLife was created to improve the management of vaccination records in commun
 
 ### Installation Steps
 
-1. **Clone the repository or download the Zip [here](https://codeload.github.com/psilvagg/VacciLife/zip/refs/heads/main?token=AZI7DN33BRMFMT2WIKIKLY3HB2TGO)**
+1. **Clone the repository or download the Zip [here](https://codeload.github.com/psilvagg/Minhas Vacinas/zip/refs/heads/main?token=AZI7DN33BRMFMT2WIKIKLY3HB2TGO)**
 
    ```bash
-   git clone https://github.com/psilvagg/VacciLife.git
+   git clone https://github.com/psilvagg/Minhas Vacinas.git
 
    ```
 
 2. **Navigate to the project directory:**
 
    ```bash
-   cd VacciLife
+   cd Minhas Vacinas
 
    ```
 
@@ -64,7 +64,7 @@ VacciLife was created to improve the management of vaccination records in commun
    > Execute the SQL script located in `sql/Vacina.sql`
 
    ```bash
-    cd VacciLife/sql/Vacina.sql
+    cd Minhas Vacinas/sql/Vacina.sql
 
    ```
 
