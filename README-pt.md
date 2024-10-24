@@ -1,6 +1,6 @@
-# VacciLife
+# Minhas Vacinas
 
-**VacciLife** é um sistema de gerenciamento de vacinas projetado para facilitar o registro e a gestão de informações de vacinação. O projeto oferece aos usuários uma maneira fácil e eficaz de gerenciar seus dados de vacinação, permitindo o acesso rápido a informações relevantes, o agendamento de vacinas e o recebimento de lembretes automáticos.
+**Minhas Vacinas** é um sistema de gerenciamento de vacinas projetado para facilitar o registro e a gestão de informações de vacinação. O projeto oferece aos usuários uma maneira fácil e eficaz de gerenciar seus dados de vacinação, permitindo o acesso rápido a informações relevantes, o agendamento de vacinas e o recebimento de lembretes automáticos.
 
 ## Índice
 
@@ -15,7 +15,7 @@
 
 ## Sobre o Projeto
 
-VacciLife foi criado para melhorar a gestão de registros de vacinação em comunidades com alta taxa de alfabetização funcional. O sistema oferece uma interface intuitiva que ajuda os usuários a registrar e acompanhar suas vacinas de forma eficiente.
+Minhas Vacinas foi criado para melhorar a gestão de registros de vacinação em comunidades com alta taxa de alfabetização funcional. O sistema oferece uma interface intuitiva que ajuda os usuários a registrar e acompanhar suas vacinas de forma eficiente.
 
 ## Principais Funcionalidades
 
@@ -43,17 +43,17 @@ VacciLife foi criado para melhorar a gestão de registros de vacinação em comu
 
 ### Passos de Instalação
 
-1. **Clone o repositório ou baixe o Zip [aqui](https://codeload.github.com/psilvagg/VacciLife/zip/refs/heads/main?token=AZI7DN33BRMFMT2WIKIKLY3HB2TGO)**
+1. **Clone o repositório ou baixe o Zip [aqui](https://codeload.github.com/psilvagg/Minhas-Vacinas/zip/refs/heads/main?token=AZI7DN33BRMFMT2WIKIKLY3HB2TGO)**
 
    ```bash
-   git clone https://github.com/psilvagg/VacciLife.git
+   git clone https://github.com/psilvagg/Minhas Vacinas.git
 
    ```
 
 2. **Navegue até o diretório do projeto:**
 
    ```bash
-   cd VacciLife
+   cd Minhas Vacinas
 
    ```
 
@@ -62,7 +62,7 @@ VacciLife foi criado para melhorar a gestão de registros de vacinação em comu
    > Execute o script SQL localizado em `sql/Vacina.sql`
 
    ```bash
-    cd VacciLife/sql/Vacina.sql
+    cd Minhas Vacinas/sql/Vacina.sql
 
    ```
 
