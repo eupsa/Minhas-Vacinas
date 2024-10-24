@@ -85,12 +85,12 @@ SeLogado();
                         <h4 class="mb-4 text-center">Entre na sua conta</h4>
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="email" name="email" required name="email" autocomplete="off" value="pedruuu291@gmail.com">
+                            <input type="email" class="form-control" id="email" name="email" required name="email" autocomplete="off">
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Senha</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="senha" name="senha" value="Chicote1@">
+                                <input type="password" class="form-control" id="senha" name="senha">
                                 <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>

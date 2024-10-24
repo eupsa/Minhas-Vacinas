@@ -38,7 +38,7 @@ body {
   left: 0;
   transition: transform 0.3s;
   padding-top: 20px;
-  z-index: 1000; /* Sidebar appears above cards */
+  z-index: 1000; 
 }
 
 .sidebar.hide {
@@ -61,7 +61,7 @@ body {
   }
 
   .content {
-    margin-left: 0; /* Remove margin in mobile view */
+    margin-left: 0; 
   }
 }
 
@@ -71,14 +71,14 @@ body.dark-mode {
 }
 
 .card {
-  margin: 20px; /* Spacing between cards */
+  margin: 20px; 
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s; /* Adding hover effect */
+  transition: transform 0.3s;
 }
 
 .card:hover {
-  transform: translateY(-5px); /* Hover effect */
+  transform: translateY(-5px); 
 }
 
 .card-body {

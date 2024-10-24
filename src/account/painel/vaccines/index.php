@@ -93,7 +93,7 @@ SeNaoLogado();
         <div class="content">
             <h1>Vacinas</h1>
             <div class="row">
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3"> <!-- Responsivo para diferentes tamanhos -->
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3"> 
                     <div class="card text-center" style="max-width: 250px; margin: auto;">
                         <div class="card-body" style="padding: 10px;">
                             <i class="fas fa-syringe fa-lg"></i>
@@ -102,7 +102,7 @@ SeNaoLogado();
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3"> <!-- Responsivo para diferentes tamanhos -->
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="card text-center" style="max-width: 250px; margin: auto;">
                         <div class="card-body" style="padding: 10px;">
                             <i class="fas fa-syringe fa-lg"></i>
@@ -111,7 +111,7 @@ SeNaoLogado();
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3"> <!-- Responsivo para diferentes tamanhos -->
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3"> 
                     <div class="card text-center" style="max-width: 250px; margin: auto;">
                         <div class="card-body" style="padding: 10px;">
                             <i class="fas fa-syringe fa-lg"></i>
