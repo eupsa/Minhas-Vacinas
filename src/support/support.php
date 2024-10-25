@@ -63,12 +63,12 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-light btn-login" href="../login/login.php">LOGIN</a>
+                            <a class="btn btn-light btn-login" href="../account/auth/login/login.php">LOGIN</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-outline-light btn-login" href="../login/login.php">CADASTRO</a>
+                            <a class="btn btn-outline-light btn-login" href="../account/auth/register/register.php">CADASTRO</a>
                         </li>
                     </ul>
                 </div>
