@@ -30,7 +30,7 @@ if (empty($nomeVac) || empty($dataAplicacao) || empty($tipo) || empty($dose) || 
         $sql->execute();
 
         if ($sql->rowCount() ===  1) {
-            $retorna = ['status' => true, 'msg' => "Usuário cadastrado com sucesso!"];
+            $retorna = ['status' => true, 'msg' => "Vacina adicionada com sucesso!"];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit;;
