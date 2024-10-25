@@ -1,5 +1,12 @@
 <?php
 require '../backend/scripts/conn.php';
+require '../../vendor\phpmailer\phpmailer\src\PHPMailer.php';
+require '../../vendor\phpmailer\phpmailer\src\Exception.php';
+require '../../vendor\phpmailer\phpmailer\src\SMTP.php';
+require '../../vendor\autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $senha = $dados['senha'];
@@ -85,5 +92,35 @@ if (empty($senha) || empty($confsenha) || empty($token)) {
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();
+    }
+}
+
+
+function enviarEmail($nome, $email)
+{
+    $email_body = file_get_contents('../../assets/templates/reset_password.php');
+    $email_body = str_replace('{{nome}}', $nome, $email_body);
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'equipevaccilife@gmail.com';
+        $mail->Password = 'sfii esho quah qkjd';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+        $mail->setFrom('equipevaccilife@gmail.com', 'Minhas Vacinas');
+        $mail->addAddress($email);
+        $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8';
+        $mail->Subject = 'Senha Alterada com Sucesso!';
+        $mail->Body = $email_body;
+        $mail->AltBody = 'Este é o corpo do e-mail em texto plano, para clientes de e-mail sem suporte a HTML';
+        $mail->send();
+
+        return true;
+    } catch (Exception $e) {
+        return false;
     }
 }

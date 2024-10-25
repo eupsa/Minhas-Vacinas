@@ -34,7 +34,7 @@ if (empty($email)) {
             $sql->bindValue(':dataExpiracao', $expiry);
             $sql->execute();
             enviarEmail($nome, $email, $token);
-            $retorna = ['status' => true, 'msg' => "enviou"];
+            $retorna = ['status' => true, 'msg' => "Um email foi enviado com um link para alteração da senha."];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit;

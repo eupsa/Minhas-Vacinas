@@ -190,8 +190,8 @@ CreateSessions($pdo);
                             value="<?php echo isset($_SESSION['user_cidade']) ? $_SESSION['user_cidade'] : ''; ?>">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Atualizar Perfil</button>
-                <button type="button" class="btn btn-danger" id="deleteAccountBtn">Excluir Conta</button>
+                <a type="submit" class="btn btn-primary">Atualizar Perfil</a>
+                <a type="button" class="btn btn-danger" id="deleteAccountBtn">Excluir Conta</a>
             </form>
         </div>
     </section>

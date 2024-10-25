@@ -1,7 +1,6 @@
 <?php
-require '../../../backend/scripts/conn.php';
 require '../../../backend/scripts/auth.php';
-VefLogin();
+SeLogado(); 
 ?>
 
 <!DOCTYPE html>
