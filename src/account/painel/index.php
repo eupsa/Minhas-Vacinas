@@ -135,7 +135,7 @@ SeNaoLogado();
                     <div class="card text-center" style="height: 180px;">
                         <div class="card-body d-flex flex-column justify-content-center">
                             <i class="fas fa-calendar-check fa-2x"></i>
-                            <h5 class="card-title mt-2">Agendamentos</h5>
+                            <h5 class="card-title mt-2">Lembretes</h5>
                             <a href="appointments/index.php" class="btn btn-danger btn-sm">BREVE</a>
                         </div>
                     </div>
