@@ -96,15 +96,15 @@ SeNaoLogado();
             <form action="../../../../backend/register_vac.php" method="post" id="form_vacina">
                 <div class="mb-3">
                     <label for="nomeVac" class="form-label">Nome da Vacina</label>
-                    <input type="text" class="form-control" id="nomeVac" name="nomeVac">
+                    <input type="text" class="form-control" id="nomeVac" name="nomeVac" autocomplete="off">
                 </div>
                 <div class="mb-3">
                     <label for="dataAplicacao" class="form-label">Data da Aplicação</label>
-                    <input type="date" class="form-control" id="dataAplicacao" name="dataAplicacao">
+                    <input type="date" class="form-control" id="dataAplicacao" name="dataAplicacao" autocomplete="off">
                 </div>
                 <div class="mb-3">
                     <label for="localAplicacao" class="form-label">Local de Aplicação</label>
-                    <input type="text" class="form-control" id="localAplicacao" name="localAplicacao">
+                    <input type="text" class="form-control" id="localAplicacao" name="localAplicacao" autocomplete="off">
                 </div>
                 <div class="mb-3">
                     <label for="tipo" class="form-label">Tipo de Vacina</label>
@@ -135,11 +135,11 @@ SeNaoLogado();
                 </div>
                 <div class="mb-3">
                     <label for="lote" class="form-label">Lote</label>
-                    <input type="text" class="form-control" id="lote" name="lote">
+                    <input type="text" class="form-control" id="lote" name="lote" autocomplete="off">
                 </div>
                 <div class="mb-3">
                     <label for="obs" class="form-label">Observações</label>
-                    <textarea class="form-control" id="obs" name="obs" rows="3"></textarea>
+                    <textarea class="form-control" id="obs" name="obs" rows="3"></textarea autocomplete="off">
                 </div>
                 <button type="submit" class="btn btn-primary">Cadastrar Vacina</button>
             </form>
