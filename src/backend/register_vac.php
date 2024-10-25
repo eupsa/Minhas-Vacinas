@@ -33,7 +33,7 @@ if (empty($nomeVac) || empty($dataAplicacao) || empty($tipo) || empty($dose) || 
             $retorna = ['status' => true, 'msg' => "Vacina adicionada com sucesso!"];
             header('Content-Type: application/json');
             echo json_encode($retorna);
-            exit;;
+            exit;
         } else {
             $retorna = ['status' => false, 'msg' => "Erro ao cadastrar a vacina."];
             header('Content-Type: application/json');

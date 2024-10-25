@@ -1,5 +1,5 @@
 <?php
-require '../../../../backend/scripts/conn.php';
+require '../../../backend/scripts/conn.php';
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
@@ -14,7 +14,7 @@ if (isset($_POST['id'])) {
     $sql->bindValue(':idVacina', $vacinaId);
 
     if ($sql->execute()) {
-        echo json_encode(['status' => 'success', 'message' => 'Vacina excluída com sucesso!']);
+        header('Location: ../vaccines/index.php');
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Erro ao excluir a vacina.']);
     }

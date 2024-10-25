@@ -56,6 +56,7 @@ if (form_vacina) {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       });
+      window.location.href = '../index.php';
       form_vacina.reset();
     } else {
       Swal.fire({
