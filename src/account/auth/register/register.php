@@ -2,7 +2,6 @@
 require '../../../backend/scripts/auth.php';
 SeLogado(); 
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 

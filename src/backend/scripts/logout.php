@@ -7,5 +7,5 @@ $_SESSION = [];
 
 session_destroy();
 
-header("Location: ../../login/index.php");
+header("Location: ../../account/auth/login/login.php");
 exit();
