@@ -1,8 +1,10 @@
 <?php
-require '../../../../backend/scripts/auth.php';
-SeNaoLogado();
+session_start();
+if (!isset($_SESSION['session_id'])) {
+    header("Location: ../auth/login/login.php");
+    exit();
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 

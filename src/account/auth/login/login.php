@@ -1,6 +1,9 @@
 <?php
-require '../../../backend/scripts/auth.php';
-SeLogado(); 
+session_start();
+if (isset($_SESSION['session_id'])) {
+    header("Location: ../../painel/index.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

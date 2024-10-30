@@ -1,32 +1,11 @@
 <?php
-require 'conn.php';
-session_start();
-
-function SeNaoLogado()
-{
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: ../../account/auth/login/login.php");
-        exit();
-    }
-}
-
-function SeLogado()
-{
-    if (isset($_SESSION['user_id'])) {
-        header("Location: ../../painel/index.php");
-        exit();
-    }
-}
-
-
-// usada no perfil
 function CreateSessions($pdo)
 {
 
-    if (isset($_SESSION['user_id'])) {
+    if (isset($_SESSION['session_id'])) {
         try {
-            $sql = $pdo->prepare("SELECT nome, estado, idade, genero, cpf, telefone, cidade FROM usuario WHERE idUsuarios = :userId");
-            $sql->bindValue(':userId', $_SESSION['user_id']);
+            $sql = $pdo->prepare("SELECT nome, estado, data_nascimento, genero, cpf, telefone, cidade FROM usuario WHERE id_user = :session_id");
+            $sql->bindValue(':session_id', $_SESSION['session_id']);
             $sql->execute();
 
             if ($sql->rowCount() === 1) {
@@ -34,7 +13,7 @@ function CreateSessions($pdo)
 
                 foreach ($user as $key => $value) {
                     if (!empty($value)) {
-                        $_SESSION['user_' . $key] = $value;
+                        $_SESSION['session_' . $key] = $value;
                     }
                 }
             } else {

@@ -1,6 +1,9 @@
 <?php
-require '../../../backend/scripts/auth.php';
-SeLogado(); 
+session_start();
+if (isset($_SESSION['session_id'])) {
+    header("Location: ../../painel/index.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -180,7 +183,7 @@ SeLogado();
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="register.js"></script>
-    <script src="../../../../assets/js/sweetalert2.js"></script>    
+    <script src="../../../../assets/js/sweetalert2.js"></script>
 </body>
 
 </html>

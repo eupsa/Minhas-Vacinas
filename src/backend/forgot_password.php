@@ -28,10 +28,10 @@ if (empty($email)) {
             $nome = $usuario['nome'];
             $token = bin2hex(random_bytes(50));
             $expiry = date('Y-m-d H:i:s', strtotime('+1 hour'));
-            $sql = $pdo->prepare("INSERT INTO redefinicaoSenha (email, token, dataExpiracao) VALUES (:email, :token, :dataExpiracao)");
+            $sql = $pdo->prepare("INSERT INTO redefinicao_senha (email, token, data_expiracao) VALUES (:email, :token, :data_expiracao)");
             $sql->bindValue(':email', $email);
             $sql->bindValue(':token', $token);
-            $sql->bindValue(':dataExpiracao', $expiry);
+            $sql->bindValue(':data_expiracao', $expiry);
             $sql->execute();
             enviarEmail($nome, $email, $token);
             $retorna = ['status' => true, 'msg' => "Um email foi enviado com um link para alteração da senha."];

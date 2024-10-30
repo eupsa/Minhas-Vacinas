@@ -27,7 +27,7 @@ if (empty($email)) {
         if ($sql->rowCount() === 1) {
             $usuario = $sql->fetch(PDO::FETCH_BOTH);
             $nome = $usuario['nome'];
-            $sql = $pdo->prepare("UPDATE usuario SET emailConf = 1 WHERE email = :email");
+            $sql = $pdo->prepare("UPDATE usuario SET email_conf = 1 WHERE email = :email");
             $sql->bindValue(':email', $email);
             $sql->execute();
 

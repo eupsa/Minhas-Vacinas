@@ -6,8 +6,8 @@ if (form_suporte) {
 
     const dadosForm = new FormData(form_suporte);
 
-    const nome = dadosForm.get("suporteNome");
-    const email = dadosForm.get("suporteEmail");
+    const nome = dadosForm.get("suporte_nome");
+    const email = dadosForm.get("suporte_email");
     const data = dadosForm.get("data");
     const mensagem = dadosForm.get("mensagem");
 

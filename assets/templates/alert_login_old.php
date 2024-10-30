@@ -468,7 +468,7 @@ require '../../src/backend/scripts/const.php';
           <tr>
             <td class="email-masthead">
               <a href="content.html" class="f-fallback email-masthead_name">
-                VACINAS
+                MINHAS VACINAS
               </a>
             </td>
           </tr>
@@ -516,8 +516,8 @@ require '../../src/backend/scripts/const.php';
                 role="presentation">
                 <td class="content-cell" align="center">
                   <p class="f-fallback sub align-center">
-                    Vacinas, LLC
-                    <br>Vacinas.com.br
+                    Minhas Vacinas, LLC
+                    <br>https://vacinas.agenci.one
                   </p>
                 </td>
           </tr>

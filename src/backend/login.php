@@ -23,17 +23,17 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     } else {
         try {
             $senhaHash = hash('sha256', $senha);
-            $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email AND senha = :senha AND emailConf = 1");
+            $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email AND senha = :senha AND email_conf = 1");
             $sql->bindValue(':email', $email);
             $sql->bindValue(':senha', $senhaHash);
             $sql->execute();
 
             if ($sql->rowCount() === 1) {
                 $usuario = $sql->fetch(PDO::FETCH_BOTH);
-                $_SESSION['user_id'] = $usuario['idUsuarios'];
-                $_SESSION['user_nome'] = $usuario['nome'];
-                $_SESSION['user_email'] = $usuario['email'];
-                $emailConf = $usuario['emailConf'];
+                $_SESSION['session_id'] = $usuario['id_user'];
+                $_SESSION['session_nome'] = $usuario['nome'];
+                $_SESSION['session_email'] = $usuario['email'];
+                $emailConf = $usuario['email_conf'];
 
                 if ($emailConf !== 1) {
                     $retorna = ['status' => false, 'msg' => "É necessário confirmar seu cadastro para acessar o sistema."];
@@ -65,5 +65,3 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo json_encode($retorna);
     exit();
 }
-
-

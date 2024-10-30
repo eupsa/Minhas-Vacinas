@@ -1,48 +1,73 @@
-CREATE DATABASE IF NOT EXISTS MinhasVacinas;
-USE MinhasVacinas;
+CREATE DATABASE IF NOT EXISTS minhas_vacinas;
+USE minhas_vacinas;
 
 CREATE TABLE IF NOT EXISTS usuario (
-    idUsuarios BIGINT PRIMARY KEY AUTO_INCREMENT,
+    id_user BIGINT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     estado VARCHAR(2) NOT NULL,
     senha VARCHAR(128) NOT NULL,
-    emailConf TINYINT(1) DEFAULT 0,
-    idade INT,
+    email_conf TINYINT(1) DEFAULT 0,
+    data_nascimento date,
     genero VARCHAR(10),
-    cpf VARCHAR(14) UNIQUE,
+    cpf VARCHAR(16) UNIQUE,
     telefone VARCHAR(15),
     cidade VARCHAR(100),
-    dataCadastro DATETIME DEFAULT CURRENT_TIMESTAMP
+    data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
+    user_root TINYINT(1) DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS vacina (
-    idVacina BIGINT PRIMARY KEY AUTO_INCREMENT,
-    nomeVac VARCHAR(100) NOT NULL,
-    dataVacina DATE NOT NULL,
+    id_vac BIGINT PRIMARY KEY AUTO_INCREMENT,
+    nome_vac VARCHAR(100) NOT NULL,
+    data_aplicacao DATE NOT NULL,
+    local_aplicacao VARCHAR (200) NOT NULL,
     tipo VARCHAR(50) NOT NULL,
     dose INT,
     lote VARCHAR(50),
-    obs TEXT
+    obs TEXT,
+    id_user BIGINT,
+    CONSTRAINT fk_usuario FOREIGN KEY (id_user) REFERENCES usuario(id_user) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS usuario_vacina (
-    idUsuario BIGINT,
-    idVacina BIGINT,
-    dataVacina DATE,
-    PRIMARY KEY (idUsuario, idVacina),
-    FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuarios) ON DELETE CASCADE,
-    FOREIGN KEY (idVacina) REFERENCES vacina(idVacina) ON DELETE CASCADE
+    id_user BIGINT,
+    id_vac BIGINT,
+    data_aplicacao DATE,
+    PRIMARY KEY (id_user, id_vac),
+    FOREIGN KEY (id_user) REFERENCES usuario(id_user) ON DELETE CASCADE,
+    FOREIGN KEY (id_vac) REFERENCES vacina(id_vac) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS redefinicaoSenha (
+CREATE TABLE IF NOT EXISTS redefinicao_senha (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255) UNIQUE NOT NULL,
     token VARCHAR(255) NOT NULL,
-    dataExpiracao DATETIME NOT NULL,
-    dataSolicitacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    data_expiracao DATETIME NOT NULL,
+    data_solicitacao DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (email) REFERENCES usuario(email) ON DELETE CASCADE
 );
+
+-- INSERT INTO usuario (nome, email, estado, senha, idade, genero, cpf, telefone, cidade) 
+-- VALUES ('João Silva', 'joao@example.com', 'SP', 'senha123', 30, 'Masculino', '123.456.789-00', '11987654321', 'São Paulo');
+
+-- INSERT INTO vacina (nomeVac, dataVacina, tipo, dose, lote, obs, idUsuario) 
+-- VALUES ('Vacina XYZ', '2024-01-01', 'Reforço', 1, 'Lote123', 'Nenhuma observação', 1);
+
+-- SELECT 
+--     v.idVacina,
+--     v.nomeVac,
+--     v.dataVacina,
+--     v.tipo,
+--     v.dose,
+--     v.lote,
+--     v.obs,
+--     u.idUsuarios,
+--     u.nome AS nomeUsuario
+-- FROM 
+--     vacina v
+-- LEFT JOIN 
+--     usuario u ON v.idUsuario = u.idUsuarios;
 
 
 -- SELECT * FROM usuario WHERE email = 'pedruuu291@gmail.com' AND senha = SHA2('Chicote1@', 256) AND emailConf = 1;

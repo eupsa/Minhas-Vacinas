@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }).then(() => {
           window.location.href = "../../painel/index.php";
         });
-        formcad.reset();
+        form_login.reset();
       } else {
         Swal.fire({
           text: resposta["msg"],

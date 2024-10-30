@@ -1,24 +1,18 @@
 <?php
-session_start(); // Inicia a sessão
-
-// Inclui o script de conexão ao banco de dados
+session_start();
 require '../../../backend/scripts/conn.php';
 
-// Verifica se o usuário está logado
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['session_id'])) {
     echo json_encode(['status' => 'error', 'message' => 'Usuário não logado.']);
     exit();
 }
 
-// Recupera o ID do usuário da sessão
-$userId = $_SESSION['user_id'];
+$id_user = $_SESSION['session_id'];
 
-// Prepara a consulta para excluir a conta do usuário
-$sql = $pdo->prepare("DELETE FROM usuario WHERE idUsuarios = :idUsuario");
-$sql->bindValue(':idUsuario', $userId);
+$sql = $pdo->prepare("DELETE FROM usuario WHERE id_user = :id_user");
+$sql->bindValue(':id_user', $id_user);
 
 if ($sql->execute()) {
-    // Se a exclusão for bem-sucedida, destrói a sessão e redireciona para a página de login
     session_destroy();
     echo json_encode(['status' => 'success', 'message' => 'Conta excluída com sucesso!']);
 } else {

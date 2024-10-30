@@ -18,15 +18,15 @@ if (empty($nomeVac) || empty($dataAplicacao) || empty($tipo) || empty($dose) || 
     exit();
 } else {
     try {
-        $sql = $pdo->prepare("INSERT INTO vacina (nomeVac, dataAplicacao, localAplicacao, tipo, dose, lote, obs, idUsuario) VALUES (:nomeVacina, :dataAplicacao, :localAplicacao, :tipo, :dose, :lote, :obs, :idUsuario)");
-        $sql->bindValue(':nomeVacina', $nomeVac);
-        $sql->bindValue(':dataAplicacao', $dataAplicacao);
-        $sql->bindValue(':localAplicacao', $localAplicacao);
+        $sql = $pdo->prepare("INSERT INTO vacina (nome_vac, data_aplicacao, local_aplicacao, tipo, dose, lote, obs, id_user) VALUES (:nome_vac, :data_aplicacao, :local_aplicacao, :tipo, :dose, :lote, :obs, :id_user)");
+        $sql->bindValue(':nome_vac', $nomeVac);
+        $sql->bindValue(':data_aplicacao', $dataAplicacao);
+        $sql->bindValue(':local_aplicacao', $localAplicacao);
         $sql->bindValue(':tipo', $tipo);
         $sql->bindValue(':dose', $dose);
         $sql->bindValue(':lote', $lote);
         $sql->bindValue(':obs', $obs);
-        $sql->bindValue(':idUsuario', $_SESSION['user_id']);
+        $sql->bindValue(':id_user', $_SESSION['session_id']);
         $sql->execute();
 
         if ($sql->rowCount() ===  1) {

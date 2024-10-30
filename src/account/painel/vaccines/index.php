@@ -1,20 +1,25 @@
 <?php
-require '../../../backend/scripts/auth.php';
-require '../../../backend/scripts/conn.php';
-SeNaoLogado();
-
-$userId = $_SESSION['user_id'];
-$sql = $pdo->prepare("SELECT * FROM vacina WHERE idUsuario = :idUsuario");
-$sql->bindValue(':idUsuario', $userId);
-$sql->execute();
-$vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
-if (count($vacinas) > 0) {
-    $_SESSION['vacinas'] = $vacinas;
+session_start();
+if (!isset($_SESSION['session_id'])) {
+    header("Location: ../auth/login/login.php");
+    exit();
 } else {
-    $_SESSION['vacinas'] = [];
+    require '../../../backend/scripts/auth.php';
+    require '../../../backend/scripts/conn.php';
+
+    $id_user = $_SESSION['session_id'];
+    $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_user = :id_user");
+    $sql->bindValue(':id_user', $id_user);
+    $sql->execute();
+    $vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($vacinas) > 0) {
+        $_SESSION['vacinas'] = $vacinas;
+    } else {
+        $_SESSION['vacinas'] = [];
+    }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -45,69 +50,68 @@ if (count($vacinas) > 0) {
         </nav>
     </header>
 
-
-    <div class="wrapper">
-        <aside class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
-            <div class="d-flex align-items-center justify-content-center" style="height: 10vh;">
-                <!-- Adicione algum conteúdo aqui, como o logo ou o título -->
-            </div>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <a href="../index.php" class="nav-link text-white" aria-current="page">
-                        <i class="bi bi-house-door"></i>
-                        Início
-                    </a>
-                </li>
-                <li>
-                    <a href="index.php" class="nav-link active">
-                        <i class="fas fa-syringe"></i>
-                        Vacinas
-                    </a>
-                </li>
-                <li>
-                    <a href="/src/campaigns/index.html" class="nav-link text-white">
-                        <i class="fas fa-bullhorn"></i>
-                        Campanhas
-                    </a>
-                </li>
-                <li>
-                    <a href="../profile/index.php" class="nav-link text-white">
-                        <i class="bi bi-person"></i>
-                        Conta
-                    </a>
-                </li>
-                <li>
-                    <hr>
-                </li>
-            </ul>
-            <hr>
-            <div class="dropdown">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/assets/img/ft-perfil.png" alt="Foto do Usuário" class="rounded-circle me-2" width="40" height="40">
-                    <span><?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : 'Usuário'; ?></span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                    <li><a class="dropdown-item" href="../profile/index.php">Conta</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
+    <section>
+        <div class="wrapper">
+            <aside class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
+                <div class="d-flex align-items-center justify-content-center" style="height: 10vh;">
+                    <!-- Adicione algum conteúdo aqui, como o logo ou o título -->
+                </div>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="../index.php" class="nav-link text-white" aria-current="page">
+                            <i class="bi bi-house-door"></i>
+                            Início
+                        </a>
                     </li>
-                    <li><a class="dropdown-item" href="/src/backend/scripts/logout.php">Sair</a></li>
+                    <li>
+                        <a href="index.php" class="nav-link active">
+                            <i class="fas fa-syringe"></i>
+                            Vacinas
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/src/campaigns/index.html" class="nav-link text-white">
+                            <i class="fas fa-bullhorn"></i>
+                            Campanhas
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../profile/index.php" class="nav-link text-white">
+                            <i class="bi bi-person"></i>
+                            Conta
+                        </a>
+                    </li>
+                    <li>
+                        <hr>
+                    </li>
                 </ul>
-            </div>
-        </aside>
-    </div>
+                <hr>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2" width="40" height="40">
+                        <span><?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : 'Usuário'; ?></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="../profile/index.php">Conta</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="/src/backend/scripts/logout.php">Sair</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </section>
 
 
     <div class="content">
         <section>
             <div class="esq">
                 <h1>Vacinas</h1>
-                <h3 class="fw-light">Registre as doses aplicadas.</h3>
+                <h3 class="fw-light">Registre e visualize as suas vacinas aplicadas.</h3>
                 <a type="button" class="btn btn-primary" href="register/index.php">Registrar Doses</a>
-            </div>
-            <div class="content">
             </div>
             <div class="vacinas-container">
                 <?php if (count($vacinas) > 0): ?>
@@ -115,14 +119,14 @@ if (count($vacinas) > 0) {
                         <div class="card" style="width: 300px;">
                             <img src="../../../../assets/img/vac-card.jpg" class="card-img-top" alt="Vacina">
                             <div class="card-body">
-                                <h5 class="card-title"><?= htmlspecialchars($vacina['nomeVac']) ?></h5>
+                                <h5 class="card-title"><?= htmlspecialchars($vacina['nome_vac']) ?></h5>
                                 <p class="card-text">Dose: <?= htmlspecialchars($vacina['dose']) ?></p>
-                                <p class="card-text">Data de Aplicação: <?= htmlspecialchars($vacina['dataAplicacao']) ?></p>
-                                <p class="card-text">Local: <?= htmlspecialchars($vacina['localAplicacao']) ?></p>
+                                <p class="card-text">Data de Aplicação: <?= htmlspecialchars($vacina['data_aplicacao']) ?></p>
+                                <p class="card-text">Local: <?= htmlspecialchars($vacina['local_aplicacao']) ?></p>
                                 <p class="card-text">Lote: <?= htmlspecialchars($vacina['lote']) ?></p>
                                 <p class="card-text">Observações: <?= htmlspecialchars($vacina['obs']) ?></p>
                                 <form action="../backend/delete.php" method="POST" style="display: inline;">
-                                    <input type="hidden" name="id" value="<?= $vacina['idVacina'] ?>">
+                                    <input type="hidden" name="id" value="<?= $vacina['id_vac'] ?>">
                                     <button type="submit" class="btn btn-danger">
                                         <i class="fas fa-trash"></i> Excluir
                                     </button>
@@ -130,13 +134,10 @@ if (count($vacinas) > 0) {
                             </div>
                         </div>
                     <?php endforeach; ?>
-                <?php else: ?>
-                    <p>Você ainda não registrou nenhuma vacina.</p>
                 <?php endif; ?>
             </div>
         </section>
     </div>
-
 
 
     <!-- 

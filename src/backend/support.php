@@ -10,8 +10,8 @@ use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-$nome = strtolower(trim($dados['suporteNome'])); 
-$email = strtolower(trim($dados['suporteEmail'])); 
+$nome = strtolower(trim($dados['suporte_nome'])); 
+$email = strtolower(trim($dados['suporte_email'])); 
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 $mensagem = trim($dados['mensagem']); 
 $data = trim($dados['data']); 

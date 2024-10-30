@@ -126,7 +126,7 @@ require '../../src/backend/scripts/const.php';
       border-bottom: 10px solid #3869D4;
       border-left: 18px solid #3869D4;
       display: inline-block;
-      color: black;
+      color: #FFF;
       text-decoration: none;
       border-radius: 3px;
       box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
@@ -508,7 +508,7 @@ require '../../src/backend/scripts/const.php';
                                 <td class="attributes_item">
                                   <span class="f-fallback">
                                     <p>Atenciosamente</p>
-                                    <strong>Equipe de Suporte - Vacinas</strong>
+                                    <strong>Equipe de Suporte - Minhas Vacinas</strong>
                                   </span>
                                 </td>
                               </tr>
@@ -521,8 +521,8 @@ require '../../src/backend/scripts/const.php';
                 role="presentation">
                 <td class="content-cell" align="center">
                   <p class="f-fallback sub align-center">
-                    Vacinas Agenci, LLC
-                    <br>http://vacinas.agenci.one/
+                    Minhas Vacinas, LLC
+                    <br>https://vacinas.agenci.one/
                   </p>
                 </td>
           </tr>

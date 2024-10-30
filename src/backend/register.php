@@ -37,7 +37,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
                 if ($sql->rowCount() ===  1) {
                     enviarEmail($nome, $email);
-                    $retorna = ['status' => true, 'msg' => "Usuário cadastrado com sucesso! Enviamos um e-mail para confirmação do cadastro!"];
+                    $retorna = ['status' => true, 'msg' => "Seu cadastro foi realizado com sucesso! Enviamos um e-mail para confirmação do cadastro!"];
                     header('Content-Type: application/json');
                     echo json_encode($retorna);
                     exit;

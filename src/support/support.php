@@ -83,12 +83,12 @@
                 <div class="col-12 col-md-8 col-lg-6">
                     <form id="form_suporte" class="needs-validation" novalidate action="../backend/support.php" method="post">
                         <div class="mb-3">
-                            <label for="suporteNome" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="suporteNome" name="suporteNome" required>
+                            <label for="suporte_nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="suporte_nome" name="suporte_nome" required>
                         </div>
                         <div class="mb-3">
-                            <label for="suporteEmail" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="suporteEmail" name="suporteEmail" required>
+                            <label for="suporte_email" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="suporte_email" name="suporte_email" required>
                         </div>
                         <div class="mb-3">
                             <label for="data" class="form-label">Data do Ocorrido</label>

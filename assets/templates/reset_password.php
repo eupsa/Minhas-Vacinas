@@ -116,8 +116,8 @@ require '../../src/backend/scripts/const.php';
           <tr>
             <td class="email-footer">
               <p>
-                Vacinas, LLC<br>
-                Vacinas.com.br
+                Minhas Vacinas, LLC
+                <br>https://vacinas.agenci.one
               </p>
             </td>
           </tr>

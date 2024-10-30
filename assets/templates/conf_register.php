@@ -506,7 +506,7 @@ require '../../src/backend/scripts/const.php';
                                 <td class="attributes_item">
                                   <span class="f-fallback">
                                     <p>Atenciosamente</p>
-                                    <strong>Equipe de Suporte - Vacinas</strong>
+                                    <strong>Equipe de Suporte - Minhas Vacinas</strong>
                                   </span>
                                 </td>
                               </tr>
@@ -519,7 +519,7 @@ require '../../src/backend/scripts/const.php';
                 role="presentation">
                 <td class="content-cell" align="center">
                   <p class="f-fallback sub align-center">
-                    Vacinas Agenci, LLC
+                    Minhas Vacinas, LLC
                     <br>http://vacinas.agenci.one/
                   </p>
                 </td>

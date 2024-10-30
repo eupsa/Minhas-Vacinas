@@ -21,7 +21,7 @@ if (empty($senha) || empty($confsenha) || empty($token)) {
 } else {
     if ($senha === $confsenha) {
         try {
-            $sql = $pdo->prepare("SELECT * FROM redefinicaoSenha WHERE token = :token");
+            $sql = $pdo->prepare("SELECT * FROM redefinicao_senha WHERE token = :token");
             $sql->bindValue(':token', $token);
             $sql->execute();
 
@@ -43,7 +43,7 @@ if (empty($senha) || empty($confsenha) || empty($token)) {
 
                         if ($sql->rowCount() === 1) {
                             try {
-                                $sql = $pdo->prepare("DELETE FROM redefinicaoSenha WHERE token = :token");
+                                $sql = $pdo->prepare("DELETE FROM redefinicao_senha WHERE token = :token");
                                 $sql->bindValue(':token', $token);
                                 $sql->execute();
 
