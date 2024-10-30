@@ -9,13 +9,14 @@ require '../backend/scripts/const.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT); //verificar
-$nome = strtolower(trim($dados['nome']));
+$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+$nome = ucwords(strtolower(trim($dados['nome'])));
 $email = strtolower(trim($dados['email']));
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 $estado = trim($dados['estado']);
 $senha = $dados['senha'];
 $confsenha = $dados['confSenha'];
+
 
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($confsenha)) {
@@ -26,19 +27,17 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     } else {
         if ($senha === $confsenha) {
             try {
-                $emailConf = bin2hex(random_bytes(50));
                 $senhaHash = hash('sha256', $senha);
-                $sql = $pdo->prepare("INSERT INTO usuario (nome, email, estado, senha, emailConf) VALUES (:nome, :email, :estado, :senha, :emailConf)");
+                $sql = $pdo->prepare("INSERT INTO usuario (nome, email, estado, senha) VALUES (:nome, :email, :estado, :senha)");
                 $sql->bindValue(':nome', $nome);
                 $sql->bindValue(':email', $email);
                 $sql->bindValue(':estado', $estado);
                 $sql->bindValue(':senha', $senhaHash);
-                $sql->bindValue(':emailConf', $emailConf);
                 $sql->execute();
 
                 if ($sql->rowCount() ===  1) {
-                    enviarEmail($nome, $email, $emailConf);
-                    $retorna = ['status' => true, 'msg' => "Usuário cadastrado com sucesso! Enviamos um Email para confirmação do cadastro!"];
+                    enviarEmail($nome, $email);
+                    $retorna = ['status' => true, 'msg' => "Usuário cadastrado com sucesso! Enviamos um e-mail para confirmação do cadastro!"];
                     header('Content-Type: application/json');
                     echo json_encode($retorna);
                     exit;
@@ -98,13 +97,11 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 
-function enviarEmail($nome, $email, $emailConf)
+function enviarEmail($nome, $email)
 {
     $email_body = file_get_contents('../../assets/templates/email_register.php');
-    $action_url = $emailConf;
     $email_body = str_replace('{{nome}}', $nome, $email_body);
     $email_body = str_replace('{{email}}', $email, $email_body);
-    $email_body = str_replace('{{action_url}}', $action_url, $email_body);
     $mail = new PHPMailer(true);
 
     try {

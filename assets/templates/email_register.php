@@ -126,7 +126,7 @@ require '../../src/backend/scripts/const.php';
       border-bottom: 10px solid #3869D4;
       border-left: 18px solid #3869D4;
       display: inline-block;
-      color: #FFF;
+      color: black;
       text-decoration: none;
       border-radius: 3px;
       box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);

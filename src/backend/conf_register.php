@@ -32,19 +32,27 @@ if (empty($email)) {
             $sql->execute();
 
             if ($sql->rowCount() === 1) {
-                $retorna = ['status' => true, 'msg' => "Seu cadastro foi confirmado com sucesso. Agora, faça o login para continuar."];
                 enviarEmail($nome, $email);
+                $retorna = ['status' => true, 'msg' => "Seu cadastro foi confirmado com sucesso. Agora, faça o login para continuar."];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
                 exit();
             } else {
-                $retorna = ['status' => false, 'msg' => "Seu cadastro não pôde ser confirmado no momento. Por favor, tente novamente mais tarde."];
+                $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar confirmar seu cadastro. Tente novamente."];
+                // $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar confirmar seu cadastro:" . $e->getMessage()];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
+                exit();
             }
+        } else {
+            $retorna = ['status' => false, 'msg' => "Este e-mail não está registrado em nosso sistema."];
+            header('Content-Type: application/json');
+            echo json_encode($retorna);
+            exit();
         }
     } catch (PDOException $e) {
-        $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar confirmar seu cadastro:" . $e->getMessage()];
+        $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar confirmar seu cadastro. Tente novamente."];
+        // $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar confirmar seu cadastro:" . $e->getMessage()];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();
