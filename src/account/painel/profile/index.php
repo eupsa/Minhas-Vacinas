@@ -150,8 +150,33 @@ if (!isset($_SESSION['session_id'])) {
                         <label for="estado" class="form-label">Estado</label>
                         <select class="form-select" id="estado" name="estado">
                             <option value="">Selecione um estado</option>
-                            <option value="SP" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'SP') ? 'selected' : ''; ?>>São Paulo</option>
+                            <option value="AC" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AC') ? 'selected' : ''; ?>>Acre</option>
+                            <option value="AL" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AL') ? 'selected' : ''; ?>>Alagoas</option>
+                            <option value="AP" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AP') ? 'selected' : ''; ?>>Amapá</option>
+                            <option value="AM" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AM') ? 'selected' : ''; ?>>Amazonas</option>
+                            <option value="BA" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'BA') ? 'selected' : ''; ?>>Bahia</option>
+                            <option value="CE" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'CE') ? 'selected' : ''; ?>>Ceará</option>
+                            <option value="DF" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'DF') ? 'selected' : ''; ?>>Distrito Federal</option>
+                            <option value="ES" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'ES') ? 'selected' : ''; ?>>Espírito Santo</option>
+                            <option value="GO" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'GO') ? 'selected' : ''; ?>>Goiás</option>
+                            <option value="MA" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'MA') ? 'selected' : ''; ?>>Maranhão</option>
+                            <option value="MT" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'MT') ? 'selected' : ''; ?>>Mato Grosso</option>
+                            <option value="MS" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'MS') ? 'selected' : ''; ?>>Mato Grosso do Sul</option>
+                            <option value="MG" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'MG') ? 'selected' : ''; ?>>Minas Gerais</option>
+                            <option value="PA" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'PA') ? 'selected' : ''; ?>>Pará</option>
+                            <option value="PB" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'PB') ? 'selected' : ''; ?>>Paraíba</option>
+                            <option value="PR" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'PR') ? 'selected' : ''; ?>>Paraná</option>
+                            <option value="PE" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'PE') ? 'selected' : ''; ?>>Pernambuco</option>
+                            <option value="PI" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'PI') ? 'selected' : ''; ?>>Piauí</option>
                             <option value="RJ" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'RJ') ? 'selected' : ''; ?>>Rio de Janeiro</option>
+                            <option value="RN" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'RN') ? 'selected' : ''; ?>>Rio Grande do Norte</option>
+                            <option value="RS" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'RS') ? 'selected' : ''; ?>>Rio Grande do Sul</option>
+                            <option value="RO" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'RO') ? 'selected' : ''; ?>>Rondônia</option>
+                            <option value="RR" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'RR') ? 'selected' : ''; ?>>Roraima</option>
+                            <option value="SC" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'SC') ? 'selected' : ''; ?>>Santa Catarina</option>
+                            <option value="SP" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'SP') ? 'selected' : ''; ?>>São Paulo</option>
+                            <option value="SE" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'SE') ? 'selected' : ''; ?>>Sergipe</option>
+                            <option value="TO" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'TO') ? 'selected' : ''; ?>>Tocantins</option>
                         </select>
                     </div>
                 </div>
