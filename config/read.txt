@@ -1,0 +1,10 @@
+Hosting AWS - EC2
+IPV4 - 23.20.146.69
+Admin User: Administrator
+Password: 4-)%lN2GTsCRgfHZ71YoJ51c.U)!96BP
+
+Hosting AWS - MYSql
+Host: vaccilife.cbi4a4i2okik.us-east-1.rds.amazonaws.com
+Admin User: admin
+Port: 3306
+Password: 9TroSMu52<HTfze>

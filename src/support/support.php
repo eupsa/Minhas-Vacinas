@@ -31,7 +31,7 @@
                             <a class="nav-link" href="/index.html#nossa-missao">Sobre</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../../campaigns/index.html">Campanhas</a>
+                            <a class="nav-link" href="../campaigns/index.html">Campanhas</a>
                         </li>
                         <li class="nav-item">
                             <a href="../../../support/support.php" class="nav-link">
