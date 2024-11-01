@@ -1,13 +1,13 @@
 <?php
-require '../../vendor\phpmailer\phpmailer\src\PHPMailer.php';
-require '../../vendor\phpmailer\phpmailer\src\Exception.php';
-require '../../vendor\phpmailer\phpmailer\src\SMTP.php';
-require '../../vendor\autoload.php';
+// require '../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+// require '../../vendor/phpmailer/phpmailer/src/Exception.php';
+// require '../../vendor/phpmailer/phpmailer/src/SMTP.php';
+// require '../../vendor/autoload.php';
 require '../backend/scripts/conn.php';
 session_start();
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = strtolower(trim($dados['email']));
@@ -28,23 +28,31 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $sql->bindValue(':senha', $senhaHash);
             $sql->execute();
 
-            if ($sql->rowCount() === 1) {
+            if ($sql->rowCount() == 1) {
                 $usuario = $sql->fetch(PDO::FETCH_BOTH);
-                $_SESSION['session_id'] = $usuario['id_user'];
-                $_SESSION['session_nome'] = $usuario['nome'];
-                $_SESSION['session_email'] = $usuario['email'];
-                $emailConf = $usuario['email_conf'];
+                $type_user = $usuario['user_root'];
+                $email_conf = $usuario['email_conf'];
 
-                if ($emailConf !== 1) {
-                    $retorna = ['status' => false, 'msg' => "É necessário confirmar seu cadastro para acessar o sistema."];
+                if ($type_user == 1) {
+                    $retorna = ['adm' => true, 'msg' => "Login bem-sucedido! Bem-vindo Administrador, " . htmlspecialchars($usuario['nome']) . "."];
                     header('Content-Type: application/json');
                     echo json_encode($retorna);
                     exit;
                 } else {
-                    $retorna = ['status' => true, 'msg' => "Login bem-sucedido! Bem-vindo, " . htmlspecialchars($usuario['nome']) . "."];
-                    header('Content-Type: application/json');
-                    echo json_encode($retorna);
-                    exit;
+                    if ($email_conf != 1) {
+                        $retorna = ['status' => false, 'msg' => "É necessário confirmar seu cadastro para acessar o sistema."];
+                        header('Content-Type: application/json');
+                        echo json_encode($retorna);
+                        exit;
+                    } else {
+                        $retorna = ['status' => true, 'msg' => "Login bem-sucedido! Bem-vindo, " . htmlspecialchars($usuario['nome']) . "."];
+                        header('Content-Type: application/json');
+                        echo json_encode($retorna);
+                        $_SESSION['session_id'] = $usuario['id_user'];
+                        $_SESSION['session_nome'] = $usuario['nome'];
+                        $_SESSION['session_email'] = $usuario['email'];
+                        exit;
+                    }
                 }
             } else {
                 $retorna = ['status' => false, 'msg' => "As credenciais fornecidas estão incorretas ou o seu cadastro ainda não foi confirmado."];

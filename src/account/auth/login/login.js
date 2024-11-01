@@ -46,30 +46,50 @@ document.addEventListener("DOMContentLoaded", () => {
         },
       });
 
-      const dados = await fetch("../../../backend/login.php", {
-        method: "POST",
-        body: dadosForm,
-      });
-
-      const resposta = await dados.json();
-
-      if (resposta["status"]) {
-        Swal.fire({
-          text: resposta["msg"],
-          icon: "success",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Fechar",
-        }).then(() => {
-          window.location.href = "../../painel/index.php";
+      try {
+        const dados = await fetch("../../../backend/login.php", {
+          method: "POST",
+          body: dadosForm,
         });
-        form_login.reset();
-      } else {
+
+        const resposta = await dados.json();
+
+        if (resposta["status"]) {
+          Swal.fire({
+            text: resposta["msg"],
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Fechar",
+          }).then(() => {
+            form_login.reset();
+            window.location.href = "../../painel/index.php";
+          });
+        } else if (resposta["adm"]) {
+          Swal.fire({
+            text: resposta["msg"],
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Fechar",
+          }).then(() => {
+            form_login.reset();
+            window.location.href = "../../admin/index.php";
+          });
+        } else {
+          Swal.fire({
+            text: resposta["msg"],
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Fechar",
+          });
+        }
+      } catch (error) {
         Swal.fire({
-          text: resposta["msg"],
+          text: "Ocorreu um erro ao tentar fazer login. Tente novamente mais tarde.",
           icon: "error",
           confirmButtonColor: "#3085d6",
           confirmButtonText: "Fechar",
         });
+        console.error("Erro ao realizar login:", error);
       }
     });
   }

@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS usuario (
     telefone VARCHAR(15),
     cidade VARCHAR(100),
     data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
-    user_root TINYINT(1) DEFAULT 0
+    user_root TINYINT(1) DEFAULT 0,
+    root_user VARCHAR (20)
 );
 
 CREATE TABLE IF NOT EXISTS vacina (
@@ -47,6 +48,11 @@ CREATE TABLE IF NOT EXISTS redefinicao_senha (
     data_solicitacao DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (email) REFERENCES usuario(email) ON DELETE CASCADE
 );
+
+INSERT INTO usuario (nome, email, estado, senha) 
+VALUES ('Adm_Pedro', 'pedrooosxz@gmail.com', 'BA', SHA2('Chicote1@', 256));
+
+UPDATE usuario SET root_user = 'psgg' WHERE email = 'pedrooosxz@gmail.com'
 
 -- INSERT INTO usuario (nome, email, estado, senha, idade, genero, cpf, telefone, cidade) 
 -- VALUES ('João Silva', 'joao@example.com', 'SP', 'senha123', 30, 'Masculino', '123.456.789-00', '11987654321', 'São Paulo');
