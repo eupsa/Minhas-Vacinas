@@ -15,6 +15,8 @@ if (isset($_SESSION['session_id'])) {
     <link rel="icon" href="../../../../assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+
     <title>Minhas Vacinas - Cadastro</title>
 </head>
 
@@ -85,6 +87,18 @@ if (isset($_SESSION['session_id'])) {
                     <form action="../../../backend/register.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="formcad" method="post" novalidate>
                         <h4 class="mb-4 text-center">Faça seu cadastro</h4>
+                        <div id="g_id_onload"
+                            data-client_id="1012019764396-mqup55sj8cd77v795ea6v9ak8nhkkak2.apps.googleusercontent.com"
+                            data-context="signup"
+                            data-ux_mode="popup"
+                            data-callback="handleCredentialResponse"
+                            data-auto_prompt="false">
+                        </div>
+                        <div class="g_id_signin d-flex justify-content-center mb-4"
+                            data-type="standard"></div>
+                        <div class="text-center my-3">
+                            <p>ou cadastre-se com seu e-mail</p>
+                        </div>
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome</label>
                             <input type="text" class="form-control" id="nome" name="nome" required autocomplete="off">
@@ -180,6 +194,34 @@ if (isset($_SESSION['session_id'])) {
     <script src="script.js"></script>
     -->
 
+    <script>
+        function onSignIn(response) {
+            // Conseguindo as informações do seu usuário:
+            var perfil = response.getBasicProfile();
+
+            // Conseguindo o ID do Usuário
+            var userID = perfil.getId();
+
+            // Conseguindo o Nome do Usuário
+            var userName = perfil.getName();
+
+            // Conseguindo o E-mail do Usuário
+            var userEmail = perfil.getEmail();
+
+            // Conseguindo a URL da Foto do Perfil
+            var userPicture = perfil.getImageUrl();
+
+            document.getElementById('user-photo').src = userPicture;
+            document.getElementById('user-name').innerText = userName;
+            document.getElementById('user-email').innerText = userEmail;
+
+            // Recebendo o TOKEN que você usará nas demais requisições à API:
+            var LoR = response.getAuthResponse().id_token;
+            console.log("~ le Tolkien: " + LoR);
+        };
+    </script>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="register.js"></script>

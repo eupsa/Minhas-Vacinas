@@ -86,6 +86,16 @@ if (isset($_SESSION['session_id'])) {
                     <form action="../../../backend/login.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="form_login" method="post" novalidate>
                         <h4 class="mb-4 text-center">Entre na sua conta</h4>
+                        <div id="g_id_onload"
+                            data-client_id="1012019764396-mqup55sj8cd77v795ea6v9ak8nhkkak2.apps.googleusercontent.com"
+                            data-callback="handleCredentialResponse"
+                            data-ux_mode="popup"
+                            data-auto_prompt="false">
+                        </div>
+                        <div class="g_id_signin" data-type="standard"></div>
+                        <div class="text-center my-3">
+                            <p>ou cadastre-se com seu e-mail</p>
+                        </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>
                             <input type="email" class="form-control" id="email" name="email" required name="email" autocomplete="off">
@@ -101,11 +111,6 @@ if (isset($_SESSION['session_id'])) {
                             <div class="mt-2 text-end">
                                 <a href="../forgot_password/forgot_password.php" class="text-muted">
                                     <i class="bi bi-question-circle me-1"></i> Esqueceu a senha?
-                                </a>
-                                <a class="dropdown-item" href="gugo.php">
-                                    <img src="https://api.iconify.design/logos:google-play-icon.svg"
-                                        alt="Google Play" style="width: 20px; height: 20px;" class="me-2">
-                                    Google Play
                                 </a>
                             </div>
                         </div>
@@ -134,7 +139,7 @@ if (isset($_SESSION['session_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
     -->
-
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="login.js"></script>
