@@ -102,6 +102,11 @@ if (isset($_SESSION['session_id'])) {
                                 <a href="../forgot_password/forgot_password.php" class="text-muted">
                                     <i class="bi bi-question-circle me-1"></i> Esqueceu a senha?
                                 </a>
+                                <a class="dropdown-item" href="gugo.php">
+                                    <img src="https://api.iconify.design/logos:google-play-icon.svg"
+                                        alt="Google Play" style="width: 20px; height: 20px;" class="me-2">
+                                    Google Play
+                                </a>
                             </div>
                         </div>
                         <button class="btn btn-primary w-100" type="submit">Entrar</button>
