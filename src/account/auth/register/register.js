@@ -31,8 +31,9 @@ if (formcad) {
     const estado = dadosForm.get("estado");
     const senha = dadosForm.get("senha");
     const confSenha = dadosForm.get("confSenha");
+    const token = dadosForm.get() = "1012019764396-mqup55sj8cd77v795ea6v9ak8nhkkak2.apps.googleusercontent.com";
 
-    if (!nome || !email || !estado || !senha || !confSenha) {
+    if (!nome || !email || !estado || !senha || !confSenha || !token) {
       Swal.fire({
         text: "Preencha todos os campos.",
         icon: "error",

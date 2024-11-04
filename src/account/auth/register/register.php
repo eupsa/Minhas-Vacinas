@@ -192,33 +192,6 @@ if (isset($_SESSION['session_id'])) {
     <script src="script.js"></script>
     -->
 
-    <script>
-        function onSignIn(response) {
-            // Conseguindo as informações do seu usuário:
-            var perfil = response.getBasicProfile();
-
-            // Conseguindo o ID do Usuário
-            var userID = perfil.getId();
-
-            // Conseguindo o Nome do Usuário
-            var userName = perfil.getName();
-
-            // Conseguindo o E-mail do Usuário
-            var userEmail = perfil.getEmail();
-
-            // Conseguindo a URL da Foto do Perfil
-            var userPicture = perfil.getImageUrl();
-
-            document.getElementById('user-photo').src = userPicture;
-            document.getElementById('user-name').innerText = userName;
-            document.getElementById('user-email').innerText = userEmail;
-
-            // Recebendo o TOKEN que você usará nas demais requisições à API:
-            var LoR = response.getAuthResponse().id_token;
-            console.log("~ le Tolkien: " + LoR);
-        };
-    </script>
-
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
