@@ -80,6 +80,13 @@ if (isset($_SESSION['session_id'])) {
         </nav>
     </header>
 
+    <style>
+        .required-asterisk {
+            color: red;
+            margin-left: 2px;
+        }
+    </style>
+
     <section>
         <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
             <div class="row w-100">
@@ -87,11 +94,8 @@ if (isset($_SESSION['session_id'])) {
                     <form action="../../../backend/register.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="formcad" method="post" novalidate>
                         <h4 class="mb-4 text-center">Faça seu cadastro</h4>
-                        <div id="g_id_onload"
-                            data-client_id="1012019764396-mqup55sj8cd77v795ea6v9ak8nhkkak2.apps.googleusercontent.com"
-                            data-callback="handleCredentialResponse"
-                            data-ux_mode="popup"
-                            data-auto_prompt="false">
+                        <div id="g_id_onload" data-client_id="1012019764396-mqup55sj8cd77v795ea6v9ak8nhkkak2.apps.googleusercontent.com"
+                            data-callback="handleCredentialResponse" data-ux_mode="popup" data-auto_prompt="false">
                         </div>
                         <div class="g_id_signin" data-type="standard"></div>
                         <div class="text-center my-3">
@@ -99,33 +103,35 @@ if (isset($_SESSION['session_id'])) {
                         </div>
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="nome" name="nome" required autocomplete="off">
-                            <div class="invalid-feedback">Por favor, insira seu nome.</div>
+                            <input type="text" class="form-control" id="nome" name="nome" autocomplete="off">
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="email" name="email" required
-                                autocomplete="off">
-                            <div class="invalid-feedback">Por favor, insira um e-mail válido.</div>
+                            <label for="email" class="form-label">E-mail<span class="required-asterisk">*</span></label>
+                            <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Crie sua senha</label>
+                            <label for="cpf" class="form-label">CPF</label>
+                            <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00">
+                            <div class="invalid-feedback">Por favor, insira um CPF válido no formato 000.000.000-00.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Crie sua senha<span class="required-asterisk">*</span></label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="senha" name="senha">
+                                <input type="password" class="form-control" id="senha" name="senha" required>
                                 <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
                                 <div class="invalid-feedback">Por favor, insira uma senha.</div>
                             </div>
                             <div id="passwordHelpBlock" class="form-text">
-                                Sua senha deve ter de 8 a 20 caracteres, conter letras e números e não deve conter
-                                espaços, caracteres especiais ou emojis.
+                                Sua senha deve ter de 8 a 20 caracteres, conter letras e números e não deve conter espaços,
+                                caracteres especiais ou emojis.
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="password2" class="form-label">Confirme sua senha</label>
+                            <label for="password2" class="form-label">Confirme sua senha<span class="required-asterisk">*</span></label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="confSenha" name="confSenha">
+                                <input type="password" class="form-control" id="confSenha" name="confSenha" required>
                                 <button class="btn btn-outline-secondary" type="button" id="ConftogglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
@@ -134,7 +140,7 @@ if (isset($_SESSION['session_id'])) {
                         </div>
                         <div class="mb-3">
                             <label for="estado" class="form-label">Selecione um estado</label>
-                            <select class="form-select" id="estado" name="estado" required>
+                            <select class="form-select" id="estado" name="estado">
                                 <option value="">Selecione um estado</option>
                                 <option value="AC">Acre</option>
                                 <option value="AL">Alagoas</option>
@@ -177,6 +183,7 @@ if (isset($_SESSION['session_id'])) {
             </div>
         </div>
     </section>
+
 
     <footer class="footer text-center">
         <div class="container">

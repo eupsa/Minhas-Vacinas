@@ -18,76 +18,67 @@ $senha = $dados['senha'];
 $confsenha = $dados['confSenha'];
 
 
+function validarCPF($cpf)
+{
+    $cpf = preg_replace('/[^0-9]/is', '', $cpf);
+    if (strlen($cpf) != 11 || preg_match('/(\d)\1{10}/', $cpf)) return false;
+
+    for ($t = 9; $t < 11; $t++) {
+        for ($d = 0, $c = 0; $c < $t; $c++) $d += $cpf[$c] * (($t + 1) - $c);
+        $d = ((10 * $d) % 11) % 10;
+        if ($cpf[$c] != $d) return false;
+    }
+    return true;
+}
+
+$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+$nome = ucwords(strtolower(trim($dados['nome'])));
+$email = strtolower(trim($dados['email']));
+$email = filter_var($email, FILTER_SANITIZE_EMAIL);
+$estado = trim($dados['estado']);
+$cpf = $dados['cpf'];
+$senha = $dados['senha'];
+$confsenha = $dados['confSenha'];
+
+if (!validarCPF($cpf)) {
+    $retorna = ['status' => false, 'msg' => "CPF inválido"];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
+}
+
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($confsenha)) {
+    if (empty($nome) || empty($email) || empty($estado) || empty($cpf) || empty($senha) || empty($confsenha)) {
         $retorna = ['status' => false, 'msg' => "Preencha todos os campos"];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();
-    } else {
-        if ($senha === $confsenha) {
-            try {
-                $senhaHash = hash('sha256', $senha);
-                $sql = $pdo->prepare("INSERT INTO usuario (nome, email, estado, senha) VALUES (:nome, :email, :estado, :senha)");
-                $sql->bindValue(':nome', $nome);
-                $sql->bindValue(':email', $email);
-                $sql->bindValue(':estado', $estado);
-                $sql->bindValue(':senha', $senhaHash);
-                $sql->execute();
+    } elseif ($senha === $confsenha) {
+        try {
+            $senhaHash = hash('sha256', $senha);
+            $sql = $pdo->prepare("INSERT INTO usuario (nome, email, estado, cpf, senha) VALUES (:nome, :email, :estado, :cpf, :senha)");
+            $sql->bindValue(':nome', $nome);
+            $sql->bindValue(':email', $email);
+            $sql->bindValue(':estado', $estado);
+            $sql->bindValue(':cpf', $cpf);
+            $sql->bindValue(':senha', $senhaHash);
+            $sql->execute();
 
-                if ($sql->rowCount() ===  1) {
-                    enviarEmail($nome, $email);
-                    $retorna = ['status' => true, 'msg' => "Seu cadastro foi realizado com sucesso! Enviamos um e-mail para confirmação do cadastro!"];
-                    header('Content-Type: application/json');
-                    echo json_encode($retorna);
-                    exit;
-                }
-            } catch (PDOException $e) {
-                switch ($e) {
-                    case '23000':
-                        $retorna = ['status' => false, 'msg' => "Este e-mail já está registrado. Por favor, tente outro."];
-                        header('Content-Type: application/json');
-                        echo json_encode($retorna);
-                        exit;
-                        break;
-                    case '42000':
-                        $retorna = ['status' => false, 'msg' => "Houve um erro no processamento da sua solicitação. Tente novamente mais tarde."];
-                        header('Content-Type: application/json');
-                        echo json_encode($retorna);
-                        exit;
-                        break;
-                    case '42S02':
-                        $retorna = ['status' => false, 'msg' => "Erro interno: Recurso não encontrado. Tente novamente mais tarde."];
-                        header('Content-Type: application/json');
-                        echo json_encode($retorna);
-                        exit;
-                        break;
-                    case 'HY000':
-                        $retorna = ['status' => false, 'msg' => "Ocorreu um erro inesperado. Por favor, tente novamente mais tarde."];
-                        header('Content-Type: application/json');
-                        echo json_encode($retorna);
-                        exit;
-                        break;
-                    case '28000':
-                        $retorna = ['status' => false, 'msg' => "Erro de acesso ao sistema. Contate o suporte."];
-                        header('Content-Type: application/json');
-                        echo json_encode($retorna);
-                        exit;
-                        break;
-                    default:
-                        $retorna = ['status' => false, 'msg' => "Erro inesperado: Por favor, tente novamente mais tarde."];
-                        header('Content-Type: application/json');
-                        echo json_encode($retorna);
-                        exit;
-                        break;
-                }
+            if ($sql->rowCount() ===  1) {
+                enviarEmail($nome, $email);
+                $retorna = ['status' => true, 'msg' => "Seu cadastro foi realizado com sucesso! Enviamos um e-mail para confirmação do cadastro!"];
+                header('Content-Type: application/json');
+                echo json_encode($retorna);
+                exit;
             }
-        } else {
-            $retorna = ['status' => false, 'msg' => "As senhas precisam ser iguais."];
-            header('Content-Type: application/json');
-            echo json_encode($retorna);
-            exit;
+        } catch (PDOException $e) {
+            // Erros específicos do PDO
         }
+    } else {
+        $retorna = ['status' => false, 'msg' => "As senhas precisam ser iguais."];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit();
     }
 } else {
     $retorna = ['status' => false, 'msg' => "E-mail fornecido é inválido."];

@@ -62,3 +62,8 @@ body {
   border: 3px solid #000;
   margin: 2rem 0;
 }
+
+.required-asterisk {
+  color: red;
+  margin-left: 2px;
+}
