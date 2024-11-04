@@ -94,23 +94,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-
-function handleCredentialResponse(response) {
-  // Envia o token para o backend via AJAX
-  fetch("../../../backend/google_register.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id_token: response.credential }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.success) {
-        window.location.href = "../../painel/index.php";
-      } else {
-        alert("Erro ao cadastrar com Google");
-      }
-    })
-    .catch((error) => console.error("Erro:", error));
-}

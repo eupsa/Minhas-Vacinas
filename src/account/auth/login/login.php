@@ -94,7 +94,7 @@ if (isset($_SESSION['session_id'])) {
                         </div>
                         <div class="g_id_signin" data-type="standard"></div>
                         <div class="text-center my-3">
-                            <p>ou cadastre-se com seu e-mail</p>
+                            <p>ou login com seu e-mail</p>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>

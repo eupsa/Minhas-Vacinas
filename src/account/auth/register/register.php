@@ -89,13 +89,11 @@ if (isset($_SESSION['session_id'])) {
                         <h4 class="mb-4 text-center">Faça seu cadastro</h4>
                         <div id="g_id_onload"
                             data-client_id="1012019764396-mqup55sj8cd77v795ea6v9ak8nhkkak2.apps.googleusercontent.com"
-                            data-context="signup"
-                            data-ux_mode="popup"
                             data-callback="handleCredentialResponse"
+                            data-ux_mode="popup"
                             data-auto_prompt="false">
                         </div>
-                        <div class="g_id_signin d-flex justify-content-center mb-4"
-                            data-type="standard"></div>
+                        <div class="g_id_signin" data-type="standard"></div>
                         <div class="text-center my-3">
                             <p>ou cadastre-se com seu e-mail</p>
                         </div>
