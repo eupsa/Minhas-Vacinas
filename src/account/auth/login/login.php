@@ -86,15 +86,9 @@ if (isset($_SESSION['session_id'])) {
                     <form action="../../../backend/login.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="form_login" method="post" novalidate>
                         <h4 class="mb-4 text-center">Entre na sua conta</h4>
-                        <div id="g_id_onload"
-                            data-client_id="1012019764396-mqup55sj8cd77v795ea6v9ak8nhkkak2.apps.googleusercontent.com"
-                            data-callback="handleCredentialResponse"
-                            data-ux_mode="popup"
-                            data-auto_prompt="false">
-                        </div>
-                        <div class="g_id_signin" data-type="standard"></div>
-                        <div class="text-center my-3">
-                            <p>ou login com seu e-mail</p>
+                        <div>
+                            <h3 class="text-center">continue com google</h3 class="text-center">
+                            <h3 class="text-center">continue com face etc...</h3 class="text-center">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>

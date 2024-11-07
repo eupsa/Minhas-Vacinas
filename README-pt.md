@@ -57,16 +57,25 @@ Minhas Vacinas foi criado para melhorar a gestão de registros de vacinação em
 
    ```
 
-3. **Configure o banco de dados:**
+3. **Instale as dependências via composer | Baixe o composer [aqui](https://getcomposer.org/download/)**
 
-   > Execute o script SQL localizado em `sql/Vacina.sql`
+   > Execute o comando no terminal (é necessário estar na página princiapl do projeto.)
 
    ```bash
-    cd Minhas Vacinas/sql/Vacina.sql
+    composer install
 
    ```
 
-4. **Configuração do Servidor**
+4. **Configure o banco de dados:**
+
+   > Execute o script SQL localizado em `database/minhas_vacinas.sql`
+
+   ```bash
+    cd Minhas-Vacinas/database/minhas_vacinas.sql
+
+   ```
+
+5. **Configuração do Servidor**
    > Coloque o conteúdo do diretório clonado na pasta `htdocs` do XAMPP ou na raiz do seu servidor local.
 
 ## Observação
