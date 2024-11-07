@@ -87,13 +87,12 @@ if (isset($_SESSION['session_id'])) {
                     <form action="../../../backend/login.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="form_login" method="post" novalidate>
                         <h4 class="mb-4 text-center">Entre na sua conta</h4><br>
-                        <div id="g_id_onload"
+                        <!-- <div id="g_id_onload"
                             data-client_id="544764047256-2ovimec9tfemice8ufntebqfgtl5p8ff.apps.googleusercontent.com"
                             data-context="signup"
                             data-ux_mode="redirect"
                             data-itp_support="true">
                         </div>
-
                         <div class="g_id_signin-container">
                             <div class="g_id_signin"
                                 data-type="standard"
@@ -104,7 +103,7 @@ if (isset($_SESSION['session_id'])) {
                                 data-locale="pt-BR"
                                 data-logo_alignment="left">
                             </div>
-                        </div><br>
+                        </div><br> -->
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>
                             <input type="email" class="form-control" id="email" name="email" required name="email" autocomplete="off">

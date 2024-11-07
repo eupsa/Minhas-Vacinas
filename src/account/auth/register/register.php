@@ -94,7 +94,7 @@ if (isset($_SESSION['session_id'])) {
                     <form action="../../../backend/register.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="formcad" method="post" novalidate>
                         <h5 class="mb-4 text-center">Faça seu cadastro</h5><br>
-                        <div id="g_id_onload"
+                        <!-- <div id="g_id_onload"
                             data-client_id="544764047256-2ovimec9tfemice8ufntebqfgtl5p8ff.apps.googleusercontent.com"
                             data-context="signup"
                             data-ux_mode="redirect"
@@ -109,7 +109,7 @@ if (isset($_SESSION['session_id'])) {
                             data-size="large"
                             data-locale="pt-BR"
                             data-logo_alignment="left">
-                        </div><br>
+                        </div><br> -->
                         <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome<span class="required-asterisk">*</span></label>
