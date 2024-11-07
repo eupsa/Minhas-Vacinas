@@ -16,7 +16,7 @@ if (isset($_SESSION['session_id'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
-
+    <meta name="google-signin-client_id" content="544764047256-2ovimec9tfemice8ufntebqfgtl5p8ff.apps.googleusercontent.com">
     <title>Minhas Vacinas - Cadastro</title>
 </head>
 
@@ -93,11 +93,24 @@ if (isset($_SESSION['session_id'])) {
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
                     <form action="../../../backend/register.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="formcad" method="post" novalidate>
-                        <h4 class="mb-4 text-center">Faça seu cadastro</h4>
-                        <div>
-                            <h3 class="text-center">continue com google</h3 class="text-center">
-                            <h3 class="text-center">continue com face etc...</h3 class="text-center">
+                        <h5 class="mb-4 text-center">Faça seu cadastro</h5><br>
+                        <div id="g_id_onload"
+                            data-client_id="544764047256-2ovimec9tfemice8ufntebqfgtl5p8ff.apps.googleusercontent.com"
+                            data-context="signup"
+                            data-ux_mode="redirect"
+                            data-login_uri="https://minhasvacinas.online"
+                            data-itp_support="true">
                         </div>
+                        <div class="g_id_signin"
+                            data-type="standard"
+                            data-shape="pill"
+                            data-theme="outline"
+                            data-text="continue_with"
+                            data-size="large"
+                            data-locale="pt-BR"
+                            data-logo_alignment="left">
+                        </div><br>
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome</label>
                             <input type="text" class="form-control" id="nome" name="nome" autocomplete="off">

@@ -16,6 +16,7 @@ if (isset($_SESSION['session_id'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <meta name="google-signin-client_id" content="544764047256-2ovimec9tfemice8ufntebqfgtl5p8ff.apps.googleusercontent.com">
     <title>Minhas Vacinas - Login</title>
 </head>
 
@@ -85,11 +86,22 @@ if (isset($_SESSION['session_id'])) {
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
                     <form action="../../../backend/login.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="form_login" method="post" novalidate>
-                        <h4 class="mb-4 text-center">Entre na sua conta</h4>
-                        <div>
-                            <h3 class="text-center">continue com google</h3 class="text-center">
-                            <h3 class="text-center">continue com face etc...</h3 class="text-center">
+                        <h4 class="mb-4 text-center">Entre na sua conta</h4><br>
+                        <div id="g_id_onload"
+                            data-client_id="544764047256-2ovimec9tfemice8ufntebqfgtl5p8ff.apps.googleusercontent.com"
+                            data-context="signup"
+                            data-ux_mode="redirect"
+                            data-itp_support="true">
                         </div>
+                        <div class="g_id_signin"
+                            data-type="standard"
+                            data-shape="pill"
+                            data-theme="outline"
+                            data-text="signin_with"
+                            data-size="large"
+                            data-locale="pt-BR"
+                            data-logo_alignment="left">
+                        </div><br>
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>
                             <input type="email" class="form-control" id="email" name="email" required name="email" autocomplete="off">
@@ -133,7 +145,7 @@ if (isset($_SESSION['session_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
     -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="login.js"></script>
