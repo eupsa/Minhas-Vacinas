@@ -112,17 +112,12 @@ if (isset($_SESSION['session_id'])) {
                         </div><br>
                         <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         <div class="mb-3">
-                            <label for="nome" class="form-label">Nome</label>
+                            <label for="nome" class="form-label">Nome<span class="required-asterisk">*</span></label>
                             <input type="text" class="form-control" id="nome" name="nome" autocomplete="off">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail<span class="required-asterisk">*</span></label>
                             <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
-                        </div>
-                        <div class="mb-3">
-                            <label for="cpf" class="form-label">CPF</label>
-                            <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00">
-                            <div class="invalid-feedback">Por favor, insira um CPF válido no formato 000.000.000-00.</div>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Crie sua senha<span class="required-asterisk">*</span></label>
@@ -131,7 +126,6 @@ if (isset($_SESSION['session_id'])) {
                                 <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
-                                <div class="invalid-feedback">Por favor, insira uma senha.</div>
                             </div>
                             <div id="passwordHelpBlock" class="form-text">
                                 Sua senha deve ter de 8 a 20 caracteres, conter letras e números e não deve conter espaços,
@@ -145,7 +139,6 @@ if (isset($_SESSION['session_id'])) {
                                 <button class="btn btn-outline-secondary" type="button" id="ConftogglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
-                                <div class="invalid-feedback">Por favor, insira uma senha.</div>
                             </div>
                         </div>
                         <div class="mb-3">

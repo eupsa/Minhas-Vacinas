@@ -4,6 +4,7 @@
 // require '../../vendor/phpmailer/phpmailer/src/SMTP.php';
 // require '../../vendor/autoload.php';
 require '../backend/scripts/conn.php';
+ini_set('session.cookie_domain', '.minhasvacinas.online');
 session_start();
 
 // use PHPMailer\PHPMailer\PHPMailer;

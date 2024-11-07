@@ -490,7 +490,7 @@ require '../../src/backend/scripts/const.php';
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                               <tr>
                                 <td align="center">
-                                  <a href="https://vacinas.agenci.one/src/account/auth/new_password/new_password.php?token={{token}}" class="f-fallback button" target="_blank">Redefinir Senha</a>
+                                  <a href="https://minhasvacinas.online/src/account/auth/new_password/new_password.php?token={{token}}" class="f-fallback button" target="_blank">Redefinir Senha</a>
                               </tr>
                             </table>
                           </td>
@@ -519,7 +519,7 @@ require '../../src/backend/scripts/const.php';
                 <td class="content-cell" align="center">
                   <p class="f-fallback sub align-center">
                     Minhas Vacinas, LLC
-                    <br>https://vacinas.agenci.one
+                    <br>https://minhasvacinas.online
                   </p>
                 </td>
           </tr>

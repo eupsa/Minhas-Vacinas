@@ -503,7 +503,7 @@ require '../../src/backend/scripts/const.php';
                             <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
                               <tr>
                                 <td align="center">
-                                  <a href="http://vacinas.agenci.one/src/account/auth/login/login.php" class="f-fallback button" target="_blank">Entre na sua conta</a>
+                                  <a href="https://minhasvacinas.online/src/account/auth/login/login.php" class="f-fallback button" target="_blank">Entre na sua conta</a>
                                 </td>
                               </tr>
                               <td class="attributes_item">
@@ -517,7 +517,7 @@ require '../../src/backend/scripts/const.php';
                 <td class="content-cell" align="center">
                   <p class="f-fallback sub align-center">
                     Minhas Vacinas, LLC
-                    <br>https://vacinas.agenci.one
+                    <br>https://minhasvacinas.online
                   </p>
                 </td>
           </tr>

@@ -481,7 +481,7 @@ require '../../src/backend/scripts/const.php';
                   <td class="content-cell">
                     <div class="f-fallback">
                       <h1>Olá, {{nome}}!</h1>
-                      <p>Bem-vindo(a) ao Vacinas! Estamos muito felizes por tê-lo(a) conosco. Para concluir o seu cadastro e começar a utilizar nossos serviços, por favor, clique no botão abaixo:</p>
+                      <p>Bem-vindo(a) ao Minhas Vacinas! Estamos muito felizes por tê-lo(a) conosco. Para concluir o seu cadastro e começar a utilizar nossos serviços, por favor, clique no botão abaixo:</p>
                       <!-- Action -->
                       <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0"
                         role="presentation">
@@ -492,7 +492,7 @@ require '../../src/backend/scripts/const.php';
                             <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                               <tr>
                                 <td align="center">
-                                  <a href="http://vacinas.agenci.one/src/account/auth/conf_register/conf.php" class="f-fallback button" target="_blank">Confirmar cadastro</a>
+                                  <a href="http://minhasvacinas.online/src/account/auth/conf_register/conf.php" class="f-fallback button" target="_blank">Confirmar cadastro</a>
                                 </td>
                               </tr>
                             </table>
@@ -522,7 +522,7 @@ require '../../src/backend/scripts/const.php';
                 <td class="content-cell" align="center">
                   <p class="f-fallback sub align-center">
                     Minhas Vacinas, LLC
-                    <br>https://vacinas.agenci.one/
+                    <br>https://minhasvacinas.online
                   </p>
                 </td>
           </tr>

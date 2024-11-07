@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     id_user BIGINT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
-    estado VARCHAR(2),
+    estado VARCHAR(2) NOT NULL,
     senha VARCHAR(128) NOT NULL,
     email_conf TINYINT(1) DEFAULT 0,
     data_nascimento date,

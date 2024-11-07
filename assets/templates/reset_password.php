@@ -95,7 +95,6 @@ require '../../src/backend/scripts/const.php';
               </a>
             </td>
           </tr>
-          <!-- Email Body -->
           <tr>
             <td class="email-body">
               <table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
@@ -117,7 +116,7 @@ require '../../src/backend/scripts/const.php';
             <td class="email-footer">
               <p>
                 Minhas Vacinas, LLC
-                <br>https://vacinas.agenci.one
+                <br>https://minhasvacinas.online
               </p>
             </td>
           </tr>
