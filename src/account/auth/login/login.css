@@ -62,3 +62,14 @@ body {
   border: 3px solid #000;
   margin: 2rem 0;
 }
+.g_id_signin-container {
+  display: flex;
+  justify-content: center; /* Centraliza o botão horizontalmente */
+  align-items: center; /* Centraliza o botão verticalmente */
+  width: 100%;
+  height: 100%;
+}
+
+.g_id_signin {
+  margin: 0 auto; /* Garante que o botão fique no centro se o estilo do botão mudar */
+}
