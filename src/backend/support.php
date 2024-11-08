@@ -10,14 +10,15 @@ use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-$nome = strtolower(trim($dados['suporte_nome'])); 
-$email = strtolower(trim($dados['suporte_email'])); 
+$nome = strtolower(trim($dados['suporte_nome']));
+$email = strtolower(trim($dados['suporte_email']));
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-$mensagem = trim($dados['mensagem']); 
-$data = trim($dados['data']); 
+$mensagem = trim($dados['mensagem']);
+$data = trim($dados['data']);
+$motivo_contato = trim($dados['motivo_contato']);
 
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    if (empty($nome) || empty($email) || empty($mensagem) || empty($data)) {
+    if (empty($nome) || empty($email) || empty($mensagem) || empty($data) || empty($motivo_contato)) {
         $retorna = ['status' => false, 'msg' => "Todos os campos devem ser preenchidos."];
         header('Content-Type: application/json');
         echo json_encode($retorna);
@@ -34,6 +35,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 <p><strong>Nome:</strong> {$nome}</p>
                 <p><strong>E-mail:</strong> {$email}</p>
                 <p><strong>Data:</strong> {$data}</p>
+                <p><strong>Motivo do Contato:</strong> {$motivo_contato}</p> <!-- Adicionando motivo -->
                 <p><strong>Mensagem:</strong></p>
                 <p>{$mensagem}</p>
             </body>
@@ -47,19 +49,19 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
                 $mail->Username = 'pedrooosxz@gmail.com';
-                $mail->Password = 'lbfn mois wxon hbxo'; 
+                $mail->Password = 'iuvd coxk safu fcap';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
 
-                $mail->setFrom('pedrooosxz@gmail.com', 'Suporte Vacinas'); 
-                $mail->addAddress('equipevaccilife@gmail.com'); 
+                $mail->setFrom('pedrooosxz@gmail.com', 'Suporte Vacinas');
+                $mail->addAddress('equipevaccilife@gmail.com');
                 $mail->isHTML(true);
                 $mail->CharSet = 'UTF-8';
                 $mail->Subject = 'Nova Mensagem de Suporte';
                 $mail->Body = $email_body;
                 $mail->send();
 
-                $retorna = ['status' => true, 'msg' => "Email enviado com sucesso! Em até 48 horas, entraremos em contato."];
+                $retorna = ['status' => true, 'msg' => "E-mail enviado com sucesso! Em até 48 horas, entraremos em contato."];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
                 exit();

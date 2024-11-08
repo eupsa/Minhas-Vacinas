@@ -9,6 +9,7 @@ if (form_suporte) {
     const nome = dadosForm.get("suporte_nome");
     const email = dadosForm.get("suporte_email");
     const data = dadosForm.get("data");
+    const motivo = dadosForm.get("motivo_contato");
     const mensagem = dadosForm.get("mensagem");
 
     if (!nome || !email || !data || !mensagem) {

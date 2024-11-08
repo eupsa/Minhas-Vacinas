@@ -76,7 +76,7 @@
         </nav>
     </header>
 
-    <section>
+    <section class="pt-5">
         <div class="container mt-5">
             <h2 class="text-center mb-4">Suporte</h2>
             <div class="row justify-content-center">
@@ -95,6 +95,17 @@
                             <input type="date" class="form-control" id="data" name="data" required>
                         </div>
                         <div class="mb-3">
+                            <label for="motivo_contato" class="form-label">Motivo do Contato</label>
+                            <select class="form-control" id="motivo_contato" name="motivo_contato" required>
+                                <option value="" disabled selected>Selecione o motivo</option>
+                                <option value="problema_tecnico">Problema técnico</option>
+                                <option value="duvida">Dúvida</option>
+                                <option value="sugestao">Sugestão</option>
+                                <option value="reclamacao">Reclamação</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label for="mensagem" class="form-label">Mensagem</label>
                             <textarea class="form-control" id="mensagem" name="mensagem" rows="3" required></textarea>
                         </div>
@@ -105,16 +116,7 @@
         </div>
     </section>
 
-    <footer class="footer text-center py-3" style="background-color: #343a40; color: #fff;">
-        <div class="container">
-            <p class="mb-1">© 2024 Vacinas - Todos os direitos reservados</p>
-            <div class="d-flex justify-content-center">
-                <a href="" class="text-white me-3">Termos de Uso</a>
-                <span>|</span>
-                <a href="" class="text-white ms-3">Política de Privacidade</a>
-            </div>
-        </div>
-    </footer>
+
 
     <!-- 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
