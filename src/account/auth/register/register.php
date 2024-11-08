@@ -173,9 +173,9 @@ if (isset($_SESSION['session_id'])) {
                                 <option value="SE">Sergipe</option>
                                 <option value="TO">Tocantins</option>
                             </select>
-                            <div class="invalid-feedback">Por favor, selecione um estado.</div>
                         </div>
-                        <button class="btn btn-primary w-100" type="submit">Cadastrar</button>
+                        <div class="cf-turnstile" data-sitekey="0x4AAAAAAAzf0SlVhlpqfXSZ" data-callback="verificacaoConcluida"></div>
+                        <button class="btn btn-primary w-100" id="submitBtn" type="submit" disabled>Cadastrar</button>
                     </form>
                     <hr class="custom-hr">
                     <div class="text-center mt-3">
@@ -202,6 +202,7 @@ if (isset($_SESSION['session_id'])) {
     <script src="script.js"></script>
     -->
 
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
