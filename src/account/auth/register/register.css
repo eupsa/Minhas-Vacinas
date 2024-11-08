@@ -67,3 +67,10 @@ body {
   color: red;
   margin-left: 2px;
 }
+
+.cuteiner {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    height: 10vh;           /* Altura total da viewport */
+}

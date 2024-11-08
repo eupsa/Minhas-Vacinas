@@ -174,7 +174,9 @@ if (isset($_SESSION['session_id'])) {
                                 <option value="TO">Tocantins</option>
                             </select>
                         </div>
-                        <div class="cf-turnstile" data-sitekey="0x4AAAAAAAzf0SlVhlpqfXSZ" data-callback="verificacaoConcluida"></div>
+                        <div class="cuteiner">
+                            <div class="cf-turnstile" data-sitekey="0x4AAAAAAAzf0SlVhlpqfXSZ" data-callback="verificacaoConcluida"></div>
+                        </div>
                         <button class="btn btn-primary w-100" id="submitBtn" type="submit">Cadastrar</button>
                     </form>
                     <hr class="custom-hr">
