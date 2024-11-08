@@ -48,11 +48,9 @@ if ($senha !== $confsenha) {
     exit();
 }
 
-// Criptografa a senha antes de salvar
 $senhaHash = hash('sha256', $senha);
 
 try {
-    // Verifica se o e-mail já está cadastrado
     $sql_check = $pdo->prepare("SELECT id FROM usuario WHERE email = :email");
     $sql_check->bindValue(':email', $email);
     $sql_check->execute();

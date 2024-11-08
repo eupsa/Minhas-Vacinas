@@ -7,7 +7,7 @@ function verificacaoConcluida(token) {
   document.getElementById("submitBtn").disabled = false;
 }
 
-document.getElementById("meuForm").addEventListener("submit", function (event) {
+document.getElementById("formcad").addEventListener("submit", function (event) {
   if (document.getElementById("submitBtn").disabled) {
     event.preventDefault();
     alert("Por favor, complete a verificação de segurança.");
