@@ -175,7 +175,7 @@ if (isset($_SESSION['session_id'])) {
                             </select>
                         </div>
                         <div class="cf-turnstile" data-sitekey="0x4AAAAAAAzf0SlVhlpqfXSZ" data-callback="verificacaoConcluida"></div>
-                        <button class="btn btn-primary w-100" id="submitBtn" type="submit" disabled>Cadastrar</button>
+                        <button class="btn btn-primary w-100" id="submitBtn" type="submit">Cadastrar</button>
                     </form>
                     <hr class="custom-hr">
                     <div class="text-center mt-3">
