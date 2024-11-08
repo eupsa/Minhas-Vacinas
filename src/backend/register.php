@@ -26,11 +26,11 @@ if (!$response_keys['success']) {
 
 // Captura e sanitização dos dados de entrada
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-$nome = strtolower(trim($dados['nome'] ?? ''));
-$email = filter_var(strtolower(trim($dados['email'] ?? '')), FILTER_SANITIZE_EMAIL);
-$estado = trim($dados['estado'] ?? '');
-$senha = $dados['senha'] ?? '';
-$confsenha = $dados['confSenha'] ?? '';
+$nome = strtolower(trim($dados['nome']));
+$email = filter_var(strtolower(trim($dados['email'])), FILTER_SANITIZE_EMAIL);
+$estado = trim($dados['estado']);
+$senha = $dados['senha'];
+$confsenha = $dados['confSenha'];
 
 // Verificação de campos obrigatórios e validação de e-mail
 if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($confsenha) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
