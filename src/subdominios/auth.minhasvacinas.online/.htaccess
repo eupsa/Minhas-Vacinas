@@ -1,3 +1,5 @@
 RewriteEngine On
 RewriteCond %{HTTP_HOST} ^auth\.minhasvacinas\.online$ [NC]
-RewriteRule ^cadastro/?$ https://minhasvacinas.online/cadastro [L,R=301]
+RewriteCond %{REQUEST_URI} ^/cadastro$ [OR]
+RewriteCond %{REQUEST_URI} ^/entrar$
+RewriteRule ^(.*)$ /path/to/your/authentication/pages/$1 [L]
