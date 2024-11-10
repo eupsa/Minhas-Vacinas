@@ -1,265 +1,99 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<!doctype html>
+<title>Site em manutenção</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+<link rel="icon" href="../assets/img/img-web.png" type="image/x-icon">
+<style>
+    html,
+    body {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="public/assets/css/style.css">
-    <link rel="icon" href="public/assets/img/img-web.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Minhas Vacinas</title>
-</head>
+    * {
+        box-sizing: border-box;
+    }
 
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-            <div class="container">
-                <a class="navbar-brand" href="">
-                    <img src="public/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 60px;">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="">Início</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#nossa-missao">Sobre</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="src/campaigns/index.html">Campanhas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="src/support/support.php" class="nav-link">
-                                Suporte
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Baixe o App
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a class="dropdown-item" href="https://www.apple.com/br/app-store/">
-                                        <img src="https://api.iconify.design/logos:apple-app-store.svg" alt="App Store"
-                                            style="width: 20px; height: 20px;" class="me-2">
-                                        App Store
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="https://play.google.com/">
-                                        <img src="https://api.iconify.design/logos:google-play-icon.svg"
-                                            alt="Google Play" style="width: 20px; height: 20px;" class="me-2">
-                                        Google Play
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="btn btn-light" href="https://auth.minhasvacinas.online/cadastro">CADASTRE-SE</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-outline-light btn-login"
-                                href="https://auth.minhasvacinas.online/entrar">ENTRAR</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+    body {
+        text-align: center;
+        padding: 0;
+        background: linear-gradient(135deg, #4CAF50, #2196F3);
+        /* Azul e Verde */
+        color: #fff;
+        font-family: Open Sans;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+    }
 
-    <section class="carrosel">
-        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="public/assets/img/familia-segura.jpg" class="d-block w-100" alt="...">
-                </div>
-    </section>
+    h1 {
+        font-size: 50px;
+        font-weight: 100;
+        text-align: center;
+    }
 
-    <section>
-        <h1 class="text-center my-4 display-4">Proteja-se com Minhas Vacinas: Vacinas na Palma da Sua Mão!</h1>
-        <p class="text-center lead">Descubra a importância de manter seu histórico de vacinação sempre atualizado.</p>
-        <div class="d-flex flex-wrap justify-content-center">
-            <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                <img src="public/assets/img/iphone-mao.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Gestão de Vacinas</h5>
-                    <p class="card-text">Mantenha o controle de todas as suas vacinas em um só lugar.</p>
-                </div>
-            </div>
-            <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                <img src="public/assets/img/iphone-calendario.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Lembretes Personalizados</h5>
-                    <p class="card-text">Receba notificações sobre suas próximas vacinas para não perder nenhuma!</p>
-                </div>
-            </div>
-            <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                <img src="public/assets/img/vacina.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Informações sobre Imunizações</h5>
-                    <p class="card-text">Acesse informações atualizadas e confiáveis sobre as vacinas e receba alertas
-                        sobre campanhas de vacinação perto de você.</p>
-                </div>
-            </div>
-            <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                <img src="public/assets/img/familia-segura.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Proteja Sua Família</h5>
-                    <p class="card-text">Garanta a saúde de quem você ama com um histórico de vacinação sempre
-                        atualizado.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    p {
+        font-size: 20px;
+    }
 
-    <div style="height: 50px;"></div>
+    article {
+        width: 100%;
+        padding: 50px;
+        margin: 0 auto;
+        text-align: center;
+    }
 
-    <section class="bg-secondary py-5">
-        <div class="container text-center">
-            <h2 class="mb-4 text-white animate__animated animate__fadeInDown">O que a nossa plataforma oferta?</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card shadow-lg mb-4 animate__animated animate__fadeInUp">
-                        <!-- <img src="public/assets/img/10207836.jpg" class="card-img-top" alt="Gestão de Vacinas"> -->
-                        <div class="card-body">
-                            <i class="bi bi-shield-lock text-success" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Registro Digital de Vacinas</h5>
-                            <p class="card-text">Mantenha digital seguro de todas as vacinas de sua família.
-                                Isso facilita o acompanhamento da imunização e o acesso a informações importantes.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card shadow-lg mb-4 animate__animated animate__fadeInUp">
-                        <!-- <img src="assets/img/cel.jpg" class="card-img-top" alt="Lembretes Personalizados"> -->
-                        <div class="card-body">
-                            <i class="bi bi-bell text-warning" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Alertas de Vacinação</h5>
-                            <p class="card-text">Obtenha relatórios detalhados sobre o estado das suas vacinas, ajudando
-                                você a entender o que está em dia e o que precisa ser atualizado.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card shadow-lg mb-4 animate__animated animate__fadeInUp">
-                        <!-- <img src="assets/img/ds.png" class="card-img-top" alt="Informações sobre Imunizações"> -->
-                        <div class="card-body">
-                            <i class="bi bi-file-earmark-text text-info" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Cartão de Vacinação Digital</h5>
-                            <p class="card-text">Carregue seu cartão de vacinação no celular, facilitando o acesso às
-                                informações em qualquer lugar e a qualquer momento.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card shadow-lg mb-4 animate__animated animate__fadeInUp">
-                        <!-- <img src="assets/img/37222.jpg" class="card-img-top" alt="Proteja Sua Família"> -->
-                        <div class="card-body">
-                            <i class="bi bi-heart text-danger" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Proteja Sua Família</h5>
-                            <p class="card-text">Mantenha o histórico de vacinação da sua família sempre atualizado,
-                                organizado, acessível e seguro.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card shadow-lg mb-4 animate__animated animate__fadeInUp">
-                        <!-- <img src="assets/img/Checklist.jpg" class="card-img-top" alt="Educação em Saúde"> -->
-                        <div class="card-body">
-                            <i class="bi bi-book text-primary" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Dicas de Cuidados Pós-Vacinação</h5>
-                            <p class="card-text">Receba dicas sobre cuidados pós-vacinação e garanta uma recuperação
-                                tranquila.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card shadow-lg mb-4 animate__animated animate__fadeInUp">
-                        <!-- <img src="assets/img/fully.jpg" class="card-img-top" alt="Campanhas de Vacinação"> -->
-                        <div class="card-body">
-                            <i class="bi bi-calendar-event text-info" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Campanhas de Vacinação</h5>
-                            <p class="card-text">Receba dicas sobre cuidados pós-vacinação para garantir uma recuperação
-                                tranquila e saudável.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    a {
+        color: #fff;
+        font-weight: bold;
+        text-decoration: none;
+        transition: .5s;
+    }
 
-    <section class="bg-success text-white py-5" id="nossa-missao">
-        <div class="container text-center">
-            <h2 class="mb-4">A Nossa Missão</h2>
-            <p class="lead">Minhas Vacinas, nossa missão é promover a saúde e o bem-estar da comunidade através da
-                conscientização sobre a importância da vacinação. Buscamos garantir que todos tenham acesso a
-                informações atualizadas e precisas, facilitando o gerenciamento do histórico de vacinas e incentivando a
-                proteção de todos.</p>
-            <div class="row mt-4">
-                <div class="col-md-6">
-                    <h5>Compromisso com a Educação</h5>
-                    <p>Educamos sobre as vacinas e suas contribuições para a saúde pública, empoderando as pessoas a
-                        tomarem decisões informadas.</p>
-                </div>
-                <div class="col-md-6">
-                    <h5>Acesso a Informações</h5>
-                    <p>Oferecemos uma plataforma acessível onde os usuários podem encontrar dados confiáveis sobre
-                        vacinação e campanhas.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    a:hover {
+        background-color: #fff;
+        color: #2196F3;
+        transition: .5s;
+        border-radius: 10px;
+    }
 
-    <footer class="footer text-center bg-dark text-white py-4">
-        <div class="container">
-            <div class="mb-3">
-                <p class="mb-1">Ainda não tem uma conta?</p>
-                <a href="https://auth.minhasvacinas.online/cadastro" class="btn btn-primary">Faça seu registro aqui</a>
-            </div>
-            <div class="mb-3">
-                <p class="mb-1">Já tem uma conta?</p>
-                <a href="https://auth.minhasvacinas.online/entrar" class="btn btn-primary">Entre na sua conta</a>
-            </div>
-            <div class="mb-3">
-                <p class="mb-1">Precisa de ajuda?</p>
-                <a href="https://help.minhasvacinas.online" class="btn btn-secondary">
-                    Falar com o suporte
-                </a>
-            </div>
-            <div>
-                <p class="mb-0">© 2024 Minhas Vacinas - Todos os direitos reservados</p>
-                <a href="assets\docs\Termos-de-Serviço.pdf" class="text-white">Termos de Serviço</a> |
-                <a href="assets\docs\Política-de-Privacidade.pdf" class="text-white">Política de Privacidade</a>
-            </div>
-        </div>
+    svg {
+        width: 75px;
+        margin-top: 1em;
+    }
 
-        <a href="" class="back-to-top">
-            <i class="bi bi-arrow-up-circle" style="font-size: 2rem; color: blue;"></i>
-        </a>
-    </footer>
+    .container {
+        max-width: 700px;
+        text-align: center;
+        margin: auto;
+    }
+</style>
 
-    <!-- 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
-    -->
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="assets/css & js/script.js"></script>
-</body>
-
-</html>
+<article class="animate__animated animate__fadeIn">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 202.24 202.24">
+        <defs>
+            <style>
+                .cls-1 {
+                    fill: #fff;
+                }
+            </style>
+        </defs>
+        <title>Logo</title>
+        <g id="Layer_2" data-name="Layer 2">
+            <g id="Capa_1" data-name="Capa 1">
+                <path class="cls-1"
+                    d="M101.12,0A101.12,101.12,0,1,0,202.24,101.12,101.12,101.12,0,0,0,101.12,0ZM159,148.76H43.28a11.57,11.57,0,0,1-10-17.34L91.09,31.16a11.57,11.57,0,0,1,20.06,0L169,131.43a11.57,11.57,0,0,1-10,17.34Z" />
+                <path class="cls-1"
+                    d="M101.12,36.93h0L43.27,137.21H159L101.13,36.94Zm0,88.7a7.71,7.71,0,1,1,7.71-7.71A7.71,7.71,0,0,1,101.12,125.63Zm7.71-50.13a7.56,7.56,0,0,1-.11,1.3l-3.8,22.49a3.86,3.86,0,0,1-7.61,0l-3.8-22.49a8,8,0,0,1-.11-1.3,7.71,7.71,0,1,1,15.43,0Z" />
+            </g>
+        </g>
+    </svg>
+    <h1 class="animate__animated animate__fadeIn animate__delay-1s">Voltaremos em breve!</h1>
+    <div class="animate__animated animate__fadeIn animate__delay-2s">
+        <p>Desculpe pelo inconveniente. Estamos realizando manutenção no momento. Fique tranquilo, logo voltaremos!</p>
+    </div>
+</article>
