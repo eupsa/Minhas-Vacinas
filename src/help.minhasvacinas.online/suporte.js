@@ -31,7 +31,7 @@ if (form_suporte) {
       },
     });
 
-    const dados = await fetch("../backend/support.php", {
+    const dados = await fetch("backend/suporte.php", {
       method: "POST",
       body: dadosForm,
     });
