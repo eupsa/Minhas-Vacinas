@@ -1,13 +1,18 @@
 <?php
-require '../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require '../../vendor/phpmailer/phpmailer/src/Exception.php';
-require '../../vendor/phpmailer/phpmailer/src/SMTP.php';
-require '../../vendor/autoload.php';
-require '../backend/scripts/conn.php';
-require '../backend/scripts/const.php';
+require '../../../../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require '../../../../../vendor/phpmailer/phpmailer/src/Exception.php';
+require '../../../../../vendor/phpmailer/phpmailer/src/SMTP.php';
+require '../../../../../vendor/autoload.php';
+require '../../../../scripts/conn.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
+echo "<div id='alerta' class='alert alert-$alertType alert-dismissible fade show' role='alert'>
+<strong>$alertMessage</strong>
+<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+</div>";
+
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $nome = strtolower(trim($dados['nome']));

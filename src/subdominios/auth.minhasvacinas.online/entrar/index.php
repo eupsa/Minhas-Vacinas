@@ -122,7 +122,7 @@ if (isset($_SESSION['session_id'])) {
                                 </a>
                             </div>
                         </div>
-                        <button class="btn btn-primary w-100" type="submit">Entrar</button>
+                        <button class="btn btn-success w-100" type="submit">Entrar</button>
                     </form>
                     <hr class="custom-hr">
                     <div class="text-center mt-3">
@@ -137,8 +137,8 @@ if (isset($_SESSION['session_id'])) {
     <footer class="footer text-center">
         <div class="container">
             <p class="mb-0">© 2024 Minhas Vacinas - Todos os direitos reservados</p>
-            <a href="/assets\docs\Termos-de-Serviço.pdf" class="text-white">Termos de Serviço</a> |
-            <a href="/assets\docs\Política-de-Privacidade.pdf" class="text-white">Política de Privacidade</a>
+            <a href="/public/assets/docs/Termos-de-Serviço.pdf" class="text-white">Termos de Serviço</a> |
+            <a href="/public/assets\docs\Política-de-Privacidade.pdf" class="text-white">Política de Privacidade</a>
         </div>
     </footer>
 
@@ -151,7 +151,6 @@ if (isset($_SESSION['session_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="login.js"></script>
-    <script src="../../../../assets/js/sweetalert2.js"></script>
 </body>
 
 </html>

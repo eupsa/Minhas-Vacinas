@@ -3,14 +3,6 @@ const toggleConfPassword = document.querySelector("#ConftogglePassword");
 const password = document.querySelector("#senha");
 const confPassword = document.querySelector("#confSenha");
 
-document
-  .getElementById("formcad")
-  .addEventListener("submit", function (event) {
-    if (document.getElementById("submitBtn")) {
-      event.preventDefault();
-      alert("Por favor, complete a verificação de segurança.");
-    }
-  });
 
 const toggleVisibility = (field, toggleBtn) => {
   const type = field.getAttribute("type") === "password" ? "text" : "password";
