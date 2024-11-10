@@ -64,16 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
             form_login.reset();
             window.location.href = "../../painel/index.php";
           });
-        } else if (resposta["adm"]) {
-          Swal.fire({
-            text: resposta["msg"],
-            icon: "success",
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "Fechar",
-          }).then(() => {
-            form_login.reset();
-            window.location.href = "../../admin/index.php";
-          });
         } else {
           Swal.fire({
             text: resposta["msg"],

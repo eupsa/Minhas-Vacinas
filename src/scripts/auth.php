@@ -1,6 +1,9 @@
 <?php
-function CreateSessions($pdo)
+function info_user($pdo)
 {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
     if (isset($_SESSION['session_id'])) {
         try {
