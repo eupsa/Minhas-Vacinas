@@ -1,0 +1,6 @@
+RewriteEngine On
+
+# Garantir que se a URL não for um arquivo ou diretório real, reescreva para index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /src/subdominios/auth.minhasvacinas.online/$1/index.php [L]

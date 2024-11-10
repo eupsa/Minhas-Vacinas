@@ -164,9 +164,9 @@ if (isset($_SESSION['session_id'])) {
 
     <footer class="footer text-center">
         <div class="container">
-            <p class="mb-0">© 2024 Vacinas - Todos os direitos reservados</p>
-            <a href="" class="text-white">Termos de Uso</a> |
-            <a href="" class="text-white">Política de Privacidade</a>
+            <p class="mb-0">© 2024 Minhas Vacinas - Todos os direitos reservados</p>
+            <a href="/public/assets/docs/Termos-de-Serviço.pdf" class="text-white">Termos de Serviço</a> |
+            <a href="/public/assets\docs\Política-de-Privacidade.pdf" class="text-white">Política de Privacidade</a>
         </div>
     </footer>
 

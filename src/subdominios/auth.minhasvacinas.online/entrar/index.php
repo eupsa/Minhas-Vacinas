@@ -11,12 +11,11 @@ if (isset($_SESSION['session_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login.css">
-    <link rel="icon" href="../../../../assets/img/img-web.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="../../../../public/assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <meta name="google-signin-client_id" content="544764047256-2ovimec9tfemice8ufntebqfgtl5p8ff.apps.googleusercontent.com">
     <title>Minhas Vacinas - Login</title>
 </head>
 
@@ -25,7 +24,7 @@ if (isset($_SESSION['session_id'])) {
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="/index.html">
-                    <img src="../../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
+                    <img src="../../../../public/assets/img//logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -87,23 +86,6 @@ if (isset($_SESSION['session_id'])) {
                     <form action="../../../backend/login.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="form_login" method="post" novalidate>
                         <h4 class="mb-4 text-center">Entre na sua conta</h4><br>
-                        <!-- <div id="g_id_onload"
-                            data-client_id="544764047256-2ovimec9tfemice8ufntebqfgtl5p8ff.apps.googleusercontent.com"
-                            data-context="signup"
-                            data-ux_mode="redirect"
-                            data-itp_support="true">
-                        </div>
-                        <div class="g_id_signin-container">
-                            <div class="g_id_signin"
-                                data-type="standard"
-                                data-shape="pill"
-                                data-theme="outline"
-                                data-text="signin_with"
-                                data-size="large"
-                                data-locale="pt-BR"
-                                data-logo_alignment="left">
-                            </div>
-                        </div><br> -->
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>
                             <input type="email" class="form-control" id="email" name="email" required name="email" autocomplete="off">
@@ -117,7 +99,7 @@ if (isset($_SESSION['session_id'])) {
                                 </button>
                             </div>
                             <div class="mt-2 text-end">
-                                <a href="../forgot_password/forgot_password.php" class="text-muted">
+                                <a href="http://localhost:8091/src/subdominios/auth.minhasvacinas.online/esqueceu_senha/" class="text-muted">
                                     <i class="bi bi-question-circle me-1"></i> Esqueceu a senha?
                                 </a>
                             </div>
@@ -127,7 +109,7 @@ if (isset($_SESSION['session_id'])) {
                     <hr class="custom-hr">
                     <div class="text-center mt-3">
                         <p class="mb-1">Ainda não tem uma conta?</p>
-                        <a href="../register/register.php" class="btn btn-primary">Faça seu registro aqui</a>
+                        <a href="../cadastro" class="btn btn-primary">Faça seu registro aqui</a>
                     </div>
                 </div>
             </div>
@@ -147,10 +129,9 @@ if (isset($_SESSION['session_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
     -->
-    <script src="https://accounts.google.com/gsi/client"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="login.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
