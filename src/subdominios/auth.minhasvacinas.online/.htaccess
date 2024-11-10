@@ -1,3 +1,3 @@
 RewriteEngine On
 RewriteCond %{HTTP_HOST} ^auth\.minhasvacinas\.online$ [NC]
-RewriteRule ^cadastro/?$ http://minhasvacinas.online/ [L,R=301]
+RewriteRule ^cadastro/?$ https://minhasvacinas.online/cadastro [L,R=301]
