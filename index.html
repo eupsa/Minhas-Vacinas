@@ -4,19 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="public/assets/css/style.css">
-    <link rel="icon" href="public/assets/img/img-web.png" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/other/css/style.css">
+    <link rel="icon" href="/assets/other/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <title>Minhas Vacinas</title>
 </head>
 
 <body>
     <header>
+        <div class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
+            <div class="toast show bg-warning text-dark border-0 animate__animated animate__fadeInDown">
+                <div class="toast-header">
+                    <strong class="me-auto">⚠️ Atenção!</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"
+                        hidden.bs.toast="animate__fadeOutUp"></button>
+                </div>
+                <div class="toast-body text-center">
+                    🚧 O site está passando por modificações importantes! Algumas funcionalidades podem não estar
+                    disponíveis.
+                    <br><strong>Por favor, tente novamente mais tarde.</strong>
+                </div>
+            </div>
+        </div>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="">
-                    <img src="public/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 60px;">
+                    <img src="/assets/other/img/logo-head.png" alt="Logo Vacinas" style="height: 60px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +94,7 @@
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="public/assets/img/familia-segura.jpg" class="d-block w-100" alt="...">
+                    <img src="assets/other/img/familia-segura.jpg" class="d-block w-100" alt="...">
                 </div>
     </section>
 
@@ -88,21 +103,21 @@
         <p class="text-center lead">Descubra a importância de manter seu histórico de vacinação sempre atualizado.</p>
         <div class="d-flex flex-wrap justify-content-center">
             <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                <img src="public/assets/img/iphone-mao.jpg" class="card-img-top" alt="...">
+                <img src="assets/other/img/iphone-mao.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Gestão de Vacinas</h5>
                     <p class="card-text">Mantenha o controle de todas as suas vacinas em um só lugar.</p>
                 </div>
             </div>
             <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                <img src="public/assets/img/iphone-calendario.jpg" class="card-img-top" alt="...">
+                <img src="assets/other/img/iphone-calendario.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Lembretes Personalizados</h5>
                     <p class="card-text">Receba notificações sobre suas próximas vacinas para não perder nenhuma!</p>
                 </div>
             </div>
             <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                <img src="public/assets/img/vacina.jpg" class="card-img-top" alt="...">
+                <img src="assets/other/img/vacina.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Informações sobre Imunizações</h5>
                     <p class="card-text">Acesse informações atualizadas e confiáveis sobre as vacinas e receba alertas
@@ -110,7 +125,7 @@
                 </div>
             </div>
             <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                <img src="public/assets/img/familia-segura.jpg" class="card-img-top" alt="...">
+                <img src="assets/other/img/familia-segura.jpg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Proteja Sua Família</h5>
                     <p class="card-text">Garanta a saúde de quem você ama com um histórico de vacinação sempre
@@ -241,8 +256,8 @@
             </div>
             <div>
                 <p class="mb-0">© 2024 Minhas Vacinas - Todos os direitos reservados</p>
-                <a href="assets\docs\Termos-de-Serviço.pdf" class="text-white">Termos de Serviço</a> |
-                <a href="assets\docs\Política-de-Privacidade.pdf" class="text-white">Política de Privacidade</a>
+                <a href="assets/other/docs/Termos-de-Serviço.pdf" class="text-white">Termos de Serviço</a> |
+                <a href="assets/other/docs/Política-de-Privacidade.pdf" class="text-white">Política de Privacidade</a>
             </div>
         </div>
 
@@ -251,15 +266,9 @@
         </a>
     </footer>
 
-    <!-- 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
-    -->
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="assets/css & js/script.js"></script>
+    <script src="/assets/other/js/script.js"></script>
 </body>
 
 </html>
