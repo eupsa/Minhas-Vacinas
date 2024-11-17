@@ -27,7 +27,7 @@ if (form_recovery) {
       },
     });
 
-    const dados = await fetch("../../../backend/forgot_password.php", {
+    const dados = await fetch("../backend/esqueceu_senha.php", {
       method: "POST",
       body: dadosForm,
     });

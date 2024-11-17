@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       try {
-        const dados = await fetch("../../../backend/login.php", {
+        const dados = await fetch("../backend/entrar.php", {
           method: "POST",
           body: dadosForm,
         });
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
             confirmButtonText: "Fechar",
           }).then(() => {
             form_login.reset();
-            window.location.href = "../../painel/index.php";
+            window.location.href = "https://painel.minhasvacinas.online";
           });
         } else {
           Swal.fire({

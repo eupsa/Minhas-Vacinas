@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="conf.css">
-    <link rel="icon" href="../../../../assets/img/img-web.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/assets/other/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -17,7 +17,7 @@
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="/index.html">
-                    <img src="../../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
+                    <img src="/assets/other/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,10 +32,10 @@
                             <a class="nav-link" href="/index.html#nossa-missao">Sobre</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../../campaigns/index.html">Campanhas</a>
+                            <a class="nav-link" href="" onclick="alert('Página indisponível.');" ;>Campanhas</a>
                         </li>
                         <li class="nav-item">
-                            <a href="../../../support/support.php" class="nav-link">
+                            <a href="https://help.minhasvacinas.online" class="nav-link">
                                 Suporte
                             </a>
                         </li>
@@ -64,7 +64,7 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-outline-light btn-login" href="../register/register.php">CADASTRE-SE</a>
+                            <a class="btn btn-outline-light btn-login" href="../cadastro/index.php">CADASTRE-SE</a>
                         </li>
                     </ul>
                 </div>
@@ -79,7 +79,7 @@
                     <strong style="color: #007bff;">Por favor, insira seu e-mail para confirmar o cadastro.</strong>
                 </div>
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                    <form action="../../../backend/conf_register.php" class="needs-validation bg-light p-5 rounded shadow-lg"
+                    <form action="../backend/conf_cad.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="form_conf" method="post" novalidate>
                         <h4 class="mb-4 text-center">Confirmar Cadastro</h4>
                         <div class="mb-3">
@@ -92,7 +92,7 @@
                     <hr class="custom-hr">
                     <div class="text-center mt-3">
                         <p class="mb-1">Ainda não tem uma conta?</p>
-                        <a href="../register/register.php" class="btn btn-primary">Faça seu registro aqui</a>
+                        <a href="../cadastro/index.php" class="btn btn-primary">Faça seu registro aqui</a>
                     </div>
                 </div>
             </div>
@@ -107,16 +107,10 @@
         </div>
     </footer>
 
-    <!-- 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
-    -->
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="conf.js"></script>
-    <script src="../../../../assets/js/sweetalert2.js"></script>
 </body>
 
 </html>

@@ -27,7 +27,7 @@ if (form_conf) {
       },
     });
 
-    const dados = await fetch("../../../backend/conf_register.php", {
+    const dados = await fetch("../backend/conf_cad.php", {
       method: "POST",
       body: dadosForm,
     });
@@ -41,7 +41,7 @@ if (form_conf) {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       }).then(() => {
-        window.location.href = "../../auth/login/login.php  ";
+        window.location.href = "../entrar/index.php";
       });
       formcad.reset();
     } else {

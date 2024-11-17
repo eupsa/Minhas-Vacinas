@@ -55,31 +55,33 @@ if (formcad) {
     Swal.fire({
       title: "Processando...",
       html: "Aguarde enquanto estamos cadastrando...",
-      timer: 5000,
       timerProgressBar: true,
       didOpen: () => {
         Swal.showLoading();
       },
     });
 
-    const dados = await fetch("../../../backend/register.php", {
-      method: "POST",
-      body: dadosForm,
-    });
+    try {
+      const dados = await fetch("../backend/cadastro.php", {
+        method: "POST",
+        body: dadosForm,
+      });
 
-    const resposta = await dados.json();
+      if (!dados.ok) throw new Error("Erro ao processar a solicitação");
 
-    if (resposta["status"]) {
+      const resposta = await dados.json();
+
       Swal.fire({
         text: resposta["msg"],
-        icon: "success",
+        icon: resposta["status"] ? "success" : "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       });
-      formcad.reset();
-    } else {
+
+      if (resposta["status"]) formcad.reset();
+    } catch (error) {
       Swal.fire({
-        text: resposta["msg"],
+        text: "Erro ao processar o cadastro. Tente novamente mais tarde.",
         icon: "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
