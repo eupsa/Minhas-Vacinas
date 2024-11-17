@@ -3,7 +3,6 @@ const toggleConfPassword = document.querySelector("#ConftogglePassword");
 const password = document.querySelector("#senha");
 const confPassword = document.querySelector("#confSenha");
 
-
 const toggleVisibility = (field, toggleBtn) => {
   const type = field.getAttribute("type") === "password" ? "text" : "password";
   field.setAttribute("type", type);
