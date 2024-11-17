@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['session_id'])) {
-    header("Location: ../../painel/index.php");
+    header("Location: https://painel.minhasvacinas.online");
     exit();
 }
 ?>
@@ -13,7 +13,7 @@ if (isset($_SESSION['session_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="/assets/other/img/img-web.png" type="image/x-icon">
+    <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
@@ -26,7 +26,7 @@ if (isset($_SESSION['session_id'])) {
         <nav class="navbar navbar-expand-lg navbar-light fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="/index.html">
-                    <img src="/assets/other/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
+                    <img src="/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -167,8 +167,8 @@ if (isset($_SESSION['session_id'])) {
     <footer class="footer text-center">
         <div class="container">
             <p class="mb-0">© 2024 Minhas Vacinas - Todos os direitos reservados</p>
-            <a href="/assets/other/docs/Termos-de-Serviço.pdf" class="text-white">Termos de Serviço</a> |
-            <a href="/assets/other/docs/Política-de-Privacidade.pdf" class="text-white">Política de Privacidade</a>
+            <a href="/assets/docs/Termos-de-Serviço.pdf" class="text-white">Termos de Serviço</a> |
+            <a href="/assets/docs/Política-de-Privacidade.pdf" class="text-white">Política de Privacidade</a>
         </div>
     </footer>
 
