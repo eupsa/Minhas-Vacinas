@@ -57,11 +57,7 @@
                         </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a href="" onclick="Swal.fire({
-                                    title: '🚧 O site está passando por modificações importantes!',
-                                    text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
-                                    icon: 'warning'
-                                }); return false;" class="nav-link">Suporte</a>
+                                <a href="src/ajuda/index.php" class="nav-link">Suporte</a>
                             </li>
                         </ul>
                         <li class="nav-item dropdown">
@@ -89,12 +85,10 @@
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-light disabled" href="#"
-                                onclick="alert('Cadastro desativado!'); return false;">CADASTRE-SE</a>
+                            <a class="btn btn-light" href="src/auth/cadastro/index.php">CADASTRE-SE</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-outline-light btn-login disabled" href="#"
-                                onclick="alert('Login desativado!'); return false;">ENTRAR</a>
+                            <a class="btn btn-outline-light btn-login" href="src/auth/entrar/index.php">ENTRAR</a>
                         </li>
                     </ul>
                 </div>
@@ -254,29 +248,15 @@
         <div class="container">
             <div class="mb-3">
                 <p class="mb-1">Ainda não tem uma conta?</p>
-                <a href="" onclick="Swal.fire({
-                    title: '🚧 Funcionalidade desativada!',
-                    text: 'O registro está temporariamente indisponível. Por favor, tente novamente mais tarde.',
-                    icon: 'success'
-                }); return false;" class="btn btn-primary">Faça seu registro aqui</a>
+                <a href="src/auth/cadastro/index.php" class="btn btn-primary">Faça seu registro aqui</a>
             </div>
             <div class="mb-3">
                 <p class="mb-1">Já tem uma conta?</p>
-                <a href="" onclick="Swal.fire({
-                    title: '🚧 Funcionalidade desativada!',
-                    text: 'O login está temporariamente indisponível. Por favor, tente novamente mais tarde.',
-                    icon: 'warning'
-                }); return false;" class="btn btn-primary">Entre na sua conta</a>
+                <a href="src/auth/entrar/index.php" class="btn btn-primary">Entre na sua conta</a>
             </div>
             <div class="mb-3">
-                <p class="mb-1">Precisa de ajuda?</p>
-                <a href="" onclick="Swal.fire({
-                    title: '🚧 Funcionalidade desativada!',
-                    text: 'O suporte está temporariamente indisponível. Por favor, tente novamente mais tarde.',
-                    icon: 'warning'
-                }); return false;" class="btn btn-secondary">
-                    Falar com o suporte
-                </a>
+                <p class="mb-1">Já tem uma conta?</p>
+                <a href="src/ajuda/index.php" class="btn btn-warning">Fale com o suporte</a>
             </div>
             <div>
                 <p class="mb-0">© 2024 Minhas Vacinas - Todos os direitos reservados</p>

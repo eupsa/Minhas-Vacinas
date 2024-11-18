@@ -85,28 +85,43 @@ if (isset($_SESSION['session_id'])) {
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
                     <form action="../backend/entrar.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="form_login" method="post" novalidate>
-                        <h4 class="mb-4 text-center">Entre na sua conta</h4><br>
+                        <h4 class="mb-4 text-center">Entre na sua conta</h4>
+
+                        <!-- Campo de E-mail -->
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="email" name="email" required name="email" autocomplete="off">
+                            <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
                         </div>
+
+                        <!-- Campo de Senha -->
                         <div class="mb-3">
                             <label for="password" class="form-label">Senha</label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="senha" name="senha">
+                                <input type="password" class="form-control" id="senha" name="senha" required>
                                 <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>
                             <div class="mt-2 text-end">
-                                <a href="../esqueceu_senha/index.php" class="text-muted">
+                                <a href="../esqueceu-senha/index.php" class="text-muted">
                                     <i class="bi bi-question-circle me-1"></i> Esqueceu a senha?
                                 </a>
                             </div>
                         </div>
+
+                        <!-- Lembrar Senha -->
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="lembrarSenha" name="lembrarSenha">
+                            <label class="form-check-label" for="lembrarSenha">Lembrar senha</label>
+                        </div>
+
+                        <!-- Botão de Login -->
                         <button class="btn btn-success w-100" type="submit">Entrar</button>
                     </form>
+
                     <hr class="custom-hr">
+
+                    <!-- Link para cadastro -->
                     <div class="text-center mt-3">
                         <p class="mb-1">Ainda não tem uma conta?</p>
                         <a href="../cadastro/index.php" class="btn btn-primary">Faça seu registro aqui</a>
@@ -116,11 +131,13 @@ if (isset($_SESSION['session_id'])) {
         </div>
     </section>
 
+
+
     <footer class="footer text-center">
         <div class="container">
             <p class="mb-0">© 2024 Minhas Vacinas - Todos os direitos reservados</p>
-            <a href="/public/assets/docs/Termos-de-Serviço.pdf" class="text-white">Termos de Serviço</a> |
-            <a href="/public/assets\docs\Política-de-Privacidade.pdf" class="text-white">Política de Privacidade</a>
+            <a href="/assets/docs/Termos-de-Serviço.pdf" class="text-white">Termos de Serviço</a> |
+            <a href="/assets\docs\Política-de-Privacidade.pdf" class="text-white">Política de Privacidade</a>
         </div>
     </footer>
 
