@@ -86,14 +86,10 @@ if (isset($_SESSION['session_id'])) {
                     <form action="../backend/entrar.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="form_login" method="post" novalidate>
                         <h4 class="mb-4 text-center">Entre na sua conta</h4>
-
-                        <!-- Campo de E-mail -->
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>
                             <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
                         </div>
-
-                        <!-- Campo de Senha -->
                         <div class="mb-3">
                             <label for="password" class="form-label">Senha</label>
                             <div class="input-group">
@@ -102,26 +98,23 @@ if (isset($_SESSION['session_id'])) {
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>
-                            <div class="mt-2 text-end">
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <div>
                                 <a href="../esqueceu-senha/index.php" class="text-muted">
                                     <i class="bi bi-question-circle me-1"></i> Esqueceu a senha?
                                 </a>
                             </div>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" class="form-check-input" id="lembrarSenha" name="lembrarSenha">
+                                    <label class="form-check-label" for="lembrarSenha">Lembrar senha</label>
+                                </div>
+                            </div>
                         </div>
-
-                        <!-- Lembrar Senha -->
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="lembrarSenha" name="lembrarSenha">
-                            <label class="form-check-label" for="lembrarSenha">Lembrar senha</label>
-                        </div>
-
-                        <!-- Botão de Login -->
                         <button class="btn btn-success w-100" type="submit">Entrar</button>
                     </form>
-
                     <hr class="custom-hr">
-
-                    <!-- Link para cadastro -->
                     <div class="text-center mt-3">
                         <p class="mb-1">Ainda não tem uma conta?</p>
                         <a href="../cadastro/index.php" class="btn btn-primary">Faça seu registro aqui</a>
@@ -130,6 +123,7 @@ if (isset($_SESSION['session_id'])) {
             </div>
         </div>
     </section>
+
 
 
 
