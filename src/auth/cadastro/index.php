@@ -156,7 +156,7 @@ if (isset($_SESSION['session_id'])) {
                     <hr class="custom-hr">
                     <div class="text-center mt-3">
                         <p class="mb-1">Já tem uma conta?</p>
-                        <a href="../entrar/index.php" class="btn btn-primary">Entre na sua conta</a>
+                        <a href="../backend/entrar.php" class="btn btn-primary">Entre na sua conta</a>
                     </div>
                 </div>
             </div>

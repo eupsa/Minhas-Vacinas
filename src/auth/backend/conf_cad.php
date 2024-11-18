@@ -1,10 +1,9 @@
 <?php
-require '../../vendor\phpmailer\phpmailer\src\PHPMailer.php';
-require '../../vendor\phpmailer\phpmailer\src\Exception.php';
-require '../../vendor\phpmailer\phpmailer\src\SMTP.php';
-require '../../vendor\autoload.php';
-require '../backend/scripts/conn.php';
-require '../backend/scripts/const.php';
+require '../../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require '../../../vendor/phpmailer/phpmailer/src/Exception.php';
+require '../../../vendor/phpmailer/phpmailer/src/SMTP.php';
+require '../../../vendor/autoload.php';
+require '../../scripts/conn.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -52,7 +51,6 @@ if (empty($email)) {
         }
     } catch (PDOException $e) {
         $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar confirmar seu cadastro. Tente novamente."];
-        // $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar confirmar seu cadastro:" . $e->getMessage()];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();
@@ -61,10 +59,8 @@ if (empty($email)) {
 
 function enviarEmail($nome, $email)
 {
-    $action_url = 'http://localhost:8091/src/account/auth/login/login.php';
-    $email_body = file_get_contents('../../assets/templates/conf_register.php');
-    $email_body = str_replace('{{nome}}', $nome, $email_body);
-    $email_body = str_replace('{{email}}', $email, $email_body);
+    $action_url = 'https://minhasvacinas.online/src/auth/entrar/';
+    $email_body = file_get_contents('../../../assets/email/confirmar-cadastro.php');
     $email_body = str_replace('{{action_url}}', $action_url, $email_body);
     $mail = new PHPMailer(true);
 

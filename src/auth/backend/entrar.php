@@ -1,6 +1,5 @@
 <?php
-require '../backend/scripts/conn.php';
-ini_set('session.cookie_domain', '.minhasvacinas.online');
+require '../backend/entrar.php';
 session_start();
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);

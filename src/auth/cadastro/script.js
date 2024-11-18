@@ -77,7 +77,6 @@ if (formcad) {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       });
-
       if (resposta["status"]) formcad.reset();
     } catch (error) {
       Swal.fire({

@@ -166,9 +166,9 @@ text-decoration: none
 <!--[if !mso]>-->
 <td class="t3" style="width:85px;">
 <!--<![endif]-->
-<table class="t2" role="presentation" cellpadding="0" cellspacing="0" width="100%" style="width:100%;"><tr>
-<td class="t1"><div style="font-size:0px;"><img class="t0" style="display:block;border:0;height:auto;width:100%;Margin:0;max-width:100%;" width="85" height="69.265625" alt="" src="../../assets/img/logo-head.png"/></div></td>
-</tr></table>
+<!-- <table class="t2" role="presentation" cellpadding="0" cellspacing="0" width="100%" style="width:100%;"><tr>
+<td class="t1"><div style="font-size:0px;"><img class="t0" style="display:block;border:0;height:auto;width:100%;Margin:0;max-width:100%;" width="85" height="69.265625" alt="" src="../assets/img/logo-head.png"/></div></td>
+</tr></table> -->
 </td>
 </tr></table>
 </td></tr></table></td>

@@ -35,7 +35,7 @@
                             <a class="nav-link" href="" onclick="alert('Página indisponível.');" ;>Campanhas</a>
                         </li>
                         <li class="nav-item">
-                            <a href="https://help.minhasvacinas.online" class="nav-link">
+                            <a href="/src/ajuda/index.php" class="nav-link">
                                 Suporte
                             </a>
                         </li>

@@ -30,23 +30,8 @@ if ($senha !== $confsenha) {
     exit();
 }
 
-$senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-
 try {
-    $sql_check = $pdo->prepare("SELECT id FROM usuario WHERE email = :email");
-    $sql_check->bindValue(':email', $email);
-    $sql_check->execute();
-
-    if ($sql_check->rowCount() > 0) {
-        $retorna = [
-            'status' => false,
-            'msg' => "Este e-mail já está registrado. <a href=https://auth.minhasvacinas.online/entrar'>Faça login aqui</a>"
-        ];
-        header('Content-Type: application/json');
-        echo json_encode($retorna);
-        exit();
-    }
-
+    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
     $sql = $pdo->prepare("INSERT INTO usuario (nome, email, estado, senha) VALUES (:nome, :email, :estado, :senha)");
     $sql->bindValue(':nome', $nome);
     $sql->bindValue(':email', $email);
@@ -73,9 +58,8 @@ try {
 
 function email_cadastro($nome, $email)
 {
-    $email_body = file_get_contents('../../assets/templates/email_register.php');
+    $email_body = file_get_contents('../../../assets/email/cadastro.php');
     $email_body = str_replace('{{nome}}', $nome, $email_body);
-    $email_body = str_replace('{{email}}', $email, $email_body);
     $mail = new PHPMailer(true);
 
     try {
