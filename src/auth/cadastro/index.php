@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['session_id'])) {
-    header("Location: https://painel.minhasvacinas.online");
+    header("Location: https://apple.com");
     exit();
 }
 ?>
@@ -14,55 +14,61 @@ if (isset($_SESSION['session_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <title>Minhas Vacinas - Cadastro</title>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top rounded-pill shadow"
+            style="background-color: #007bff; z-index: 1081; width: 85%; left: 50%; transform: translateX(-50%); margin-top: 10px;">
             <div class="container">
-                <a class="navbar-brand" href="/index.html">
-                    <img src="/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
+                <a class="navbar-brand" href="/">
+                    <img src="/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 60px;">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/index.html">Início</a>
+                            <a class="nav-link" href="/">Início</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/index.html#nossa-missao">Sobre</a>
+                            <a class="nav-link" href="/#nossa-missao">Sobre</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="" onclick="alert('Página indisponível.');" ;>Campanhas</a>
+                            <a href="#" onclick="Swal.fire({
+                                title: '🚧 O site está passando por modificações importantes!',
+                                text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
+                                icon: 'warning'
+                            }); return false;" class="nav-link">Campanhas</a>
                         </li>
                         <li class="nav-item">
-                            <a href="https://help.minhasvacinas.online" class="nav-link">
-                                Suporte
-                            </a>
+                            <a href="../../ajuda/" class="nav-link">Suporte</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Baixe o App
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
-                                    <a class="dropdown-item" href="">
+                                    <a class="dropdown-item" href="https://www.apple.com/br/app-store/">
                                         <img src="https://api.iconify.design/logos:apple-app-store.svg" alt="App Store"
                                             style="width: 20px; height: 20px;" class="me-2">
                                         App Store
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="">
+                                    <a class="dropdown-item" href="https://play.google.com/">
                                         <img src="https://api.iconify.design/logos:google-play-icon.svg"
                                             alt="Google Play" style="width: 20px; height: 20px;" class="me-2">
                                         Google Play
@@ -73,12 +79,72 @@ if (isset($_SESSION['session_id'])) {
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-light btn-login" href="../entrar/index.php">LOGIN</a>
+                            <a class="btn btn-outline-light" href="/">CADASTRE-SE</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-secondary btn-login" href="../entrar/">ENTRAR</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="position: fixed; top: 0; left: 0; z-index: 1100;">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#nossa-missao">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" onclick="Swal.fire({
+                        title: '🚧 O site está passando por modificações importantes!',
+                        text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
+                        icon: 'warning'
+                    }); return false;" class="nav-link">Campanhas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../ajuda/" class="nav-link">Suporte</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Baixe o App
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="https://www.apple.com/br/app-store/">
+                                    <img src="https://api.iconify.design/logos:apple-app-store.svg" alt="App Store"
+                                        style="width: 20px; height: 20px;" class="me-2">
+                                    App Store
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="https://play.google.com/">
+                                    <img src="https://api.iconify.design/logos:google-play-icon.svg" alt="Google Play"
+                                        style="width: 20px; height: 20px;" class="me-2">
+                                    Google Play
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary w-100 mb-2" href="/src/auth/cadastro/">CADASTRE-SE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-secondary w-100" href="../entrar/">ENTRAR</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </header>
 
     <section>
@@ -151,12 +217,12 @@ if (isset($_SESSION['session_id'])) {
                         <div class="cuteiner">
                             <div class="cf-turnstile" data-sitekey="0x4AAAAAAAzf0SlVhlpqfXSZ" data-callback="verificacaoConcluida"></div>
                         </div>
-                        <button class="btn btn-success w-100" id="submitBtn" type="submit">CADASTRE-SE</button>
+                        <button class="btn btn-success w-100" id="submitBtn" type="submit">CONTINUAR</button>
                     </form>
                     <hr class="custom-hr">
                     <div class="text-center mt-3">
                         <p class="mb-1">Já tem uma conta?</p>
-                        <a href="../backend/entrar.php" class="btn btn-primary">Entre na sua conta</a>
+                        <a href="../entrar/">Entre na sua conta</a>
                     </div>
                 </div>
             </div>
@@ -172,10 +238,8 @@ if (isset($_SESSION['session_id'])) {
         </div>
     </footer>
 
+
     <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>

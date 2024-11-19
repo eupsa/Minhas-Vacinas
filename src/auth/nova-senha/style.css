@@ -60,7 +60,25 @@ body {
 
 .custom-hr {
   border: 3px solid #000;
-  /* Altere a cor e a espessura conforme necessário */
   margin: 2rem 0;
-  /* Ajuste o espaço acima e abaixo */
+}
+
+@media (max-width: 992px) {
+  .navbar-brand img {
+    height: 30px;
+  }
+  .btn-login {
+    margin-top: 10px;
+    margin-right: 5%;
+  }
+
+  .nav-link {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar {
+    text-align: center;
+  }
 }

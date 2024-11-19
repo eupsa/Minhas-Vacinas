@@ -62,3 +62,23 @@ body {
   border: 3px solid #000;
   margin: 2rem 0;
 }
+
+@media (max-width: 992px) {
+  .navbar-brand img {
+    height: 30px;
+  }
+  .btn-login {
+    margin-top: 10px;
+    margin-right: 5%;
+  }
+
+  .nav-link {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar {
+    text-align: center;
+  }
+}

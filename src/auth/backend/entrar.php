@@ -20,8 +20,9 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $sql->execute();
 
             if ($sql->rowCount() == 1) {
+                $senhaHash = hash('sha256', $senha);
                 $usuario = $sql->fetch(PDO::FETCH_BOTH);
-                if (password_verify($senha, $usuario['senha'])) {
+                if (password_verify($senhaHash, $usuario['senha'])) {
                     $email_conf = $usuario['email_conf'];
 
                     if ($email_conf != 1) {

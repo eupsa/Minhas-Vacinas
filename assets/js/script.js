@@ -12,3 +12,12 @@ backToTopButton.addEventListener("click", (e) => {
   e.preventDefault();
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
+
+if (!localStorage.getItem("modificationsAccepted")) {
+  document.getElementById("overlay").style.visibility = "visible";
+}
+
+document.getElementById("accept-btn").addEventListener("click", function () {
+  localStorage.setItem("modificationsAccepted", "true");
+  document.getElementById("overlay").style.visibility = "hidden";
+});
