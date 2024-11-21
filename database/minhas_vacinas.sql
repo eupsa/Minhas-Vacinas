@@ -49,12 +49,19 @@ CREATE TABLE IF NOT EXISTS esqueceu_senha (
     FOREIGN KEY (email) REFERENCES usuario(email) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS troca_email (
+	email VARCHAR(255) UNIQUE NOT NULL,
+    codigo INT NOT NULL
+);
+
+
+
 #INSERT INTO usuario (nome, email, estado, senha) 
 #VALUES ('Adm_Pedro', 'pedrooosxz@gmail.com', 'BA', SHA2('Chicote1@', 256));
 
 #select * from usuario where email ='pedruuuyt291@gmail.com';
 
-UPDATE usuario SET email_conf = 1 WHERE email = 'viskp2537@gmail.com'
+#UPDATE usuario SET email_conf = 1 WHERE email = 'viskp2537@gmail.com'
 
 -- INSERT INTO usuario (nome, email, estado, senha, idade, genero, cpf, telefone, cidade) 
 -- VALUES ('João Silva', 'joao@example.com', 'SP', 'senha123', 30, 'Masculino', '123.456.789-00', '11987654321', 'São Paulo');
