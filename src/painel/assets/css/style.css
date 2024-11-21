@@ -1,5 +1,10 @@
-body {
-  padding-top: 80px;
+h1.text-center.mb-4 {
+  padding-top: 2%;
+}
+
+h1 {
+  padding-top: 3%;
+  padding-bottom: 1%;
 }
 
 .navbar {
@@ -90,4 +95,40 @@ body.dark-mode {
 
 .preto {
   padding-left: 15px;
+}
+
+.access-quick {
+  background: #535353;
+  color: white;
+  padding: 60px 0;
+}
+
+.access-quick .card {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
+}
+
+.access-quick .card-body {
+  padding: 20px;
+}
+
+.access-quick .card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.access-quick .card-text {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.access-quick .btn-primary {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.access-quick .btn-primary:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
 }

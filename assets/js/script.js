@@ -21,3 +21,4 @@ document.getElementById("accept-btn").addEventListener("click", function () {
   localStorage.setItem("modificationsAccepted", "true");
   document.getElementById("overlay").style.visibility = "hidden";
 });
+

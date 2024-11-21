@@ -71,7 +71,7 @@
                             <a class="btn btn-outline-light" href="../cadastro/">CADASTRE-SE</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-secondary btn-login" href="index.php">ENTRAR</a>
+                            <a class="btn btn-secondary btn-login" href="../entrar/">ENTRAR</a>
                         </li>
                     </ul>
                 </div>
@@ -129,7 +129,7 @@
                         <a class="btn btn-outline-primary w-100 mb-2" href="../cadastro/">CADASTRE-SE</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-secondary w-100" href="index.php">ENTRAR</a>
+                        <a class="btn btn-secondary w-100" href="../entrar/">ENTRAR</a>
                     </li>
                 </ul>
             </div>

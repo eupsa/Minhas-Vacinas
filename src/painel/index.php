@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['session_id'])) {
-    header("Location: ../auth/login/login.php");
+    header("Location: ../auth/entrar/");
     exit();
 }
 ?>
@@ -11,18 +11,21 @@ if (!isset($_SESSION['session_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="icon" href="../../../assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Vacinas - Painel</title>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top rounded-pill shadow"
+            style="background-color: #007bff; z-index: 1081; width: 50%; left: 57%; transform: translateX(-50%); margin-top: 10px;">
             <div class="container">
                 <a class="navbar-brand" href="/index.html">
                     <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 60px;">
@@ -34,6 +37,50 @@ if (!isset($_SESSION['session_id'])) {
             </div>
         </nav>
     </header>
+
+    <section class="access-quick">
+        <div class="content text-center mb-5">
+            <h1>Acesso Rápido</h1>
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-6 col-md-3 mb-4">
+                    <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
+                        <div class="card-body d-flex flex-column text-center">
+                            <p class="text-success text-center">
+                                <i class="fas fa-check-circle" style="color: #198754;"></i> Adicionada recentemente!
+                            </p>
+                            <h5 class="card-title">Função 1</h5>
+                            <p class="card-text">Descrição fictícia da função 1.</p>
+                            <a href="#" class="btn btn-primary btn-sm mt-auto">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 mb-4">
+                    <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
+                        <div class="card-body d-flex flex-column text-center">
+                            <p class="text-success text-center">
+                                <i class="fas fa-check-circle" style="color: #198754;"></i> Adicionada recentemente!
+                            </p>
+                            <h5 class="card-title">Função 2</h5>
+                            <p class="card-text">Descrição fictícia da função 2.</p>
+                            <a href="#" class="btn btn-primary btn-sm mt-auto">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 mb-4">
+                    <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
+                        <div class="card-body d-flex flex-column text-center">
+                            <p class="text-success text-center">
+                                <i class="fas fa-check-circle" style="color: #198754;"></i> Adicionada recentemente!
+                            </p>
+                            <h5 class="card-title">Função 3</h5>
+                            <p class="card-text">Descrição fictícia da função 3.</p>
+                            <a href="#" class="btn btn-primary btn-sm mt-auto">Acessar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section>
         <div>
@@ -79,8 +126,6 @@ if (!isset($_SESSION['session_id'])) {
                         <span><?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <!-- <li><a class="dropdown-item" href="">Novo projeto...</a></li>
-                        <li><a class="dropdown-item" href="">Configurações</a></li> -->
                         <li><a class="dropdown-item" href="profile/index.php">Conta</a></li>
                         <li>
                             <hr class="dropdown-divider">
@@ -93,143 +138,61 @@ if (!isset($_SESSION['session_id'])) {
 
     <section class="side-bar">
         <div class="content">
-            <h1>Painel</h1>
+            <h1 class="text-center mb-4">Painel de Notícias</h1>
             <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card text-center" style="height: 180px;">
-                        <div class="card-body d-flex flex-column justify-content-center">
-                            <i class="fas fa-syringe fa-2x"></i>
-                            <h5 class="card-title mt-2">Minhas Vacinas</h5>
-                            <a href="vaccines/index.php" class="btn btn-success btn-sm">Ver Vacinas</a>
+                <?php
+                $apiKey = "ffe99dae4cc64a67b05f07b8c72f3ba1";
+                $query = "vacinação";
+                $language = "pt";
+                $url = "https://newsapi.org/v2/everything?q=" . urlencode($query) . "&language=" . $language . "&apiKey=" . $apiKey;
+
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                    "User-Agent: Minhas-Vacinas/1.0"
+                ]);
+
+                $response = curl_exec($ch);
+                curl_close($ch);
+
+                $data = json_decode($response, true);
+
+                if (isset($data['articles'])) {
+                    foreach ($data['articles'] as $article) {
+                        $title = $article['title'];
+
+                        if (strpos(strtolower($title), 'removed') !== false) {
+                            continue;
+                        }
+
+                        $description = $article['description'];
+                        $url = $article['url'];
+                        $image = $article['urlToImage'] ?? "https://via.placeholder.com/200x150";
+
+                        echo '
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm rounded-lg">
+                            <img src="' . $image . '" class="card-img-top rounded-top" alt="Imagem da notícia">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-truncate" style="font-size: 1rem; font-weight: bold;">' . $title . '</h5>
+                                <p class="card-text text-truncate" style="font-size: 0.85rem; flex-grow: 1;">' . $description . '</p>
+                                <a href="' . $url . '" class="btn btn-success btn-block mt-3" target="_blank" style="font-size: 0.85rem; border-radius: 50px; transition: background-color 0.3s; padding: 10px 20px;">Leia mais</a>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card text-center" style="height: 180px;">
-                        <div class="card-body d-flex flex-column justify-content-center">
-                            <i class="bi bi-person fa-2x"></i>
-                            <h5 class="card-title mt-2">Perfil</h5>
-                            <a href="profile/index.php" class="btn btn-success btn-sm">Ver Perfil</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card text-center" style="height: 180px;">
-                        <div class="card-body d-flex flex-column justify-content-center">
-                            <i class="fas fa-life-ring fa-2x"></i>
-                            <h5 class="card-title mt-2">Suporte</h5>
-                            <a href="../../support/support.php" class="btn btn-success btn-sm">Obter Suporte</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card text-center" style="height: 180px;">
-                        <div class="card-body d-flex flex-column justify-content-center">
-                            <i class="fas fa-comments fa-2x"></i>
-                            <h5 class="card-title mt-2">Mensagens</h5>
-                            <a href="messages/index.php" class="btn btn-danger btn-sm">BREVE</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card text-center" style="height: 180px;">
-                        <div class="card-body d-flex flex-column justify-content-center">
-                            <i class="fas fa-calendar-check fa-2x"></i>
-                            <h5 class="card-title mt-2">Lembretes</h5>
-                            <a href="appointments/index.php" class="btn btn-danger btn-sm">BREVE</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card text-center" style="height: 180px;">
-                        <div class="card-body d-flex flex-column justify-content-center">
-                            <i class="fas fa-file-alt fa-2x"></i>
-                            <h5 class="card-title mt-2">Documentos</h5>
-                            <a href="documents/index.php" class="btn btn-danger btn-sm">BREVE</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card text-center" style="height: 180px;">
-                        <div class="card-body d-flex flex-column justify-content-center">
-                            <i class="fas fa-chart-line fa-2x"></i>
-                            <h5 class="card-title mt-2">Estatísticas de Saúde</h5>
-                            <a href="statistics/index.php" class="btn btn-danger btn-sm">BREVE</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card text-center" style="height: 180px;">
-                        <div class="card-body d-flex flex-column justify-content-center">
-                            <i class="fas fa-comments fa-2x"></i>
-                            <h5 class="card-title mt-2">Feedback</h5>
-                            <a href="feedback/index.php" class="btn btn-danger btn-sm">BREVE</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="card text-center" style="height: 180px;">
-                        <div class="card-body d-flex flex-column justify-content-center">
-                            <i class="fas fa-bullhorn fa-2x"></i>
-                            <h5 class="card-title mt-2">Campanhas Ativas</h5>
-                            <a href="/src/campaigns/index.html" class="btn btn-danger btn-sm">BREVE</a>
-                        </div>
-                    </div>
-                </div>
+                    </div>';
+                    }
+                } else {
+                    echo '<p class="text-danger text-center">Nenhuma notícia encontrada.</p>';
+                }
+                ?>
             </div>
         </div>
     </section>
 
-
-    <!-- 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
-    -->
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="assets/script.js"></script>
-    <script src="../../../assets/js/sweetalert2.min.js"></script>
-
+    <script src="assets/js/script.js"></script>
 </body>
 
 </html>
-
-
-<!-- <div class="content">
-            <h1>Painel</h1>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <i class="fas fa-syringe fa-3x"></i>
-                            <h5 class="card-title mt-3">Minhas Vacinas</h5>
-                            <a href="vaccines/index.html" class="btn btn-primary">Ver Vacinas</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <i class="fas fa-bullhorn fa-3x"></i>
-                            <h5 class="card-title mt-3">Campanhas Ativas</h5>
-                            <a href="/src/campaigns/index.html" class="btn btn-primary">Ver Campanhas</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <i class="bi bi-person fa-3x"></i>
-                            <h5 class="card-title mt-3">Perfil</h5>
-                            <a href="profile/index.php" class="btn btn-primary">Ver Perfil</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->

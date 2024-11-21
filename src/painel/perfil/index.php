@@ -1,13 +1,13 @@
 <?php
 session_start();
-require '../../../backend/scripts/conn.php';
-require '../../../backend/scripts/auth.php';
+require '../../scripts/conn.php';
+require '../../scripts/auth.php';
 
 if (!isset($_SESSION['session_id'])) {
-    header("Location: ../../auth/login/login.php");
+    header("Location: ../../auth/entrar/");
     exit();
 } else {
-    CreateSessions($pdo);
+    info_user($pdo);
 }
 ?>
 

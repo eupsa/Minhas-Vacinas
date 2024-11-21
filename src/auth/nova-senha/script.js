@@ -73,7 +73,7 @@ if (form_reset) {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       }).then(() => {
-        window.location.href = "../login/login.php";
+        window.location.href = "../entrar/";
       });
       formcad.reset();
     } else {
@@ -84,7 +84,7 @@ if (form_reset) {
         confirmButtonText: "Fechar",
       });
       then(() => {
-        window.location.href = "../forgot_password/forgot_password.php";
+        window.location.href = "../esqueceu-senha/";
       });
       formcad.reset();
     }

@@ -8,7 +8,6 @@ require '../../scripts/conn.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $nome = strtolower(trim($dados['nome']));
 $email = filter_var(strtolower(trim($dados['email'])), FILTER_SANITIZE_EMAIL);
@@ -31,7 +30,7 @@ if ($senha !== $confsenha) {
 }
 
 try {
-    $senhaHash = hash('sha256', $senha);
+    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
     $sql = $pdo->prepare("INSERT INTO usuario (nome, email, estado, senha) VALUES (:nome, :email, :estado, :senha)");
     $sql->bindValue(':nome', $nome);
     $sql->bindValue(':email', $email);

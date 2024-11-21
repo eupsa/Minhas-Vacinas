@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['session_id'])) {
-    header("Location: https://apple.com");
+    header("Location: ../../painel/");
     exit();
 }
 ?>
@@ -214,8 +214,11 @@ if (isset($_SESSION['session_id'])) {
                                 <option value="TO">Tocantins</option>
                             </select>
                         </div>
-                        <div class="cuteiner">
-                            <div class="cf-turnstile" data-sitekey="0x4AAAAAAAzf0SlVhlpqfXSZ" data-callback="verificacaoConcluida"></div>
+                        <div class="text-center">
+
+                        </div>
+                        <div class="mb-3 text-center">
+                            <p>Ao clicar em continuar, você concorda com os <a href="/assets/docs/Termos-de-Serviço.pdf" target="_blank">Termos de Serviço</a> e <a href="/assets/docs/Política-de-Privacidade.pdf" target="_blank">Política de Privacidade</a>.</p>
                         </div>
                         <button class="btn btn-success w-100" id="submitBtn" type="submit">CONTINUAR</button>
                     </form>

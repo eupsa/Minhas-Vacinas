@@ -21,7 +21,7 @@ if (empty($senha) || empty($confsenha) || empty($token)) {
 } else {
     if ($senha === $confsenha) {
         try {
-            $sql = $pdo->prepare("SELECT * FROM redefinicao_senha WHERE token = :token");
+            $sql = $pdo->prepare("SELECT * FROM esqueceu_senha WHERE token = :token");
             $sql->bindValue(':token', $token);
             $sql->execute();
 
@@ -35,7 +35,7 @@ if (empty($senha) || empty($confsenha) || empty($token)) {
                     $sql->execute();
 
                     if ($sql->rowCount() === 1) {
-                        $senhaHash = hash('sha256', $senha);
+                        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
                         $sql = $pdo->prepare("UPDATE usuario SET senha = :senha WHERE email = :email");
                         $sql->bindValue(':senha', $senhaHash);
                         $sql->bindValue(':email', $email);
@@ -43,7 +43,7 @@ if (empty($senha) || empty($confsenha) || empty($token)) {
 
                         if ($sql->rowCount() === 1) {
                             try {
-                                $sql = $pdo->prepare("DELETE FROM redefinicao_senha WHERE token = :token");
+                                $sql = $pdo->prepare("DELETE FROM esqueceu_senha WHERE token = :token");
                                 $sql->bindValue(':token', $token);
                                 $sql->execute();
 

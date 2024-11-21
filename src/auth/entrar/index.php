@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['session_id'])) {
-    header("Location: ../../painel/index.php");
+    header("Location: ../../painel/");
     exit();
 }
 ?>

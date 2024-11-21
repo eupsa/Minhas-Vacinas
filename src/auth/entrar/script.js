@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
             confirmButtonText: "Fechar",
           }).then(() => {
             form_login.reset();
-            window.location.href = "https://minhasvacinas.online/src/painel/";
+            window.location.href = "../../painel/index.php";
           });
         } else {
           Swal.fire({

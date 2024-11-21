@@ -1,7 +1,14 @@
 <?php
-if (!isset($_GET['token'])) {
-    header('Location: ../../../not-found/index.php');
-    exit();
+require '../../scripts/conn.php';
+
+$token = $_GET['token'];
+
+$sql = $pdo->prepare("SELECT * FROM esqueceu_senha WHERE token = :token");
+$sql->bindValue(':token', $token);
+$sql->execute();
+
+if ($sql->rowCount() != 1) {
+    header('Location: ../esqueceu-senha/');
 }
 ?>
 
