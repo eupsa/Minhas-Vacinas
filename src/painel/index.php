@@ -17,7 +17,6 @@ if (!isset($_SESSION['session_id'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Vacinas - Painel</title>
 </head>
@@ -25,10 +24,10 @@ if (!isset($_SESSION['session_id'])) {
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top rounded-pill shadow"
-            style="background-color: #007bff; z-index: 1081; width: 50%; left: 57%; transform: translateX(-50%); margin-top: 10px;">
+            style="background-color: #007bff; z-index: 1081; width: 70%; left: 50%; transform: translateX(-50%); margin-top: 10px;" id="navi">
             <div class="container">
-                <a class="navbar-brand" href="/index.html">
-                    <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 60px;">
+                <a class="navbar-brand" href="/">
+                    <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 40px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="sidebarToggle">
@@ -48,33 +47,34 @@ if (!isset($_SESSION['session_id'])) {
                             <p class="text-success text-center">
                                 <i class="fas fa-check-circle" style="color: #198754;"></i> Adicionada recentemente!
                             </p>
-                            <h5 class="card-title">Função 1</h5>
-                            <p class="card-text">Descrição fictícia da função 1.</p>
-                            <a href="#" class="btn btn-primary btn-sm mt-auto">Acessar</a>
+                            <h5 class="card-title">Registro de Vacinas</h5>
+                            <p class="card-text">Com essa funcionalidade você poderá organizar seu histórico de Vacinas.</p>
+                            <a href="vacinas/" class="btn btn-primary btn-sm mt-auto">Acessar</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-md-3 mb-4">
                     <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
                         <div class="card-body d-flex flex-column text-center">
-                            <p class="text-success text-center">
-                                <i class="fas fa-check-circle" style="color: #198754;"></i> Adicionada recentemente!
+                            <p class="text-danger text-center">
+                                <i class="fas fa-tools" style="color: #dc3545;"></i> Em manutenção!
                             </p>
-                            <h5 class="card-title">Função 2</h5>
-                            <p class="card-text">Descrição fictícia da função 2.</p>
-                            <a href="#" class="btn btn-primary btn-sm mt-auto">Acessar</a>
+                            <h5 class="card-title">Exclusão de Vacinas</h5>
+                            <p class="card-text">Essa funcionalidade está temporariamente indisponível devido à manutenção. Com ela é possível excluir suas vacinas.</p>
+                            <a href="#" class="btn btn-danger btn-sm mt-auto disabled">Indisponível</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-md-3 mb-4">
                     <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
                         <div class="card-body d-flex flex-column text-center">
-                            <p class="text-success text-center">
-                                <i class="fas fa-check-circle" style="color: #198754;"></i> Adicionada recentemente!
+                            <p class="text-warning text-center">
+                                <i class="fas fa-spinner fa-spin" style="color: #ffc107;"></i> Em desenvolvimento!
                             </p>
-                            <h5 class="card-title">Função 3</h5>
-                            <p class="card-text">Descrição fictícia da função 3.</p>
-                            <a href="#" class="btn btn-primary btn-sm mt-auto">Acessar</a>
+                            <h5 class="card-title">Cadastro de Dependentes</h5>
+                            <p class="card-text">Com essa funcionalidade você poderá adicionar seus dependentes e gerenciar suas vacinas.
+                            </p>
+                            <a href="#" class="btn btn-warning btn-sm mt-auto disabled">Indisponível</a>
                         </div>
                     </div>
                 </div>
@@ -90,25 +90,25 @@ if (!isset($_SESSION['session_id'])) {
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a href="index.php" class="nav-link active" aria-current="page">
+                        <a href="" onclick="Location.reload()" class="nav-link active" aria-current="page">
                             <i class="bi bi-house-door"></i>
                             Início
                         </a>
                     </li>
                     <li>
-                        <a href="vaccines/index.php" class="nav-link text-white">
+                        <a href="vacinas/" class="nav-link text-white">
                             <i class="fas fa-syringe"></i>
                             Vacinas
                         </a>
                     </li>
                     <li>
-                        <a href="/src/campaigns/index.html" class="nav-link text-white">
+                        <a href="" onclick="alert('Indisponível')" class="nav-link text-white">
                             <i class="fas fa-bullhorn"></i>
                             Campanhas
                         </a>
                     </li>
                     <li>
-                        <a href="profile/index.php" class="nav-link text-white">
+                        <a href="perfil/" class="nav-link text-white">
                             <i class="bi bi-person"></i>
                             Conta
                         </a>
@@ -126,11 +126,11 @@ if (!isset($_SESSION['session_id'])) {
                         <span><?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="profile/index.php">Conta</a></li>
+                        <li><a class="dropdown-item" href="perfil/">Conta</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="/src/backend/scripts/logout.php">Sair</a></li>
+                        <li><a class="dropdown-item" href="../scripts/sair.php">Sair</a></li>
                     </ul>
                 </div>
             </div>
@@ -138,7 +138,7 @@ if (!isset($_SESSION['session_id'])) {
 
     <section class="side-bar">
         <div class="content">
-            <h1 class="text-center mb-4">Painel de Notícias</h1>
+            <h1 class="text-center mb-4">Últimas de Notícias</h1>
             <div class="row">
                 <?php
                 $apiKey = "ffe99dae4cc64a67b05f07b8c72f3ba1";

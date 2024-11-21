@@ -1,11 +1,12 @@
 <?php
+require '../../scripts/conn.php';
+require '../../scripts/auth.php';
+
 session_start();
 if (!isset($_SESSION['session_id'])) {
-    header("Location: ../auth/login/login.php");
+    header("Location: ../../auth/entrar/");
     exit();
 } else {
-    require '../../../backend/scripts/auth.php';
-    require '../../../backend/scripts/conn.php';
 
     $id_user = $_SESSION['session_id'];
     $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_user = :id_user");
@@ -32,19 +33,21 @@ if (!isset($_SESSION['session_id'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Minhas Vacinas - Suas Vacinas</title>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top rounded-pill shadow"
+            style="background-color: #007bff; z-index: 1081; width: 70%; left: 50%; transform: translateX(-50%); margin-top: 10px;">
             <div class="container">
                 <a class="navbar-brand" href="/index.html">
-                    <img src="../../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 60px;">
+                    <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 40px;">
                 </a>
-                <button class="btn btn-light" id="sidebarToggle" aria-label="Open menu">
-                    <span class="navbar-toggler-icon" id="menuButton"></span>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="sidebarToggle">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
         </nav>
@@ -54,30 +57,29 @@ if (!isset($_SESSION['session_id'])) {
         <div class="wrapper">
             <aside class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
                 <div class="d-flex align-items-center justify-content-center" style="height: 10vh;">
-                    <!-- Adicione algum conteúdo aqui, como o logo ou o título -->
                 </div>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a href="../index.php" class="nav-link text-white" aria-current="page">
+                        <a href="../" class="nav-link text-white" aria-current="page">
                             <i class="bi bi-house-door"></i>
                             Início
                         </a>
                     </li>
                     <li>
-                        <a href="index.php" class="nav-link active">
+                        <a href="" onclick="Location.reload()" class="nav-link active" aria-current="page">
                             <i class="fas fa-syringe"></i>
                             Vacinas
                         </a>
                     </li>
                     <li>
-                        <a href="/src/campaigns/index.html" class="nav-link text-white">
+                        <a href="" onclick="alert('Indisponível')" class="nav-link text-white">
                             <i class="fas fa-bullhorn"></i>
                             Campanhas
                         </a>
                     </li>
                     <li>
-                        <a href="../profile/index.php" class="nav-link text-white">
+                        <a href="../perfil/" class="nav-link text-white">
                             <i class="bi bi-person"></i>
                             Conta
                         </a>
@@ -94,11 +96,11 @@ if (!isset($_SESSION['session_id'])) {
                         <span><?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="../profile/index.php">Conta</a></li>
+                        <li><a class="dropdown-item" href="../perfil/">Conta</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="/src/backend/scripts/logout.php">Sair</a></li>
+                        <li><a class="dropdown-item" href="../../scripts/sair.php">Sair</a></li>
                     </ul>
                 </div>
             </aside>
@@ -111,7 +113,7 @@ if (!isset($_SESSION['session_id'])) {
             <div class="esq">
                 <h1>Vacinas</h1>
                 <h3 class="fw-light">Registre e visualize as suas vacinas aplicadas.</h3>
-                <a type="button" class="btn btn-primary" href="register/index.php">Registrar Doses</a>
+                <a type="button" class="btn btn-primary" href="cadastro-vacinas/">Registrar Doses</a>
             </div>
             <div class="vacinas-container">
                 <?php if (count($vacinas) > 0): ?>
@@ -125,7 +127,7 @@ if (!isset($_SESSION['session_id'])) {
                                 <p class="card-text">Local: <?= htmlspecialchars($vacina['local_aplicacao']) ?></p>
                                 <p class="card-text">Lote: <?= htmlspecialchars($vacina['lote']) ?></p>
                                 <p class="card-text">Observações: <?= htmlspecialchars($vacina['obs']) ?></p>
-                                <form action="../backend/delete.php" method="POST" style="display: inline;">
+                                <form action="../backend/excluir-vacina.php" method="POST" style="display: inline;">
                                     <input type="hidden" name="id" value="<?= $vacina['id_vac'] ?>">
                                     <button type="submit" class="btn btn-danger">
                                         <i class="fas fa-trash"></i> Excluir
@@ -140,15 +142,9 @@ if (!isset($_SESSION['session_id'])) {
     </div>
 
 
-    <!-- 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
-    -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
-    <script src="../../../../assets/js/sweetalert2.min.js"></script>
 </body>
 
 </html>

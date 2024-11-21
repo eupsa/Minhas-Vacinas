@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../backend/scripts/conn.php';
+require '../../scripts/conn.php';
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $nomeVac = trim($dados['nomeVac']);

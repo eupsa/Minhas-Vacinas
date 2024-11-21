@@ -28,10 +28,11 @@ if (!isset($_SESSION['session_id'])) {
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top rounded-pill shadow"
+            style="background-color: #007bff; z-index: 1081; width: 70%; left: 50%; transform: translateX(-50%); margin-top: 10px;">
             <div class="container">
-                <a class="navbar-brand" href="/index.html">
-                    <img src="../../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 60px;">
+                <a class="navbar-brand" href="/">
+                    <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 40px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="sidebarToggle">
@@ -48,22 +49,22 @@ if (!isset($_SESSION['session_id'])) {
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a href="../index.php" class="nav-link text-white" aria-current="page">
+                        <a href="../" class="nav-link text-white" aria-current="page">
                             <i class="bi bi-house-door"></i> Início
                         </a>
                     </li>
                     <li>
-                        <a href="../vaccines/index.php" class="nav-link text-white">
+                        <a href="../vacinas/" class="nav-link text-white">
                             <i class="fas fa-syringe"></i> Vacinas
                         </a>
                     </li>
                     <li>
-                        <a href="/src/campaigns/index.html" class="nav-link text-white">
+                        <a href="" onclick="alert('Indisponível')" class="nav-link text-white">
                             <i class="fas fa-bullhorn"></i> Campanhas
                         </a>
                     </li>
                     <li>
-                        <a href="index.php" class="nav-link active">
+                        <a href="" onclick="Location.reload()" class="nav-link active" aria-current="page">
                             <i class="bi bi-person"></i> Conta
                         </a>
                     </li>
@@ -80,12 +81,12 @@ if (!isset($_SESSION['session_id'])) {
                         <span><?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="index.php">Conta</a></li>
+                        <li><a href="" onclick="Location.reload()" class="nav-link active" aria-current="page"></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="/src/backend/scripts/logout.php">Sair</a></li>
-                        <li><a class="dropdown-item" href="delete_account/index.php">Deletar Conta</a></li>
+                        <li><a class="dropdown-item" href="../../scripts/sair.php">Sair</a></li>
+                        <li><a class="dropdown-item" href="excluir-conta/">Excluir Conta</a></li>
                     </ul>
                 </div>
             </div>
@@ -196,7 +197,7 @@ if (!isset($_SESSION['session_id'])) {
                             value="<?php echo isset($_SESSION['session_cidade']) ? $_SESSION['session_cidade'] : ''; ?>">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Atualizar</button>
+                <!-- <button type="submit" class="btn btn-primary">Atualizar</button> -->
             </form>
         </div>
     </section>

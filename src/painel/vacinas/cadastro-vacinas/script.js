@@ -43,7 +43,7 @@ if (form_vacina) {
       },
     });
 
-    const dados = await fetch("../../../../backend/register_vac.php", {
+    const dados = await fetch("../../backend/cadastro-vacina.php", {
       method: "POST",
       body: dadosForm,
     });
@@ -56,7 +56,7 @@ if (form_vacina) {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       });
-      window.location.href = '../index.php';
+      window.location.href = "../index.php";
       form_vacina.reset();
     } else {
       Swal.fire({

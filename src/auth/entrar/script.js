@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
             confirmButtonText: "Fechar",
           }).then(() => {
             form_login.reset();
-            window.location.href = "../../painel/index.php";
+            window.location.href = "../../painel/";
           });
         } else {
           Swal.fire({

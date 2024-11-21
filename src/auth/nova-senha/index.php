@@ -32,7 +32,7 @@ if ($sql->rowCount() != 1) {
             style="background-color: #007bff; z-index: 1081; width: 85%; left: 50%; transform: translateX(-50%); margin-top: 10px;">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img src="/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 60px;">
+                    <img src="/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 40px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                     aria-controls="offcanvasNavbar">
