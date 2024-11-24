@@ -24,7 +24,7 @@ if (!isset($_SESSION['session_id'])) {
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top rounded-pill shadow"
-            style="background-color: #007bff; z-index: 1081; width: 70%; left: 50%; transform: translateX(-50%); margin-top: 10px;" id="navi">
+            style="background-color: #007bff; z-index: 1081; width: 85%; left: 50%; transform: translateX(-50%); margin-top: 10px;" id="navi">
             <div class="container">
                 <a class="navbar-brand" href="/">
                     <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 40px;">

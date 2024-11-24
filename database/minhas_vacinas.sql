@@ -54,8 +54,6 @@ CREATE TABLE IF NOT EXISTS troca_email (
     codigo INT NOT NULL
 );
 
-
-
 #INSERT INTO usuario (nome, email, estado, senha) 
 #VALUES ('Adm_Pedro', 'pedrooosxz@gmail.com', 'BA', SHA2('Chicote1@', 256));
 

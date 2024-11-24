@@ -79,7 +79,7 @@ if (isset($_SESSION['session_id'])) {
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="btn btn-outline-light" href="/">CADASTRE-SE</a>
+                            <a class="btn btn-outline-light" href="">CADASTRE-SE</a>
                         </li>
                         <li class="nav-item">
                             <a class="btn btn-secondary btn-login" href="../entrar/">ENTRAR</a>
@@ -224,8 +224,8 @@ if (isset($_SESSION['session_id'])) {
                     </form>
                     <hr class="custom-hr">
                     <div class="text-center mt-3">
-                        <p class="mb-1">Já tem uma conta?</p>
-                        <a href="../entrar/">Entre na sua conta</a>
+                        <p class="mb-1" >Já tem uma conta?</p>
+                        <a href="../entrar/" style="text-decoration: none;">Entre na sua conta</a>
                     </div>
                 </div>
             </div>

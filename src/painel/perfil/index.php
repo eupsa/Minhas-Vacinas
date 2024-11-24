@@ -29,7 +29,7 @@ if (!isset($_SESSION['session_id'])) {
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top rounded-pill shadow"
-            style="background-color: #007bff; z-index: 1081; width: 70%; left: 50%; transform: translateX(-50%); margin-top: 10px;">
+            style="background-color: #007bff; z-index: 1081; width: 85%; left: 50%; transform: translateX(-50%); margin-top: 10px;">
             <div class="container">
                 <a class="navbar-brand" href="/">
                     <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 40px;">
@@ -107,23 +107,23 @@ if (!isset($_SESSION['session_id'])) {
 
     <section>
         <div class="content">
-            <form id="form_perfil" action="../../../backend/update_register.php" method="post">
-                <div class="row mb-3">
+            <form id="form_perfil" class="form_perfil" action="../../../backend/update_register.php" method="post">
+                <div class="col mb-3">
                     <div class="col">
                         <label for="nome" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="nome" name="nome"
+                        <input type="text" class="form-control" id="nome" name="nome" disabled
                             value="<?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : ''; ?>">
                     </div>
                     <div class="col">
                         <label for="email" class="form-label">E-Mail</label>
-                        <input type="email" class="form-control" id="email" name="email"
-                            value="<?php echo isset($_SESSION['session_email']) ? $_SESSION['session_email'] : ''; ?>" disabled>
+                        <input type="email" class="form-control" id="email" name="email" disabled
+                            value="<?php echo isset($_SESSION['session_email']) ? $_SESSION['session_email'] : ''; ?>">
                     </div>
                 </div>
-                <div class="row mb-3">
+                <div class="col mb-3">
                     <div class="col">
                         <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-                        <input type="date" class="form-control" id="data_nascimento" name="data_nascimento"
+                        <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" disabled
                             value="<?php echo isset($_SESSION['session_data_nascimento']) ? $_SESSION['session_data_nascimento'] : ''; ?>">
                     </div>
                     <div class="col">
@@ -133,7 +133,7 @@ if (!isset($_SESSION['session_id'])) {
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg" alt="Brasil" style="width: 20px; height: 15px; margin-right: 5px;">
                                 +55
                             </span>
-                            <input type="text" class="form-control" id="telefone" name="telefone"
+                            <input type="text" class="form-control" id="telefone" name="telefone" disabled
                                 aria-describedby="telefone-addon"
                                 value="<?php echo isset($_SESSION['session_telefone']) ? $_SESSION['session_telefone'] : ''; ?>">
                         </div>
@@ -142,14 +142,14 @@ if (!isset($_SESSION['session_id'])) {
                 <div class="row mb-3">
                     <div class="col">
                         <label for="cpf" class="form-label">CPF</label>
-                        <input type="text" class="form-control" id="cpf" name="cpf"
+                        <input type="text" class="form-control" id="cpf" name="cpf disabled"
                             value="<?php echo isset($_SESSION['session_cpf']) ? $_SESSION['session_cpf'] : ''; ?>"
                             <?php echo isset($_SESSION['session_cpf']) && !empty($_SESSION['session_cpf']) ? 'disabled' : ''; ?>>
                         <small class="form-text text-muted">O CPF pode ser preenchido uma única vez e não poderá ser alterado.</small>
                     </div>
                     <div class="col">
                         <label for="estado" class="form-label">Estado</label>
-                        <select class="form-select" id="estado" name="estado">
+                        <select class="form-select" id="estado" name="estado" disabled>
                             <option value="">Selecione um estado</option>
                             <option value="AC" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AC') ? 'selected' : ''; ?>>Acre</option>
                             <option value="AL" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AL') ? 'selected' : ''; ?>>Alagoas</option>
@@ -184,8 +184,7 @@ if (!isset($_SESSION['session_id'])) {
                 <div class="row mb-3">
                     <div class="col">
                         <label for="genero" class="form-label">Gênero</label>
-                        <select class="form-select" id="genero" name="genero">
-                            <option value="">Selecione seu gênero</option>
+                        <select class="form-select" id="genero" name="genero" disabled>
                             <option value="M" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'M') ? 'selected' : ''; ?>>Masculino</option>
                             <option value="F" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'F') ? 'selected' : ''; ?>>Feminino</option>
                             <option value="O" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'O') ? 'selected' : ''; ?>>Outro</option>
@@ -193,28 +192,126 @@ if (!isset($_SESSION['session_id'])) {
                     </div>
                     <div class="col">
                         <label for="cidade" class="form-label">Cidade</label>
-                        <input type="text" class="form-control" id="cidade" name="cidade"
+                        <input type="text" class="form-control" id="cidade" name="cidade" disabled
                             value="<?php echo isset($_SESSION['session_cidade']) ? $_SESSION['session_cidade'] : ''; ?>">
                     </div>
                 </div>
-                <!-- <button type="submit" class="btn btn-primary">Atualizar</button> -->
             </form>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal">
+                Atualizar Cadastro
+            </button>
+        </div>
+    </section>
+
+    <section>
+        <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true" style="z-index: 99999;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateModalLabel">Atualizar Perfil</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-perfil" action="../backend/atualizar-dados.php" method="post">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="nome" class="form-label">Nome</label>
+                                    <input type="text" class="form-control" id="nome" name="nome"
+                                        value="<?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : ''; ?>">
+                                </div>
+                            </div>
+                            <div class="col mb-3">
+                                <div class="col">
+                                    <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                                    <input type="date" class="form-control" id="data_nascimento" name="data_nascimento"
+                                        value="<?php echo isset($_SESSION['session_data_nascimento']) ? $_SESSION['session_data_nascimento'] : ''; ?>">
+                                </div>
+                                <div class="col">
+                                    <label for="telefone" class="form-label">Telefone</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="telefone-addon">
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg" alt="Brasil" style="width: 20px; height: 15px; margin-right: 5px;">
+                                            +55
+                                        </span>
+                                        <input type="text" class="form-control" id="telefone" name="telefone"
+                                            aria-describedby="telefone-addon"
+                                            value="<?php echo isset($_SESSION['session_telefone']) ? $_SESSION['session_telefone'] : ''; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <?php if (empty($_SESSION['session_cpf'])): ?>
+                                <div class="mb-3">
+                                    <label for="cpf" class="form-label">CPF</label>
+                                    <input type="text" class="form-control" id="cpf" name="cpf">
+                                    <small class="form-text text-muted" style="color: red;">O CPF pode ser preenchido uma única vez e não poderá ser alterado.</small>
+                                </div>
+                            <?php endif; ?>
+                            <div class="mb-3">
+                                <div class="col">
+                                    <label for="estado" class="form-label">Estado</label>
+                                    <select class="form-select" id="estado" name="estado">
+                                        <option value="">Selecione um estado</option>
+                                        <option value="AC" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AC') ? 'selected' : ''; ?>>Acre</option>
+                                        <option value="AL" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AL') ? 'selected' : ''; ?>>Alagoas</option>
+                                        <option value="AP" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AP') ? 'selected' : ''; ?>>Amapá</option>
+                                        <option value="AM" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AM') ? 'selected' : ''; ?>>Amazonas</option>
+                                        <option value="BA" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'BA') ? 'selected' : ''; ?>>Bahia</option>
+                                        <option value="CE" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'CE') ? 'selected' : ''; ?>>Ceará</option>
+                                        <option value="DF" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'DF') ? 'selected' : ''; ?>>Distrito Federal</option>
+                                        <option value="ES" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'ES') ? 'selected' : ''; ?>>Espírito Santo</option>
+                                        <option value="GO" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'GO') ? 'selected' : ''; ?>>Goiás</option>
+                                        <option value="MA" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'MA') ? 'selected' : ''; ?>>Maranhão</option>
+                                        <option value="MT" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'MT') ? 'selected' : ''; ?>>Mato Grosso</option>
+                                        <option value="MS" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'MS') ? 'selected' : ''; ?>>Mato Grosso do Sul</option>
+                                        <option value="MG" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'MG') ? 'selected' : ''; ?>>Minas Gerais</option>
+                                        <option value="PA" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'PA') ? 'selected' : ''; ?>>Pará</option>
+                                        <option value="PB" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'PB') ? 'selected' : ''; ?>>Paraíba</option>
+                                        <option value="PR" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'PR') ? 'selected' : ''; ?>>Paraná</option>
+                                        <option value="PE" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'PE') ? 'selected' : ''; ?>>Pernambuco</option>
+                                        <option value="PI" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'PI') ? 'selected' : ''; ?>>Piauí</option>
+                                        <option value="RJ" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'RJ') ? 'selected' : ''; ?>>Rio de Janeiro</option>
+                                        <option value="RN" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'RN') ? 'selected' : ''; ?>>Rio Grande do Norte</option>
+                                        <option value="RS" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'RS') ? 'selected' : ''; ?>>Rio Grande do Sul</option>
+                                        <option value="RO" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'RO') ? 'selected' : ''; ?>>Rondônia</option>
+                                        <option value="RR" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'RR') ? 'selected' : ''; ?>>Roraima</option>
+                                        <option value="SC" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'SC') ? 'selected' : ''; ?>>Santa Catarina</option>
+                                        <option value="SP" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'SP') ? 'selected' : ''; ?>>São Paulo</option>
+                                        <option value="SE" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'SE') ? 'selected' : ''; ?>>Sergipe</option>
+                                        <option value="TO" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'TO') ? 'selected' : ''; ?>>Tocantins</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="genero" class="form-label">Gênero</label>
+                                    <select class="form-select" id="genero" name="genero">
+                                        <option value="M" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'M') ? 'selected' : ''; ?>>Masculino</option>
+                                        <option value="F" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'F') ? 'selected' : ''; ?>>Feminino</option>
+                                        <option value="O" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'O') ? 'selected' : ''; ?>>Outro</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="cidade" class="form-label">Cidade</label>
+                                    <input type="text" class="form-control" id="cidade" name="cidade"
+                                        value="<?php echo isset($_SESSION['session_cidade']) ? $_SESSION['session_cidade'] : ''; ?>">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Atualizar perfil</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-    <script src="../../../../assets/js/sweetalert2.js"></script>
     <script src="script.js"></script>
     <script>
-        document.getElementById("cpf").addEventListener("input", function(e) {
-            let value = e.target.value.replace(/\D/g, ""); // Remove qualquer caractere não numérico
-            if (value.length > 11) value = value.slice(0, 11); // Limita o CPF a 11 dígitos
-            e.target.value = value
-                .replace(/(\d{3})(\d)/, "$1.$2")
-                .replace(/(\d{3})(\d)/, "$1.$2")
-                .replace(/(\d{3})(\d{1,2})$/, "$1-$2"); // Formata o CPF
-        });
+
     </script>
 </body>
 

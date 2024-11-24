@@ -163,7 +163,7 @@
                     <hr class="custom-hr">
                     <div class="text-center mt-3">
                         <p class="mb-1">Ainda não tem uma conta?</p>
-                        <a href="../cadastro/">Faça seu registro aqui</a>
+                        <a href="../cadastro/" style="text-decoration: none;">Faça seu registro aqui</a>
                     </div>
                 </div>
             </div>
