@@ -16,7 +16,6 @@ CREATE TABLE
         cidade VARCHAR(100),
         data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
         user_root TINYINT (1) DEFAULT 0,
-        root_user VARCHAR(20)
     );
     
     INSERT INTO usuario (
