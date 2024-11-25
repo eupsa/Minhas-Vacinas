@@ -11,17 +11,17 @@ CREATE TABLE
         email_conf TINYINT (1) DEFAULT 0,
         data_nascimento date,
         genero VARCHAR(10),
-        cpf VARCHAR(16) UNIQUE,
+        cpf VARCHAR(14) UNIQUE,
         telefone VARCHAR(15),
         cidade VARCHAR(100),
         data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
-        user_root TINYINT (1) DEFAULT 0,
+        user_root TINYINT (1) DEFAULT 0
     );
     
-    INSERT INTO usuario (
-    nome, email, estado, senha, email_conf, data_nascimento, genero, cpf, telefone, cidade, user_root, root_user) 
-    VALUES 
-    ('João Silva', 'pedruuu291@gmail.com', 'BA', '$2y$10$R5ToR3.obbC1G4bnAzUkZeKTle45W3ywNtse8PeCvFTDTGHu2AudC', 1, '2007-02-15', 'Masculino', '123.456.789-00', '(11) 91234-5678', 'São Paulo', 0, NULL);
+    -- INSERT INTO usuario (
+    -- nome, email, estado, senha, email_conf, data_nascimento, genero, cpf, telefone, cidade, user_root, root_user) 
+    -- VALUES 
+    -- ('João Silva', 'pedruuu291@gmail.com', 'BA', '$2y$10$R5ToR3.obbC1G4bnAzUkZeKTle45W3ywNtse8PeCvFTDTGHu2AudC', 1, '2007-02-15', 'Masculino', '123.456.789-00', '(11) 91234-5678', 'São Paulo', 0, NULL);
 
 CREATE TABLE
     IF NOT EXISTS vacina (

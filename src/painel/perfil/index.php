@@ -29,7 +29,7 @@ if (!isset($_SESSION['session_id'])) {
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top rounded-pill shadow"
-            style="background-color: #007bff; z-index: 1081; width: 85%; left: 50%; transform: translateX(-50%); margin-top: 10px;">
+            style="background-color: #007bff; z-index: 1100; width: 85%; left: 50%; transform: translateX(-50%); margin-top: 10px;">
             <div class="container">
                 <a class="navbar-brand" href="/">
                     <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 40px;">
@@ -118,6 +118,9 @@ if (!isset($_SESSION['session_id'])) {
                         <label for="email" class="form-label">E-Mail</label>
                         <input type="email" class="form-control" id="email" name="email" disabled
                             value="<?php echo isset($_SESSION['session_email']) ? $_SESSION['session_email'] : ''; ?>">
+                        <p style="color: #198754; font-size: 14px; display: flex; align-items: center;">
+                            <i class="fas fa-check-circle" style="margin-right: 5px; font-size: 12px;"></i> E-mail confirmado com sucesso!
+                        </p>
                     </div>
                 </div>
                 <div class="col mb-3">
@@ -142,10 +145,14 @@ if (!isset($_SESSION['session_id'])) {
                 <div class="row mb-3">
                     <div class="col">
                         <label for="cpf" class="form-label">CPF</label>
-                        <input type="text" class="form-control" id="cpf" name="cpf disabled"
+                        <input type="text" class="form-control" id="cpf" name="cpf" disabled
                             value="<?php echo isset($_SESSION['session_cpf']) ? $_SESSION['session_cpf'] : ''; ?>"
                             <?php echo isset($_SESSION['session_cpf']) && !empty($_SESSION['session_cpf']) ? 'disabled' : ''; ?>>
-                        <small class="form-text text-muted">O CPF pode ser preenchido uma única vez e não poderá ser alterado.</small>
+                        <?php if (!empty($_SESSION['session_cpf'])): ?>
+                            <p style="color: #198754; font-size: 14px; display: flex; align-items: center;">
+                                <i class="fas fa-check-circle" style="margin-right: 5px; font-size: 12px;"></i> CPF válido!
+                            </p>
+                        <?php endif; ?>
                     </div>
                     <div class="col">
                         <label for="estado" class="form-label">Estado</label>
@@ -183,8 +190,12 @@ if (!isset($_SESSION['session_id'])) {
                 </div>
                 <div class="row mb-3">
                     <div class="col">
+                        <?php
+                        var_dump(isset($_SESSION['session_cpf']))
+                        ?>
                         <label for="genero" class="form-label">Gênero</label>
                         <select class="form-select" id="genero" name="genero" disabled>
+                            <option value="" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == '') ? 'selected' : ''; ?>>Não definido</option>
                             <option value="M" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'M') ? 'selected' : ''; ?>>Masculino</option>
                             <option value="F" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'F') ? 'selected' : ''; ?>>Feminino</option>
                             <option value="O" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'O') ? 'selected' : ''; ?>>Outro</option>
@@ -204,7 +215,7 @@ if (!isset($_SESSION['session_id'])) {
     </section>
 
     <section>
-        <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true" style="z-index: 99999;">
+        <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true" style="z-index: 1200;">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -216,14 +227,14 @@ if (!isset($_SESSION['session_id'])) {
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="nome" class="form-label">Nome</label>
-                                    <input type="text" class="form-control" id="nome" name="nome"
+                                    <input type="text" class="form-control" id="nome" name="nome" autocomplete="off"
                                         value="<?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : ''; ?>">
                                 </div>
                             </div>
                             <div class="col mb-3">
                                 <div class="col">
                                     <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-                                    <input type="date" class="form-control" id="data_nascimento" name="data_nascimento"
+                                    <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" autocomplete="off"
                                         value="<?php echo isset($_SESSION['session_data_nascimento']) ? $_SESSION['session_data_nascimento'] : ''; ?>">
                                 </div>
                                 <div class="col">
@@ -242,7 +253,7 @@ if (!isset($_SESSION['session_id'])) {
                             <?php if (empty($_SESSION['session_cpf'])): ?>
                                 <div class="mb-3">
                                     <label for="cpf" class="form-label">CPF</label>
-                                    <input type="text" class="form-control" id="cpf" name="cpf">
+                                    <input type="text" class="form-control" id="cpf" name="cpf" autocomplete="off">
                                     <small class="form-text text-muted" style="color: red;">O CPF pode ser preenchido uma única vez e não poderá ser alterado.</small>
                                 </div>
                             <?php endif; ?>
@@ -285,6 +296,7 @@ if (!isset($_SESSION['session_id'])) {
                                 <div class="col">
                                     <label for="genero" class="form-label">Gênero</label>
                                     <select class="form-select" id="genero" name="genero">
+                                        <option value="<?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == '') ? 'selected' : ''; ?>">Selecione um gênero</option>
                                         <option value="M" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'M') ? 'selected' : ''; ?>>Masculino</option>
                                         <option value="F" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'F') ? 'selected' : ''; ?>>Feminino</option>
                                         <option value="O" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'O') ? 'selected' : ''; ?>>Outro</option>
@@ -292,15 +304,15 @@ if (!isset($_SESSION['session_id'])) {
                                 </div>
                                 <div class="col">
                                     <label for="cidade" class="form-label">Cidade</label>
-                                    <input type="text" class="form-control" id="cidade" name="cidade"
+                                    <input type="text" class="form-control" id="cidade" name="cidade" autocomplete="off"
                                         value="<?php echo isset($_SESSION['session_cidade']) ? $_SESSION['session_cidade'] : ''; ?>">
                                 </div>
                             </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Atualizar perfil</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Atualizar perfil</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
             </div>

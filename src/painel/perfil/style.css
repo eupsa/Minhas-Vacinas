@@ -94,3 +94,6 @@ body.dark-mode {
   padding-left: 15px;
 }
 
+.swal2-container {
+  z-index: 1300 !important;
+}

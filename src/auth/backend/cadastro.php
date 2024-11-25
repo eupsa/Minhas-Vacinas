@@ -16,14 +16,14 @@ $senha = $dados['senha'];
 $confsenha = $dados['confSenha'];
 
 if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($confsenha) || empty($email)) {
-    $retorna = ['status' => false, 'msg' => "Todos os campos obrigatórios devem ser preenchidos."];
+    $retorna = ['status' => false, 'msg' => "Você não preencheu todos os campos obrigatórios. Por favor, revise e envie novamente."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
 }
 
 if ($senha !== $confsenha) {
-    $retorna = ['status' => false, 'msg' => "As senhas precisam ser iguais."];
+    $retorna = ['status' => false, 'msg' => "A senha não corresponde. Verifique e tente novamente."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
@@ -40,7 +40,7 @@ try {
 
     if ($sql->rowCount() === 1) {
         if (email_cadastro($nome, $email)) {
-            $retorna = ['status' => true, 'msg' => "Você foi cadastrado com sucesso! Enviamos um e-mail para confirmação do cadastro!"];
+            $retorna = ['status' => true, 'msg' => "Cadastro realizado. E-mail de confirmação enviado. Verifique sua caixa de entrada para concluir o processo."];
         } else {
             $retorna = ['status' => false, 'msg' => "Cadastro realizado, mas não foi possível enviar o e-mail de confirmação."];
         }
@@ -48,7 +48,7 @@ try {
         $retorna = ['status' => false, 'msg' => "Erro ao cadastrar usuário. Tente novamente."];
     }
 } catch (PDOException $e) {
-    $retorna = ['status' => false, 'msg' => "Erro ao processar sua solicitação. Por favor, tente novamente."];
+    $retorna = ['status' => false, 'msg' => "O cadastro não pôde ser concluído. Verifique os dados e tente novamente."];
 } finally {
     header('Content-Type: application/json');
     echo json_encode($retorna);

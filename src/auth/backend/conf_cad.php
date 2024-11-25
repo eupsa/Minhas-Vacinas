@@ -32,7 +32,7 @@ if (empty($email)) {
 
             if ($sql->rowCount() === 1) {
                 enviarEmail($nome, $email);
-                $retorna = ['status' => true, 'msg' => "Seu cadastro foi confirmado com sucesso. Agora, faça o login para continuar."];
+                $retorna = ['status' => true, 'msg' => "Seu e-mail foi verificado. Agora você pode acessar todos os recursos da plataforma."];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
                 exit();

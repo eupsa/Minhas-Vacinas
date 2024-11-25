@@ -8,13 +8,19 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document.getElementById("cpf").addEventListener("input", function (e) {
-  let value = e.target.value.replace(/\D/g, "");
-  if (value.length > 11) value = value.slice(0, 11);
-  e.target.value = value
-    .replace(/(\d{3})(\d)/, "$1.$2")
-    .replace(/(\d{3})(\d)/, "$1.$2")
-    .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+document.addEventListener("input", function (e) {
+  if (e.target.id === "cpf") {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 11) value = value.slice(0, 11);
+    e.target.value = value
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+  }
+
+  if (e.target.id === "telefone") {
+    formatPhoneNumber(e.target);
+  }
 });
 
 function formatPhoneNumber(input) {
@@ -32,10 +38,6 @@ function formatPhoneNumber(input) {
   input.value = phone;
 }
 
-document.getElementById("telefone").addEventListener("input", function () {
-  formatPhoneNumber(this);
-});
-
 const form_perfil = document.querySelector("#form-perfil");
 
 if (form_perfil) {
@@ -52,19 +54,30 @@ if (form_perfil) {
     const genero = dadosForm.get("genero");
     const cidade = dadosForm.get("cidade");
 
-    if (!nome || !cpf || !data_nascimento || !telefone || !estado || genero ||cidade) {
+    if (
+      !nome &&
+      !cpf &&
+      !data_nascimento &&
+      !telefone &&
+      !estado &&
+      !genero &&
+      !cidade
+    ) {
       Swal.fire({
         text: "Preencha todos os campos.",
         icon: "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
+        customClass: {
+          popup: "my-custom-swal",
+        },
       });
       return;
     }
 
     Swal.fire({
       title: "Processando...",
-      html: "Aguarde enquanto estamos cadastrando...",
+      html: "Aguarde enquanto estamos atualizando os dados...",
       timerProgressBar: true,
       didOpen: () => {
         Swal.showLoading();
@@ -72,7 +85,7 @@ if (form_perfil) {
     });
 
     try {
-      const dados = await fetch("../backend/cadastro.php", {
+      const dados = await fetch("../backend/atualizar-dados.php", {
         method: "POST",
         body: dadosForm,
       });
@@ -87,10 +100,9 @@ if (form_perfil) {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       });
-      if (resposta["status"]) formcad.reset();
     } catch (error) {
       Swal.fire({
-        text: "Erro ao processar o cadastro. Tente novamente mais tarde.",
+        text: "Erro ao processar a atualização. Tente novamente mais tarde.",
         icon: "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
