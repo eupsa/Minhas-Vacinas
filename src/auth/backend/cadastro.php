@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-$nome = strtolower(trim($dados['nome']));
+$nome = ucwords(trim($dados['nome']));
 $email = filter_var(strtolower(trim($dados['email'])), FILTER_SANITIZE_EMAIL);
 $estado = trim($dados['estado']);
 $senha = $dados['senha'];
@@ -17,6 +17,13 @@ $confsenha = $dados['confSenha'];
 
 if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($confsenha) || empty($email)) {
     $retorna = ['status' => false, 'msg' => "Você não preencheu todos os campos obrigatórios. Por favor, revise e envie novamente."];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
+}
+
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $retorna = ['status' => false, 'msg' => "E-mail fornecido é inválido."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();

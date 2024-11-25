@@ -2,9 +2,8 @@
 session_start();
 require '../../scripts/conn.php';
 
-$cpf = $_SESSION['session_cpf'];
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-$nome = strtolower(trim($dados['nome']));
+$nome = ucwords(trim($dados['nome']));
 $cpf = isset($dados['cpf']) ? trim($dados['cpf']) : ($_SESSION['session_cpf'] ?? null);
 $data_nascimento = trim($dados['data_nascimento']);
 $telefone = trim($dados['telefone']);

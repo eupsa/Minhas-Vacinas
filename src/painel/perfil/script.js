@@ -99,6 +99,8 @@ if (form_perfil) {
         icon: resposta["status"] ? "success" : "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
+      }).then(() => {
+        location.reload();
       });
     } catch (error) {
       Swal.fire({

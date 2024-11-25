@@ -30,7 +30,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     exit;
                 }
                 if (password_verify($senha, $usuario['senha'])) {
-                    $retorna = ['status' => true, 'msg' => "Login bem-sucedido! Bem-vindo, " . htmlspecialchars(explode(' ', $usuario['nome'])[0]) . "."];
+                    $retorna = ['status' => true, 'msg' => "Bem-vindo à nossa plataforma, " . htmlspecialchars(explode(' ', $usuario['nome'])[0]) . "!"];
                     header('Content-Type: application/json');
                     echo json_encode($retorna);
                     $_SESSION['session_id'] = $usuario['id_user'];
@@ -50,7 +50,8 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 exit;
             }
         } catch (PDOException $e) {
-            $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar fazer o login: " . $e->getMessage()];
+            $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar fazer o login"];
+            // $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar fazer o login: " . $e->getMessage()];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit();

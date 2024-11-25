@@ -8,6 +8,17 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+document
+  .getElementById("localAplicacao")
+  .addEventListener("input", function () {
+    const campoOutro = document.getElementById("campoOutro");
+    if (this.value === "Outro") {
+      campoOutro.style.display = "block";
+    } else {
+      campoOutro.style.display = "none";
+    }
+  });
+
 const form_vacina = document.querySelector("#form_vacina");
 
 if (form_vacina) {

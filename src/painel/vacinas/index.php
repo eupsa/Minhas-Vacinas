@@ -20,6 +20,9 @@ if (!isset($_SESSION['session_id'])) {
         $_SESSION['vacinas'] = [];
     }
 }
+
+// var_dump($_SESSION['id_vac']);
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -93,7 +96,7 @@ if (!isset($_SESSION['session_id'])) {
                     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2" width="40" height="40">
-                        <span><?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : 'Usuário'; ?></span>
+                        <span><?php echo isset($_SESSION['session_nome']) ? explode(' ', $_SESSION['session_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                         <li><a class="dropdown-item" href="../perfil/">Conta</a></li>
@@ -127,7 +130,7 @@ if (!isset($_SESSION['session_id'])) {
                                 <p class="card-text">Local: <?= htmlspecialchars($vacina['local_aplicacao']) ?></p>
                                 <p class="card-text">Lote: <?= htmlspecialchars($vacina['lote']) ?></p>
                                 <p class="card-text">Observações: <?= htmlspecialchars($vacina['obs']) ?></p>
-                                <form action="../backend/excluir-vacina.php" method="POST" style="display: inline;">
+                                <form action="../backend/excluir-vacina.php" method="POST" style="display: inline;" id="form-excluir-vacina">
                                     <input type="hidden" name="id" value="<?= $vacina['id_vac'] ?>">
                                     <button type="submit" class="btn btn-danger">
                                         <i class="fas fa-trash"></i> Excluir

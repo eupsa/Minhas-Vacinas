@@ -28,7 +28,7 @@ function info_user($pdo)
             echo "Erro: " . $e->getMessage();
         }
     } else {
-        header("Location: ../painel/index.php");
+        header("Location: /src/auth/entrar/");
         exit();
     }
 }

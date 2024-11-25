@@ -20,7 +20,7 @@ if (form_conf) {
 
     Swal.fire({
       title: "Processando...",
-      timer: 5000,
+      timer: 7000,
       timerProgressBar: true,
       didOpen: () => {
         Swal.showLoading();

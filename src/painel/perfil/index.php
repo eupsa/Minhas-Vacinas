@@ -78,7 +78,7 @@ if (!isset($_SESSION['session_id'])) {
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="/assets/img/bx-user.svg" alt="sua foto aqui" class="rounded-circle me-2"
                             width="40" height="40">
-                        <span><?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : 'Usuário'; ?></span>
+                        <span><?php echo isset($_SESSION['session_nome']) ? explode(' ', $_SESSION['session_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                         <li><a href="" onclick="Location.reload()" class="nav-link active" aria-current="page"></li>
@@ -190,9 +190,6 @@ if (!isset($_SESSION['session_id'])) {
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <?php
-                        var_dump(isset($_SESSION['session_cpf']))
-                        ?>
                         <label for="genero" class="form-label">Gênero</label>
                         <select class="form-select" id="genero" name="genero" disabled>
                             <option value="" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == '') ? 'selected' : ''; ?>>Não definido</option>
@@ -244,7 +241,7 @@ if (!isset($_SESSION['session_id'])) {
                                             <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg" alt="Brasil" style="width: 20px; height: 15px; margin-right: 5px;">
                                             +55
                                         </span>
-                                        <input type="text" class="form-control" id="telefone" name="telefone"
+                                        <input type="text" class="form-control" id="telefone" name="telefone" autocomplete="off"
                                             aria-describedby="telefone-addon"
                                             value="<?php echo isset($_SESSION['session_telefone']) ? $_SESSION['session_telefone'] : ''; ?>">
                                     </div>
