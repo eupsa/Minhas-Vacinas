@@ -86,7 +86,7 @@ if (!isset($_SESSION['session_id'])) {
                             <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item" href="../../scripts/sair.php">Sair</a></li>
-                        <li><a class="dropdown-item" href="excluir-conta/">Excluir Conta</a></li>
+                        <li><a class="dropdown-item" href="../../auth/excluir-conta/">Excluir Conta</a></li>
                     </ul>
                 </div>
             </div>

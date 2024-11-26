@@ -60,7 +60,7 @@ CREATE TABLE
 
 CREATE TABLE
     IF NOT EXISTS excluir_conta (
-        code_email INT PRIMARY KEY,
+        code_email INT NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
     );

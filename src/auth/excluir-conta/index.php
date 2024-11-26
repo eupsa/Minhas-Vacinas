@@ -43,7 +43,7 @@
             <div class="offcanvas-body">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="btn btn-secondary w-100" href="../">Voltar</a>
+                        <a class="btn btn-secondary w-100" href="../../painel/">VOLTAR</a>
                     </li>
                 </ul>
             </div>
@@ -67,10 +67,14 @@
                 </div>
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
                     <form action="../backend/conf_cad.php" class="needs-validation bg-light p-5 rounded shadow-lg"
-                        id="form_conf" method="post" novalidate>
+                        id="form-excluir-conta" method="post" novalidate>
                         <h4 class="mb-4 text-center">Exclusão de conta</h4>
                         <div class="mb-3">
-                            <p class="mb-0">Um código foi enviado para o seu e-mail, para prosseguir com a exclusão da conta, insira-o abaixo</p><br>
+                            <p class="mb-0">Um código será enviado para o seu e-mail, para prosseguir com a exclusão da conta, insira-o abaixo</p><br>
+                            <label for="email" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email" required autocomplete="off"><br>
+                        </div>
+                        <div class="mb-3" id="pinto" style="display: none;">
                             <label for="codigo" class="form-label">Código</label>
                             <input type="text" class="form-control" id="codigo" name="codigo" required autocomplete="off">
                         </div>

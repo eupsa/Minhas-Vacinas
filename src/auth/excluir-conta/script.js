@@ -1,16 +1,24 @@
-const form_conf = document.querySelector("#form_conf");
+function exibeDiv() {
+  var div = document.getElementById("pinto");
+  if (div) {
+    div.style.display = "block";
+  }
+}
 
-if (form_conf) {
-  form_conf.addEventListener("submit", async (e) => {
+const form_exclusao_conta = document.querySelector("#form-excluir-conta");
+
+if (form_exclusao_conta) {
+  form_exclusao_conta.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const dadosForm = new FormData(form_conf);
+    const dadosForm = new FormData(form_exclusao_conta);
 
     const email = dadosForm.get("email");
+    const code_email = dadosForm.get("code_email");
 
     if (!email) {
       Swal.fire({
-        text: "Preencha todos os campos! Verifique se todos os campos obrigatórios estão preenchidos.",
+        text: "É necessário preencher o campo e-mail.",
         icon: "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
@@ -27,7 +35,7 @@ if (form_conf) {
       },
     });
 
-    const dados = await fetch("../backend/conf_cad.php", {
+    const dados = await fetch("../backend/excluir-conta.php", {
       method: "POST",
       body: dadosForm,
     });
@@ -41,9 +49,8 @@ if (form_conf) {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       }).then(() => {
-        window.location.href = "../entrar/";
+        exibeDiv();
       });
-      formcad.reset();
     } else {
       Swal.fire({
         text: resposta["msg"],
