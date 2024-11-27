@@ -10,7 +10,7 @@ use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = filter_var(strtolower(trim($dados['email'])), FILTER_SANITIZE_EMAIL);
-$code_email = $dados['code_email'];
+$code_email = $dados['code_email'] ?? '';
 
 
 if (!empty($code_email)) {
@@ -72,7 +72,7 @@ if (!empty($code_email)) {
                 exit();
             }
         } catch (PDOException $e) {
-            $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar fazer o login: " . $e->getMessage()];
+            $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar fazer o login: "];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit();
