@@ -51,6 +51,15 @@ h1 {
 }
 
 @media (max-width: 992px) {
+  .dropdown,
+  .dropdown-center,
+  .dropend,
+  .dropstart,
+  .dropup,
+  .dropup-center {
+    margin-bottom: 50%;
+  }
+
   .sidebar {
     transform: translateX(-100%);
   }
