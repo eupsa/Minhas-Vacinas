@@ -33,7 +33,7 @@ if (!empty($code_email_user)) {
                 echo json_encode($retorna);
                 exit();
             } else {
-                $retorna = ['status' => false, 'msg' => "erro ao excluir"];
+                $retorna = ['status' => false, 'msg' => "Ocorrecdcdccccu um erro ao tentar excluir seu cadastro. " . $e->getMessage()];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
                 exit();

@@ -64,6 +64,9 @@ CREATE TABLE
         email VARCHAR(255) UNIQUE NOT NULL,
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
     );
+    
+    
+DELETE FROM `db_mv`.`excluir_conta` WHERE (`email` = 'pedruuu291@gmail.com');
 
 -- INSERT INTO usuario (nome, email, estado, senha) 
 -- VALUES ('Adm_Pedro', 'pedrooosxz@gmail.com', 'BA', SHA2('Chicote1@', 256));

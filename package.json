@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "darkreader": "^4.9.96",
-    "element-plus": "^2.8.8"
+    "darkreader": "^4.9.96"
   }
 }
