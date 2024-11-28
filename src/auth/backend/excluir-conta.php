@@ -10,20 +10,42 @@ use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = filter_var(strtolower(trim($dados['email'])), FILTER_SANITIZE_EMAIL);
-$code_email = $dados['code_email'] ?? '';
+$code_email_user = $dados['code_email'] ?? null;
 
+if (!empty($code_email_user)) {
+    try {
+        $sql = $pdo->prepare("SELECT * FROM excluir_conta WHERE code_email = :code_email");
+        $sql->bindValue(':code_email', $code_email_user);
+        $sql->execute();
 
-if (!empty($code_email)) {
-    $sql = $pdo->prepare("DELETE FROM usuario WHERE email = :email");
-    $sql->bindValue(':email', $email);
-    $sql->execute();
+        if ($sql->rowCount() === 1) {
+            $sql = $pdo->prepare("DELETE FROM usuario WHERE email = :email");
+            $sql->bindValue(':email', $email);
+            $sql->execute();
 
-    $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
-    $sql->bindValue(':email', $email);
-    $sql->execute();
+            $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
+            $sql->bindValue(':email', $email);
+            $sql->execute();
 
-    if ($sql->rowCount() === 0) {
-        $retorna = ['status' => false, 'msg' => "exclui"];
+            if ($sql->rowCount() === 0) {
+                $retorna = ['status' => true, 'msg' => "exclui sua conta fofa"];
+                header('Content-Type: application/json');
+                echo json_encode($retorna);
+                exit();
+            } else {
+                $retorna = ['status' => false, 'msg' => "erro ao excluir"];
+                header('Content-Type: application/json');
+                echo json_encode($retorna);
+                exit();
+            }
+        } else {
+            $retorna = ['status' => true, 'msg' => "codigo n existe"];
+            header('Content-Type: application/json');
+            echo json_encode($retorna);
+            exit();
+        }
+    } catch (PDOException $e) {
+        $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar excluir seu cadastro. " . $e->getMessage()];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();
@@ -66,20 +88,19 @@ if (!empty($code_email)) {
                     exit();
                 }
             } else {
-                $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar fazer o login: " . $e->getMessage()];
+                $retorna = ['status' => false, 'msg' => "Nenhuma conta encontrada."];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
                 exit();
             }
         } catch (PDOException $e) {
-            $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar fazer o login: "];
+            $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar excluir seu cadastro. " . $e->getMessage()];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit();
         }
     }
 }
-
 
 function email_excluir_conta($email, $code_email)
 {
@@ -95,11 +116,11 @@ function email_excluir_conta($email, $code_email)
         $mail->Password = 'sfii esho quah qkjd';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom('equipevaccilife@gmail.com', 'Bem-Vindo ao Vacinas!');
+        $mail->setFrom('equipevaccilife@gmail.com', 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
-        $mail->Subject = 'Confirmação de Cadastro';
+        $mail->Subject = 'Exclusão de conta';
         $mail->Body = $email_body;
         $mail->send();
         return true;

@@ -55,6 +55,14 @@ body {
 }
 
 @media (max-width: 992px) {
+  .dropdown,
+  .dropdown-center,
+  .dropend,
+  .dropstart,
+  .dropup,
+  .dropup-center {
+    margin-bottom: 20%;
+  }
   .sidebar {
     transform: translateX(-100%);
   }
@@ -114,4 +122,3 @@ body.dark-mode {
   height: 180px;
   object-fit: cover;
 }
-

@@ -47,11 +47,20 @@ body {
   flex-grow: 1;
   padding: 20px;
   margin-left: 280px;
-  z-index: 1; /* Adicione essa linha */
-  position: relative; /* Adicione essa linha */
+  z-index: 1;
+  position: relative;
 }
 
 @media (max-width: 992px) {
+  .dropdown,
+  .dropdown-center,
+  .dropend,
+  .dropstart,
+  .dropup,
+  .dropup-center {
+    margin-bottom: 20%;
+  }
+  
   .sidebar {
     transform: translateX(-100%);
   }
