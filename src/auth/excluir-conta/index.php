@@ -80,6 +80,14 @@
                         </div>
                         <button class="btn btn-warning w-100" type="submit">Excluir Conta</button>
                     </form>
+                    <form action="../backend/conf_cad.php" class="needs-validation bg-light p-5 rounded shadow-lg"
+                        id="form-excluir-conta" method="post" novalidate>
+                        <div class="mb-3" id="pinto" style="display: none;">
+                            <label for="codigo" class="form-label">Código</label>
+                            <input type="text" class="form-control" id="codigo" name="codigo" required autocomplete="off">
+                        </div>
+                        <button class="btn btn-warning w-100" type="submit">Excluir Conta</button>
+                    </form>
                 </div>
             </div>
         </div>
