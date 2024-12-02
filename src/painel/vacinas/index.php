@@ -20,9 +20,6 @@ if (!isset($_SESSION['session_id'])) {
         $_SESSION['vacinas'] = [];
     }
 }
-
-// var_dump($_SESSION['id_vac']);
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -132,7 +129,7 @@ if (!isset($_SESSION['session_id'])) {
                                 <p class="card-text">Observações: <?= htmlspecialchars($vacina['obs']) ?></p>
                                 <form action="../backend/excluir-vacina.php" method="POST" style="display: inline;" id="form-excluir-vacina">
                                     <input type="hidden" name="id" value="<?= $vacina['id_vac'] ?>">
-                                    <button type="submit" class="btn btn-danger">
+                                    <button type="submit" class="btn btn-danger" id="btn-excluir">
                                         <i class="fas fa-trash"></i> Excluir
                                     </button>
                                 </form>
@@ -147,6 +144,7 @@ if (!isset($_SESSION['session_id'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
 </body>
 

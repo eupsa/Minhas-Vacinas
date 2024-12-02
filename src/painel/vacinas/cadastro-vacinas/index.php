@@ -97,15 +97,15 @@ if (!isset($_SESSION['session_id'])) {
             <h2 class="fw-light">Cadastro de Vacinas</h2>
             <form action="../../backend/cadastro-vacina.php" method="post" id="form_vacina">
                 <div class="mb-3">
-                    <label for="nomeVac" class="form-label">Nome da Vacina</label>
+                    <label for="nomeVac" class="form-label">Nome da Vacina<span class="required-asterisk">*</span></label>
                     <input type="text" class="form-control" id="nomeVac" name="nomeVac" autocomplete="off">
                 </div>
                 <div class="mb-3">
-                    <label for="dataAplicacao" class="form-label">Data da Aplicação</label>
+                    <label for="dataAplicacao" class="form-label">Data da Aplicação<span class="required-asterisk">*</span></label>
                     <input type="date" class="form-control" id="dataAplicacao" name="dataAplicacao" autocomplete="off">
                 </div>
                 <div class="mb-3">
-                    <label for="localAplicacao" class="form-label">Unidade de Vacinação</label>
+                    <label for="localAplicacao" class="form-label">Unidade de Vacinação<span class="required-asterisk">*</span></label>
                     <input list="unidades_vacinacao" class="form-control" name="localAplicacao" id="localAplicacao">
                     <datalist id="unidades_vacinacao">
                         <option value="UBS Clementino Fraga">UBS Clementino Fraga</option>
@@ -206,12 +206,8 @@ if (!isset($_SESSION['session_id'])) {
                         <option value="Outro">Outro</option>
                     </datalist>
                 </div>
-                <div id="campoOutro" class="mb-3" style="display:none;">
-                    <label for="outroLocal" class="form-label">Informe o nome do outro local</label>
-                    <input type="text" class="form-control" id="campoOutro" name="campoOutro">
-                </div>
                 <div class="mb-3">
-                    <label for="tipo" class="form-label">Tipo de Vacina</label>
+                    <label for="tipo" class="form-label">Tipo de Vacina<span class="required-asterisk">*</span></label>
                     <select class="form-select" id="tipo" name="tipo">
                         <option value="" selected>Selecione o tipo</option>
                         <option value="Imunização">Imunização</option>
@@ -225,7 +221,7 @@ if (!isset($_SESSION['session_id'])) {
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="dose" class="form-label">Dose</label>
+                    <label for="dose" class="form-label">Dose<span class="required-asterisk">*</span></label>
                     <select class="form-select" id="dose" name="dose">
                         <option value="" selected>Selecione a dose</option>
                         <option value="1ª Dose">1ª Dose</option>

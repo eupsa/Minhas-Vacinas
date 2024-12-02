@@ -8,48 +8,43 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// document.querySelectorAll("form").forEach((form) => {
-//   form.addEventListener("submit", function (e) {
-//     if (!confirm("Você tem certeza que deseja excluir esta vacina?")) {
-//       e.preventDefault();
-//     }
-//   });
-// });
-
 document.querySelectorAll("form").forEach((form) => {
   form.addEventListener("submit", function (e) {
-    alert("Em manutenção.");
+    Swal.fire({
+      text: "Em manutenção!",
+      icon: "warning",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Fechar",
+    });
     {
       e.preventDefault();
     }
   });
 });
 
-// const form_excluir_vacina = document.querySelector("#form-excluir-vacina");
+// const form_exclusao = document.querySelector("#form-excluir-vacina");
 
-// if (form_excluir_vacina) {
-//   form_excluir_vacina.addEventListener("submit", async (e) => {
+// if (form_exclusao) {
+//   form_exclusao.addEventListener("submit", async (e) => {
 //     e.preventDefault();
 
-//     const dadosForm = new FormData(form_excluir_vacina);
+//     const dadosForm = new FormData(form_exclusao);
+//     const id_vacina = dadosForm.get("id_vacina");
 
-//     const id_vac = dadosForm.get("id_vac");
-
-//     if (!id_vac) {
+//     // Verificar se o ID da vacina foi enviado
+//     if (!id_vacina) {
 //       Swal.fire({
-//         text: "ID não encontrado.",
+//         text: "ID da vacina não encontrado.",
 //         icon: "error",
 //         confirmButtonColor: "#3085d6",
 //         confirmButtonText: "Fechar",
-//         customClass: {
-//           popup: "my-custom-swal",
-//         },
 //       });
 //       return;
 //     }
 
 //     Swal.fire({
-//       title: "Processando...",
+//       title: "Excluindo...",
+//       text: "Aguarde enquanto a vacina está sendo excluída.",
 //       timerProgressBar: true,
 //       didOpen: () => {
 //         Swal.showLoading();
@@ -57,30 +52,42 @@ document.querySelectorAll("form").forEach((form) => {
 //     });
 
 //     try {
-//       const dados = await fetch("../backend/excluir-vacina.php", {
+//       // Enviando os dados como JSON
+//       const response = await fetch("../backend/excluir-vacina.php", {
 //         method: "POST",
-//         body: dadosForm,
+//         headers: {
+//           "Content-Type": "application/json", // Definindo o tipo de conteúdo como JSON
+//         },
+//         body: JSON.stringify({ id_vacina }), // Convertendo os dados para JSON
 //       });
 
-//       if (!dados.ok) throw new Error("Erro ao processar a solicitação");
+//       const resposta = await response.json();
 
-//       const resposta = await dados.json();
-
-//       Swal.fire({
-//         text: resposta["msg"],
-//         icon: resposta["status"] ? "success" : "error",
-//         confirmButtonColor: "#3085d6",
-//         confirmButtonText: "Fechar",
-//       }).then(() => {
-//         location.reload();
-//       });
+//       if (resposta.status) {
+//         Swal.fire({
+//           text: resposta.msg,
+//           icon: "success",
+//           confirmButtonColor: "#3085d6",
+//           confirmButtonText: "Fechar",
+//         }).then(() => {
+//           location.reload(); // Recarregar a página após exclusão bem-sucedida
+//         });
+//       } else {
+//         Swal.fire({
+//           text: resposta.msg,
+//           icon: "error",
+//           confirmButtonColor: "#3085d6",
+//           confirmButtonText: "Fechar",
+//         });
+//       }
 //     } catch (error) {
 //       Swal.fire({
-//         text: "Erro ao processar a atualização. Tente novamente mais tarde.",
+//         text: "Ocorreu um erro ao tentar excluir a vacina. Tente novamente mais tarde.",
 //         icon: "error",
 //         confirmButtonColor: "#3085d6",
 //         confirmButtonText: "Fechar",
 //       });
+//       console.error("Erro ao excluir vacina:", error);
 //     }
 //   });
 // }

@@ -151,11 +151,11 @@ if (isset($_SESSION['session_id'])) {
                         id="form_login" method="post" novalidate>
                         <h4 class="mb-4 text-center">Entre na sua conta</h4>
                         <div class="mb-3">
-                            <label for="email" class="form-label">E-mail</label>
+                            <label for="email" class="form-label">E-mail<span class="required-asterisk">*</span></label>
                             <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Senha</label>
+                            <label for="password" class="form-label">Senha<span class="required-asterisk">*</span></label>
                             <div class="input-group">
                                 <input type="password" class="form-control" id="senha" name="senha" required>
                                 <button class="btn btn-outline-secondary" type="button" id="togglePassword">

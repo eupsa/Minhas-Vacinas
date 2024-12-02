@@ -99,3 +99,8 @@ body.dark-mode {
 .preto {
   padding-left: 15px;
 }
+
+.required-asterisk {
+  color: red;
+  margin-left: 2px;
+}
