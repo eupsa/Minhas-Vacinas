@@ -1,17 +1,17 @@
-function exibeDiv() {
-  var div = document.getElementById("pinto");
-  if (div) {
-    div.style.display = "block";
-  }
-}
+// function exibeDiv() {
+//   var div = document.getElementById("pinto");
+//   if (div) {
+//     div.style.display = "block";
+//   }
+// }
 
-const form_exclusao_conta = document.querySelector("#form-excluir-conta");
+const form_send_email = document.querySelector("#form-send-email");
 
-if (form_exclusao_conta) {
-  form_exclusao_conta.addEventListener("submit", async (e) => {
+if (form_send_email) {
+  form_send_email.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const dadosForm = new FormData(form_exclusao_conta);
+    const dadosForm = new FormData(form_send_email);
 
     const email = dadosForm.get("email");
     const code_email = dadosForm.get("code_email");
@@ -49,7 +49,9 @@ if (form_exclusao_conta) {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       }).then(() => {
-        exibeDiv();
+        // exibeDiv();
+        document.getElementById("form-send-email").style.display = "none";
+        document.getElementById("form-code-email").style.display = "block";
       });
     } else {
       Swal.fire({

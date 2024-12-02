@@ -10,7 +10,7 @@ use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = filter_var(strtolower(trim($dados['email'])), FILTER_SANITIZE_EMAIL);
-$code_email_user = $dados['code_email'];
+$code_email_user = $dados['code_email'] ?? null;
 
 if (!empty($code_email_user)) {
     try {
