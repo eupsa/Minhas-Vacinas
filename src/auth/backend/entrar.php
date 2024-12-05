@@ -1,5 +1,5 @@
 <?php
-include '../../scripts/conn.php';
+require '../../scripts/conn.php';
 session_start();
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
@@ -51,7 +51,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             }
         } catch (PDOException $e) {
             $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar fazer o login"];
-            // $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar fazer o login: " . $e->getMessage()];
+            //$retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar fazer o login: " . $e->getMessage()];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit();

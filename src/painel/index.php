@@ -142,7 +142,7 @@ if (!isset($_SESSION['session_id'])) {
             <div class="row">
                 <?php
                 $apiKey = "ffe99dae4cc64a67b05f07b8c72f3ba1";
-                $query = "vacinação";
+                $query = "Saude";
                 $language = "pt";
                 $url = "https://newsapi.org/v2/everything?q=" . urlencode($query) . "&language=" . $language . "&apiKey=" . $apiKey;
 
