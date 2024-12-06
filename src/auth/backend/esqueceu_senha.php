@@ -53,7 +53,7 @@ if (empty($email)) {
 
 function enviarEmail($nome, $email, $token)
 {
-    $email_body = file_get_contents('../../assets/templates/email_forgot_password.php');
+    $email_body = file_get_contents('../../assets/templates/esqueceu-senha.php');
     $email_body = str_replace('{{nome}}', $nome, $email_body);
     $email_body = str_replace('{{email}}', $email, $email_body);
     $email_body = str_replace('{{token}}', $token, $email_body);
