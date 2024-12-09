@@ -1,8 +1,8 @@
-CREATE DATABASE IF NOT EXISTS DB_MV;
-USE DB_MV;
+CREATE DATABASE IF NOT EXISTS dv_mv;
+USE dv_mv;
 
--- CREATE DATABASE IF NOT EXISTS minhas-vacinas;
--- USE minhas-vacinas;
+-- CREATE DATABASE IF NOT EXISTS minhas_vacinas;
+-- USE minhas_vacinas;
 
 CREATE TABLE
     IF NOT EXISTS USUARIO (
