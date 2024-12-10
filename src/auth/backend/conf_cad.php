@@ -12,6 +12,13 @@ $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = strtolower(trim($dados['email']));
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $retorna = ['status' => false, 'msg' => "E-mail fornecido é inválido."];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
+}
+
 if (empty($email)) {
     $retorna = ['status' => false, 'msg' => "Todos os campos devem ser preenchidos."];
     header('Content-Type: application/json');

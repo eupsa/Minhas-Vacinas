@@ -1,81 +1,70 @@
 CREATE DATABASE IF NOT EXISTS u193725571_minhasvacinas;
 USE u193725571_minhasvacinas;
 
--- CREATE DATABASE IF NOT EXISTS minhas_vacinas;
--- USE minhas_vacinas;
+CREATE TABLE
+    IF NOT EXISTS usuario (
+        id_user BIGINT PRIMARY KEY AUTO_INCREMENT,
+        nome VARCHAR(100) NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        estado VARCHAR(2) NOT NULL,
+        senha VARCHAR(128) NOT NULL,
+        email_conf TINYINT (1) DEFAULT 0,
+        data_nascimento DATE,
+        genero VARCHAR(10),
+        cpf VARCHAR(14) UNIQUE,
+        telefone VARCHAR(15),
+        cidade VARCHAR(100),
+        data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
+        user_root TINYINT (1) DEFAULT 0
+    );
+    
+    -- INSERT INTO usuario (
+    -- nome, email, estado, senha, email_conf, data_nascimento, genero, cpf, telefone, cidade, user_root, root_user) 
+    -- VALUES 
+    -- ('João Silva', 'pedruuu291@gmail.com', 'BA', '$2y$10$R5ToR3.obbC1G4bnAzUkZeKTle45W3ywNtse8PeCvFTDTGHu2AudC', 1, '2007-02-15', 'Masculino', '123.456.789-00', '(11) 91234-5678', 'São Paulo', 0, NULL);
 
 CREATE TABLE
-    IF NOT EXISTS USUARIO (
-        ID_USER BIGINT PRIMARY KEY AUTO_INCREMENT,
-        NOME VARCHAR(100) NOT NULL,
-        EMAIL VARCHAR(255) UNIQUE NOT NULL,
-        ESTADO VARCHAR(2) NOT NULL,
-        SENHA VARCHAR(128) NOT NULL,
-        EMAIL_CONF TINYINT(1) DEFAULT 0,
-        DATA_NASCIMENTO DATE,
-        GENERO VARCHAR(10),
-        CPF VARCHAR(14) UNIQUE,
-        TELEFONE VARCHAR(15),
-        CIDADE VARCHAR(100),
-        DATA_CADASTRO DATETIME DEFAULT CURRENT_TIMESTAMP,
-        USER_ROOT TINYINT(1) DEFAULT 0
+    IF NOT EXISTS vacina (
+        id_vac BIGINT PRIMARY KEY AUTO_INCREMENT,
+        nome_vac VARCHAR(100) NOT NULL,
+        data_aplicacao DATE NOT NULL,
+        proxima_dose DATE,
+        local_aplicacao VARCHAR(200) NOT NULL,
+        tipo VARCHAR(50) NOT NULL,
+        dose INT,
+        lote VARCHAR(50),
+        obs TEXT,
+        id_user BIGINT,
+        CONSTRAINT fk_usuario FOREIGN KEY (id_user) REFERENCES usuario (id_user) ON DELETE SET NULL
     );
 
 CREATE TABLE
-    IF NOT EXISTS VACINA (
-        ID_VAC BIGINT PRIMARY KEY AUTO_INCREMENT,
-        NOME_VAC VARCHAR(100) NOT NULL,
-        DATA_APLICACAO DATE NOT NULL,
-        PROXIMA_DOSE DATE,
-        LOCAL_APLICACAO VARCHAR(200) NOT NULL,
-        TIPO VARCHAR(50) NOT NULL,
-        DOSE INT,
-        LOTE VARCHAR(50),
-        OBS TEXT,
-        ID_USER BIGINT,
-        CONSTRAINT FK_USUARIO FOREIGN KEY (ID_USER) REFERENCES USUARIO (ID_USER) ON DELETE SET NULL
+    IF NOT EXISTS usuario_vacina (
+        id_user BIGINT,
+        id_vac BIGINT,
+        data_aplicacao DATE,
+        PRIMARY KEY (id_user, id_vac),
+        FOREIGN KEY (id_user) REFERENCES usuario (id_user) ON DELETE CASCADE,
+        FOREIGN KEY (id_vac) REFERENCES vacina (id_vac) ON DELETE CASCADE
     );
 
 CREATE TABLE
-    IF NOT EXISTS USUARIO_VACINA (
-        ID_USER BIGINT,
-        ID_VAC BIGINT,
-        DATA_APLICACAO DATE,
-        PRIMARY KEY (ID_USER, ID_VAC),
-        FOREIGN KEY (ID_USER) REFERENCES USUARIO (ID_USER) ON DELETE CASCADE,
-        FOREIGN KEY (ID_VAC) REFERENCES VACINA (ID_VAC) ON DELETE CASCADE
+    IF NOT EXISTS esqueceu_senha (
+        id BIGINT PRIMARY KEY AUTO_INCREMENT,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        token VARCHAR(255) NOT NULL,
+        data_expiracao DATETIME NOT NULL,
+        data_solicitacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
     );
 
 CREATE TABLE
-    IF NOT EXISTS ESQUECEU_SENHA (
-        ID BIGINT PRIMARY KEY AUTO_INCREMENT,
-        EMAIL VARCHAR(255) UNIQUE NOT NULL,
-        TOKEN VARCHAR(255) NOT NULL,
-        DATA_EXPIRACAO DATETIME NOT NULL,
-        DATA_SOLICITACAO DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (EMAIL) REFERENCES USUARIO (EMAIL) ON DELETE CASCADE
+    IF NOT EXISTS excluir_conta (
+        code_email INT NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
     );
+    
 
-CREATE TABLE
-    IF NOT EXISTS EXCLUIR_CONTA (
-        CODE_EMAIL INT NOT NULL,
-        EMAIL VARCHAR(255) NOT NULL,
-        FOREIGN KEY (EMAIL) REFERENCES USUARIO (EMAIL) ON DELETE CASCADE
-    );
-
-DELETE FROM `DB_MV`.`EXCLUIR_CONTA` WHERE (`EMAIL` = 'PEDRUUU291@GMAIL.COM');
-
--- INSERT INTO usuario (nome, email, estado, senha) 
--- VALUES ('Adm_Pedro', 'pedrooosxz@gmail.com', 'BA', SHA2('Chicote1@', 256));
--- select * from usuario where email ='pedruuuyt291@gmail.com';
--- UPDATE usuario SET email_conf = 1 WHERE email = 'viskp2537@gmail.com'
--- INSERT INTO usuario (nome, email, estado, senha, idade, genero, cpf, telefone, cidade) 
--- VALUES ('João Silva', 'joao@example.com', 'SP', 'senha123', 30, 'Masculino', '123.456.789-00', '11987654321', 'São Paulo');
--- INSERT INTO vacina (nomeVac, dataVacina, tipo, dose, lote, obs, idUsuario) 
--- VALUES ('Vacina XYZ', '2024-01-01', 'Reforço', 1, 'Lote123', 'Nenhuma observação', 1);
-
--- select , estado, emailConf, , , , telefone, cidade from usuario where email = 'joao.silva@example.com';
-
--- UPDATE usuario SET nome = 'Paula', estado = 'SP' WHERE idUsuarios = 4
-
--- DELETE FROM usuario WHERE email = 'viskp2537@gmail.com';
+-- SET @@global.time_zone = '-3:00';
+-- SELECT @@global.time_zone, @@session.time_zone;
