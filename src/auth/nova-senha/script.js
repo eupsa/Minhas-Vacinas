@@ -59,7 +59,7 @@ if (form_reset) {
       },
     });
 
-    const dados = await fetch("../backend/nova_senha.php", {
+    const dados = await fetch("../backend/nova-senha.php", {
       method: "POST",
       body: dadosForm,
     });

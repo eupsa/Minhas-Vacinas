@@ -138,7 +138,7 @@ if (!isset($_SESSION['session_id'])) {
 
     <section class="side-bar">
         <div class="content">
-            <h1 class="text-center mb-4">Últimas de Notícias</h1>
+            <h1 class="text-center mb-4">Últimas Notícias</h1>
             <div class="row">
                 <?php
                 $apiKey = "ffe99dae4cc64a67b05f07b8c72f3ba1";

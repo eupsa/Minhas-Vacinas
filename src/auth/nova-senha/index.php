@@ -153,7 +153,7 @@ if ($sql->rowCount() != 1) {
         <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
             <div class="row w-100">
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                    <form action="../backend/nova_senha.php"
+                    <form action="../backend/nova-senha.php"
                         class="needs-validation bg-light p-5 rounded shadow-lg" id="form_reset" method="post"
                         novalidate>
                         <h4 class="mb-4 text-center">Crie sua senha</h4>

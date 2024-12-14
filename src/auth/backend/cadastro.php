@@ -47,7 +47,7 @@ try {
 
     if ($sql->rowCount() === 1) {
         if (email_cadastro($nome, $email)) {
-            $retorna = ['status' => true, 'msg' => "Cadastro realizado. E-mail de confirmação enviado. Verifique sua caixa de entrada para concluir o processo."];
+            $retorna = ['status' => true, 'msg' => "Sua conta foi criada. Um e-mail de confirmação enviado. Verifique sua caixa de entrada para concluir o processo."];
         } else {
             $retorna = ['status' => false, 'msg' => "Cadastro realizado, mas não foi possível enviar o e-mail de confirmação."];
         }
@@ -76,7 +76,7 @@ function email_cadastro($nome, $email)
         $mail->Password = 'sfii esho quah qkjd';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom('equipevaccilife@gmail.com', 'Bem-Vindo ao Vacinas!');
+        $mail->setFrom('equipevaccilife@gmail.com', 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
