@@ -79,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
           confirmButtonColor: "#3085d6",
           confirmButtonText: "Fechar",
         });
-        console.error("Erro ao realizar login:", error);
       }
     });
   }
