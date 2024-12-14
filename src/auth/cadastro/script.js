@@ -76,6 +76,9 @@ if (formcad) {
         icon: resposta["status"] ? "success" : "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
+      }).then(() => {
+        formcad.reset();
+        window.location.href = "../entrar/";
       });
       if (resposta["status"]) formcad.reset();
     } catch (error) {
@@ -88,4 +91,3 @@ if (formcad) {
     }
   });
 }
-
