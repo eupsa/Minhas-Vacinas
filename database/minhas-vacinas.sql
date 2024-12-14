@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS u193725571_minhasvacinas;
-USE u193725571_minhasvacinas;
+CREATE DATABASE IF NOT EXISTS minhasvacinas;
+USE minhasvacinas;
 
 CREATE TABLE
     IF NOT EXISTS usuario (
@@ -18,10 +18,9 @@ CREATE TABLE
         user_root TINYINT (1) DEFAULT 0
     );
     
-    -- INSERT INTO usuario (
-    -- nome, email, estado, senha, email_conf, data_nascimento, genero, cpf, telefone, cidade, user_root, root_user) 
-    -- VALUES 
-    -- ('João Silva', 'pedruuu291@gmail.com', 'BA', '$2y$10$R5ToR3.obbC1G4bnAzUkZeKTle45W3ywNtse8PeCvFTDTGHu2AudC', 1, '2007-02-15', 'Masculino', '123.456.789-00', '(11) 91234-5678', 'São Paulo', 0, NULL);
+-- INSERT INTO usuario (nome, email, estado, senha, email_conf, data_nascimento, genero, cpf, telefone, cidade, user_root)
+-- VALUES 
+-- ('Pedro Silva', 'pedruuu291@gmail.com', 'BA', '$2y$10$R5ToR3.obbC1G4bnAzUkZeKTle45W3ywNtse8PeCvFTDTGHu2AudC', 1, '2007-02-15', 'Masculino', '086-415-560-90', '(71) 98765-4321', 'Salvador', 1);
 
 CREATE TABLE
     IF NOT EXISTS vacina (
@@ -68,3 +67,4 @@ CREATE TABLE
 
 -- SET @@global.time_zone = '-3:00';
 -- SELECT @@global.time_zone, @@session.time_zone;
+-- SET time_zone = 'America/Sao_Paulo';

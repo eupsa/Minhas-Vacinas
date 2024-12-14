@@ -173,7 +173,7 @@ if (isset($_SESSION['session_id'])) {
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="password2" class="form-label">Confirme sua senha<span class="required-asterisk">*</span></label>
+                            <label for="password2" class="form-label">Confirme sua senha<span class="required-asterisk">*</span></label>r
                             <div class="input-group">
                                 <input type="password" class="form-control" id="confSenha" name="confSenha" required>
                                 <button class="btn btn-outline-secondary" type="button" id="ConftogglePassword">
