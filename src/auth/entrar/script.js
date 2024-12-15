@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const email = dadosForm.get("email");
       const senha = dadosForm.get("senha");
+      const termosAceitos = dadosForm.get("lembrarLogin");
 
       if (!email || !senha) {
         Swal.fire({

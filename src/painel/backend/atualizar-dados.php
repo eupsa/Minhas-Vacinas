@@ -12,7 +12,7 @@ $genero = trim($dados['genero']);
 $cidade = trim($dados['cidade']);
 
 
-if (validarCPF($cpf)) {
+if (!validarCPF($cpf)) {
     if (empty($nome) && empty($cpf) && empty($data_nascimento) && empty($telefone) && empty($estado) && empty($genero) && empty($cidade)) {
         $retorna = ['status' => false, 'msg' => 'Preencha todos os campos.'];
         header('Content-Type: application/json');

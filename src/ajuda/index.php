@@ -144,7 +144,7 @@
         </div>
     </header>
 
-    <section class="pt-5">
+    <section class="pt-5" style="padding-bottom: 8%;">
         <div class="container mt-5">
             <h2 class="text-center mb-4">Suporte</h2>
             <div class="row justify-content-center">
@@ -183,6 +183,55 @@
             </div>
         </div>
     </section>
+
+    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px;">
+        <div class="me-5 d-none d-lg-block"></div>
+        <div class="container text-center text-md-start mt-5">
+            <div class="row mt-3">
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        <i class="bi bi-gem me-2"></i>Minhas Vacinas
+                    </h6>
+                    <p>
+                        <i class="bi bi-info-circle me-1"></i> Protegendo você e sua família com informações e
+                        controle digital de vacinas.
+                    </p>
+                </div>
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Serviços</h6>
+                    <p>
+                        <a href="/src/auth/cadastro/" style="text-decoration: none; color: #adb5bd;" class="text-reset">Cadastro</a>
+                    </p>
+                    <p>
+                        <a href="/src/ajuda/" style="text-decoration: none; color: #adb5bd;" class="text-reset">Suporte</a>
+                    </p>
+                    <p>
+                        <a href="/src/painel/" style="text-decoration: none; color: #adb5bd;" class="text-reset">Histórico</a>
+                    </p>
+                </div>
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Links Úteis</h6>
+                    <p>
+                        <a href="/assets/docs/Política-de-Privacidade.pdf" style="text-decoration: none; color: #adb5bd;"
+                            class="text-reset">Política de Privacidade</a>
+                    </p>
+                    <p>
+                        <a href="/assets/docs/Termos-de-Serviço.pdf" style="text-decoration: none; color: #adb5bd;"
+                            class="text-reset">Termos de Serviço</a>
+                    </p>
+                </div>
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Contato</h6>
+                    <p><i class="bi bi-envelope me-2"></i>contato@minhasvacinas.online</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center p-4" style="background-color: #181a1b; color: #adb5bd;">
+            © 2024 Minhas Vacinas. Todos os direitos reservados.
+        </div>
+    </footer>
+
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

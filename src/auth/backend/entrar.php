@@ -6,6 +6,7 @@ $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = strtolower(trim($dados['email']));
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 $senha = $dados['senha'];
+$lembrarLogin = isset($_POST['lembrarLogin']) ? true : false;
 
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     if (empty($email) || empty($senha)) {
@@ -30,13 +31,24 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     exit;
                 }
                 if (password_verify($senha, $usuario['senha'])) {
-                    $retorna = ['status' => true, 'msg' => "Bem-vindo à nossa plataforma, " . htmlspecialchars(explode(' ', $usuario['nome'])[0]) . "!"];
-                    header('Content-Type: application/json');
-                    echo json_encode($retorna);
-                    $_SESSION['session_id'] = $usuario['id_user'];
-                    $_SESSION['session_nome'] = $usuario['nome'];
-                    $_SESSION['session_email'] = $usuario['email'];
-                    exit;
+                    if ($lembrarLogin) {
+                        $retorna = ['status' => true, 'msg' => "Bem-vindo à nossa plataforma, " . htmlspecialchars(explode(' ', $usuario['nome'])[0]) . "!"];
+                        header('Content-Type: application/json');
+                        echo json_encode($retorna);
+                        $_SESSION['session_id'] = $usuario['id_user'];
+                        $_SESSION['session_nome'] = $usuario['nome'];
+                        $_SESSION['session_email'] = $usuario['email'];
+                        exit();
+                    } else {
+                        $retorna = ['status' => true, 'msg' => "Bem-vindo à nossa plataforma, " . htmlspecialchars(explode(' ', $usuario['nome'])[0]) . "!"];
+                        header('Content-Type: application/json');
+                        echo json_encode($retorna);
+                        //Modificar aqui quando encontrar a solução do Checkbox para login
+                        $_SESSION['session_id'] = $usuario['id_user'];
+                        $_SESSION['session_nome'] = $usuario['nome'];
+                        $_SESSION['session_email'] = $usuario['email'];
+                        exit();
+                    }
                 } else {
                     $retorna = ['status' => false, 'msg' => "As credenciais fornecidas estão incorretas."];
                     header('Content-Type: application/json');
@@ -51,7 +63,6 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             }
         } catch (PDOException $e) {
             $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar fazer o login"];
-            //$retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar fazer o login: " . $e->getMessage()];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit();

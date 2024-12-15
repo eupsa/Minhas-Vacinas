@@ -39,11 +39,11 @@ if (!isset($_SESSION['session_id'])) {
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top rounded-pill shadow"
-            style="background-color: #007bff; z-index: 1081; width: 85%; left: 50%; transform: translateX(-50%); margin-top: 10px;">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top"
+            style="background-color: #007bff; z-index: 1081; width: 100%; left: 50%; transform: translateX(-50%);">
             <div class="container">
                 <a class="navbar-brand" href="/index.html">
-                    <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 40px;">
+                    <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="sidebarToggle">
