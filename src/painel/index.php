@@ -56,12 +56,12 @@ if (!isset($_SESSION['session_id'])) {
                 <div class="col-12 col-sm-6 col-md-3 mb-4">
                     <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
                         <div class="card-body d-flex flex-column text-center">
-                            <p class="text-danger text-center">
-                                <i class="fas fa-tools" style="color: #dc3545;"></i> Em manutenção!
+                            <p class="text-success text-center">
+                                <i class="fas fa-check-circle" style="color: #198754;"></i> Adicionada recentemente!
                             </p>
                             <h5 class="card-title">Exclusão de Vacinas</h5>
                             <p class="card-text">Essa funcionalidade está temporariamente indisponível devido à manutenção. Com ela é possível excluir suas vacinas.</p>
-                            <a href="#" class="btn btn-danger btn-sm mt-auto disabled">Indisponível</a>
+                            <a href="vacinas/" class="btn btn-primary btn-sm mt-auto">Acessar</a>
                         </div>
                     </div>
                 </div>
@@ -126,11 +126,14 @@ if (!isset($_SESSION['session_id'])) {
                         <span><?php echo isset($_SESSION['session_nome']) ? explode(' ', $_SESSION['session_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="perfil/">Conta</a></li>
+                        <li><a class="dropdown-item" href="perfil/"><i class="fas fa-user"></i> Minha conta</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="../scripts/sair.php">Sair</a></li>
+                        <li><a class="dropdown-item" href="../auth/esqueceu-senha/"><i class="fas fa-key"></i> Trocar senha</a></li>
+                        <li><a class="dropdown-item" href="../ajuda/"><i class="fas fa-headset"></i> Suporte</a></li>
+                        <li><a class="dropdown-item" href="../auth/excluir-conta/"><i class="fas fa-user-times"></i> Excluir conta</a></li>
+                        <li><a class="dropdown-item" href="../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                     </ul>
                 </div>
             </div>

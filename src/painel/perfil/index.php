@@ -23,6 +23,10 @@ if (!isset($_SESSION['session_id'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <head>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    </head>
     <title>Vacinas - Perfil</title>
 </head>
 
@@ -71,38 +75,49 @@ if (!isset($_SESSION['session_id'])) {
                     <li>
                         <hr>
                     </li>
+                    <li>
+                        <a href="../../auth/esqueceu-senha/" class="nav-link text-white" aria-current="page">
+                            <i class="bi bi-key"></i> Alterar senha
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" class="nav-link text-white" aria-current="page" data-bs-toggle="modal" data-bs-target="#updateModal">
+                            <i class="bi bi-pencil"></i> Alterar dados
+                        </a>
+                    </li>
                 </ul>
                 <hr>
                 <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/assets/img/bx-user.svg" alt="sua foto aqui" class="rounded-circle me-2"
+                        <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
                             width="40" height="40">
                         <span><?php echo isset($_SESSION['session_nome']) ? explode(' ', $_SESSION['session_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a href="" onclick="Location.reload()" class="nav-link active" aria-current="page"></li>
+                        <li><a class="dropdown-item" href="../scripts/sair.php"><i class="fas fa-user"></i> Minha conta</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="../../scripts/sair.php">Sair</a></li>
-                        <li><a class="dropdown-item" href="../../auth/excluir-conta/">Excluir Conta</a></li>
+                        <li><a class="dropdown-item" href="../../ajuda/"><i class="fas fa-headset"></i> Suporte</a></li>
+                        <li><a class="dropdown-item" href="../../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="content flex-grow-1">
-                <div class="container d-flex justify-content-start align-items-start mt-4" style="margin-left: -15px;">
-                    <div class="card mb-4" style="width: 35rem;">
-                        <div class="d-flex align-items-center p-3">
-                            <img src="/assets/img/bx-user.svg" class="rounded-circle" alt="Foto do Usuário" style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px;">
-                            <div>
-                                <h5 class="card-title" style="font-size: 1.25rem;"><?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : 'Nome do Usuário'; ?></h5>
-                                <p class="card-text" style="font-size: 0.875rem;"><?php echo isset($_SESSION['session_email']) ? $_SESSION['session_email'] : 'email@exemplo.com'; ?></p>
-                            </div>
+        </div>
+        <div class="content flex-grow-1">
+            <div class="container d-flex justify-content-start align-items-start mt-4" style="margin-left: -15px;">
+                <div class="card mb-4" style="width: 35rem;">
+                    <div class="d-flex align-items-center p-3">
+                        <img src="/assets/img/bx-user.svg" class="rounded-circle" alt="Foto do Usuário" style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px;">
+                        <div>
+                            <h5 class="card-title" style="font-size: 1.25rem;"><?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : 'Nome do Usuário'; ?></h5>
+                            <p class="card-text" style="font-size: 0.875rem;"><?php echo isset($_SESSION['session_email']) ? $_SESSION['session_email'] : 'email@exemplo.com'; ?></p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
     <section>

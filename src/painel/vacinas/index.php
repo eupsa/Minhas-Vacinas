@@ -90,17 +90,21 @@ if (!isset($_SESSION['session_id'])) {
                 </ul>
                 <hr>
                 <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                    <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2" width="40" height="40">
+                        <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
+                            width="40" height="40">
                         <span><?php echo isset($_SESSION['session_nome']) ? explode(' ', $_SESSION['session_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="../perfil/">Conta</a></li>
+                        <li><a class="dropdown-item" href="../scripts/sair.php"><i class="fas fa-user"></i> Minha conta</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="../../scripts/sair.php">Sair</a></li>
+                        <li><a class="dropdown-item" href="../../auth/esqueceu-senha/"><i class="fas fa-key"></i> Trocar senha</a></li>
+                        <li><a class="dropdown-item" href="../../ajuda/"><i class="fas fa-headset"></i> Suporte</a></li>
+                        <li><a class="dropdown-item" href="../../auth/"><i class="fas fa-user-times"></i> Excluir conta</a></li>
+                        <li><a class="dropdown-item" href="../../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                     </ul>
                 </div>
             </aside>
@@ -127,8 +131,8 @@ if (!isset($_SESSION['session_id'])) {
                                 <p class="card-text">Local: <?= htmlspecialchars($vacina['local_aplicacao']) ?></p>
                                 <p class="card-text">Lote: <?= htmlspecialchars($vacina['lote']) ?></p>
                                 <p class="card-text">Observações: <?= htmlspecialchars($vacina['obs']) ?></p>
-                                <form action="../backend/excluir-vacina.php" method="POST" style="display: inline;" id="form-excluir-vacina">
-                                    <input type="hidden" name="id" value="<?= $vacina['id_vac'] ?>">
+                                <form action="../backend/excluir-vacina.php" method="POST" style="display: inline;" class="form-excluir-vacina">
+                                    <input type="hidden" name="id_vac" value="<?= $vacina['id_vac'] ?>">
                                     <button type="submit" class="btn btn-danger" id="btn-excluir">
                                         <i class="fas fa-trash"></i> Excluir
                                     </button>

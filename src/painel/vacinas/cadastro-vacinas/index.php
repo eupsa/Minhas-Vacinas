@@ -82,11 +82,14 @@ if (!isset($_SESSION['session_id'])) {
                         <span><?php echo isset($_SESSION['session_nome']) ? explode(' ', $_SESSION['session_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="../../perfil/">Conta</a></li>
+                        <li><a class="dropdown-item" href="../scripts/sair.php"><i class="fas fa-user"></i> Minha conta</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="../../../scripts/sair.php">Sair</a></li>
+                        <li><a class="dropdown-item" href="../../../auth/esqueceu-senha/"><i class="fas fa-key"></i> Trocar senha</a></li>
+                        <li><a class="dropdown-item" href="../../../ajuda/"><i class="fas fa-headset"></i> Suporte</a></li>
+                        <li><a class="dropdown-item" href="../../../auth/excluir-conta/"><i class="fas fa-user-times"></i> Excluir conta</a></li>
+                        <li><a class="dropdown-item" href="../../../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                     </ul>
                 </div>
             </div>
@@ -97,8 +100,52 @@ if (!isset($_SESSION['session_id'])) {
             <h2 class="fw-light">Cadastro de Vacinas</h2>
             <form action="../../backend/cadastro-vacina.php" method="post" id="form_vacina">
                 <div class="mb-3">
-                    <label for="nomeVac" class="form-label">Nome da Vacina<span class="required-asterisk">*</span></label>
-                    <input type="text" class="form-control" id="nomeVac" name="nomeVac" autocomplete="off">
+                    <select class="form-select" id="nomeVac" name="nomeVac" aria-label="Selecione a vacina">
+                        <option value="" disabled selected>Selecione uma vacina</option>
+                        <!-- Vacinas para Crianças -->
+                        <optgroup label="Crianças">
+                            <option value="BCG - PROTEÇÃO CONTRA TUBERCULOSE">BCG - Proteção contra Tuberculose</option>
+                            <option value="HEPATITE-B">Hepatite B</option>
+                            <option value="PENTAVALENTE (DTP + Hib + Hepatite B)">Pentavalente (DTP + Hib + Hepatite B)</option>
+                            <option value="POLIOMIELITE (VOP e VIP)">Poliomielite (VOP e VIP)</option>
+                            <option value="ROTAVÍRUS">Rotavírus</option>
+                            <option value="PNEUMOCÓCIA-10">Pneumocócica 10-Valente</option>
+                            <option value="MENINGOCÓCICA-C">Meningocócica C (Conjugada)</option>
+                            <option value="FEBRE-AMARELA">Febre Amarela</option>
+                            <option value="TRÍPLICE-VIRAL">Tríplice Viral (Sarampo, Caxumba, Rubéola)</option>
+                            <option value="HEPATITE-A">Hepatite A</option>
+                        </optgroup>
+
+                        <!-- Vacinas para Adolescentes -->
+                        <optgroup label="Adolescentes">
+                            <option value="HPV">HPV Quadrivalente</option>
+                            <option value="MENINGOCÓCICA-ACWY">Meningocócica ACWY</option>
+                            <option value="DTPa">DTPa (Tríplice Bacteriana Acelular do Tipo Adulto)</option>
+                        </optgroup>
+
+                        <!-- Vacinas para Adultos -->
+                        <optgroup label="Adultos">
+                            <option value="HEPATITE-B">Hepatite B</option>
+                            <option value="DIFTERIA E TÉTANO (DUPLA ADULTO)">Difteria e Tétano (Dupla Adulto)</option>
+                            <option value="FEBRE-AMARELA">Febre Amarela</option>
+                            <option value="INFLUENZA">Influenza (Gripe)</option>
+                        </optgroup>
+
+                        <!-- Vacinas para Idosos -->
+                        <optgroup label="Idosos">
+                            <option value="INFLUENZA">Influenza (Gripe)</option>
+                            <option value="PNEUMOCÓCICA-23">Pneumocócica 23-Valente</option>
+                            <option value="HERPES-ZÓSTER">Herpes Zóster</option>
+                        </optgroup>
+
+                        <!-- Vacinas para Grupos Especiais -->
+                        <optgroup label="Grupos Especiais">
+                            <option value="COVID-19">COVID-19</option>
+                            <option value="RAIVA">Raiva</option>
+                            <option value="HEPATITE-B">Hepatite A</option>
+                            <option value="MENINGOCÓCICA-B">Meningocócica B</option>
+                        </optgroup>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="dataAplicacao" class="form-label">Data da Aplicação<span class="required-asterisk">*</span></label>
@@ -106,8 +153,8 @@ if (!isset($_SESSION['session_id'])) {
                 </div>
                 <div class="mb-3">
                     <label for="localAplicacao" class="form-label">Unidade de Vacinação<span class="required-asterisk">*</span></label>
-                    <input list="unidades_vacinacao" class="form-control" name="localAplicacao" id="localAplicacao">
-                    <datalist id="unidades_vacinacao">
+                    <select class="form-select" aria-label="Selecione a unidade de saúde" id="localAplicacao" name="localAplicacao">
+                        <option value="" disabled selected>Selecione a unidade</option>
                         <option value="UBS Clementino Fraga">UBS Clementino Fraga</option>
                         <option value="Multicentro Amaralina">Multicentro Amaralina</option>
                         <option value="USF Alto das Pombas">USF Alto das Pombas</option>
@@ -167,7 +214,6 @@ if (!isset($_SESSION['session_id'])) {
                         <option value="USF Capelinha">USF Capelinha</option>
                         <option value="USF Pirajá">USF Pirajá</option>
                         <option value="USF Alto do Cabrito">USF Alto do Cabrito</option>
-                        <option value="USF Alto do Cabrito">USF Alto do Cabrito</option>
                         <option value="USF Fazenda Coutos">USF Fazenda Coutos</option>
                         <option value="USF Itapuã II">USF Itapuã II</option>
                         <option value="USF Suburbana">USF Suburbana</option>
@@ -204,7 +250,8 @@ if (!isset($_SESSION['session_id'])) {
                         <option value="USF Vilas do Atlântico">USF Vilas do Atlântico</option>
                         <option value="USF Nova Brasília">USF Nova Brasília</option>
                         <option value="Outro">Outro</option>
-                    </datalist>
+                    </select>
+
                 </div>
                 <div class="mb-3">
                     <label for="tipo" class="form-label">Tipo de Vacina<span class="required-asterisk">*</span></label>

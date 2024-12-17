@@ -20,7 +20,7 @@ if (form_recovery) {
 
     Swal.fire({
       title: "Processando sua solicitação...",
-      timer: 5000,
+      timer: 7000,
       timerProgressBar: true,
       didOpen: () => {
         Swal.showLoading();
@@ -41,7 +41,7 @@ if (form_recovery) {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       }).then(() => {
-        window.location.href = "../login/login.php";
+        window.location.href = "../entrar/index.php";
       });
       formcad.reset();
     } else {

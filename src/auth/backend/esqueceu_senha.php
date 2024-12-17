@@ -33,7 +33,7 @@ if (empty($email)) {
             $sql->bindValue(':data_expiracao', $expiry);
             $sql->execute();
             enviarEmail($nome, $email, $token);
-            $retorna = ['status' => true, 'msg' => "Um email foi enviado com um link para alteração da senha."];
+            $retorna = ['status' => true, 'msg' => "Um e-mail foi enviado com um link para alteração da senha."];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit;
@@ -53,7 +53,7 @@ if (empty($email)) {
 
 function enviarEmail($nome, $email, $token)
 {
-    $email_body = file_get_contents('../../assets/templates/esqueceu-senha.php');
+    $email_body = file_get_contents('../../../assets/email/esqueceu-senha.php');
     $email_body = str_replace('{{nome}}', $nome, $email_body);
     $email_body = str_replace('{{email}}', $email, $email_body);
     $email_body = str_replace('{{token}}', $token, $email_body);

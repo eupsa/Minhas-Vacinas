@@ -95,7 +95,7 @@
         <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
             <div class="row w-100">
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                    <form action="../backend/esqueceu_senha.php" class="needs-validation bg-light p-5 rounded shadow-lg"
+                    <form action="../backend/esqueceu-senha.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="form_recovery" method="post" novalidate>
                         <h4 class="mb-4 text-center">Redefina sua senha</h4>
                         <div id="passwordHelpBlock" class="form-text">
@@ -118,7 +118,7 @@
         </div>
     </section>
 
-    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px;">
+    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: -5%;">
         <div class="me-5 d-none d-lg-block"></div>
         <div class="container text-center text-md-start mt-5">
             <div class="row mt-3">
