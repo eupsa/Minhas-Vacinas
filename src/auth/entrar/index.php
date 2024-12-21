@@ -18,7 +18,9 @@ if (isset($_SESSION['session_id'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3472234536437513"
-     crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="1012019764396-ktr2b26790k722jim5ssa0tkgc909811.apps.googleusercontent.com">
     <title>Minhas Vacinas - Login</title>
 </head>
 
@@ -107,6 +109,7 @@ if (isset($_SESSION['session_id'])) {
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
                     <form action="../backend/entrar.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="form_login" method="post" novalidate>
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         <h4 class="mb-4 text-center">Entre na sua conta</h4>
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail<span class="required-asterisk">*</span></label>
