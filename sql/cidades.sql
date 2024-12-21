@@ -1,5 +1,3 @@
--- Create Table --
-
 CREATE TABLE Municipio (
   Id 	 INT 		  NOT NULL AUTO_INCREMENT,
   Codigo INT		  NOT NULL,
@@ -7,8 +5,6 @@ CREATE TABLE Municipio (
   Uf	 CHAR(2)	  NOT NULL,
   PRIMARY KEY (Id)
 );
-
--- Insert Data --
 
 Insert into Municipio (Codigo, Nome, Uf) values ('1100015','Alta Floresta D''Oeste', 'RO');
 Insert into Municipio (Codigo, Nome, Uf) values ('1100023','Ariquemes', 'RO');

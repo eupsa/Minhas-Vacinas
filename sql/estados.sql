@@ -1,5 +1,3 @@
--- Create Table --
-
 CREATE TABLE Estado (
     Id       INT          NOT NULL AUTO_INCREMENT,
     CodigoUf INT          NOT NULL,
@@ -8,8 +6,6 @@ CREATE TABLE Estado (
     Regiao   INT	      NOT NULL,
     PRIMARY KEY (Id)
 );
-
--- Insert Data --
 
 Insert into Estado (CodigoUf, Nome, Uf, Regiao) values (12, 'Acre', 'AC', 1);
 Insert into Estado (CodigoUf, Nome, Uf, Regiao) values (27, 'Alagoas', 'AL', 2);
