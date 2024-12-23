@@ -22,6 +22,7 @@ CREATE TABLE
 -- INSERT INTO usuario (nome, email, estado, senha, email_conf, data_nascimento, genero, cpf, telefone, cidade, user_root)
 -- VALUES 
 -- ('Pedro Silva', 'pedruuu291@gmail.com', 'BA', '$2y$10$R5ToR3.obbC1G4bnAzUkZeKTle45W3ywNtse8PeCvFTDTGHu2AudC', 1, '2007-02-15', 'Masculino', '086-415-560-90', '(71) 98765-4321', 'Salvador', 1);
+
 CREATE TABLE
     IF NOT EXISTS vacina (
         id_vac BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -56,23 +57,25 @@ CREATE TABLE
         data_solicitacao DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
     );
+    
+CREATE TABLE usuario_google (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
+    google_id VARCHAR(255),
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-DELETE FROM `minhasvacinas`.`esqueceu_senha`
-WHERE
-    (`email` = 'pedruuu291@gmail.com');
+
+-- DELETE FROM `minhasvacinas`.`esqueceu_senha`
+-- WHERE
+--   (`email` = 'pedruuu291@gmail.com');
 
 CREATE TABLE
     IF NOT EXISTS excluir_conta (
         code_email INT NOT NULL,
         email VARCHAR(255) NOT NULL,
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
-    );
-
-CREATE TABLE
-    IF NOT EXISTS cidades (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        nome VARCHAR(255) NOT NULL,
-        estado VARCHAR(100) NOT NULL
     );
 
 -- SET @@global.time_zone = '-3:00';
