@@ -82,7 +82,7 @@ if (!isset($_SESSION['session_id'])) {
                         <span><?php echo isset($_SESSION['session_nome']) ? explode(' ', $_SESSION['session_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="../scripts/sair.php"><i class="fas fa-user"></i> Minha conta</a></li>
+                        <li><a class="dropdown-item" href="../../perfil/"><i class="fas fa-user"></i> Minha conta</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
