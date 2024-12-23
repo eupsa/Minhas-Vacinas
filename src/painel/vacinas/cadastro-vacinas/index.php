@@ -86,9 +86,6 @@ if (!isset($_SESSION['session_id'])) {
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="../../../auth/esqueceu-senha/"><i class="fas fa-key"></i> Trocar senha</a></li>
-                        <li><a class="dropdown-item" href="../../../ajuda/"><i class="fas fa-headset"></i> Suporte</a></li>
-                        <li><a class="dropdown-item" href="../../../auth/excluir-conta/"><i class="fas fa-user-times"></i> Excluir conta</a></li>
                         <li><a class="dropdown-item" href="../../../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                     </ul>
                 </div>

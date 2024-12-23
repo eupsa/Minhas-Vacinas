@@ -219,9 +219,9 @@ if (!isset($_SESSION['session_id'])) {
                     </div>
                 </div>
             </form>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal">
+            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal">
                 Atualizar Cadastro
-            </button>
+            </button> -->
         </div>
     </section>
 

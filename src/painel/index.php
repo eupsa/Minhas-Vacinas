@@ -62,7 +62,7 @@ if (!isset($_SESSION['session_id'])) {
                                 <i class="fas fa-check-circle" style="color: #198754;"></i> Adicionada recentemente!
                             </p>
                             <h5 class="card-title">Exclusão de Vacinas</h5>
-                            <p class="card-text">Essa funcionalidade está temporariamente indisponível devido à manutenção. Com ela é possível excluir suas vacinas.</p>
+                            <p class="card-text">Com essa funcionalidade você poderá excluir uma vacina seu histórico.</p>
                             <a href="vacinas/" class="btn btn-primary btn-sm mt-auto">Acessar</a>
                         </div>
                     </div>
@@ -132,9 +132,6 @@ if (!isset($_SESSION['session_id'])) {
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="../auth/esqueceu-senha/"><i class="fas fa-key"></i> Trocar senha</a></li>
-                        <li><a class="dropdown-item" href="../ajuda/"><i class="fas fa-headset"></i> Suporte</a></li>
-                        <li><a class="dropdown-item" href="../auth/excluir-conta/"><i class="fas fa-user-times"></i> Excluir conta</a></li>
                         <li><a class="dropdown-item" href="../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                     </ul>
                 </div>
@@ -142,7 +139,7 @@ if (!isset($_SESSION['session_id'])) {
     </section>
 
     <section class="side-bar">
-        <div class="content">
+        <div class="content" style="margin-top: -5%;">
             <h1 class="text-center mb-4">Últimas Notícias</h1>
             <div class="row">
                 <?php

@@ -113,7 +113,7 @@ if (isset($_SESSION['session_id'])) {
                     <form action="../backend/cadastro.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="formcad" method="post" novalidate>
                         <h5 class="mb-4 text-center">Faça seu cadastro</h5><br>
-                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                        <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome<span class="required-asterisk">*</span></label>
                             <input type="text" class="form-control" id="nome" name="nome" autocomplete="off">

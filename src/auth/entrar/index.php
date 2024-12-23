@@ -109,7 +109,6 @@ if (isset($_SESSION['session_id'])) {
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
                     <form action="../backend/entrar.php" class="needs-validation bg-light p-5 rounded shadow-lg"
                         id="form_login" method="post" novalidate>
-                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
                         <h4 class="mb-4 text-center">Entre na sua conta</h4>
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail<span class="required-asterisk">*</span></label>
@@ -127,7 +126,7 @@ if (isset($_SESSION['session_id'])) {
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="lembrarLogin" name="lembrarLogin">
-                                <label class="form-check-label" for="lembrarLogin">Lembrar credenciais</label>
+                                <label class="form-check-label" for="lembrarLogin">Lembrar-me</label>
                             </div>
                             <div>
                                 <a href="../esqueceu-senha/" class="text-muted">
