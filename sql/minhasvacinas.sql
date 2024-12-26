@@ -16,7 +16,7 @@ CREATE TABLE
         telefone VARCHAR(15),
         cidade VARCHAR(100),
         data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
-        user_root TINYINT (1) DEFAULT 0
+        administrador TINYINT (1) DEFAULT 0
     );
 
 -- INSERT INTO usuario (nome, email, estado, senha, email_conf, data_nascimento, genero, cpf, telefone, cidade, user_root)
@@ -36,16 +36,6 @@ CREATE TABLE
         obs TEXT,
         id_user BIGINT,
         CONSTRAINT fk_usuario FOREIGN KEY (id_user) REFERENCES usuario (id_user) ON DELETE SET NULL
-    );
-
-CREATE TABLE
-    IF NOT EXISTS usuario_vacina (
-        id_user BIGINT,
-        id_vac BIGINT,
-        data_aplicacao DATE,
-        PRIMARY KEY (id_user, id_vac),
-        FOREIGN KEY (id_user) REFERENCES usuario (id_user) ON DELETE CASCADE,
-        FOREIGN KEY (id_vac) REFERENCES vacina (id_vac) ON DELETE CASCADE
     );
 
 CREATE TABLE

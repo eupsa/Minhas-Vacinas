@@ -44,7 +44,8 @@ if (empty($email)) {
             exit;
         }
     } catch (PDOException $e) {
-        $retorna = ['status' => false, 'msg' => "Erro ao logar: " . $e->getMessage()];
+        // $retorna = ['status' => false, 'msg' => "Erro ao logar: " . $e->getMessage()];
+        $retorna = ['status' => false, 'msg' => "Erro. Tente novamente mais tarde ou contacte o suporte."];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();

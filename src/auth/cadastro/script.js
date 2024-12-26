@@ -31,6 +31,8 @@ if (formcad) {
     const estado = dadosForm.get("estado");
     const senha = dadosForm.get("senha");
     const confSenha = dadosForm.get("confSenha");
+    const loadingSpinner = document.getElementById("loadingSpinner");
+    const submitButton = document.getElementById("submitBtn");
 
     if (!nome || !email || !estado || !senha || !confSenha) {
       Swal.fire({
@@ -52,14 +54,8 @@ if (formcad) {
       return;
     }
 
-    Swal.fire({
-      title: "Processando...",
-      html: "Aguarde enquanto estamos cadastrando...",
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
+    submitButton.disabled = true;
+    loadingSpinner.style.display = "inline-block";
 
     try {
       const dados = await fetch("../backend/cadastro.php", {
@@ -71,22 +67,34 @@ if (formcad) {
 
       const resposta = await dados.json();
 
-      Swal.fire({
-        text: resposta["msg"],
-        icon: resposta["status"] ? "success" : "error",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "Fechar",
-      }).then(() => {
-        formcad.reset();
-        window.location.href = "../entrar/";
-      });
-      if (resposta["status"]) formcad.reset();
+      if (resposta["status"]) {
+        Swal.fire({
+          text: resposta["msg"],
+          icon: "success",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Fechar",
+        }).then(() => {
+          window.location.href = "../entrar/";
+          formcad.reset();
+        });
+      } else {
+        submitButton.disabled = false;
+        loadingSpinner.style.display = "none";
+        Swal.fire({
+          text: resposta["msg"],
+          icon: "error",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Fechar",
+        });
+      }
     } catch (error) {
       Swal.fire({
         text: "Erro ao processar o cadastro. Tente novamente mais tarde.",
         icon: "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
+      }).then(() => {
+        loadingSpinner.style.display = "none";
       });
     }
   });

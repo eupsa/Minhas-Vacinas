@@ -134,8 +134,9 @@ if (isset($_SESSION['session_id'])) {
                                 </a>
                             </div>
                         </div>
-                        <button class="btn btn-success w-100" type="submit">
-                            <i class="fas fa-door-open"></i> ENTRAR
+                        <button class="btn btn-success w-100" type="submit" id="submitBtn">
+                            <i class="fas fa-door-open"></i> ENTRAR <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status"
+                                aria-hidden="true" style="display: none;"></span>
                         </button>
                     </form>
                     <hr class="custom-hr">

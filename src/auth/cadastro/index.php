@@ -182,7 +182,10 @@ if (isset($_SESSION['session_id'])) {
                                 Ao clicar em continuar, você concorda com os <a href="/assets/docs/Termos-de-Serviço.pdf" target="_blank">Termos de Serviço</a> e <a href="/assets/docs/Política-de-Privacidade.pdf" target="_blank">Política de Privacidade</a>.
                             </label>
                         </div>
-                        <button class="btn btn-success w-100" id="submitBtn" type="submit">CONTINUAR</button>
+                        <button class="btn btn-success w-100" type="submit" id="submitBtn">
+                            <i class="fas fa-door-open"></i> CADASTRAR <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status"
+                                aria-hidden="true" style="display: none;"></span>
+                        </button>
                     </form>
                     <hr class="custom-hr">
                     <div class="text-center mt-3">

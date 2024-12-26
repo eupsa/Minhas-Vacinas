@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3472234536437513"
-     crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
     <title>Confirmação de Cadastro</title>
 </head>
 
@@ -113,7 +113,7 @@
                         <h4 class="mb-4 text-center">Confirmar Cadastro</h4>
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="email" name="email" required name="email" autocomplete="off">
+                            <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
                             <div class="invalid-feedback">Por favor, insira um e-mail válido.</div>
                         </div>
                         <button class="btn btn-success w-100" type="submit">Confirmar Cadastro</button>

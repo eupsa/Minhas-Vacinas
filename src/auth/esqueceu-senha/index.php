@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3472234536437513"
-     crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
     <title>Minhas Vacinas - Recuperação de Senha</title>
 </head>
 
@@ -104,8 +104,7 @@
                             Após o envio do formulário você receberá um e-mail com instruções para redefinir sua senha.
                         </div><br>
                         <div class="mb-3">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="email" name="email" required name="email" autocomplete="off">
+                            <input type="email" class="form-control" id="email" name="email" required placeholder="E-mail" autocomplete="off">
                             <div class="mt-2 text-end">
                                 <a href="../entrar/" class="text-muted">
                                     <i class="bi bi-question-circle me-1"></i> Voltar para login?

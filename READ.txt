@@ -1,0 +1,13 @@
+        submitButton.disabled = false;
+        loadingSpinner.style.display = "none";
+
+            submitButton.disabled = true;
+    loadingSpinner.style.display = "inline-block";
+
+        const loadingSpinner = document.getElementById("loadingSpinner");
+    const submitButton = document.getElementById("submitBtn");
+
+                            <button class="btn btn-success w-100" type="submit" id="submitBtn">
+                            <i class="fas fa-door-open"></i> CADASTRAR <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status"
+                                aria-hidden="true" style="display: none;"></span>
+                        </button>

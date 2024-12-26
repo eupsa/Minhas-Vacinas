@@ -27,6 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const email = dadosForm.get("email");
       const senha = dadosForm.get("senha");
       const termosAceitos = dadosForm.get("lembrarLogin");
+      const loadingSpinner = document.getElementById("loadingSpinner");
+      const submitButton = document.getElementById("submitBtn");
 
       if (!email || !senha) {
         Swal.fire({
@@ -38,14 +40,17 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      Swal.fire({
-        title: "Processando...",
-        timer: 5000,
-        timerProgressBar: true,
-        didOpen: () => {
-          Swal.showLoading();
-        },
-      });
+      submitButton.disabled = true;
+      loadingSpinner.style.display = "inline-block"; 
+
+      // Swal.fire({
+      //   title: "Processando...",
+      //   timer: 5000,
+      //   timerProgressBar: true,
+      //   didOpen: () => {
+      //     Swal.showLoading();
+      //   },
+      // });
 
       try {
         const dados = await fetch("../backend/entrar.php", {
