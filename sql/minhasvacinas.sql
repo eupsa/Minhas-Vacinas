@@ -7,11 +7,17 @@ CREATE TABLE
         id_user BIGINT PRIMARY KEY AUTO_INCREMENT,
         nome VARCHAR(100) NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
-        estado VARCHAR(2) NOT NULL,
+        estado ENUM(
+        'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 
+        'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 
+        'RR', 'SC', 'SP', 'SE', 'TO'
+    ) NOT NULL,
         senha VARCHAR(128) NOT NULL,
         email_conf TINYINT (1) DEFAULT 0,
         data_nascimento DATE,
-        genero VARCHAR(10),
+        genero ENUM(
+        'Masculino', 'Feminino', 'Outro', 'Não Informado'
+    ) NOT NULL,
         cpf VARCHAR(14) UNIQUE,
         telefone VARCHAR(15),
         cidade VARCHAR(100),
@@ -26,12 +32,41 @@ CREATE TABLE
 CREATE TABLE
     IF NOT EXISTS vacina (
         id_vac BIGINT PRIMARY KEY AUTO_INCREMENT,
-        nome_vac VARCHAR(100) NOT NULL,
+        nome_vacina ENUM(
+        'BCG - Proteção contra Tuberculose',
+        'Hepatite B',
+        'Pentavalente (DTP + Hib + Hepatite B)',
+        'Poliomielite (VOP e VIP)',
+        'Rotavírus',
+        'Pneumocócica 10-Valente',
+        'Meningocócica C (Conjugada)',
+        'Febre Amarela',
+        'Tríplice Viral (Sarampo, Caxumba, Rubéola)',
+        'Hepatite A',
+        'HPV Quadrivalente',
+        'Meningocócica ACWY',
+        'DTPa (Tríplice Bacteriana Acelular do Tipo Adulto)',
+        'Difteria e Tétano (Dupla Adulto)',
+        'Influenza (Gripe)',
+        'Pneumocócica 23-Valente',
+        'Herpes Zóster',
+        'Raiva',
+        'Meningocócica B',
+        'COVID-19'
+    ) NOT NULL,
         data_aplicacao DATE NOT NULL,
         proxima_dose DATE,
         local_aplicacao VARCHAR(200) NOT NULL,
-        tipo VARCHAR(50) NOT NULL,
-        dose INT,
+            tipo ENUM(
+        'Imunização',
+        'Vacina de Vírus Vivo Atenuado',
+        'Vacina de Vírus Inativado',
+        'Vacina Subunitária',
+        'Vacina de RNA Mensageiro (mRNA)',
+        'Vacina de Vetor Viral',
+        'Vacina de Proteína Recombinante'
+    ) NOT NULL,
+        dose VARCHAR (50) NOT NULL,
         lote VARCHAR(50),
         obs TEXT,
         id_user BIGINT,
@@ -48,13 +83,16 @@ CREATE TABLE
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
     );
     
-CREATE TABLE usuario_google (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(255),
-    email VARCHAR(255) UNIQUE,
-    google_id VARCHAR(255),
-    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+CREATE TABLE
+    IF NOT EXISTS protocolo (
+        id BIGINT PRIMARY KEY AUTO_INCREMENT,
+        nome_solicitante VARCHAR(100) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        motivo VARCHAR(30) NOT NULL,
+        mensagem text NOT NULL,
+--      nome_atendente VARCHAR(100) NOT NULL,
+        data_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
 
 
 -- DELETE FROM `minhasvacinas`.`esqueceu_senha`
