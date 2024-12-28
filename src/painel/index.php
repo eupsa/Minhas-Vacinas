@@ -51,7 +51,7 @@ if (!isset($_SESSION['session_id'])) {
                             </p>
                             <h5 class="card-title">Registro de Vacinas</h5>
                             <p class="card-text">Com essa funcionalidade você poderá organizar seu histórico de Vacinas.</p>
-                            <a href="vacinas/" class="btn btn-primary btn-sm mt-auto">Acessar</a>
+                            <a href="vacinas/cadastro-vacinas/" class="btn btn-primary btn-sm mt-auto">Acessar</a>
                         </div>
                     </div>
                 </div>

@@ -51,6 +51,12 @@ body {
   position: relative;
 }
 
+@media (min-width: 992px) {
+  .padding-left-10 {
+    padding-left: 10%;
+  }
+}
+
 @media (max-width: 992px) {
   .dropdown,
   .dropdown-center,
@@ -60,7 +66,7 @@ body {
   .dropup-center {
     margin-bottom: 31%;
   }
-  
+
   .sidebar {
     transform: translateX(-100%);
   }
@@ -105,4 +111,9 @@ body.dark-mode {
 
 .swal2-container {
   z-index: 1300 !important;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #333 !important;
+  color: #000 !important;
 }

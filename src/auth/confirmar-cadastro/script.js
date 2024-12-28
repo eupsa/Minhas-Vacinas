@@ -1,16 +1,18 @@
-const form_conf = document.querySelector("#form_conf");
+const form_conf_cad = document.querySelector("#form-conf-cad");
 
-if (form_conf) {
-  form_conf.addEventListener("submit", async (e) => {
+if (form_conf_cad) {
+  form_conf_cad.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const dadosForm = new FormData(form_conf);
+    const dadosForm = new FormData(form_conf_cad);
 
-    const email = dadosForm.get("email");
+    const codigo = dadosForm.get("codigo");
+    const loadingSpinner = document.getElementById("loadingSpinner");
+    const submitButton = document.getElementById("submitBtn");
 
-    if (!email) {
+    if (!codigo) {
       Swal.fire({
-        text: "Preencha todos os campos! Verifique se todos os campos obrigatórios estão preenchidos.",
+        text: "O código não foi inserido.",
         icon: "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
@@ -18,16 +20,10 @@ if (form_conf) {
       return;
     }
 
-    Swal.fire({
-      title: "Processando...",
-      timer: 7000,
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
+    submitButton.disabled = true;
+    loadingSpinner.style.display = "inline-block";
 
-    const dados = await fetch("../backend/conf_cad.php", {
+    const dados = await fetch("../backend/confirmar-cadastro.php", {
       method: "POST",
       body: dadosForm,
     });
@@ -35,6 +31,8 @@ if (form_conf) {
     const resposta = await dados.json();
 
     if (resposta["status"]) {
+      submitButton.disabled = false;
+      loadingSpinner.style.display = "none";
       Swal.fire({
         text: resposta["msg"],
         icon: "success",
@@ -42,9 +40,11 @@ if (form_conf) {
         confirmButtonText: "Fechar",
       }).then(() => {
         window.location.href = "../entrar/";
+        formcad.reset();
       });
-      formcad.reset();
     } else {
+      submitButton.disabled = false;
+      loadingSpinner.style.display = "none";
       Swal.fire({
         text: resposta["msg"],
         icon: "error",

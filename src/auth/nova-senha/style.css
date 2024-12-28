@@ -90,3 +90,7 @@ body {
   border-radius: 5px;
   margin-bottom: 20px;
 }
+.required-asterisk {
+  color: red;
+  margin-left: 2px;
+}

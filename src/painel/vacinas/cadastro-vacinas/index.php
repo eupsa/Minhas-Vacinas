@@ -253,7 +253,7 @@ if (!isset($_SESSION['session_id'])) {
                 <div class="mb-3">
                     <label for="tipo" class="form-label">Tipo de Vacina<span class="required-asterisk">*</span></label>
                     <select class="form-select" id="tipo" name="tipo">
-                        <option value="" selected>Selecione o tipo</option>
+                        <option value="" disabled selected>Selecione o tipo</option>
                         <option value="Imunização">Imunização</option>
                         <option value="Vacina de Vírus Vivo Atenuado">Vacina de Vírus Vivo Atenuado</option>
                         <option value="Vacina de Vírus Inativado">Vacina de Vírus Inativado</option>
@@ -266,7 +266,7 @@ if (!isset($_SESSION['session_id'])) {
                 <div class="mb-3">
                     <label for="dose" class="form-label">Dose<span class="required-asterisk">*</span></label>
                     <select class="form-select" id="dose" name="dose">
-                        <option value="" selected>Selecione a dose</option>
+                        <option value="" disabled selected>Selecione a dose</option>
                         <option value="1ª Dose">1ª Dose</option>
                         <option value="2ª Dose">2ª Dose</option>
                         <option value="Reforço">Reforço</option>

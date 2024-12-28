@@ -72,10 +72,6 @@
                         <li class="nav-item">
                             <a class="btn btn-secondary btn-login" href="../auth/entrar/">ENTRAR</a>
                         </li>
-                        <li class="nav-item">
-                            <button id="theme-toggle" class="btn btn-outline-warning"
-                                style="margin-left: 10px;">🌙</button>
-                        </li>
                     </ul>
                 </div>
             </div>

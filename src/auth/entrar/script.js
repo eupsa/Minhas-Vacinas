@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       submitButton.disabled = true;
-      loadingSpinner.style.display = "inline-block"; 
+      loadingSpinner.style.display = "inline-block";
 
       // Swal.fire({
       //   title: "Processando...",
@@ -61,6 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const resposta = await dados.json();
 
         if (resposta["status"]) {
+          submitButton.disabled = false;
+          loadingSpinner.style.display = "none";
           Swal.fire({
             text: resposta["msg"],
             icon: "success",
@@ -71,6 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = "../../painel/";
           });
         } else {
+          submitButton.disabled = false;
+          loadingSpinner.style.display = "none";
           Swal.fire({
             text: resposta["msg"],
             icon: "error",

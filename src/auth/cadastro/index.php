@@ -123,9 +123,9 @@ if (isset($_SESSION['session_id'])) {
                             <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Crie sua senha<span class="required-asterisk">*</span></label>
+                            <label for="password" class="form-label">Senha<span class="required-asterisk">*</span></label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="senha" name="senha" required>
+                                <input type="password" class="form-control" id="senha" name="senha" autocomplete="new-password" required>
                                 <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
@@ -134,7 +134,7 @@ if (isset($_SESSION['session_id'])) {
                         <div class="mb-3">
                             <label for="password2" class="form-label">Confirme sua senha<span class="required-asterisk">*</span></label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="confSenha" name="confSenha" required>
+                                <input type="password" class="form-control" id="confSenha" name="confSenha" autocomplete="new-password" required>
                                 <button class="btn btn-outline-secondary" type="button" id="ConftogglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>

@@ -9,36 +9,33 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-$email = strtolower(trim($dados['email']));
-$email = filter_var($email, FILTER_SANITIZE_EMAIL);
+$codigo = strtolower(trim($dados['codigo']));
 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $retorna = ['status' => false, 'msg' => "E-mail fornecido é inválido."];
-    header('Content-Type: application/json');
-    echo json_encode($retorna);
-    exit();
-}
-
-if (empty($email)) {
-    $retorna = ['status' => false, 'msg' => "Todos os campos devem ser preenchidos."];
+if (empty($codigo)) {
+    $retorna = ['status' => false, 'msg' => "O código não foi inserido."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
 } else {
     try {
-        $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
-        $sql->bindValue(':email', $email);
+        $sql = $pdo->prepare("SELECT * FROM confirmar_cadastro WHERE codigo = :codigo");
+        $sql->bindValue(':codigo', $codigo);
         $sql->execute();
 
         if ($sql->rowCount() === 1) {
             $usuario = $sql->fetch(PDO::FETCH_BOTH);
             $nome = $usuario['nome'];
+            $email = $usuario['email'];
             $sql = $pdo->prepare("UPDATE usuario SET email_conf = 1 WHERE email = :email");
             $sql->bindValue(':email', $email);
             $sql->execute();
 
             if ($sql->rowCount() === 1) {
                 enviarEmail($nome, $email);
+                $sql = $pdo->prepare("DELETE FROM confirmar_cadastro WHERE email = :email");
+                $sql->bindValue(':email', $email);
+                $sql->execute();
+
                 $retorna = ['status' => true, 'msg' => "Seu e-mail foi verificado. Agora você pode acessar todos os recursos da plataforma."];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
@@ -51,13 +48,13 @@ if (empty($email)) {
                 exit();
             }
         } else {
-            $retorna = ['status' => false, 'msg' => "Este e-mail não está registrado em nosso sistema."];
+            $retorna = ['status' => false, 'msg' => "O código está incorreto. Confira e tente novamente."];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit();
         }
     } catch (PDOException $e) {
-        $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar confirmar seu cadastro. Tente novamente."];
+        $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar confirmar seu cadastro."];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();

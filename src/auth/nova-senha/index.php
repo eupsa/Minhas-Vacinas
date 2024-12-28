@@ -1,15 +1,15 @@
 <?php
-// require '../../scripts/conn.php';
+require '../../scripts/conn.php';
 
-// $token = $_GET['token'];
+$token = $_GET['token'];
 
-// $sql = $pdo->prepare("SELECT * FROM esqueceu_senha WHERE token = :token");
-// $sql->bindValue(':token', $token);
-// $sql->execute();
+$sql = $pdo->prepare("SELECT * FROM esqueceu_senha WHERE token = :token");
+$sql->bindValue(':token', $token);
+$sql->execute();
 
-// // if ($sql->rowCount() != 1) {
-// //     header('Location: ../esqueceu-senha/');
-// // }
+if ($sql->rowCount() != 1) {
+    header('Location: ../esqueceu-senha/');
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +24,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3472234536437513"
-     crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
     <title>Recuperação de Senha</title>
 </head>
 
@@ -116,23 +116,18 @@
                         novalidate>
                         <h4 class="mb-4 text-center">Crie sua senha</h4>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Crie sua senha</label>
+                            <label for="password" class="form-label">Senha<span class="required-asterisk">*</span></label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="senha" name="senha">
+                                <input type="password" class="form-control" id="senha" name="senha" required>
                                 <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
-                                <div class="invalid-feedback">Por favor, insira uma senha.</div>
-                            </div>
-                            <div id="passwordHelpBlock" class="form-text">
-                                Sua senha deve ter de 8 a 20 caracteres, conter letras e números e não deve conter
-                                espaços, caracteres especiais ou emojis.
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="password2" class="form-label">Confirme sua senha</label>
+                            <label for="password2" class="form-label">Confirme sua senha<span class="required-asterisk">*</span></label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="confSenha" name="confSenha">
+                                <input type="password" class="form-control" id="confSenha" name="confSenha" required>
                                 <button class="btn btn-outline-secondary" type="button" id="ConftogglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>

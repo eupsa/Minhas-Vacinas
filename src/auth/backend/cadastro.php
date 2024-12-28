@@ -46,8 +46,17 @@ try {
     $sql->execute();
 
     if ($sql->rowCount() === 1) {
-        if (email_cadastro($nome, $email)) {
-            $retorna = ['status' => true, 'msg' => "Sua conta foi criada. Um e-mail de confirmação enviado. Verifique sua caixa de entrada para concluir o processo."];
+        $codigo = rand(100000, 999999);
+        $sql = $pdo->prepare("INSERT INTO confirmar_cadastro (nome, email, codigo) VALUES (:nome, :email, :codigo)");
+        $sql->bindValue(':nome', $nome);
+        $sql->bindValue(':email', $email);
+        $sql->bindValue(':codigo', $codigo);
+        $sql->execute();
+
+        if (email_cadastro($nome, $email, $codigo)) {
+            $retorna = ['status' => true, 'msg' => "Sua conta foi criada. Um e-mail foi enviado com um código de verificação. Siga as instruções na página a seguir."];
+            session_start();
+            $_SESSION['temp-cad'] = $email;
         } else {
             $retorna = ['status' => false, 'msg' => "Cadastro realizado, mas não foi possível enviar o e-mail de confirmação."];
         }
@@ -62,10 +71,11 @@ try {
     exit();
 }
 
-function email_cadastro($nome, $email)
+function email_cadastro($nome, $email, $codigo)
 {
     $email_body = file_get_contents('../../../assets/email/cadastro.php');
     $email_body = str_replace('{{nome}}', $nome, $email_body);
+    $email_body = str_replace('{{codigo}}', $codigo, $email_body);
     $mail = new PHPMailer(true);
 
     try {

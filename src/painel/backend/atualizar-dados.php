@@ -12,11 +12,13 @@ $estado = trim($dados['estado']);
 $genero = trim($dados['genero']);
 $cidade = trim($dados['cidade']);
 
-if (!validaCPF($cpf)) {
-    $retorna = ['status' => false, 'msg' => 'O CPF informado é inválido. Por favor, verifique e tente novamente.'];
-    header('Content-Type: application/json');
-    echo json_encode($retorna);
-    exit();
+if (!empty($cpf)) {
+    if (!validaCPF($cpf)) {
+        $retorna = ['status' => false, 'msg' => 'O CPF informado é inválido. Por favor, verifique e tente novamente.'];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit();
+    }
 }
 
 if (empty($nome) && empty($cpf_formatado) && empty($data_nascimento) && empty($telefone) && empty($estado) && empty($genero) && empty($cidade)) {
@@ -27,7 +29,7 @@ if (empty($nome) && empty($cpf_formatado) && empty($data_nascimento) && empty($t
 }
 
 try {
-    $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, genero = :genero, cidade = :cidade WHERE id_user = :id_user");
+    $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, genero = :genero, cidade = :cidade WHERE email = :email");
     $sql->bindValue(':nome', $nome);
     $sql->bindValue(':cpf', $cpf_formatado);
     $sql->bindValue(':data_nascimento', $data_nascimento);
@@ -35,28 +37,22 @@ try {
     $sql->bindValue(':estado', $estado);
     $sql->bindValue(':genero', $genero);
     $sql->bindValue(':cidade', $cidade);
-    $sql->bindValue(':id_user', $_SESSION['session_id']);
+    $sql->bindValue(':email', $_SESSION['session_email']);
     $sql->execute();
 
-    if ($sql->rowCount() === 1) {
-        $_SESSION['session_nome'] = $nome;
-        $_SESSION['session_data_nascimento'] = $data_nascimento;
-        $_SESSION['session_telefone'] = $telefone;
-        $_SESSION['session_estado'] = $estado;
-        $_SESSION['session_genero'] = $genero;
-        $_SESSION['session_cidade'] = $cidade;
-        $retorna = ['status' => true, 'msg' => "Alteração realizada com sucesso. Suas informações estão atualizadas."];
-        header('Content-Type: application/json');
-        echo json_encode($retorna);
-        exit();
-    } else {
-        $retorna = ['status' => false, 'msg' => 'Você não alterou nenhum dado. Tente novamente.'];
-        header('Content-Type: application/json');
-        echo json_encode($retorna);
-        exit();
-    }
+
+    $_SESSION['session_nome'] = $nome;
+    $_SESSION['session_data_nascimento'] = $data_nascimento;
+    $_SESSION['session_telefone'] = $telefone;
+    $_SESSION['session_estado'] = $estado;
+    $_SESSION['session_genero'] = $genero;
+    $_SESSION['session_cidade'] = $cidade;
+    $retorna = ['status' => true, 'msg' => "Alteração realizada com sucesso. Suas informações estão atualizadas."];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
 } catch (PDOException $e) {
-    $retorna = ['status' => false, 'msg' => "Erro ao buscar o token: " . $e->getMessage()];
+    $retorna = ['status' => false, 'msg' => "Erro: " . $e->getMessage()];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();

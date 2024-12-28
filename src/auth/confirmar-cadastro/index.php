@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (isset($_SESSION['session_id'])) {
+    header("Location: ../../painel/");
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -97,27 +106,23 @@
     <section class="form-log">
         <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
             <div class="row w-100">
-
-                <div class="info">
-                    <div class="info__icon">
-                        <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="m12 1.5c-5.79844 0-10.5 4.70156-10.5 10.5 0 5.7984 4.70156 10.5 10.5 10.5 5.7984 0 10.5-4.7016 10.5-10.5 0-5.79844-4.7016-10.5-10.5-10.5zm.75 15.5625c0 .1031-.0844.1875-.1875.1875h-1.125c-.1031 0-.1875-.0844-.1875-.1875v-6.375c0-.1031.0844-.1875.1875-.1875h1.125c.1031 0 .1875.0844.1875.1875zm-.75-8.0625c-.2944-.00601-.5747-.12718-.7808-.3375-.206-.21032-.3215-.49305-.3215-.7875s.1155-.57718.3215-.7875c.2061-.21032.4864-.33149.7808-.3375.2944.00601.5747.12718.7808.3375.206.21032.3215.49305.3215.7875s-.1155.57718-.3215.7875c-.2061.21032-.4864.33149-.7808.3375z" fill="#393a37"></path>
-                        </svg>
-                    </div>
-                    <div class="info__title">Por favor, insira seu e-mail para confirmar o cadastro.</div>
-                    <div class="info__close"></div>
-                </div>
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                    <form action="../backend/conf_cad.php" class="needs-validation bg-light p-5 rounded shadow-lg"
-                        id="form_conf" method="post" novalidate>
+                    <form action="../backend/confirmar-cadastro.php" class="needs-validation bg-light p-5 rounded shadow-lg"
+                        id="form-conf-cad" method="post" novalidate>
                         <h4 class="mb-4 text-center">Confirmar Cadastro</h4>
+                        <p class="text-muted">Um código de 6 dígitos foi enviado para o seu e-mail. Verifique sua caixa de entrada para confirmar seu cadastro.</p>
                         <div class="mb-3">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
-                            <div class="invalid-feedback">Por favor, insira um e-mail válido.</div>
+                            <label for="codigo" class="form-label">Código</label>
+                            <input type="codigo" class="form-control" id="codigo" name="codigo" required autocomplete="off">
                         </div>
-                        <button class="btn btn-success w-100" type="submit">Confirmar Cadastro</button>
+                        <button class="btn btn-success w-100" type="submit" id="submitBtn">
+                            <i class="fas fa-door-open"></i> CADASTRAR <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status"
+                                aria-hidden="true" style="display: none;"></span>
+                        </button>
                     </form>
+                    <div class="text-center mt-3">
+                        <a href="" style="text-decoration: none;">Reenviar e-mail de confirmação</a>
+                    </div>
                     <hr class="custom-hr">
                     <div class="text-center mt-3">
                         <p class="mb-1">Ainda não tem uma conta?</p>
