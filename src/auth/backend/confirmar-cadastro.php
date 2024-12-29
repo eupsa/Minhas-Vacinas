@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require '../../../vendor/phpmailer/phpmailer/src/Exception.php';
 require '../../../vendor/phpmailer/phpmailer/src/SMTP.php';
@@ -39,6 +40,8 @@ if (empty($codigo)) {
                 $retorna = ['status' => true, 'msg' => "Seu e-mail foi verificado. Agora você pode acessar todos os recursos da plataforma."];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
+                $_SESSION = [];
+                session_destroy();
                 exit();
             } else {
                 $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar confirmar seu cadastro. Tente novamente."];

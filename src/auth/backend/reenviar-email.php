@@ -9,46 +9,36 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-$nome = ucwords(trim($dados['nome']));
 $email = filter_var(strtolower(trim($dados['email'])), FILTER_SANITIZE_EMAIL);
-$estado = trim($dados['estado']);
-$senha = $dados['senha'];
-$confsenha = $dados['confSenha'];
 
-if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($confsenha) || empty($email)) {
-    $retorna = ['status' => false, 'msg' => "Você não preencheu todos os campos obrigatórios. Por favor, revise e envie novamente."];
+
+if (empty($email)) {
+    $retorna = ['status' => false, 'msg' => "O campo e-mail não foi preenchido."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $retorna = ['status' => false, 'msg' => "E-mail fornecido é inválido."];
+    $retorna = ['status' => false, 'msg' => "E-mail inválido."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
 }
 
-if ($senha !== $confsenha) {
-    $retorna = ['status' => false, 'msg' => "A senha não corresponde. Verifique e tente novamente."];
-    header('Content-Type: application/json');
-    echo json_encode($retorna);
-    exit();
-}
+$sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
+$sql->bindValue(':email', $email);
+$sql->execute();
 
+if ($sql->rowCount() == 1) {
+    $usuario = $sql->fetch(PDO::FETCH_BOTH);
+    $nome = $usuario['nome'];
 
-
-
-try {
-    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-    $sql = $pdo->prepare("INSERT INTO usuario (nome, email, estado, senha) VALUES (:nome, :email, :estado, :senha)");
-    $sql->bindValue(':nome', $nome);
+    $sql = $pdo->prepare("SELECT * FROM confirmar_cadastro WHERE email = :email");
     $sql->bindValue(':email', $email);
-    $sql->bindValue(':estado', $estado);
-    $sql->bindValue(':senha', $senhaHash);
     $sql->execute();
 
-    if ($sql->rowCount() === 1) {
+    if ($sql->rowCount() < 2) {
         $codigo = rand(100000, 999999);
         $sql = $pdo->prepare("INSERT INTO confirmar_cadastro (nome, email, codigo) VALUES (:nome, :email, :codigo)");
         $sql->bindValue(':nome', $nome);
@@ -56,25 +46,26 @@ try {
         $sql->bindValue(':codigo', $codigo);
         $sql->execute();
 
-        if (email_cadastro($nome, $email, $codigo)) {
-            $retorna = ['status' => true, 'msg' => "Sua conta foi criada. Um e-mail foi enviado com um código de verificação. Siga as instruções na página a seguir."];
-            session_start();
-            $_SESSION['temp-cad'] = $email;
-        } else {
-            $retorna = ['status' => false, 'msg' => "Cadastro realizado, mas não foi possível enviar o e-mail de confirmação."];
-        }
+        reenviarEmail($nome, $email, $codigo);
+        $retorna = ['status' => true, 'msg' => "Um novo código foi enviado para seu e-mail."];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit();
     } else {
-        $retorna = ['status' => false, 'msg' => "Erro ao cadastrar usuário. Tente novamente."];
+        $retorna = ['status' => false, 'msg' => "Você excedeu o limite. Tente novamente mais tarde ou entre em contato com o suporte."];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit();
     }
-} catch (PDOException $e) {
-    $retorna = ['status' => false, 'msg' => "O cadastro não pôde ser concluído. Verifique os dados e tente novamente."];
-} finally {
+} else {
+    $retorna = ['status' => false, 'msg' => "Cadastro não encontrado."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
 }
 
-function email_cadastro($nome, $email, $codigo)
+
+function reenviarEmail($nome, $email, $codigo)
 {
     $email_body = file_get_contents('../../../assets/email/cadastro.php');
     $email_body = str_replace('{{nome}}', $nome, $email_body);

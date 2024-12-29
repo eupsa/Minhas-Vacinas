@@ -54,10 +54,10 @@ CREATE TABLE
 CREATE TABLE
     IF NOT EXISTS confirmar_cadastro (
         nome VARCHAR(100) NOT NULL,
-        email VARCHAR(255) UNIQUE NOT NULL,
+        email VARCHAR(255) NOT NULL,
 		codigo VARCHAR(6) UNIQUE NOT NULL,
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
-        -- o nome tá nessa tabela pq preciso enviar o email dps q o usuario confirmar o cadastro
+        -- o nome tá nessa tabela pq preciso pegar o nome e enviar o email dps q o usuario confirmar o cadastro
     );
 
 CREATE TABLE

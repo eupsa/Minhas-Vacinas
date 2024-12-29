@@ -85,11 +85,12 @@ body {
 
 .flash-message {
   padding: 10px;
-  background-color: #4caf50; /* Cor verde (sucesso) */
+  background-color: #4caf50;
   color: white;
   border-radius: 5px;
   margin-bottom: 20px;
 }
+
 .required-asterisk {
   color: red;
   margin-left: 2px;
