@@ -1,10 +1,9 @@
 CREATE DATABASE IF NOT EXISTS minhasvacinas;
-
 USE minhasvacinas;
 
 CREATE TABLE
     IF NOT EXISTS usuario (
-        id_user BIGINT PRIMARY KEY AUTO_INCREMENT,
+        id_usuario BIGINT PRIMARY KEY AUTO_INCREMENT,
         nome VARCHAR(100) NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
         estado ENUM (
@@ -43,13 +42,12 @@ CREATE TABLE
         cpf VARCHAR(14) UNIQUE,
         telefone VARCHAR(15),
         cidade VARCHAR(100),
-        data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP,
-        administrador TINYINT (1) DEFAULT 0
-    );
+        data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
+	);
 
-    -- INSERT INTO usuario (nome, email, estado, senha, email_conf, data_nascimento, genero, cpf, telefone, cidade, administrador)
-    -- VALUES 
-    -- ('Pedro Silva', 'pedruuu291@gmail.com', 'BA', '$2y$10$R5ToR3.obbC1G4bnAzUkZeKTle45W3ywNtse8PeCvFTDTGHu2AudC', 1, '2007-02-15', 'Masculino', '583.358.430-23', '(71) 98765-4321', 'Salvador', 1);
+    INSERT INTO usuario (nome, email, estado, senha, email_conf)
+    VALUES 
+    ('Pedro', 'email@gmail.com', 'BA', '$2y$10$R5ToR3.obbC1G4bnAzUkZeKTle45W3ywNtse8PeCvFTDTGHu2AudC', 1);
 
 CREATE TABLE
     IF NOT EXISTS confirmar_cadastro (
@@ -100,8 +98,8 @@ CREATE TABLE
         dose VARCHAR(50) NOT NULL,
         lote VARCHAR(50),
         obs TEXT,
-        id_user BIGINT,
-        CONSTRAINT fk_usuario FOREIGN KEY (id_user) REFERENCES usuario (id_user) ON DELETE SET NULL
+        id_usuario BIGINT,
+        CONSTRAINT fk_usuario FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE SET NULL
     );
 
 CREATE TABLE
@@ -120,8 +118,8 @@ CREATE TABLE
         nome_solicitante VARCHAR(100) NOT NULL,
         email VARCHAR(255) NOT NULL,
         motivo VARCHAR(30) NOT NULL,
-        mensagem text NOT NULL,
-        --      nome_atendente VARCHAR(100) NOT NULL,
+        mensagem VARCHAR(1000) NOT NULL,
+        -- nome_atendente VARCHAR(100) NOT NULL,
         data_registro DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 
@@ -136,6 +134,6 @@ CREATE TABLE
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
     );
 
--- SET @@global.time_zone = '-3:00';
--- SELECT @@global.time_zone, @@session.time_zone;
--- SET time_zone = 'America/Sao_Paulo';
+SELECT @@global.time_zone, @@session.time_zone;
+SET time_zone = 'America/Sao_Paulo';
+SET sql_mode = 'STRICT_TRANS_TABLES';
