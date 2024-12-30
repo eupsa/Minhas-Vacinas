@@ -35,7 +35,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                         $retorna = ['status' => true, 'msg' => "Bem-vindo à nossa plataforma, " . htmlspecialchars(explode(' ', $usuario['nome'])[0]) . "!"];
                         header('Content-Type: application/json');
                         echo json_encode($retorna);
-                        $_SESSION['session_id'] = $usuario['id_user'];
+                        $_SESSION['session_id'] = $usuario['id_usuario'];
                         $_SESSION['session_nome'] = $usuario['nome'];
                         $_SESSION['session_email'] = $usuario['email'];
                         exit();
@@ -44,7 +44,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                         header('Content-Type: application/json');
                         echo json_encode($retorna);
                         //Modificar aqui quando encontrar a solução do Checkbox para login
-                        $_SESSION['session_id'] = $usuario['id_user'];
+                        $_SESSION['session_id'] = $usuario['id_usuario'];
                         $_SESSION['session_nome'] = $usuario['nome'];
                         $_SESSION['session_email'] = $usuario['email'];
                         exit();

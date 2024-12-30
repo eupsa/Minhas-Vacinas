@@ -7,7 +7,7 @@ function info_user($pdo)
 
     if (isset($_SESSION['session_id'])) {
         try {
-            $sql = $pdo->prepare("SELECT nome, estado, data_nascimento, genero, cpf, telefone, cidade FROM usuario WHERE id_user = :session_id");
+            $sql = $pdo->prepare("SELECT nome, estado, data_nascimento, genero, cpf, telefone, cidade FROM usuario WHERE id_usuario = :session_id");
             $sql->bindValue(':session_id', $_SESSION['session_id']);
             $sql->execute();
 

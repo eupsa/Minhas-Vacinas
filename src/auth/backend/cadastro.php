@@ -37,8 +37,6 @@ if ($senha !== $confsenha) {
 }
 
 
-
-
 try {
     $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
     $sql = $pdo->prepare("INSERT INTO usuario (nome, email, estado, senha) VALUES (:nome, :email, :estado, :senha)");

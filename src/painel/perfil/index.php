@@ -8,8 +8,8 @@ if (!isset($_SESSION['session_id'])) {
     exit();
 }
 
-$sql = $pdo->prepare("SELECT * FROM usuario WHERE id_user = :id_user");
-$sql->bindValue(':id_user', $_SESSION['session_id']);
+$sql = $pdo->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario");
+$sql->bindValue(':id_usuario', $_SESSION['session_id']);
 $sql->execute();
 
 if ($sql->rowCount() == 1) {

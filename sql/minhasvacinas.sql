@@ -47,7 +47,7 @@ CREATE TABLE
 
     INSERT INTO usuario (nome, email, estado, senha, email_conf)
     VALUES 
-    ('Pedro', 'email@gmail.com', 'BA', '$2y$10$R5ToR3.obbC1G4bnAzUkZeKTle45W3ywNtse8PeCvFTDTGHu2AudC', 1);
+    ('Pedro', 'email@gmail.com', 'AA', '$2y$10$R5ToR3.obbC1G4bnAzUkZeKTle45W3ywNtse8PeCvFTDTGHu2AudC', 1);
 
 CREATE TABLE
     IF NOT EXISTS confirmar_cadastro (
@@ -134,6 +134,6 @@ CREATE TABLE
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
     );
 
-SELECT @@global.time_zone, @@session.time_zone;
-SET time_zone = 'America/Sao_Paulo';
 SET sql_mode = 'STRICT_TRANS_TABLES';
+SET time_zone = 'America/Sao_Paulo';
+SELECT @@global.time_zone, @@session.time_zone;
