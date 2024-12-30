@@ -45,9 +45,9 @@ CREATE TABLE
         data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
 	);
 
-    INSERT INTO usuario (nome, email, estado, senha, email_conf)
+    INSERT INTO usuario (nome, email, estado, senha, email_conf, genero)
     VALUES 
-    ('Pedro', 'email@gmail.com', 'AA', '$2y$10$R5ToR3.obbC1G4bnAzUkZeKTle45W3ywNtse8PeCvFTDTGHu2AudC', 1);
+    ('Pedro', 'email@gmail.com', 'AA', '$2y$10$R5ToR3.obbC1G4bnAzUkZeKTle45W3ywNtse8PeCvFTDTGHu2AudC', 1, 'N');
 
 CREATE TABLE
     IF NOT EXISTS confirmar_cadastro (
