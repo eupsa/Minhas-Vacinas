@@ -8,9 +8,9 @@ if (!isset($_SESSION['session_id'])) {
     exit();
 } else {
 
-    $id_user = $_SESSION['session_id'];
-    $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_user = :id_user");
-    $sql->bindValue(':id_user', $id_user);
+    $id_usuario = $_SESSION['session_id'];
+    $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_usuario = :id_usuario");
+    $sql->bindValue(':id_usuario', $id_usuario);
     $sql->execute();
     $vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
 

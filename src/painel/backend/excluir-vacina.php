@@ -4,7 +4,7 @@ require '../../scripts/conn.php';
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $id_vac = $dados['id_vac'];
-$id_user = $_SESSION['session_id'];
+$id_usuario = $_SESSION['session_id'];
 
 if (empty($id_vac)) {
     $retorna = ['status' => false, 'msg' => "Não foi possível encontrar o atributo id_vac."];
@@ -13,20 +13,20 @@ if (empty($id_vac)) {
     exit();
 } else {
     try {
-        $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_vac = :id_vac AND id_user = :id_user");
+        $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_vac = :id_vac AND id_usuario = :id_usuario");
         $sql->bindValue(':id_vac', $id_vac);
-        $sql->bindValue(':id_user', $id_user);
+        $sql->bindValue(':id_usuario', $id_usuario);
         $sql->execute();
 
         if ($sql->rowCount() === 1) {
-            $sql = $pdo->prepare("DELETE FROM vacina WHERE id_vac = :id_vac AND id_user = :id_user");
+            $sql = $pdo->prepare("DELETE FROM vacina WHERE id_vac = :id_vac AND id_usuario = :id_usuario");
             $sql->bindValue(':id_vac', $id_vac);
-            $sql->bindValue(':id_user', $id_user);
+            $sql->bindValue(':id_usuario', $id_usuario);
             $sql->execute();
 
-            $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_vac = :id_vac AND id_user = :id_user");
+            $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_vac = :id_vac AND id_usuario = :id_usuario");
             $sql->bindValue(':id_vac', $id_vac);
-            $sql->bindValue(':id_user', $id_user);
+            $sql->bindValue(':id_usuario', $id_usuario);
             $sql->execute();
 
             if ($sql->rowCount() === 0) {

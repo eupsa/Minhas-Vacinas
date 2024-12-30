@@ -19,8 +19,8 @@ if (validarData($dataAplicacao)) {
         exit();
     } else {
         try {
-            $sql = $pdo->prepare("INSERT INTO vacina (nome_vac, data_aplicacao, local_aplicacao, tipo, dose, lote, obs, id_user) 
-                                  VALUES (:nome_vac, :data_aplicacao, :local_aplicacao, :tipo, :dose, :lote, :obs, :id_user)");
+            $sql = $pdo->prepare("INSERT INTO vacina (nome_vac, data_aplicacao, local_aplicacao, tipo, dose, lote, obs, id_usuario) 
+                                  VALUES (:nome_vac, :data_aplicacao, :local_aplicacao, :tipo, :dose, :lote, :obs, :id_usuario)");
             $sql->bindValue(':nome_vac', $nomeVac);
             $sql->bindValue(':data_aplicacao', $dataAplicacao);
             $sql->bindValue(':local_aplicacao', $localAplicacao);
@@ -28,7 +28,7 @@ if (validarData($dataAplicacao)) {
             $sql->bindValue(':dose', $dose);
             $sql->bindValue(':lote', $lote);
             $sql->bindValue(':obs', $obs);
-            $sql->bindValue(':id_user', $_SESSION['session_id']);
+            $sql->bindValue(':id_usuario', $_SESSION['session_id']);
             $sql->execute();
 
             if ($sql->rowCount() ===  1) {

@@ -269,13 +269,8 @@ if ($sql->rowCount() == 1) {
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="genero" class="form-label">Gênero</label>
-                                    <select class="form-select" id="genero" name="genero">
-                                        <option value="" disabled selected>Selecione um gênero</option>
-                                        <option value="Masculino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
-                                        <option value="Feminino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'Feminino') ? 'selected' : ''; ?>>Feminino</option>
-                                        <option value="Outro" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'Outro') ? 'selected' : ''; ?>>Outro</option>
-                                        <option value="Não Informado" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] == 'Não Informado') ? 'selected' : ''; ?>>Prefiro não dizer</option>
-                                    </select>
+                                    <input type="text" class="form-control" id="genero" name="genero"
+                                        value="<?php echo isset($_SESSION['session_genero']) ? $_SESSION['session_genero'] : ''; ?>">
                                 </div>
                                 <div class="col">
                                     <label for="cidade" class="form-label">Cidade</label>

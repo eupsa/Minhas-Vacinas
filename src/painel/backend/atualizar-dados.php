@@ -9,7 +9,7 @@ $cpf = preg_replace('/[^0-9]/', '', $cpf_formatado);
 $data_nascimento = trim($dados['data_nascimento']);
 $telefone = trim($dados['telefone']);
 $estado = trim($dados['estado']);
-$genero = trim($dados['genero']);
+$genero = ($dados['genero']);
 $cidade = trim($dados['cidade']);
 
 if (!empty($cpf)) {

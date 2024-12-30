@@ -15,6 +15,12 @@ $estado = trim($dados['estado']);
 $senha = $dados['senha'];
 $confsenha = $dados['confSenha'];
 
+$estados = [
+    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 
+    'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 
+    'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+];
+
 if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($confsenha) || empty($email)) {
     $retorna = ['status' => false, 'msg' => "Você não preencheu todos os campos obrigatórios. Por favor, revise e envie novamente."];
     header('Content-Type: application/json');
@@ -31,6 +37,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 if ($senha !== $confsenha) {
     $retorna = ['status' => false, 'msg' => "A senha não corresponde. Verifique e tente novamente."];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
+}
+
+if (!in_array($estado, $estados)) {
+    $retorna = ['status' => false, 'msg' => "A sigla do estado é inválida."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
