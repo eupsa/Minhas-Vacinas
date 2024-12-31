@@ -40,75 +40,149 @@ function formatPhoneNumber(input) {
 
 const form_perfil = document.querySelector("#form-perfil");
 
-if (form_perfil) {
-  form_perfil.addEventListener("submit", async (e) => {
-    e.preventDefault();
+form_perfil.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-    const dadosForm = new FormData(form_perfil);
+  const dadosForm = new FormData(form_perfil);
 
-    const nome = dadosForm.get("nome");
-    const cpf = dadosForm.get("cpf");
-    const data_nascimento = dadosForm.get("data_nascimento");
-    const telefone = dadosForm.get("telefone");
-    const estado = dadosForm.get("estado");
-    const genero = dadosForm.get("genero");
-    const cidade = dadosForm.get("cidade");
+  const nome = dadosForm.get("nome");
+  const cpf = dadosForm.get("cpf");
+  const data_nascimento = dadosForm.get("data_nascimento");
+  const telefone = dadosForm.get("telefone");
+  const estado = dadosForm.get("estado");
+  const genero = dadosForm.get("genero");
+  // const cidade = dadosForm.get("cidade");
 
-    if (
-      !nome &&
-      !cpf &&
-      !data_nascimento &&
-      !telefone &&
-      !estado &&
-      !genero &&
-      !cidade
-    ) {
-      Swal.fire({
-        text: "Preencha todos os campos.",
-        icon: "error",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "Fechar",
-        customClass: {
-          popup: "my-custom-swal",
-        },
-      });
-      return;
-    }
-
+  if (
+    !nome &&
+    !cpf &&
+    !data_nascimento &&
+    !telefone &&
+    !estado &&
+    !genero //colocar CIDADE AQUII DNVVV, descomentar e add no if no php
+  ) {
     Swal.fire({
-      title: "Processando...",
-      html: "Aguarde enquanto estamos atualizando os dados...",
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
+      text: "Nenhum dado foi alterado.",
+      icon: "error",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Fechar",
+      customClass: {
+        popup: "my-custom-swal",
       },
     });
+    return;
+  }
 
-    try {
-      const dados = await fetch("../backend/atualizar-dados.php", {
-        method: "POST",
-        body: dadosForm,
-      });
+  Swal.fire({
+    title: "Processando...",
+    html: "Aguarde enquanto estamos atualizando os dados...",
+    timerProgressBar: true,
+    didOpen: () => {
+      Swal.showLoading();
+    },
+  });
 
-      if (!dados.ok) throw new Error("Erro ao processar a solicitação");
+  try {
+    const dados = await fetch("../backend/atualizar-dados.php", {
+      method: "POST",
+      body: dadosForm,
+    });
 
-      const resposta = await dados.json();
+    if (!dados.ok) throw new Error("Erro ao processar a solicitação");
 
+    const resposta = await dados.json();
+
+    if (resposta["status"]) {
       Swal.fire({
         text: resposta["msg"],
-        icon: resposta["status"] ? "success" : "error",
+        icon: "success",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       }).then(() => {
         location.reload();
       });
-    } catch (error) {
+    } else {
       Swal.fire({
-        text: "Erro ao processar a atualização. Tente novamente mais tarde.",
+        text: resposta["msg"],
         icon: "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       });
     }
+  } catch (error) {
+    Swal.fire({
+      text: "Ocorreu um erro ao tentar atualizar seus dados. Tente novamente mais tarde.",
+      icon: "error",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Fechar",
+    });
+  }
+});
+
+const form_alterar_email = document.querySelector("#form-alterar-email");
+
+form_alterar_email.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const dadosForm = new FormData(form_alterar_email);
+
+  const email = dadosForm.get("email");
+
+  if (!email) {
+    Swal.fire({
+      text: "Nenhum dado foi alterado.",
+      icon: "error",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Fechar",
+      customClass: {
+        popup: "my-custom-swal",
+      },
+    });
+    return;
+  }
+
+  Swal.fire({
+    title: "Processando...",
+    timerProgressBar: true,
+    didOpen: () => {
+      Swal.showLoading();
+    },
   });
-}
+
+  try {
+    const dados = await fetch("../backend/alterar-email.php", {
+      method: "POST",
+      body: dadosForm,
+    });
+
+    if (!dados.ok) throw new Error("Erro ao processar a solicitação");
+
+    const resposta = await dados.json();
+
+    if (resposta["status"]) {
+      Swal.fire({
+        text: resposta["msg"],
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Fechar",
+      }).then(() => {
+        location.reload();
+      });
+    } else {
+      Swal.fire({
+        text: resposta["msg"],
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Fechar",
+      });
+    }
+  } catch (error) {
+    Swal.fire({
+      text: "Ocorreu um erro ao tentar fazer login. Tente novamente mais tarde."
+        .$error,
+      icon: "error",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Fechar",
+    });
+  }
+});

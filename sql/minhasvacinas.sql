@@ -3,7 +3,7 @@ USE minhasvacinas;
 
 CREATE TABLE
     IF NOT EXISTS usuario (
-        id_usuario BIGINT PRIMARY KEY AUTO_INCREMENT,
+        id_usuario INT PRIMARY KEY AUTO_INCREMENT,
         nome VARCHAR(100) NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
         estado ENUM (
@@ -38,29 +38,26 @@ CREATE TABLE
         senha VARCHAR(128) NOT NULL,
         email_conf TINYINT (1) DEFAULT 0,
         data_nascimento DATE,
-        genero ENUM ('Não Informado', 'Masculino', 'Feminino', 'Outro'),
+        genero ENUM ('Não Informado', 'Masculino', 'Feminino', 'Outro') DEFAULT 'Não Informado',
         cpf VARCHAR(14) UNIQUE,
         telefone VARCHAR(15),
         cidade VARCHAR(100),
         data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
-	);
-
-    INSERT INTO usuario (nome, email, estado, senha, email_conf, genero)
-    VALUES 
-    ('Pedro', 'email@gmail.com', 'AA', '$2y$10$R5ToR3.obbC1G4bnAzUkZeKTle45W3ywNtse8PeCvFTDTGHu2AudC', 1, 'N');
+    );
 
 CREATE TABLE
     IF NOT EXISTS confirmar_cadastro (
+		id INT PRIMARY KEY AUTO_INCREMENT,
         nome VARCHAR(100) NOT NULL,
         email VARCHAR(255) NOT NULL,
-		codigo VARCHAR(6) UNIQUE NOT NULL,
+        codigo VARCHAR(6) UNIQUE NOT NULL,
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
         -- o nome tá nessa tabela pq preciso pegar o nome e enviar o email dps q o usuario confirmar o cadastro
     );
 
 CREATE TABLE
     IF NOT EXISTS vacina (
-        id_vac BIGINT PRIMARY KEY AUTO_INCREMENT,
+        id_vac INT PRIMARY KEY AUTO_INCREMENT,
         nome_vac ENUM (
             'BCG - Proteção contra Tuberculose',
             'Hepatite B',
@@ -97,35 +94,32 @@ CREATE TABLE
         ) NOT NULL,
         dose VARCHAR(50) NOT NULL,
         lote VARCHAR(50),
-        obs TEXT,
-        id_usuario BIGINT,
+        obs VARCHAR (500),
+        data_adicao DATETIME DEFAULT CURRENT_TIMESTAMP,
+        id_usuario INT,
         CONSTRAINT fk_usuario FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE SET NULL
     );
 
 CREATE TABLE
     IF NOT EXISTS esqueceu_senha (
-        id BIGINT PRIMARY KEY AUTO_INCREMENT,
+        id INT PRIMARY KEY AUTO_INCREMENT,
         email VARCHAR(255) UNIQUE NOT NULL,
         token VARCHAR(255) NOT NULL,
         data_expiracao DATETIME NOT NULL,
         data_solicitacao DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
     );
-
+    
+    
 CREATE TABLE
-    IF NOT EXISTS protocolo (
-        id BIGINT PRIMARY KEY AUTO_INCREMENT,
-        nome_solicitante VARCHAR(100) NOT NULL,
-        email VARCHAR(255) NOT NULL,
-        motivo VARCHAR(30) NOT NULL,
-        mensagem VARCHAR(1000) NOT NULL,
-        -- nome_atendente VARCHAR(100) NOT NULL,
-        data_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+    IF NOT EXISTS mudar_senha (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        codigo VARCHAR(255) NOT NULL,
+        id_usuario INT,
+        FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE,
+        FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE
     );
-
--- DELETE FROM `minhasvacinas`.`esqueceu_senha`
--- WHERE
---   (`email` = 'pedruuu291@gmail.com');
 
 CREATE TABLE
     IF NOT EXISTS excluir_conta (
@@ -136,4 +130,4 @@ CREATE TABLE
 
 SET sql_mode = 'STRICT_TRANS_TABLES';
 SET time_zone = 'America/Sao_Paulo';
-SELECT @@global.time_zone, @@session.time_zone;
+-- SELECT @@global.time_zone, @@session.time_zone;

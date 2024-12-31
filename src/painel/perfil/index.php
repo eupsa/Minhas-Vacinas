@@ -14,6 +14,18 @@ $sql->execute();
 
 if ($sql->rowCount() == 1) {
     info_user($pdo);
+
+    $id_usuario = $_SESSION['session_id'];
+    $sql = $pdo->prepare("SELECT * FROM cidade WHERE Uf = :estado");
+    $sql->bindValue(':estado', $_SESSION['session_estado']);
+    $sql->execute();
+    $cidades = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($cidades) > 0) {
+        $_SESSION['cidades'] = $cidades;
+    } else {
+        $_SESSION['cidades'] = [];
+    }
 } else {
     $_SESSION = [];
     session_destroy();
@@ -83,8 +95,8 @@ if ($sql->rowCount() == 1) {
                             <i class="bi bi-person"></i> Conta
                         </a>
                         <ul class="dropdown-menu shadow-sm" aria-labelledby="navbarDropdown" style="background: #343a40;">
-                            <li><a class="dropdown-item text-white" href="../../auth/trocar-email/">Mudar e-mail</a></li>
-                            <li><a class="dropdown-item text-white" href="../">Mudar senha</a></li>
+                            <li><a class="dropdown-item text-white" href="../../auth/trocar-email/" data-bs-toggle="modal" data-bs-target="#alterar-email">Alterar e-mail</a></li>
+                            <li><a class="dropdown-item text-white" href="../">Alterar senha</a></li>
                             <li><a class="dropdown-item text-white" href="">Configurações (desativado)</a></li>
                             <li>
                                 <!-- <hr class="dropdown-divider"> -->
@@ -141,7 +153,8 @@ if ($sql->rowCount() == 1) {
                         <div class="col-12 col-md-6">
                             <label for="data_nascimento" class="form-label">Data de Nascimento</label>
                             <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" disabled
-                                value="<?php echo isset($_SESSION['session_data_nascimento']) ? $_SESSION['session_data_nascimento'] : ''; ?>">
+                                value="<?php echo isset($_SESSION['session_data_nascimento']) && !empty($_SESSION['session_data_nascimento']) ? $_SESSION['session_data_nascimento'] : ''; ?>"
+                                placeholder="aaaaa">
                         </div>
                         <div class="col-12 col-md-6">
                             <label for="telefone" class="form-label">Telefone</label>
@@ -171,15 +184,19 @@ if ($sql->rowCount() == 1) {
                                 value="<?php echo isset($_SESSION['session_estado']) ? $_SESSION['session_estado'] : ''; ?>">
                         </div>
                         <div class="col-12 col-md-6">
-                            <label for="cidade" class="form-label">Gênero</label>
-                            <input type="text" class="form-control" id="genero" name="genero" disabled
-                                value="<?php echo isset($_SESSION['session_genero']) ? $_SESSION['session_genero'] : ''; ?>">
+                            <label for="genero" class="form-label">Gênero</label>
+                            <select class="form-control" id="genero" name="genero" disabled>
+                                <option value="Não Informado" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Não Informado') ? 'selected' : ''; ?>>Não Informado</option>
+                                <option value="Masculino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
+                                <option value="Feminino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Feminino') ? 'selected' : ''; ?>>Feminino</option>
+                                <option value="Outro" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
+                            </select>
                         </div>
-                        <div class="col-12 col-md-6">
+                        <!-- <div class="col-12 col-md-6">
                             <label for="cidade" class="form-label">Cidade</label>
                             <input type="text" class="form-control" id="cidade" name="cidade" disabled
                                 value="<?php echo isset($_SESSION['session_cidade']) ? $_SESSION['session_cidade'] : ''; ?>">
-                        </div>
+                        </div> -->
                     </div>
                     <div class="text-center mt-4">
                         <button type="button" class="btn btn w-100 py-1 text-white" data-bs-toggle="modal" data-bs-target="#updateModal" style="background: #3f3f3f;">Editar Dados</button>
@@ -231,6 +248,17 @@ if ($sql->rowCount() == 1) {
                                     <small class="form-text text-muted" style="color: red;">O CPF pode ser preenchido uma única vez e não poderá ser alterado.</small>
                                 </div>
                             <?php endif; ?>
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <label for="genero" class="form-label">Gênero</label>
+                                    <select class="form-select" id="genero" name="genero">
+                                        <option value="Não Informado" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Não Informado') ? 'selected' : ''; ?>>Não Informado</option>
+                                        <option value="Masculino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
+                                        <option value="Feminino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Feminino') ? 'selected' : ''; ?>>Feminino</option>
+                                        <option value="Outro" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="mb-3">
                                 <div class="col">
                                     <label for="estado" class="form-label">Estado</label>
@@ -266,20 +294,55 @@ if ($sql->rowCount() == 1) {
                                     </select>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <label for="genero" class="form-label">Gênero</label>
-                                    <input type="text" class="form-control" id="genero" name="genero"
-                                        value="<?php echo isset($_SESSION['session_genero']) ? $_SESSION['session_genero'] : ''; ?>">
-                                </div>
+                            <!-- <div class="row mb-3">
                                 <div class="col">
                                     <label for="cidade" class="form-label">Cidade</label>
-                                    <input type="text" class="form-control" id="cidade" name="cidade" autocomplete="off"
-                                        value="<?php echo isset($_SESSION['session_cidade']) ? $_SESSION['session_cidade'] : ''; ?>">
+                                    <?php if (count($cidades) > 0): ?>
+                                        <select class="form-select" id="cidade" name="cidade">
+                                            <option value="" disabled selected>Selecione sua cidade...</option>
+                                            <?php foreach ($cidades as $cidade): ?>
+                                                <option value="<?php echo $cidade['Nome']; ?>" <?php echo (isset($_SESSION['session_cidade']) && $_SESSION['session_cidade'] == $cidade['Nome']) ? 'selected' : ''; ?>>
+                                                    <?php echo $cidade['Nome']; ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    <?php else: ?>
+                                        <input type="text" class="form-control" id="cidade" name="cidade" autocomplete="off"
+                                            value="<?php echo isset($_SESSION['session_cidade']) ? $_SESSION['session_cidade'] : ''; ?>">
+                                    <?php endif; ?>
+                                </div>
+                            </div> -->
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Atualizar Dados</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="modal fade" id="alterar-email" tabindex="-1" aria-labelledby="alterar-email" aria-hidden="true" style="z-index: 1200;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="alterar-email">Alterar e-mail</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-muted">Um e-mail de confirmação será enviado para o e-mail abaixo. Verifique sua caixa de entrada para confirmar seu e-mail.
+                        </p>
+                        <form id="form-alterar-email" action="../backend/alterar-email.php" method="post">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="email" class="form-label">E-mail</label>
+                                    <input type="text" class="form-control" id="email" name="email" autocomplete="off">
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Atualizar Dados</button>
+                                <button type="submit" class="btn btn-primary">Alterar e-mail</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             </div>
                         </form>

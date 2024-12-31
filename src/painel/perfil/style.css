@@ -117,3 +117,7 @@ body.dark-mode {
   background-color: #333 !important;
   color: #000 !important;
 }
+
+.form-text.text-muted {
+  color: red !important;
+}

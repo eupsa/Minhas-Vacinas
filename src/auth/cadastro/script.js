@@ -68,6 +68,8 @@ if (formcad) {
       const resposta = await dados.json();
 
       if (resposta["status"]) {
+        submitButton.disabled = false;
+        loadingSpinner.style.display = "none";
         Swal.fire({
           text: resposta["msg"],
           icon: "success",
@@ -88,6 +90,8 @@ if (formcad) {
         });
       }
     } catch (error) {
+      submitButton.disabled = false;
+      loadingSpinner.style.display = "none";
       Swal.fire({
         text: "Erro ao processar o cadastro. Tente novamente mais tarde.",
         icon: "error",

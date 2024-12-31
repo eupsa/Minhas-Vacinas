@@ -10,7 +10,7 @@ $data_nascimento = trim($dados['data_nascimento']);
 $telefone = trim($dados['telefone']);
 $estado = trim($dados['estado']);
 $genero = ($dados['genero']);
-$cidade = trim($dados['cidade']);
+// $cidade = trim($dados['cidade']);
 
 if (!empty($cpf)) {
     if (!validaCPF($cpf)) {
@@ -21,22 +21,31 @@ if (!empty($cpf)) {
     }
 }
 
-if (empty($nome) && empty($cpf_formatado) && empty($data_nascimento) && empty($telefone) && empty($estado) && empty($genero) && empty($cidade)) {
+if (empty($nome) && empty($cpf_formatado) && empty($data_nascimento) && empty($telefone) && empty($estado) && empty($genero)) {
     $retorna = ['status' => false, 'msg' => 'Preencha todos os campos.'];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
 }
 
+if (!empty($data_nascimento)) {
+    if (!validarData($data_nascimento)) {
+        $retorna = ['status' => false, 'msg' => "Data inválida ou data no futuro. A data precisa estar no formato 'DIA-MÊS-ANO' e não pode ser posterior ao dia de hoje."];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit();
+    }
+}
+
 try {
-    $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, genero = :genero, cidade = :cidade WHERE email = :email");
+    $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, genero = :genero WHERE email = :email");
     $sql->bindValue(':nome', $nome);
     $sql->bindValue(':cpf', $cpf_formatado);
     $sql->bindValue(':data_nascimento', $data_nascimento);
     $sql->bindValue(':telefone', $telefone);
     $sql->bindValue(':estado', $estado);
     $sql->bindValue(':genero', $genero);
-    $sql->bindValue(':cidade', $cidade);
+    // $sql->bindValue(':cidade', $cidade);
     $sql->bindValue(':email', $_SESSION['session_email']);
     $sql->execute();
 
@@ -46,7 +55,7 @@ try {
     $_SESSION['session_telefone'] = $telefone;
     $_SESSION['session_estado'] = $estado;
     $_SESSION['session_genero'] = $genero;
-    $_SESSION['session_cidade'] = $cidade;
+    // $_SESSION['session_cidade'] = $cidade;
     $retorna = ['status' => true, 'msg' => "Alteração realizada com sucesso. Suas informações estão atualizadas."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
@@ -79,6 +88,31 @@ function validaCPF($cpf)
         if ($cpf[$t] != $d) {
             return false;
         }
+    }
+
+    return true;
+}
+
+
+function validarData($data_nascimento)
+{
+    $dataFormatada = DateTime::createFromFormat('Y-m-d', $data_nascimento);
+
+    // Verifica se a data é válida e no formato correto
+    if (!$dataFormatada || $dataFormatada->format('Y-m-d') !== $data_nascimento) {
+        return false;
+    }
+
+    // Verifica se a data de aplicação não é futura
+    $dataHoje = new DateTime();
+    if ($dataFormatada > $dataHoje) {
+        return false;
+    }
+
+    // Verifica se a data de aplicação não é muito antiga (antes de 1900)
+    $dataMinima = new DateTime('1900-01-01');
+    if ($dataFormatada < $dataMinima) {
+        return false;
     }
 
     return true;

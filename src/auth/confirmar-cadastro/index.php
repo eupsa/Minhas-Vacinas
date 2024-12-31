@@ -115,7 +115,7 @@ if (isset($_SESSION['session_id'])) {
                             <input type="codigo" class="form-control" id="codigo" name="codigo" required autocomplete="off">
                         </div>
                         <button class="btn btn-success w-100" type="submit" id="submitBtn">
-                            <i class="fas fa-door-open"></i> CONFIRMAR CADASTRO <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status"
+                            CONFIRMAR CADASTRO <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status"
                                 aria-hidden="true" style="display: none;"></span>
                         </button>
                     </form>
