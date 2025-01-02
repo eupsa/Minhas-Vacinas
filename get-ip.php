@@ -1,21 +1,8 @@
 <?php
 
-function obterIPreal()
-{
-if (!empty($_SERVER['HTTP_CLIENT_IP'])) 
-{
- $ip=$_SERVER['HTTP_CLIENT_IP'];
+if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    $ip_do_usuario = $_SERVER['HTTP_X_FORWARDED_FOR'];
+} else {
+    $ip_do_usuario = $_SERVER['REMOTE_ADDR'];
 }
-elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
-
-{
-  $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
-}
-else
-{
- $ip=$_SERVER['REMOTE_ADDR'];
-}
- echo $ip;
-}
-
-obterIPreal();
+echo $ip_do_usuario;
