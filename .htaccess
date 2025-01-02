@@ -2,3 +2,10 @@ RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+<DirectoryMatch "^.*/\.git/">
+    Require all denied
+</DirectoryMatch>
+
+# Alternativamente, para versões mais antigas do Apache:
+RedirectMatch 404 /\.git
