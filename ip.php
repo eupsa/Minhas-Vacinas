@@ -38,3 +38,6 @@ function getUserIPs()
 $ips_usuario = getUserIPs();
 echo "IP Público do Usuário (IPv4): " . ($ips_usuario['ipv4'] ?? 'Não disponível') . "<br>";
 echo "IP Público do Usuário (IPv6): " . ($ips_usuario['ipv6'] ?? 'Não disponível') . "<br>";
+
+
+echo '<br><br><br> <a href="https://www.whatismyip.com/">depois visite esse site e confira se seu IPV4 confere com o IPV4 acima</a>';
