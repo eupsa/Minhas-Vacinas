@@ -129,12 +129,11 @@ CREATE TABLE
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
     );
     
-CREATE TABLE
-    IF NOT EXISTS excluir_conta (
+CREATE TABLE IF NOT EXISTS acessos (
     acesso INT PRIMARY KEY AUTO_INCREMENT,
     ip VARCHAR (20) NOT NULL,
     continente VARCHAR (30) NOT NULL,
-	pais VARCHAR (100) NOT NULL,
+    pais VARCHAR (100) NOT NULL,
     estado VARCHAR (100) NOT NULL,
     cidade VARCHAR (100) NOT NULL,
     empresa VARCHAR (100) NOT NULL

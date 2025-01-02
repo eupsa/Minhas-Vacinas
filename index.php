@@ -13,6 +13,7 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.96/darkreader.min.js"></script>
     <title>Minhas Vacinas</title>
 </head>
 
@@ -69,7 +70,6 @@ session_start();
                                 </a>
                             </li>
                         <?php endif; ?>
-
                     </ul>
                 </div>
             </div>
@@ -329,7 +329,11 @@ session_start();
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.96/darkreader.min.js"></script>
+    <button id="scrollToTopBtn" class="scroll-to-top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <script src="assets/js/theme-dark.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
 

@@ -1,23 +1,19 @@
-const backToTopButton = document.querySelector(".back-to-top");
+const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 300) {
-    backToTopButton.style.display = "block";
+window.onscroll = function () {
+  if (
+    document.body.scrollTop > 100 ||
+    document.documentElement.scrollTop > 100
+  ) {
+    scrollToTopBtn.classList.add("show");
   } else {
-    backToTopButton.style.display = "none";
+    scrollToTopBtn.classList.remove("show");
   }
-});
+};
 
-backToTopButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-if (!localStorage.getItem("modificationsAccepted")) {
-  document.getElementById("overlay").style.visibility = "visible";
-}
-
-document.getElementById("accept-btn").addEventListener("click", function () {
-  localStorage.setItem("modificationsAccepted", "true");
-  document.getElementById("overlay").style.visibility = "hidden";
+scrollToTopBtn.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 });
