@@ -123,10 +123,22 @@ CREATE TABLE
 
 CREATE TABLE
     IF NOT EXISTS excluir_conta (
+		id_solicitacao INT PRIMARY KEY AUTO_INCREMENT,
         code_email INT NOT NULL,
         email VARCHAR(255) NOT NULL,
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
     );
+    
+CREATE TABLE
+    IF NOT EXISTS excluir_conta (
+    acesso INT PRIMARY KEY AUTO_INCREMENT,
+    ip VARCHAR (20) NOT NULL,
+    continente VARCHAR (30) NOT NULL,
+	pais VARCHAR (100) NOT NULL,
+    estado VARCHAR (100) NOT NULL,
+    cidade VARCHAR (100) NOT NULL,
+    empresa VARCHAR (100) NOT NULL
+);
 
 SET sql_mode = 'STRICT_TRANS_TABLES';
 SET time_zone = 'America/Sao_Paulo';
