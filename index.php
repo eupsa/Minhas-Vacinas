@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -15,14 +18,12 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top"
-            style="background-color: #007bff; z-index: 1081; width: 100%; left: 50%; transform: translateX(-50%);">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #007bff; z-index: 1081; width: 100%; left: 50%; transform: translateX(-50%);">
             <div class="container">
                 <a class="navbar-brand" href="/">
                     <img src="/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -35,29 +36,46 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" onclick="Swal.fire({
-                                title: '🚧 O site está passando por modificações importantes!',
-                                text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
-                                icon: 'warning'
-                            }); return false;" class="nav-link">Campanhas</a>
+                            title: '🚧 O site está passando por modificações importantes!',
+                            text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
+                            icon: 'warning'
+                        }); return false;" class="nav-link">Campanhas</a>
                         </li>
                         <li class="nav-item">
                             <a href="src/ajuda/" class="nav-link">Suporte</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="btn btn-outline-light" href="src/auth/cadastro/">CADASTRE-SE</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-secondary btn-login" href="src/auth/entrar/">ENTRAR</a>
-                        </li>
+                        <?php if (isset($_SESSION['session_id'])): ?>
+                            <li class="nav-item">
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="src/painel/">
+                                    <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
+                                </a>
+                            </li>
+                            <li class="nav-item" style="margin-left: 10px;">
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="src/scripts/sair.php">
+                                    <i class="bi bi-box-arrow-left"></i>
+                                </a>
+                            </li>
+                        <?php else: ?>
+                            <li class="nav-item">
+                                <a class="btn btn-light text-primary rounded-pill px-4 py-2 transition-transform transform-hover" style="margin-right: 10px;" href="src/auth/cadastro/">
+                                    <i class="bi bi-person-plus"></i> CADASTRE-SE
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="src/auth/entrar/">
+                                    <i class="bi bi-box-arrow-in-right"></i> ENTRAR
+                                </a>
+                            </li>
+                        <?php endif; ?>
+
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel"
-            style="position: fixed; top: 0; left: 0; z-index: 1100;">
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="position: fixed; top: 0; left: 0; z-index: 1100;">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -84,33 +102,36 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li>
                                 <a class="dropdown-item" href="https://www.apple.com/br/app-store/">
-                                    <img src="https://api.iconify.design/logos:apple-app-store.svg" alt="App Store"
-                                        style="width: 20px; height: 20px;" class="me-2">
-                                    App Store
+                                    <img src="https://api.iconify.design/logos:apple-app-store.svg" alt="App Store" style="width: 20px; height: 20px;" class="me-2"> App Store
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="https://play.google.com/">
-                                    <img src="https://api.iconify.design/logos:google-play-icon.svg" alt="Google Play"
-                                        style="width: 20px; height: 20px;" class="me-2">
-                                    Google Play
+                                    <img src="https://api.iconify.design/logos:google-play-icon.svg" alt="Google Play" style="width: 20px; height: 20px;" class="me-2"> Google Play
                                 </a>
                             </li>
                         </ul>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="btn btn-outline-primary w-100 mb-2" href="src/auth/cadastro/">CADASTRE-SE</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-secondary w-100" href="src/auth/entrar/">ENTRAR</a>
-                    </li>
+                    <?php if (isset($_SESSION['session_id'])): ?>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary w-100 mb-2 rounded-pill px-3 py-1 text-primary transition-transform transform-hover" href="src/painel/">
+                                <i class="bi bi-arrow-return-left me-2"></i> Voltar à sua conta
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary w-100 mb-2 rounded-pill px-3 py-1 text-primary transition-transform transform-hover" href="src/auth/cadastro/">CADASTRE-SE</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary w-100 mb-2 rounded-pill px-3 py-1 text-white transition-transform transform-hover" href="src/auth/entrar/">ENTRAR</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
     </header>
-
 
     <section class="carrosel">
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
@@ -287,8 +308,8 @@
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">Links Úteis</h6>
                     <p>
-                        <a href="docs/Política-de-Privacidade.pdf"
-                            style="text-decoration: none; color: #adb5bd;" class="text-reset">Política de
+                        <a href="docs/Política-de-Privacidade.pdf" style="text-decoration: none; color: #adb5bd;"
+                            class="text-reset">Política de
                             Privacidade</a>
                     </p>
                     <p>
@@ -308,7 +329,7 @@
         </div>
     </footer>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.96/darkreader.min.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
 
