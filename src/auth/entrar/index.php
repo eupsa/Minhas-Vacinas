@@ -194,7 +194,7 @@ if (isset($_SESSION['session_id'])) {
         </div>
 
         <div class="text-center p-4" style="background-color: #181a1b; color: #adb5bd;">
-            © 2024 Minhas Vacinas. Todos os direitos reservados.
+            © 2025 Minhas Vacinas. Todos os direitos reservados.
         </div>
     </footer>
 
