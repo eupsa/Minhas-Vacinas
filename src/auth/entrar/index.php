@@ -178,11 +178,12 @@ if (isset($_SESSION['session_id'])) {
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">Links Úteis</h6>
                     <p>
-                        <a href="/assets/docs/Política-de-Privacidade.pdf" style="text-decoration: none; color: #adb5bd;"
-                            class="text-reset">Política de Privacidade</a>
+                        <a href="../../../docs/Política-de-Privacidade.pdf"
+                            style="text-decoration: none; color: #adb5bd;" class="text-reset">Política de
+                            Privacidade</a>
                     </p>
                     <p>
-                        <a href="/assets/docs/Termos-de-Serviço.pdf" style="text-decoration: none; color: #adb5bd;"
+                        <a href="../../../docs/Termos-de-Servico.pdf" style="text-decoration: none; color: #adb5bd;"
                             class="text-reset">Termos de Serviço</a>
                     </p>
                 </div>

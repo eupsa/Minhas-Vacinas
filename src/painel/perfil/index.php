@@ -365,19 +365,16 @@ if ($sql->rowCount() == 1) {
                         controle digital de vacinas.
                     </p>
                 </div>
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Serviços</h6>
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Links Úteis</h6>
                     <p>
-                        <a href="/src/auth/cadastro/" style="text-decoration: none; color: #adb5bd;"
-                            class="text-reset">Cadastro</a>
+                        <a href="../../../docs/Política-de-Privacidade.pdf"
+                            style="text-decoration: none; color: #adb5bd;" class="text-reset">Política de
+                            Privacidade</a>
                     </p>
                     <p>
-                        <a href="/src/ajuda/" style="text-decoration: none; color: #adb5bd;"
-                            class="text-reset">Suporte</a>
-                    </p>
-                    <p>
-                        <a href="/src/painel/" style="text-decoration: none; color: #adb5bd;"
-                            class="text-reset">Histórico</a>
+                        <a href="../../../docs/Termos-de-Servico.pdf" style="text-decoration: none; color: #adb5bd;"
+                            class="text-reset">Termos de Serviço</a>
                     </p>
                 </div>
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
