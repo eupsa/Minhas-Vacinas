@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://minhasvacinas.online/</loc>
+  <lastmod>2025-01-04T02:30:48+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://minhasvacinas.online/src/ajuda/</loc>
+  <lastmod>2025-01-04T02:30:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://minhasvacinas.online/src/auth/cadastro/</loc>
+  <lastmod>2025-01-04T02:30:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://minhasvacinas.online/src/auth/entrar/</loc>
+  <lastmod>2025-01-04T02:30:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://minhasvacinas.online/src/painel/../auth/entrar/</loc>
+  <lastmod>2025-01-04T02:30:48+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://minhasvacinas.online/docs/Pol%C3%ADtica-de-Privacidade.pdf</loc>
+  <lastmod>2025-01-02T02:12:36+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://minhasvacinas.online/docs/Termos-de-Servico.pdf</loc>
+  <lastmod>2025-01-02T02:12:36+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://minhasvacinas.online/src/auth/esqueceu-senha/</loc>
+  <lastmod>2025-01-04T02:30:48+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>

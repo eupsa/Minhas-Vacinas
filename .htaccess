@@ -1,5 +1,11 @@
-# Forçar HTTPS
+# Forçar HTTPS e www
 RewriteEngine On
+
+# Redirecionar para www
+RewriteCond %{HTTP_HOST} ^minhasvacinas\.online$ [NC]
+RewriteRule ^(.*)$ https://www.minhasvacinas.online/$1 [L,R=301]
+
+# Forçar HTTPS
 RewriteCond %{HTTPS} off
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

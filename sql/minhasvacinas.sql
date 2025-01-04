@@ -1,3 +1,5 @@
+SET sql_mode = 'STRICT_TRANS_TABLES';
+SET time_zone = 'America/Sao_Paulo';
 CREATE DATABASE IF NOT EXISTS minhasvacinas;
 USE minhasvacinas;
 
@@ -129,16 +131,15 @@ CREATE TABLE
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
     );
     
-CREATE TABLE IF NOT EXISTS acessos (
-    acesso INT PRIMARY KEY AUTO_INCREMENT,
-    ip VARCHAR (20) NOT NULL,
-    continente VARCHAR (30) NOT NULL,
-    pais VARCHAR (100) NOT NULL,
-    estado VARCHAR (100) NOT NULL,
-    cidade VARCHAR (100) NOT NULL,
-    empresa VARCHAR (100) NOT NULL
+CREATE TABLE 
+	IF NOT EXISTS ip_logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ip VARCHAR(45) NOT NULL,
+    cidade VARCHAR(255),
+    estado VARCHAR(255),
+    pais VARCHAR(255),
+    empresa VARCHAR(255),
+    data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-SET sql_mode = 'STRICT_TRANS_TABLES';
-SET time_zone = 'America/Sao_Paulo';
--- SELECT @@global.time_zone, @@session.time_zone;
+SELECT @@global.time_zone, @@session.time_zone;

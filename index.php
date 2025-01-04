@@ -1,5 +1,41 @@
 <?php
 session_start();
+require 'src/scripts/conn.php';
+
+$ip = '189.70.111.238';
+$token = 'c4444d8bf12e24';
+
+$response = file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}");
+
+if ($response !== false) {
+    $data = json_decode($response, true);
+
+    if (json_last_error() === JSON_ERROR_NONE) {
+        $cidade = isset($data['city']) ? $data['city'] : null;
+        $estado = isset($data['region']) ? $data['region'] : null;
+        $pais = isset($data['country']) ? $data['country'] : null;
+        $empresa = isset($data['org']) ? $data['org'] : null;
+
+        $sql = $pdo->prepare("SELECT COUNT(*) FROM ip_logs WHERE ip = :ip");
+        $sql->bindValue(':ip', $ip);
+        $sql->execute();
+        $ipExistente = $sql->fetchColumn();
+
+        if ($ipExistente == 0) {
+            try {
+                $sql = $pdo->prepare("INSERT INTO ip_logs (ip, cidade, estado, pais, empresa) VALUES (:ip, :cidade, :estado, :pais, :empresa)");
+                $sql->bindValue(':ip', $ip);
+                $sql->bindValue(':cidade', $cidade);
+                $sql->bindValue(':estado', $estado);
+                $sql->bindValue(':pais', $pais);
+                $sql->bindValue(':empresa', $empresa);
+                $sql->execute();
+            } catch (PDOException $e) {
+            }
+        }
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -13,7 +49,6 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/darkreader@4.9.96/darkreader.min.js"></script>
     <title>Minhas Vacinas</title>
 </head>
 
@@ -333,6 +368,12 @@ session_start();
         <i class="bi bi-arrow-up"></i>
     </button>
 
+
+    <script type="text/javascript">
+        var infolinks_pid = 3430874;
+        var infolinks_wsid = 0;
+    </script>
+    <script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script>
     <script src="assets/js/theme-dark.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
