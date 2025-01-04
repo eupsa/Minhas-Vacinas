@@ -2,7 +2,7 @@
 session_start();
 require 'src/scripts/conn.php';
 
-$ip = '189.70.111.238';
+$ip = $_SERVER['REMOTE_ADDR'];
 $token = 'c4444d8bf12e24';
 
 $response = file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}");
