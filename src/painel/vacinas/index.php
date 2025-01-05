@@ -7,7 +7,6 @@ if (!isset($_SESSION['session_id'])) {
     header("Location: ../../auth/entrar/");
     exit();
 } else {
-
     $id_usuario = $_SESSION['session_id'];
     $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_usuario = :id_usuario");
     $sql->bindValue(':id_usuario', $id_usuario);

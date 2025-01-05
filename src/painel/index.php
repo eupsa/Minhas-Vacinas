@@ -1,8 +1,21 @@
 <?php
+require '../scripts/conn.php';
 session_start();
 if (!isset($_SESSION['session_id'])) {
     header("Location: ../auth/entrar/");
     exit();
+} else {
+    $id_usuario = $_SESSION['session_id'];
+    $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_usuario = :id_usuario ORDER BY data_aplicacao DESC LIMIT 3");
+    $sql->bindValue(':id_usuario', $id_usuario);
+    $sql->execute();
+    $vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($vacinas) > 0) {
+        $_SESSION['vacinas'] = $vacinas;
+    } else {
+        $_SESSION['vacinas'] = [];
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -136,59 +149,40 @@ if (!isset($_SESSION['session_id'])) {
             </div>
     </section>
 
-    <section class="side-bar">
-        <div class="content" style="margin-top: -5%;">
-            <h1 class="text-center mb-4">Últimas Notícias</h1>
-            <div class="row">
-                <?php
-                $apiKey = "cca8aa0d21a74b84a307fdcfe5375f8d";
-                $query = "Saude";
-                $language = "pt";
-                $url = "https://newsapi.org/v2/everything?q=" . urlencode($query) . "&language=" . $language . "&apiKey=" . $apiKey;
-
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                    "User-Agent: Minhas-Vacinas/1.0"
-                ]);
-
-                $response = curl_exec($ch);
-                curl_close($ch);
-
-                $data = json_decode($response, true);
-
-                if (isset($data['articles'])) {
-                    foreach ($data['articles'] as $article) {
-                        $title = $article['title'];
-
-                        if (strpos(strtolower($title), 'removed') !== false) {
-                            continue;
-                        }
-
-                        $description = $article['description'];
-                        $url = $article['url'];
-                        $image = $article['urlToImage'] ?? "https://via.placeholder.com/200x150";
-
-                        echo '
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 border-0 shadow-sm rounded-lg">
-                            <img src="' . $image . '" class="card-img-top rounded-top" alt="Imagem da notícia">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title text-truncate" style="font-size: 1rem; font-weight: bold;">' . $title . '</h5>
-                                <p class="card-text text-truncate" style="font-size: 0.85rem; flex-grow: 1;">' . $description . '</p>
-                                <a href="' . $url . '" class="btn btn-success btn-block mt-3" target="_blank" style="font-size: 0.85rem; border-radius: 50px; transition: background-color 0.3s; padding: 10px 20px;">Leia mais</a>
+    <section class="access-quick">
+        <div class="content text-center mb-5" style="margin-top: -10%;">
+            <h1>Últimas vacinas</h1>
+            <div class="row justify-content-center">
+                <?php if (count($vacinas) > 0): ?>
+                    <?php foreach ($vacinas as $vacina): ?>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"> <!-- Responsividade melhorada -->
+                            <div class="card" style="width: 100%; height: 100%;"> <!-- Ajuste no tamanho do card -->
+                                <img src="../../../../assets/img/vac-card.jpg" class="card-img-top" alt="Vacina">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= htmlspecialchars($vacina['nome_vac']) ?></h5>
+                                    <p class="card-text">Dose: <?= htmlspecialchars($vacina['dose']) ?></p>
+                                    <p class="card-text">Data de Aplicação: <?= htmlspecialchars($vacina['data_aplicacao']) ?></p>
+                                    <p class="card-text">Local: <?= htmlspecialchars($vacina['local_aplicacao']) ?></p>
+                                    <p class="card-text">Lote: <?= htmlspecialchars($vacina['lote']) ?></p>
+                                    <p class="card-text">Observações: <?= htmlspecialchars($vacina['obs']) ?></p>
+                                    <form action="../backend/excluir-vacina.php" method="POST" style="display: inline;" class="form-excluir-vacina">
+                                        <input type="hidden" name="id_vac" value="<?= $vacina['id_vac'] ?>">
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>';
-                    }
-                } else {
-                    echo '<p class="text-danger text-center">Nenhuma notícia encontrada.</p>';
-                }
-                ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="col-12">
+                        <p class="text-warning">Nenhuma vacina registrada ainda. Adicione uma nova vacina ao seu histórico.</p>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>
+
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

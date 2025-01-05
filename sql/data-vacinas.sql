@@ -1,7 +1,7 @@
 use minhasvacinas;
 
 INSERT INTO vacina 
-    (nome_vac, data_aplicacao, proxima_dose, local_aplicacao, tipo, dose, lote, obs, id_user) 
+    (nome_vac, data_aplicacao, proxima_dose, local_aplicacao, tipo, dose, lote, obs, id_usuario) 
 VALUES
     ('Hepatite B', '2024-01-01', '2025-01-01', 'Clínica Saúde', 'Adulto', 1, 'L123', 'Primeira dose aplicada com sucesso.', 1),
     ('Febre Amarela', '2024-01-05', '2034-01-05', 'UBS Central', 'Adulto', 1, 'FA456', 'Vacina aplicada sem reações adversas.', 1),
