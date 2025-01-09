@@ -14,18 +14,7 @@ $sql->execute();
 
 if ($sql->rowCount() == 1) {
     info_user($pdo);
-
-    $id_usuario = $_SESSION['session_id'];
-    $sql = $pdo->prepare("SELECT * FROM cidade WHERE Uf = :estado");
-    $sql->bindValue(':estado', $_SESSION['session_estado']);
-    $sql->execute();
-    $cidades = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-    if (count($cidades) > 0) {
-        $_SESSION['cidades'] = $cidades;
-    } else {
-        $_SESSION['cidades'] = [];
-    }
+    
 } else {
     $_SESSION = [];
     session_destroy();
@@ -192,11 +181,11 @@ if ($sql->rowCount() == 1) {
                                 <option value="Outro" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
                             </select>
                         </div>
-                        <!-- <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-6">
                             <label for="cidade" class="form-label">Cidade</label>
                             <input type="text" class="form-control" id="cidade" name="cidade" disabled
                                 value="<?php echo isset($_SESSION['session_cidade']) ? $_SESSION['session_cidade'] : ''; ?>">
-                        </div> -->
+                        </div>
                     </div>
                     <div class="text-center mt-4">
                         <button type="button" class="btn btn w-100 py-1 text-white" data-bs-toggle="modal" data-bs-target="#updateModal" style="background: #3f3f3f;">Editar Dados</button>
@@ -259,10 +248,10 @@ if ($sql->rowCount() == 1) {
                                     </select>
                                 </div>
                             </div>
-                            <div class="mb-3">
-                                <div class="col">
-                                    <label for="estado" class="form-label">Estado</label>
-                                    <select class="form-select" id="estado" name="estado">
+                            <div class="col">
+                                <label for="estado" class="form-label">Estado</label>
+                                <div class="d-flex" style="margin-bottom: 3%;">
+                                    <select class="form-select" id="estado" name="estado" onchange="atualizarCidades()">
                                         <option value="" disabled selected>Selecione um estado</option>
                                         <option value="AC" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AC') ? 'selected' : ''; ?>>Acre</option>
                                         <option value="AL" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AL') ? 'selected' : ''; ?>>Alagoas</option>
@@ -294,22 +283,18 @@ if ($sql->rowCount() == 1) {
                                     </select>
                                 </div>
                             </div>
-                            <!-- <div class="row mb-3">
+                            <!-- <div class="mb-3">
                                 <div class="col">
                                     <label for="cidade" class="form-label">Cidade</label>
-                                    <?php if (count($cidades) > 0): ?>
+                                    <div class="d-flex">
                                         <select class="form-select" id="cidade" name="cidade">
                                             <option value="" disabled selected>Selecione sua cidade...</option>
-                                            <?php foreach ($cidades as $cidade): ?>
-                                                <option value="<?php echo $cidade['Nome']; ?>" <?php echo (isset($_SESSION['session_cidade']) && $_SESSION['session_cidade'] == $cidade['Nome']) ? 'selected' : ''; ?>>
-                                                    <?php echo $cidade['Nome']; ?>
-                                                </option>
-                                            <?php endforeach; ?>
                                         </select>
-                                    <?php else: ?>
-                                        <input type="text" class="form-control" id="cidade" name="cidade" autocomplete="off"
-                                            value="<?php echo isset($_SESSION['session_cidade']) ? $_SESSION['session_cidade'] : ''; ?>">
-                                    <?php endif; ?>
+                                        <button id="loadButton" class="btn btn-primary ms-2" type="button" disabled>
+                                            <i id="loaderIcon" class="bi bi-arrow-clockwise"></i>
+                                            <span id="loader" class="spinner-border spinner-border-sm ms-2" style="display: none;" role="status" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div> -->
                             <div class="modal-footer">
@@ -322,7 +307,6 @@ if ($sql->rowCount() == 1) {
             </div>
         </div>
     </section>
-
     <section>
         <div class="modal fade" id="alterar-email" tabindex="-1" aria-labelledby="alterar-email" aria-hidden="true" style="z-index: 1200;">
             <div class="modal-dialog">
