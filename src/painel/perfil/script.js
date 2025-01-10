@@ -186,3 +186,30 @@ form_alterar_email.addEventListener("submit", async (e) => {
     });
   }
 });
+
+$(document).ready(function () {
+  $("#state").on("change", function () {
+    var selectedState = $(this).val();
+
+    if (selectedState) {
+      $.ajax({
+        url: "../backend/buscar-cidades.php",
+        type: "POST",
+        data: { state: selectedState },
+        success: function (response) {
+          $("#city").html('<option value="">Selecione uma cidade</option>'); // Reseta as opções
+          $.each(JSON.parse(response), function (key, value) {
+            $("#city").append(
+              '<option value="' + value + '">' + value + "</option>"
+            );
+          });
+        },
+        error: function () {
+          alert("Erro ao buscar cidades.");
+        },
+      });
+    } else {
+      $("#city").html('<option value="">Selecione uma cidade</option>'); // Reseta as opções
+    }
+  });
+});

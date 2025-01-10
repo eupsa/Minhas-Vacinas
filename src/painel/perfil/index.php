@@ -14,7 +14,6 @@ $sql->execute();
 
 if ($sql->rowCount() == 1) {
     info_user($pdo);
-    
 } else {
     $_SESSION = [];
     session_destroy();
