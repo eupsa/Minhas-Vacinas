@@ -31,14 +31,12 @@ $sql->bindValue(':email', $email);
 $sql->execute();
 
 if ($sql->rowCount() === 1) {
-
     $retorna = ['status' => false, 'msg' => "Já existe outro usuário com esse e-mail."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
 } else {
-    $usuario = $sql->fetch(PDO::FETCH_ASSOC);
-    $id_usuario = $usuario['id_usuario'];
+    $id_usuario = $_SESSION['session_id'];
     enviarEmail($email, $id_usuario);
 
     $retorna = ['status' => true, 'msg' => "E-mail enviando com sucesso. Verifique sua caixa de entrada para confirmar seu e-mail."];

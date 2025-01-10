@@ -9,11 +9,11 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-$id_usuario = filter_var(strtolower(trim($dados['novo_email'])), FILTER_SANITIZE_EMAIL);
+$novo_email = filter_var(strtolower(trim($dados['novo_email'])), FILTER_SANITIZE_EMAIL);
 $id_usuario = $dados['id'];
 
 if (empty($id_usuario) && empty($novo_email)) {
-    $retorna = ['status' => false, 'msg' => "ID ou e-mail não foi preenchido. Solicite um novo e-mail."];
+    $retorna = ['status' => false, 'msg' => $novo_email,  $id_usuario];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();

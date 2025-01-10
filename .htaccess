@@ -13,3 +13,8 @@ ErrorDocument 401 /assets/error/401.html
 ErrorDocument 403 /assets/error/403.html
 ErrorDocument 404 /assets/error/404.html
 ErrorDocument 500 /assets/error/500.html
+
+#Redireciona todas as requisições para a pasta src, mas sem mostrar src na URL.
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^/src/
+RewriteRule ^(.*)$ src/$1 [L]
