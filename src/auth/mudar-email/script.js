@@ -36,7 +36,7 @@ if (form_alterar_email) {
           confirmButtonColor: "#3085d6",
           confirmButtonText: "Fechar",
         }).then(() => {
-          window.location.href = "../../painel/perfil/";
+          window.location.href = "../../auth/entrar/";
         });
       } else {
         Swal.fire({
@@ -44,6 +44,8 @@ if (form_alterar_email) {
           icon: "error",
           confirmButtonColor: "#3085d6",
           confirmButtonText: "Fechar",
+        }).then(() => {
+          window.location.href = "/";
         });
       }
     } catch (error) {

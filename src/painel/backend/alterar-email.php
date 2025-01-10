@@ -50,6 +50,7 @@ if ($sql->rowCount() === 1) {
 function enviarEmail($email, $id_usuario)
 {
     $email_body = file_get_contents('../../../assets/email/alterar-email.php');
+    $id_usuario = strval($id_usuario);
     $email_body = str_replace('{{id}}', $id_usuario, $email_body);
     $email_body = str_replace('{{email}}', $email, $email_body);
     $mail = new PHPMailer(true);

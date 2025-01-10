@@ -36,8 +36,6 @@ if ($sql->rowCount() == 1) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3472234536437513"
-        crossorigin="anonymous"></script>
     <title>Vacinas - Perfil</title>
 </head>
 
@@ -203,7 +201,7 @@ if ($sql->rowCount() == 1) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="form-perfil" action="../backend/atualizar-dados.php" method="post">
+                        <form id="form-perfil" action="../backend/atualizar-dados.php" method="POST">
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="nome" class="form-label">Nome</label>
@@ -250,7 +248,7 @@ if ($sql->rowCount() == 1) {
                             <div class="col">
                                 <label for="estado" class="form-label">Estado</label>
                                 <div class="d-flex" style="margin-bottom: 3%;">
-                                    <select class="form-select" id="estado" name="estado" onchange="atualizarCidades()">
+                                    <select class="form-select" id="estado" name="estado">
                                         <option value="" disabled selected>Selecione um estado</option>
                                         <option value="AC" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AC') ? 'selected' : ''; ?>>Acre</option>
                                         <option value="AL" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AL') ? 'selected' : ''; ?>>Alagoas</option>
@@ -282,18 +280,12 @@ if ($sql->rowCount() == 1) {
                                     </select>
                                 </div>
                             </div>
-                            <!-- <div class="mb-3">
-                                <div class="col">
-                                    <label for="cidade" class="form-label">Cidade</label>
-                                    <div class="d-flex">
-                                        <select class="form-select" id="cidade" name="cidade">
-                                            <option value="" disabled selected>Selecione sua cidade...</option>
-                                        </select>
-                                        <button id="loadButton" class="btn btn-primary ms-2" type="button" disabled>
-                                            <i id="loaderIcon" class="bi bi-arrow-clockwise"></i>
-                                            <span id="loader" class="spinner-border spinner-border-sm ms-2" style="display: none;" role="status" aria-hidden="true"></span>
-                                        </button>
-                                    </div>
+                            <!-- <div class="col">
+                                <label for="Cidade" class="form-label">Cidade</label>
+                                <div class="d-flex">
+                                    <select class="form-select" id="cidade" name="cidade">
+                                        <option value="" disabled selected>Selecione uma cidade</option>
+                                    </select>
                                 </div>
                             </div> -->
                             <div class="modal-footer">
@@ -306,6 +298,7 @@ if ($sql->rowCount() == 1) {
             </div>
         </div>
     </section>
+
     <section>
         <div class="modal fade" id="alterar-email" tabindex="-1" aria-labelledby="alterar-email" aria-hidden="true" style="z-index: 1200;">
             <div class="modal-dialog">
@@ -374,7 +367,9 @@ if ($sql->rowCount() == 1) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script.js"></script>
+    <script src="cidades.js"></script>
     <script>
 
     </script>
