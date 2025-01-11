@@ -84,10 +84,9 @@ try {
     exit();
 }
 
-function email_cadastro($nome, $email, $codigo)
+function email_cadastro($email, $codigo)
 {
-    $email_body = file_get_contents('../../../assets/email/cadastro.php');
-    $email_body = str_replace('{{nome}}', $nome, $email_body);
+    $email_body = file_get_contents('../../../assets/email/cadastro.html');
     $email_body = str_replace('{{codigo}}', $codigo, $email_body);
     $mail = new PHPMailer(true);
 

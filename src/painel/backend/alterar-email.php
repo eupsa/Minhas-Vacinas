@@ -75,7 +75,6 @@ function alterar_email($email, $codigo)
 {
 
     $email_body = file_get_contents('../../../assets/email/cadastro.php');
-    $email_body = str_replace('{{nome}}', $_SESSION['session_nome'], $email_body);
     $email_body = str_replace('{{codigo}}', $codigo, $email_body);
     $mail = new PHPMailer(true);
 

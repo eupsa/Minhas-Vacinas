@@ -64,11 +64,9 @@ if (empty($codigo)) {
     }
 }
 
-function enviarEmail($nome, $email)
+function enviarEmail($email)
 {
-    $action_url = 'https://minhasvacinas.online/src/auth/entrar/';
-    $email_body = file_get_contents('../../../assets/email/confirmar-cadastro.php');
-    $email_body = str_replace('{{action_url}}', $action_url, $email_body);
+    $email_body = file_get_contents('../../../assets/email/cadastro-confirmado.html');
     $mail = new PHPMailer(true);
 
     try {

@@ -96,10 +96,9 @@ if (empty($senha) || empty($confsenha) || empty($token)) {
 }
 
 
-function enviarEmail($nome, $email)
+function enviarEmail($email)
 {
-    $email_body = file_get_contents('../../assets/templates/nova-senha.php');
-    $email_body = str_replace('{{nome}}', $nome, $email_body);
+    $email_body = file_get_contents('../../assets/templates/nova-senha.html');
     $mail = new PHPMailer(true);
 
     try {

@@ -52,11 +52,9 @@ if (empty($email)) {
     }
 }
 
-function enviarEmail($nome, $email, $token)
+function enviarEmail($email, $token)
 {
-    $email_body = file_get_contents('../../../assets/email/esqueceu-senha.php');
-    $email_body = str_replace('{{nome}}', $nome, $email_body);
-    $email_body = str_replace('{{email}}', $email, $email_body);
+    $email_body = file_get_contents('../../../assets/email/esqueceu-senha.html');
     $email_body = str_replace('{{token}}', $token, $email_body);
     $mail = new PHPMailer(true);
 
