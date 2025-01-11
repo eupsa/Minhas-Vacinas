@@ -204,3 +204,71 @@ i {
   text-align: center;
   padding: 20px;
 }
+
+/* Centraliza o conteúdo da seção */
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Centraliza os títulos */
+h1,
+h3,
+.lead {
+  text-align: center;
+}
+
+/* Ajustes para o card */
+.card {
+  width: 100%;
+  max-width: 350px; /* Limita o tamanho máximo */
+  margin: 0 auto 20px; /* Garante que o card ficará no centro com uma margem embaixo */
+}
+
+/* Estilo para o conteúdo do card */
+.card-body {
+  padding: 15px;
+}
+
+/* Ajustes para garantir que o layout dos cards fique responsivo */
+.vacinas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Ajustes no tamanho das imagens dentro dos cards */
+.card-img-top {
+  object-fit: cover;
+  height: 250px;
+  width: 100%;
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 767px) {
+  /* Ajuste os títulos */
+  h1 {
+    font-size: 1.5rem;
+  }
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  /* Ajuste o texto do card */
+  .card-body .card-title {
+    font-size: 1.2rem;
+  }
+
+  /* Ajuste os botões dentro do card */
+  .card-footer button {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+
+  /* Ajustes para a área de vacinas */
+  .vacinas-container {
+    justify-content: center;
+  }
+}
