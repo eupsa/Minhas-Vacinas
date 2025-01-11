@@ -5,7 +5,6 @@ require 'src/scripts/conn.php';
 $ip = $_SERVER['REMOTE_ADDR'];
 $token = 'c4444d8bf12e24';
 
-// Obtém a localização do IP
 $response = file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}");
 
 if ($response !== false) {
@@ -17,15 +16,6 @@ if ($response !== false) {
         $pais = isset($data['country']) ? $data['country'] : null;
         $empresa = isset($data['org']) ? $data['org'] : null;
 
-        // Verificar se o IP está em uma lista de VPNs
-        if (isset($data['org']) && strpos(strtolower($data['org']), 'vpn') !== false) {
-            // Considerando que o nome da organização pode indicar um provedor de VPN
-            $_SESSION['vpn_detected'] = true; // Defina uma sessão para indicar VPN detectada
-        } else {
-            $_SESSION['vpn_detected'] = false;
-        }
-
-        // Armazenar a informação no banco de dados
         $sql = $pdo->prepare("SELECT COUNT(*) FROM ip_logs WHERE ip = :ip");
         $sql->bindValue(':ip', $ip);
         $sql->execute();
@@ -45,11 +35,8 @@ if ($response !== false) {
         }
     }
 }
-?>
-<script>
-    const vpnDetected = <?php echo json_encode(isset($_SESSION['vpn_detected']) && $_SESSION['vpn_detected']); ?>;
-</script>
 
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -62,8 +49,8 @@ if ($response !== false) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Metatags Open Graph -->
-    <meta property="og:title" content="Minhas Vacinas - Seu Histórico de Imunizações" />
+        <!-- Metatags Open Graph -->
+        <meta property="og:title" content="Minhas Vacinas - Seu Histórico de Imunizações" />
     <meta property="og:description" content="Acesse e gerencie seu histórico de vacinação com o Minhas Vacinas." />
     <meta property="og:image" content="URL_da_imagem_da_miniatura.jpg" />
     <meta property="og:url" content="https://www.minhasvacinas.online" />
@@ -74,7 +61,6 @@ if ($response !== false) {
     <meta name="twitter:title" content="Minhas Vacinas - Seu Histórico de Imunizações" />
     <meta name="twitter:description" content="Acesse e gerencie seu histórico de vacinação com o Minhas Vacinas." />
     <meta name="twitter:image" content="URL_da_imagem_da_miniatura.jpg" />
-
     <title>Minhas Vacinas</title>
 </head>
 

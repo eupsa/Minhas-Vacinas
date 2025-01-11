@@ -32,7 +32,7 @@ if (empty($email)) {
             $sql->bindValue(':token', $token);
             $sql->bindValue(':data_expiracao', $expiry);
             $sql->execute();
-            enviarEmail($nome, $email, $token);
+            enviarEmail($email, $token);
             $retorna = ['status' => true, 'msg' => "Um e-mail foi enviado com um link para alteração da senha."];
             header('Content-Type: application/json');
             echo json_encode($retorna);
@@ -70,11 +70,11 @@ function enviarEmail($email, $token)
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
-        $mail->Subject = 'Solicitação de Redefinição de Senha';
+        $mail->Subject = 'Redefinição de Senha ';
+        $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img');
+        $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;
-        $mail->AltBody = 'Este é o corpo do e-mail em texto plano, para clientes de e-mail sem suporte a HTML';
         $mail->send();
-
         return true;
     } catch (Exception $e) {
         return false;

@@ -47,6 +47,7 @@ if (empty($senha) || empty($confsenha) || empty($token)) {
                                 $sql->bindValue(':token', $token);
                                 $sql->execute();
 
+                                enviarEmail($email);
                                 $retorna = ['status' => true, 'msg' => "Senha atualizada com sucesso."];
                                 header('Content-Type: application/json');
                                 echo json_encode($retorna);
@@ -98,7 +99,7 @@ if (empty($senha) || empty($confsenha) || empty($token)) {
 
 function enviarEmail($email)
 {
-    $email_body = file_get_contents('../../assets/templates/nova-senha.html');
+    $email_body = file_get_contents('../../../assets/email/nova-senha.html');
     $mail = new PHPMailer(true);
 
     try {
@@ -113,11 +114,11 @@ function enviarEmail($email)
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
-        $mail->Subject = 'Senha Alterada com Sucesso!';
+        $mail->Subject = 'Senha Alterada com sucesso!';
+        $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img');
+        $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;
-        $mail->AltBody = 'Este é o corpo do e-mail em texto plano, para clientes de e-mail sem suporte a HTML';
         $mail->send();
-
         return true;
     } catch (Exception $e) {
         return false;

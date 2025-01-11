@@ -8,7 +8,7 @@ require '../../scripts/conn.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-    $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $nome = ucwords(trim($dados['nome']));
 $email = filter_var(strtolower(trim($dados['email'])), FILTER_SANITIZE_EMAIL);
 $estado = trim($dados['estado']);
@@ -16,9 +16,33 @@ $senha = $dados['senha'];
 $confsenha = $dados['confSenha'];
 
 $estados = [
-    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 
-    'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 
-    'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+    'AC',
+    'AL',
+    'AP',
+    'AM',
+    'BA',
+    'CE',
+    'DF',
+    'ES',
+    'GO',
+    'MA',
+    'MT',
+    'MS',
+    'MG',
+    'PA',
+    'PB',
+    'PR',
+    'PE',
+    'PI',
+    'RJ',
+    'RN',
+    'RS',
+    'RO',
+    'RR',
+    'SC',
+    'SP',
+    'SE',
+    'TO'
 ];
 
 if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($confsenha) || empty($email)) {
@@ -49,6 +73,8 @@ if (!in_array($estado, $estados)) {
     exit();
 }
 
+$retorna = []; // Inicializa a variável $retorna antes de qualquer operação
+
 try {
     $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
     $sql = $pdo->prepare("INSERT INTO usuario (nome, email, estado, senha) VALUES (:nome, :email, :estado, :senha)");
@@ -66,44 +92,63 @@ try {
         $sql->bindValue(':codigo', $codigo);
         $sql->execute();
 
-        if (email_cadastro($nome, $email, $codigo)) {
+        if (email_cadastro($email, $codigo)) {
             $retorna = ['status' => true, 'msg' => "Sua conta foi criada. Um e-mail foi enviado com um código de verificação. Siga as instruções na página a seguir."];
             session_start();
             $_SESSION['temp-cad'] = $email;
         } else {
-            $retorna = ['status' => false, 'msg' => "Cadastro realizado, mas não foi possível enviar o e-mail de confirmação."];
+            $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário: " . $e->getMessage()];
         }
     } else {
         $retorna = ['status' => false, 'msg' => "Erro ao cadastrar usuário. Tente novamente."];
     }
 } catch (PDOException $e) {
-    $retorna = ['status' => false, 'msg' => "O cadastro não pôde ser concluído. Verifique os dados e tente novamente."];
+    $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário: " . $e->getMessage()];
 } finally {
-    header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
 }
 
 function email_cadastro($email, $codigo)
 {
+    // Carrega o conteúdo do template HTML
     $email_body = file_get_contents('../../../assets/email/cadastro.html');
-    $email_body = str_replace('{{codigo}}', $codigo, $email_body);
+
+    // Substitui o marcador {{code}} pelo código de verificação
+    $email_body = str_replace('{{code}}', $codigo, $email_body);
+
+    // Instancia o PHPMailer
     $mail = new PHPMailer(true);
 
     try {
+        // Configurações SMTP
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'equipevaccilife@gmail.com';
-        $mail->Password = 'sfii esho quah qkjd';
+        $mail->Password = 'sfii esho quah qkjd'; // Use uma senha de app
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
+
+        // Configurações do remetente e destinatário
         $mail->setFrom('equipevaccilife@gmail.com', 'Minhas Vacinas');
         $mail->addAddress($email);
+
+        // Configurações de HTML e charset
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
         $mail->Subject = 'Confirmação de Cadastro';
+
+        // Adiciona a imagem como anexo embutido (CID)
+        $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img'); // Caminho da imagem e identificador CID
+
+        // Substitui o marcador {{logo_img}} no corpo do e-mail pelo CID
+        $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
+
+        // Define o corpo do e-mail
         $mail->Body = $email_body;
+
+        // Envia o e-mail
         $mail->send();
         return true;
     } catch (Exception $e) {

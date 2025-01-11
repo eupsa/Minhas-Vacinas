@@ -66,23 +66,41 @@ if (empty($codigo)) {
 
 function enviarEmail($email)
 {
+    // Carrega o conteúdo do template HTML
     $email_body = file_get_contents('../../../assets/email/novo-email.html');
+
+    // Instancia o PHPMailer
     $mail = new PHPMailer(true);
 
     try {
+        // Configurações SMTP
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'equipevaccilife@gmail.com';
-        $mail->Password = 'sfii esho quah qkjd';
+        $mail->Password = 'sfii esho quah qkjd'; // Use uma senha de app
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
+
+        // Configurações do remetente e destinatário
         $mail->setFrom('equipevaccilife@gmail.com', 'Minhas Vacinas');
         $mail->addAddress($email);
+
+        // Configurações de HTML e charset
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
-        $mail->Subject = 'alterou';
+        $mail->Subject = 'Alterar e-mail';
+
+        // Adiciona a imagem como anexo embutido (CID)
+        $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img'); // Caminho da imagem e identificador CID
+
+        // Substitui o marcador {{logo_img}} no corpo do e-mail pelo CID
+        $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
+
+        // Define o corpo do e-mail
         $mail->Body = $email_body;
+
+        // Envia o e-mail
         $mail->send();
         return true;
     } catch (Exception $e) {

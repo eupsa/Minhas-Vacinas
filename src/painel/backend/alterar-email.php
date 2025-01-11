@@ -57,7 +57,7 @@ try {
     $sql->bindValue(':id_usuario', $_SESSION['session_id']);
     $sql->execute();
 
-    alterar_email($email, $codigo);
+    enviarEmail($email, $codigo);
     $retorna = ['status' => true, 'msg' => "Código enviado com sucesso!"];
     header('Content-Type: application/json');
     echo json_encode($retorna);
@@ -71,27 +71,46 @@ try {
     exit();
 }
 
-function alterar_email($email, $codigo)
+function enviarEmail($email, $codigo)
 {
+    // Carrega o conteúdo do template HTML
+    $email_body = file_get_contents('../../../assets/email/alterar-email.html');
 
-    $email_body = file_get_contents('../../../assets/email/cadastro.php');
-    $email_body = str_replace('{{codigo}}', $codigo, $email_body);
+    // Substitui o marcador {{code}} pelo código de verificação
+    $email_body = str_replace('{{code}}', $codigo, $email_body);
+
+    // Instancia o PHPMailer
     $mail = new PHPMailer(true);
 
     try {
+        // Configurações SMTP
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'equipevaccilife@gmail.com';
-        $mail->Password = 'sfii esho quah qkjd';
+        $mail->Password = 'sfii esho quah qkjd'; // Use uma senha de app
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
+
+        // Configurações do remetente e destinatário
         $mail->setFrom('equipevaccilife@gmail.com', 'Minhas Vacinas');
         $mail->addAddress($email);
+
+        // Configurações de HTML e charset
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
-        $mail->Subject = 'Mudar de Cadastro';
+        $mail->Subject = 'E-mail alterado com sucesso!';
+
+        // Adiciona a imagem como anexo embutido (CID)
+        $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img'); // Caminho da imagem e identificador CID
+
+        // Substitui o marcador {{logo_img}} no corpo do e-mail pelo CID
+        $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
+
+        // Define o corpo do e-mail
         $mail->Body = $email_body;
+
+        // Envia o e-mail
         $mail->send();
         return true;
     } catch (Exception $e) {
