@@ -44,6 +44,7 @@ CREATE TABLE
         cpf VARCHAR(14) UNIQUE,
         telefone VARCHAR(15),
 		cidade VARCHAR(100) DEFAULT 'Não informado',
+        
         data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 
@@ -84,21 +85,11 @@ CREATE TABLE
 CREATE TABLE
     IF NOT EXISTS esqueceu_senha (
         id INT PRIMARY KEY AUTO_INCREMENT,
-        email VARCHAR(255) UNIQUE NOT NULL,
-        token VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        token VARCHAR(255) UNIQUE NOT NULL,
         data_expiracao DATETIME NOT NULL,
         data_solicitacao DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
-    );
-    
-CREATE TABLE
-    IF NOT EXISTS mudar_senha (
-        id INT PRIMARY KEY AUTO_INCREMENT,
-        email VARCHAR(255) UNIQUE NOT NULL,
-        codigo VARCHAR(255) NOT NULL,
-        id_usuario INT,
-        FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE,
-        FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE
     );
     
 CREATE TABLE
@@ -113,8 +104,8 @@ CREATE TABLE
     
 CREATE TABLE
     IF NOT EXISTS excluir_conta (
-		id_solicitacao INT PRIMARY KEY AUTO_INCREMENT,
-        code_email INT NOT NULL,
+		id INT PRIMARY KEY AUTO_INCREMENT,
+        codigo INT NOT NULL,
         email VARCHAR(255) NOT NULL,
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
     );

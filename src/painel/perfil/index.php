@@ -105,7 +105,7 @@ if ($sql->rowCount() == 1) {
                         </li>
                         <li><a class="dropdown-item" href="../../ajuda/"><i class="fas fa-headset"></i> Suporte</a></li>
                         <li><a class="dropdown-item" href="../../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
-                        <li><a class="dropdown-item text-danger" href="">Excluir conta</a></li>
+                        <li><a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#excluir-conta" href="">Excluir conta</a></li>
                     </ul>
                 </div>
             </div>
@@ -201,7 +201,7 @@ if ($sql->rowCount() == 1) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Se você deseja atualizar seu e-mail <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#alterar-email">clique aqui</a> ou sua senha <a href="#" class="text-primary">clique aqui</a></p>
+                        <p>Se você deseja atualizar seu e-mail <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#alterar-email">clique aqui</a> ou sua senha <a href="../../auth/esqueceu-senha/" class="text-primary">clique aqui</a></p>
                         <form id="form-perfil" action="../backend/atualizar-dados.php" method="POST">
                             <div class="row mb-3">
                                 <div class="col">
@@ -214,7 +214,7 @@ if ($sql->rowCount() == 1) {
                                 <div class="col">
                                     <label for="data_nascimento" class="form-label">Data de Nascimento</label>
                                     <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" autocomplete="off"
-                                        value="<?php echo isset($_SESSION['session_data_nascimento']) ? $_SESSION['session_data_nascimento'] : ''; ?>">
+                                        value="<?php echo !empty($_SESSION['session_data_nascimento']) ? $_SESSION['session_data_nascimento'] : ''; ?>">
                                 </div>
                                 <div class="col">
                                     <label for="telefone" class="form-label">Telefone</label>
@@ -232,7 +232,6 @@ if ($sql->rowCount() == 1) {
                                 <div class="mb-3">
                                     <label for="cpf" class="form-label">CPF</label>
                                     <input type="text" class="form-control" id="cpf" name="cpf" autocomplete="off">
-                                    <small class="form-text text-muted" style="color: red;">O CPF pode ser preenchido uma única vez e não poderá ser alterado.</small>
                                 </div>
                             <?php endif; ?>
                             <div class="row mb-3">
@@ -319,7 +318,7 @@ if ($sql->rowCount() == 1) {
                                 </div>
                             </div>
                             <div class="modal-footer custom-footer">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmar-codigo">Já tenho um código</button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmar-exclusao">Já tenho um código</button>
                                 <button type="submit" class="btn btn-secondary">Enviar código</button>
                             </div>
                         </form>
@@ -343,7 +342,7 @@ if ($sql->rowCount() == 1) {
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="codigo" class="form-label">Código de Confirmação</label>
-                                    <input type="text" class="form-control" id="codigo" name="codigo" autocomplete="off" required>
+                                    <input type="text" class="form-control" id="codigo" name="codigo" autocomplete="off">
                                 </div>
                             </div>
                             <div class="modal-footer custom-footer">
@@ -357,6 +356,68 @@ if ($sql->rowCount() == 1) {
         </div>
     </section>
 
+    <section>
+        <div class="modal fade" id="excluir-conta" tabindex="-1" aria-labelledby="excluir-conta" aria-hidden="true" style="z-index: 1200;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="excluir-conta">Confirmar exclusão de conta</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-muted">Um e-mail com um código será enviado para o e-mail abaixo. Verifique sua caixa de entrada para continuar com a exclusão da sua conta.</p>
+                        <p class="text-warning fw-bold">Aviso: A exclusão da sua conta é permanente e não poderá ser desfeita. Certifique-se de que deseja prosseguir.</p>
+                        <form id="form-excluir-conta" action="../backend/excluir-conta.php" method="post">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="email" class="form-label">E-mail</label>
+                                    <input type="text" class="form-control" id="email" name="email" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="modal-footer custom-footer">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmar-exclusao">Já tenho um código</button>
+                                <button type="submit" class="btn btn-secondary">Enviar código</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="confirmar-exclusao" tabindex="-1" aria-labelledby="confirmar-exclusao" aria-hidden="true" style="z-index: 1200;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmar-exclusao">Código de confirmação</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-muted">Informe o código enviado para o seu e-mail para concluir a exclusão da conta.</p>
+                        <p class="text-warning">Antes de prosseguir, considere os seguintes pontos:</p>
+                        <ul class="text-warning">
+                            <li>Você perderá permanentemente todos os seus dados armazenados, incluindo informações valiosas como seu histórico de vacinação.</li>
+                            <li>Não será possível recuperar sua conta após a exclusão.</li>
+                            <li>Se você está enfrentando dificuldades ou preocupações, estamos aqui para ajudar. Entre em contato com nosso suporte antes de tomar essa decisão.</li>
+                        </ul>
+                        <form id="form-confirmar-exclusao" action="../backend/confirmar-exclusao.php" method="post">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="codigo" class="form-label">Código</label>
+                                    <input type="text" class="form-control" id="codigo" name="codigo" autocomplete="off">
+                                </div>
+                            </div>
+                            <p class="text-danger fw-bold text-center mt-3">Ao excluir sua conta, todos os seus dados serão permanentemente apagados e não poderão ser recuperados. Esta ação é irreversível.</p>
+                            <div class="modal-footer custom-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-danger">Excluir conta</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
 
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 7%;">
@@ -402,6 +463,8 @@ if ($sql->rowCount() == 1) {
     <script src="script.js"></script>
     <script src="mudar-email.js"></script>
     <script src="confirmar-email.js"></script>
+    <script src="excluir-conta.js"></script>
+    <script src="confirmar-exclusao.js"></script>
     <script>
 
     </script>
