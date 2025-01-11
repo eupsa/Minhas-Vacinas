@@ -173,7 +173,7 @@ if (isset($_SESSION['session_id'])) {
                     <div class="text-center mt-4">
                         <hr class="custom-hr">
                         <p class="mb-1 text-dark">Ainda não tem uma conta?</p>
-                        <a href="../cadastro/" class="text-dark" style="text-decoration: none;">
+                        <a href="../cadastro/" class="text-primary" style="text-decoration: none;">
                             <i class="bi bi-person-plus me-2"></i> Faça seu registro aqui
                         </a>
                     </div>

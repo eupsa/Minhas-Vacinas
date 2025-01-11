@@ -318,7 +318,7 @@ if ($sql->rowCount() == 1) {
                                 </div>
                             </div>
                             <div class="modal-footer custom-footer">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmar-exclusao">Já tenho um código</button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmar-codigo">Já tenho um código</button>
                                 <button type="submit" class="btn btn-secondary">Enviar código</button>
                             </div>
                         </form>
