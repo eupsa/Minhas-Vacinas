@@ -135,54 +135,54 @@ if (isset($_SESSION['session_id'])) {
         </div>
     </header>
 
-    <section class="form-log">
-        <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
-            <div class="row w-100">
-                <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                    <form action="../backend/entrar.php" class="needs-validation bg-light p-5 rounded shadow-lg"
-                        id="form_login" method="post" novalidate>
-                        <h4 class="mb-4 text-center">Entre na sua conta</h4>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">E-mail<span class="required-asterisk">*</span></label>
-                            <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Senha<span class="required-asterisk">*</span></label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="senha" name="senha" required>
-                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                    <i class="bi bi-eye"></i>
+    <section class="form-log custom-section">
+        <div class="container mt-5">
+            <h4 class="mb-4 text-center" style="margin-top: 10%;">Entre na sua conta</h4>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6">
+                    <div class="card shadow-lg border-0 rounded-lg">
+                        <div class="card-body p-5" style="background-color: #f8f9fa;">
+                            <form action="../backend/entrar.php" class="needs-validation" id="form_login" method="post" novalidate>
+                                <div class="mb-4">
+                                    <label for="email" class="form-label text-dark font-weight-semibold">E-mail</label>
+                                    <input type="email" class="form-control rounded-pill" id="email" name="email" required autocomplete="off"">
+                                </div>
+                                <div class=" mb-4">
+                                    <label for="senha" class="form-label text-dark font-weight-semibold">Senha</label>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control rounded-pill" id="senha" name="senha" required>
+                                        <button class="btn btn-outline-secondary rounded-pill" type="button" id="togglePassword">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div>
+                                        <a href="../esqueceu-senha/" class="text-dark font-weight-medium">
+                                            <i class="bi bi-question-circle me-1"></i> Esqueceu a senha?
+                                        </a>
+                                    </div>
+                                </div>
+                                <button class="btn btn-success w-100 py-2 rounded-pill text-uppercase font-weight-bold" type="submit" id="submitBtn">
+                                    <i class="fas fa-door-open"></i> ENTRAR
+                                    <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status" aria-hidden="true" style="display: none;"></span>
                                 </button>
-                            </div>
+                            </form>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="lembrarLogin" name="lembrarLogin">
-                                <label class="form-check-label" for="lembrarLogin">Lembrar-me</label>
-                            </div>
-                            <div>
-                                <a href="../esqueceu-senha/" class="text-muted">
-                                    <i class="bi bi-question-circle me-1"></i> Esqueceu a senha?
-                                </a>
-                            </div>
-                        </div>
-                        <button class="btn btn-success w-100" type="submit" id="submitBtn">
-                            <i class="fas fa-door-open"></i> ENTRAR <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status"
-                                aria-hidden="true" style="display: none;"></span>
-                        </button>
-                    </form>
-                    <hr class="custom-hr">
-                    <div class="text-center mt-3">
-                        <p class="mb-1">Ainda não tem uma conta?</p>
-                        <a href="../cadastro/" style="text-decoration: none;">Faça seu registro aqui</a>
+                    </div>
+                    <div class="text-center mt-4">
+                        <hr class="custom-hr">
+                        <p class="mb-1 text-dark">Ainda não tem uma conta?</p>
+                        <a href="../cadastro/" class="text-dark" style="text-decoration: none;">
+                            <i class="bi bi-person-plus me-2"></i> Faça seu registro aqui
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
-    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: -5%;">
+    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 3%;">
         <div class="me-5 d-none d-lg-block"></div>
         <div class="container text-center text-md-start mt-5">
             <div class="row mt-3">
@@ -221,7 +221,7 @@ if (isset($_SESSION['session_id'])) {
                 </div>
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">Contato</h6>
-                    <p><i class="bi bi-envelope me-2"></i>contato@minhasvacinas.online</p>
+                    <p><i class="bi bi-envelope me-2"></i>minhasvacinas@hotmail.com</p>
                 </div>
             </div>
         </div>

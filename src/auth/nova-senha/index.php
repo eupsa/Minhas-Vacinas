@@ -60,12 +60,24 @@ if ($sql->rowCount() != 1) {
                         </li>
                     </ul>
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="btn btn-outline-light" href="../cadastro/">CADASTRE-SE</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-secondary btn-login" href="../entrar/">ENTRAR</a>
-                        </li>
+                        <?php if (isset($_SESSION['session_id'])): ?>
+                            <li class="nav-item">
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="../../painel/">
+                                    <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
+                                </a>
+                            </li>
+                            <li class="nav-item" style="margin-left: 10px;">
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="../../scripts/sair.php">
+                                    <i class="bi bi-box-arrow-left"></i>
+                                </a>
+                            </li>
+                        <?php else: ?>
+                            <li class="nav-item">
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="../entrar/">
+                                    <i class="bi bi-box-arrow-in-right"></i> ENTRAR
+                                </a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>
@@ -96,54 +108,157 @@ if ($sql->rowCount() != 1) {
                     </li>
                 </ul>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="btn btn-outline-primary w-100 mb-2" href="../cadastro/">CADASTRE-SE</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-secondary w-100" href="../entrar/">ENTRAR</a>
-                    </li>
+                    <?php if (isset($_SESSION['session_id'])): ?>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary w-100 mb-2 rounded-pill px-3 py-1 text-primary transition-transform transform-hover" href="../../painel/">
+                                <i class="bi bi-arrow-return-left me-2"></i> Voltar à sua conta
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="btn btn-primary w-100 mb-2 rounded-pill px-3 py-1 text-white transition-transform transform-hover" href="../entrar/">ENTRAR</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
     </header>
 
     <section class="form-resetPassword">
-        <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
+        <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 40px;">
             <div class="row w-100">
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                    <form action="../backend/nova-senha.php"
-                        class="needs-validation bg-light p-5 rounded shadow-lg" id="form_reset" method="post"
-                        novalidate>
-                        <h4 class="mb-4 text-center">Crie sua senha</h4>
+                    <form action="../backend/nova-senha.php" class="needs-validation bg-light p-5 rounded shadow-lg" id="form_reset" method="post" novalidate>
+                        <h4 class="mb-4 text-center text-dark">Crie sua nova senha</h4>
+                        <div id="passwordHelpBlock" class="form-text mb-3 text-muted">
+                            <i class="bi bi-info-circle me-2"></i> Sua senha precisa atender aos requisitos abaixo:
+                        </div>
+                        <!-- Checklist de requisitos -->
+                        <ul id="passwordChecklist" class="text-muted mb-3">
+                            <li><i class="bi bi-check-circle me-2" id="checkLength"></i>Pelo menos 8 caracteres</li>
+                            <li><i class="bi bi-check-circle me-2" id="checkUppercase"></i>Uma letra maiúscula</li>
+                            <li><i class="bi bi-check-circle me-2" id="checkNumber"></i>Um número</li>
+                            <li><i class="bi bi-check-circle me-2" id="checkSpecial"></i>Um caractere especial (@$!%*?&)</li>
+                        </ul>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Senha<span class="required-asterisk">*</span></label>
+                            <label for="senha" class="form-label text-dark">Crie sua Senha <span class="required-asterisk">*</span></label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="senha" name="senha" required>
+                                <input type="password" class="form-control" id="senha" name="senha" required oninput="validatePassword()" autocomplete="new-password">
                                 <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>
+                            <div id="passwordStrength" class="form-text mt-2 text-muted"></div>
+                            <!-- Barra de progresso -->
+                            <div class="progress mt-2" style="height: 5px;">
+                                <div id="passwordProgress" class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
                         </div>
                         <div class="mb-3">
-                            <label for="password2" class="form-label">Confirme sua senha<span class="required-asterisk">*</span></label>
+                            <label for="confSenha" class="form-label text-dark">Confirme sua senha <span class="required-asterisk">*</span></label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="confSenha" name="confSenha" required>
+                                <input type="password" class="form-control" id="confSenha" name="confSenha" required oninput="checkPasswordMatch()" autocomplete="new-password">
                                 <button class="btn btn-outline-secondary" type="button" id="ConftogglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>
+                            <div id="passwordMatch" class="form-text mt-2 text-muted"></div>
                         </div>
                         <br>
                         <input type="hidden" name="token" value="<?php echo !empty($_GET['token']) ? $_GET['token'] : null; ?>">
-                        <button class="btn btn-primary w-100" type="submit">Criar senha</button>
+                        <button class="btn btn-success w-100 py-2 rounded-pill" type="submit" id="submitBtn" disabled>Criar senha</button>
                     </form>
-                    <hr class="custom-hr">
                 </div>
             </div>
         </div>
     </section>
 
-    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px;">
+    <script>
+        function validatePassword() {
+            const password = document.getElementById("senha").value;
+            const progressBar = document.getElementById("passwordProgress");
+            const strengthText = document.getElementById("passwordStrength");
+            const submitBtn = document.getElementById("submitBtn");
+            const checklist = document.getElementById("passwordChecklist");
+
+            const lengthCheck = document.getElementById("checkLength");
+            const uppercaseCheck = document.getElementById("checkUppercase");
+            const numberCheck = document.getElementById("checkNumber");
+            const specialCheck = document.getElementById("checkSpecial");
+
+            let strength = 0;
+
+            // Verificação de requisitos de senha
+            if (password.length >= 8) {
+                lengthCheck.classList.add("text-success");
+                strength++;
+            } else {
+                lengthCheck.classList.remove("text-success");
+            }
+
+            if (/[A-Z]/.test(password)) {
+                uppercaseCheck.classList.add("text-success");
+                strength++;
+            } else {
+                uppercaseCheck.classList.remove("text-success");
+            }
+
+            if (/\d/.test(password)) {
+                numberCheck.classList.add("text-success");
+                strength++;
+            } else {
+                numberCheck.classList.remove("text-success");
+            }
+
+            if (/[@$!%*?&]/.test(password)) {
+                specialCheck.classList.add("text-success");
+                strength++;
+            } else {
+                specialCheck.classList.remove("text-success");
+            }
+
+            // Atualização da barra de progresso
+            const progress = (strength * 25);
+            progressBar.style.width = progress + "%";
+            progressBar.setAttribute("aria-valuenow", progress);
+
+            // Condição para habilitar o botão de submit
+            if (strength === 4) {
+                strengthText.textContent = "Senha forte!";
+                strengthText.style.color = "green";
+                submitBtn.disabled = false;
+                submitBtn.classList.add("btn-success");
+            } else {
+                strengthText.textContent = "A senha é fraca.";
+                strengthText.style.color = "red";
+                submitBtn.disabled = true;
+                submitBtn.classList.remove("btn-success");
+            }
+        }
+
+        function checkPasswordMatch() {
+            const password = document.getElementById("senha").value;
+            const confirmPassword = document.getElementById("confSenha").value;
+            const matchText = document.getElementById("passwordMatch");
+
+            if (password !== confirmPassword) {
+                matchText.textContent = "As senhas não coincidem.";
+                matchText.style.color = "red";
+                document.getElementById("submitBtn").disabled = true;
+            } else {
+                matchText.textContent = "As senhas coincidem.";
+                matchText.style.color = "green";
+                if (document.getElementById("passwordStrength").style.color === "green") {
+                    document.getElementById("submitBtn").disabled = false;
+                }
+            }
+        }
+    </script>
+
+
+
+
+    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: -6%;">
         <div class="me-5 d-none d-lg-block"></div>
         <div class="container text-center text-md-start mt-5">
             <div class="row mt-3">
@@ -182,7 +297,7 @@ if ($sql->rowCount() != 1) {
                 </div>
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">Contato</h6>
-                    <p><i class="bi bi-envelope me-2"></i>contato@minhasvacinas.online</p>
+                    <p><i class="bi bi-envelope me-2"></i>minhasvacinas@hotmail.com</p>
                 </div>
             </div>
         </div>

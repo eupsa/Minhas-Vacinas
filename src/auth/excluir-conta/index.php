@@ -208,7 +208,7 @@
                 </div>
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">Contato</h6>
-                    <p><i class="bi bi-envelope me-2"></i>contato@minhasvacinas.online</p>
+                    <p><i class="bi bi-envelope me-2"></i>minhasvacinas@hotmail.com</p>
                 </div>
             </div>
         </div>

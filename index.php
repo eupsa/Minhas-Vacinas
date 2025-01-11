@@ -49,8 +49,8 @@ if ($response !== false) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <!-- Metatags Open Graph -->
-        <meta property="og:title" content="Minhas Vacinas - Seu Histórico de Imunizações" />
+    <!-- Metatags Open Graph -->
+    <meta property="og:title" content="Minhas Vacinas - Seu Histórico de Imunizações" />
     <meta property="og:description" content="Acesse e gerencie seu histórico de vacinação com o Minhas Vacinas." />
     <meta property="og:image" content="URL_da_imagem_da_miniatura.jpg" />
     <meta property="og:url" content="https://www.minhasvacinas.online" />

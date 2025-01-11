@@ -8,11 +8,10 @@ if (form_suporte) {
 
     const nome = dadosForm.get("suporte_nome");
     const email = dadosForm.get("suporte_email");
-    const data = dadosForm.get("data");
     const motivo = dadosForm.get("motivo_contato");
     const mensagem = dadosForm.get("mensagem");
 
-    if (!nome || !email || !data || !mensagem) {
+    if (!nome || !email || !motivo || !mensagem) {
       Swal.fire({
         text: "Preencha todos os campos.",
         icon: "error",
@@ -24,7 +23,7 @@ if (form_suporte) {
 
     Swal.fire({
       title: "Processando...",
-      timer: 5000,
+      timer: 10000,
       timerProgressBar: true,
       didOpen: () => {
         Swal.showLoading();
@@ -45,9 +44,9 @@ if (form_suporte) {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       }).then(() => {
-        window.location.href = "/index.html"; 
+        window.location.href = "../../";
       });
-      form_suporte.reset(); 
+      form_suporte.reset();
     } else {
       Swal.fire({
         text: resposta.msg,

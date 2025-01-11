@@ -31,8 +31,6 @@ if (formcad) {
     const estado = dadosForm.get("estado");
     const senha = dadosForm.get("senha");
     const confSenha = dadosForm.get("confSenha");
-    const loadingSpinner = document.getElementById("loadingSpinner");
-    const submitButton = document.getElementById("submitBtn");
 
     if (!nome || !email || !estado || !senha || !confSenha) {
       Swal.fire({
@@ -44,6 +42,15 @@ if (formcad) {
       return;
     }
 
+    Swal.fire({
+      title: "Processando...",
+      timer: 10000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
     if (senha !== confSenha) {
       Swal.fire({
         text: "As senhas precisam ser iguais.",
@@ -53,9 +60,6 @@ if (formcad) {
       });
       return;
     }
-
-    submitButton.disabled = true;
-    loadingSpinner.style.display = "inline-block";
 
     try {
       const dados = await fetch("../backend/cadastro.php", {
@@ -68,8 +72,6 @@ if (formcad) {
       const resposta = await dados.json();
 
       if (resposta["status"]) {
-        submitButton.disabled = false;
-        loadingSpinner.style.display = "none";
         Swal.fire({
           text: resposta["msg"],
           icon: "success",
@@ -80,8 +82,6 @@ if (formcad) {
           formcad.reset();
         });
       } else {
-        submitButton.disabled = false;
-        loadingSpinner.style.display = "none";
         Swal.fire({
           text: resposta["msg"],
           icon: "error",
@@ -90,16 +90,12 @@ if (formcad) {
         });
       }
     } catch (error) {
-      submitButton.disabled = false;
-      loadingSpinner.style.display = "none";
       Swal.fire({
         text: "Erro ao processar o cadastro. Tente novamente mais tarde.",
         icon: "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
-      }).then(() => {
-        loadingSpinner.style.display = "none";
-      });
+      })
     }
   });
 }

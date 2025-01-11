@@ -45,6 +45,13 @@ $estados = [
     'TO'
 ];
 
+if (preg_match('/\d/', $nome)) {
+    $retorna = ['status' => false, 'msg' => "O nome não pode conter números."];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
+}
+
 if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($confsenha) || empty($email)) {
     $retorna = ['status' => false, 'msg' => "Você não preencheu todos os campos obrigatórios. Por favor, revise e envie novamente."];
     header('Content-Type: application/json');

@@ -135,30 +135,38 @@ if (isset($_SESSION['session_id'])) {
         </div>
     </header>
 
-    <section class="form-conf-cad">
-        <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
-            <div class="row w-100">
-                <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                    <form action="../backend/confirmar-cadastro.php" class="needs-validation bg-light p-5 rounded shadow-lg"
-                        id="form-conf-cad" method="post" novalidate>
-                        <h4 class="mb-4 text-center">Confirmar Cadastro</h4>
-                        <p class="text-muted">Um código de 6 dígitos foi enviado para o seu e-mail. Verifique sua caixa de entrada para confirmar seu cadastro.</p>
-                        <div class="mb-3">
-                            <label for="codigo" class="form-label">Código</label>
-                            <input type="codigo" class="form-control" id="codigo" name="codigo" required autocomplete="off">
+    <section class="pt-5 pb-5">
+        <div class=" container mt-5">
+            <h4 class="mb-4 text-center" style="margin-top: 10%;">Confirme seu cadastro</h4>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-body p-5" style="background-color: #f8f9fa;">
+                            <form action="../backend/confirmar-cadastro.php" class="needs-validation" id="form-conf-cad" method="post" novalidate>
+                                <p class="text-muted text-center mb-4">
+                                    <i class="fas fa-envelope"></i> Um código de 6 dígitos foi enviado para o seu e-mail. Verifique sua caixa de entrada para confirmar seu cadastro.
+                                </p>
+                                <div class="mb-3">
+                                    <label for="codigo" class="form-label text-dark">Código</label>
+                                    <input type="text" class="form-control rounded-pill" id="codigo" name="codigo" required autocomplete="off">
+                                </div>
+                                <button class="btn btn-success w-100 py-2 rounded-pill" type="submit" id="submitBtn">
+                                    CONFIRMAR CADASTRO <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status" aria-hidden="true" style="display: none;"></span>
+                                </button>
+                            </form>
                         </div>
-                        <button class="btn btn-success w-100" type="submit" id="submitBtn">
-                            CONFIRMAR CADASTRO <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status"
-                                aria-hidden="true" style="display: none;"></span>
-                        </button>
-                    </form>
+                    </div>
                     <div class="text-center mt-3">
-                        <a href="" data-bs-toggle="modal" data-bs-target="#emailModal" style="text-decoration: none;">Reenviar e-mail de confirmação</a>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#emailModal" class="text-white" style="text-decoration: none;">
+                            <i class="bi bi-arrow-clockwise me-2"></i>Reenviar e-mail de confirmação
+                        </a>
                     </div>
                     <hr class="custom-hr">
                     <div class="text-center mt-3">
-                        <p class="mb-1">Ainda não tem uma conta?</p>
-                        <a href="../cadastro/" style="text-decoration: none;">Faça seu registro aqui</a>
+                        <p class="mb-1 text-white">Ainda não tem uma conta?</p>
+                        <a href="../cadastro/" class="text-white" style="text-decoration: none;">
+                            <i class="bi bi-person-plus me-2"></i>Faça seu registro aqui
+                        </a>
                     </div>
                 </div>
             </div>
@@ -233,7 +241,7 @@ if (isset($_SESSION['session_id'])) {
                 </div>
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">Contato</h6>
-                    <p><i class="bi bi-envelope me-2"></i>contato@minhasvacinas.online</p>
+                    <p><i class="bi bi-envelope me-2"></i>minhasvacinas@hotmail.com</p>
                 </div>
             </div>
         </div>

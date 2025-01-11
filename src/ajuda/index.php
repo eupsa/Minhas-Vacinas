@@ -42,36 +42,31 @@
                         <li class="nav-item">
                             <a href="" onclick="Location.reload()" class="nav-link">Suporte</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Baixe o App
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a class="dropdown-item" href="https://www.apple.com/br/app-store/">
-                                        <img src="https://api.iconify.design/logos:apple-app-store.svg" alt="App Store"
-                                            style="width: 20px; height: 20px;" class="me-2">
-                                        App Store
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="https://play.google.com/">
-                                        <img src="https://api.iconify.design/logos:google-play-icon.svg"
-                                            alt="Google Play" style="width: 20px; height: 20px;" class="me-2">
-                                        Google Play
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
                     </ul>
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="btn btn-outline-light" href="../auth/cadastro/">CADASTRE-SE</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-secondary btn-login" href="../auth/entrar/">ENTRAR</a>
-                        </li>
+                        <?php if (isset($_SESSION['session_id'])): ?>
+                            <li class="nav-item">
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="src/painel/">
+                                    <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
+                                </a>
+                            </li>
+                            <li class="nav-item" style="margin-left: 10px;">
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="src/scripts/sair.php">
+                                    <i class="bi bi-box-arrow-left"></i>
+                                </a>
+                            </li>
+                        <?php else: ?>
+                            <li class="nav-item">
+                                <a class="btn btn-light text-primary rounded-pill px-4 py-2 transition-transform transform-hover" style="margin-right: 10px;" href="../auth/cadastro/">
+                                    <i class="bi bi-person-plus"></i> CADASTRE-SE
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="../auth/entrar/">
+                                    <i class="bi bi-box-arrow-in-right"></i> ENTRAR
+                                </a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>
@@ -101,84 +96,71 @@
                     <li class="nav-item">
                         <a href="src/ajuda/" class="nav-link">Suporte</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Baixe o App
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <a class="dropdown-item" href="https://www.apple.com/br/app-store/">
-                                    <img src="https://api.iconify.design/logos:apple-app-store.svg" alt="App Store"
-                                        style="width: 20px; height: 20px;" class="me-2">
-                                    App Store
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="https://play.google.com/">
-                                    <img src="https://api.iconify.design/logos:google-play-icon.svg" alt="Google Play"
-                                        style="width: 20px; height: 20px;" class="me-2">
-                                    Google Play
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="btn btn-outline-primary w-100 mb-2" href="src/auth/cadastro/">CADASTRE-SE</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-secondary w-100" href="src/auth/entrar/">ENTRAR</a>
-                    </li>
-                    <li class="nav-item">
-                        <button id="theme-toggle" class="btn btn-outline-warning w-100 mb-2"
-                            style="margin-top: 2%;">🌙</button>
-                    </li>
+                    <?php if (isset($_SESSION['session_id'])): ?>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary w-100 mb-2 rounded-pill px-3 py-1 text-primary transition-transform transform-hover" href="../painel/">
+                                <i class="bi bi-arrow-return-left me-2"></i> Voltar à sua conta
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-primary w-100 mb-2 rounded-pill px-3 py-1 text-primary transition-transform transform-hover" href="../auth/cadastro/">CADASTRE-SE</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary w-100 mb-2 rounded-pill px-3 py-1 text-white transition-transform transform-hover" href="../auth/entrar/">ENTRAR</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
     </header>
 
-    <section class="pt-5" style="padding-bottom: 8%;">
+    <section class="pt-5 pb-5">
         <div class="container mt-5">
-            <h2 class="text-center mb-4">Suporte</h2>
+            <h4 class="mb-4 text-center">Entre em contato</h4>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 col-lg-6">
-                    <form id="form_suporte" class="needs-validation" novalidate action="backend/suporte.php" method="post">
-                        <div class="mb-3">
-                            <label for="suporte_nome" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="suporte_nome" name="suporte_nome" required>
+                    <div class="card shadow-lg border-0">
+                        <div class="card-body p-5" style="background-color: #f8f9fa;">
+                            <form id="form_suporte" class="needs-validation" novalidate action="backend/suporte.php" method="post">
+                                <div class="mb-4">
+                                    <label for="suporte_nome" class="form-label">Nome</label>
+                                    <input type="text" class="form-control rounded-pill" id="suporte_nome" name="suporte_nome" placeholder="Digite seu nome completo" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="suporte_email" class="form-label">E-mail</label>
+                                    <input type="email" class="form-control rounded-pill" id="suporte_email" name="suporte_email" placeholder="Digite seu e-mail" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="motivo_contato" class="form-label">Motivo do Contato</label>
+                                    <select class="form-select rounded-pill" id="motivo_contato" name="motivo_contato" required>
+                                        <option value="" disabled selected>Selecione o motivo</option>
+                                        <option value="problema_tecnico">Problema técnico</option>
+                                        <option value="duvida">Dúvida</option>
+                                        <option value="sugestao">Sugestão</option>
+                                        <option value="reclamacao">Reclamação</option>
+                                        <option value="outro">Outro</option>
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="mensagem" class="form-label">Mensagem</label>
+                                    <textarea class="form-control rounded" id="mensagem" name="mensagem" rows="4" placeholder="Escreva sua mensagem aqui..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 py-2 rounded-pill">
+                                    <i class="bi bi-send"></i> Enviar
+                                </button>
+                            </form>
+                            <div id="resposta-container"></div>
                         </div>
-                        <div class="mb-3">
-                            <label for="suporte_email" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="suporte_email" name="suporte_email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="data" class="form-label">Data do Ocorrido</label>
-                            <input type="date" class="form-control" id="data" name="data" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="motivo_contato" class="form-label">Motivo do Contato</label>
-                            <select class="form-control" id="motivo_contato" name="motivo_contato" required>
-                                <option value="" disabled selected>Selecione o motivo</option>
-                                <option value="problema_tecnico">Problema técnico</option>
-                                <option value="duvida">Dúvida</option>
-                                <option value="sugestao">Sugestão</option>
-                                <option value="reclamacao">Reclamação</option>
-                                <option value="outro">Outro</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="mensagem" class="form-label">Mensagem</label>
-                            <textarea class="form-control" id="mensagem" name="mensagem" rows="3" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Enviar</button>
-                    </form>
+                    </div>
+                    <p class="text-center text-white mt-4">Responderemos sua mensagem o mais rápido possível.</p>
                 </div>
             </div>
         </div>
     </section>
+
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px;">
         <div class="me-5 d-none d-lg-block"></div>
@@ -219,7 +201,7 @@
                 </div>
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">Contato</h6>
-                    <p><i class="bi bi-envelope me-2"></i>contato@minhasvacinas.online</p>
+                    <p><i class="bi bi-envelope me-2"></i>minhasvacinas@hotmail.com</p>
                 </div>
             </div>
         </div>

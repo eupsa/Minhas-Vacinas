@@ -127,30 +127,36 @@
     </header>
 
     <section class="form-log">
-        <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 70px;">
+        <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 30px;" style="background-color: #f8f9fa;">
             <div class="row w-100">
+                <h4 class="mb-4 text-center"> Redefina sua senha</h4>
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                    <form action="../backend/esqueceu-senha.php" class="needs-validation bg-light p-5 rounded shadow-lg"
-                        id="form_recovery" method="post" novalidate>
-                        <h4 class="mb-4 text-center">Redefina sua senha</h4>
-                        <div id="passwordHelpBlock" class="form-text">
-                            Após o envio do formulário você receberá um e-mail com instruções para redefinir sua senha.
-                        </div><br>
+                    <form action="../backend/esqueceu-senha.php" class="needs-validation bg-light p-5 rounded shadow-lg" id="form_recovery" method="post" novalidate>
+                        </h4>
+                        <div id="passwordHelpBlock" class="form-text mb-3">
+                            <i class="bi bi-info-circle me-2"></i> Após o envio do formulário, você receberá um e-mail com instruções para redefinir sua senha.
+                        </div>
                         <div class="mb-3">
-                            <input type="email" class="form-control" id="email" name="email" required placeholder="E-mail" autocomplete="off">
-                            <div class="mt-2 text-end">
-                                <a href="../entrar/" class="text-muted">
-                                    <i class="bi bi-question-circle me-1"></i> Voltar para login?
-                                </a>
+                            <label for="email" class="form-label text-dark font-weight-semibold">E-mail</label>
+                            <div class="input-group">
+                                <input type="email" class="form-control rounded-pill" id="email" name="email" required" autocomplete="off">
                             </div>
                         </div>
-                        <button class="btn btn-primary w-100" type="submit">Enviar e-mail</button>
+                        <div class="mt-2 text-end">
+                            <a href="../entrar/" class="text-muted">
+                                <i class="bi bi-arrow-left-circle me-1"></i> Voltar para login?
+                            </a>
+                        </div>
+                        <button class="btn btn-primary w-100 py-2 rounded-pill mt-3" type="submit">
+                            <i class="bi bi-envelope-fill me-2"></i> Enviar e-mail
+                        </button>
                     </form>
                     <hr class="custom-hr">
                 </div>
             </div>
         </div>
     </section>
+
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: -5%;">
         <div class="me-5 d-none d-lg-block"></div>
@@ -191,7 +197,7 @@
                 </div>
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">Contato</h6>
-                    <p><i class="bi bi-envelope me-2"></i>contato@minhasvacinas.online</p>
+                    <p><i class="bi bi-envelope me-2"></i>minhasvacinas@hotmail.com</p>
                 </div>
             </div>
         </div>
