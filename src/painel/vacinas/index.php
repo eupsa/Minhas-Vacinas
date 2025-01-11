@@ -174,6 +174,83 @@ if (!isset($_SESSION['session_id'])) {
         </section>
     </div>
 
+    <script>
+        function exportarVacina(button) {
+            var idVacina = button.getAttribute("data-id");
+            var vacinaElement = button.closest(".card");
+
+            var nomeVacina = vacinaElement.querySelector(".card-title").innerText;
+            var dose = vacinaElement.querySelector(".card-text i.fa-syringe") ?
+                vacinaElement.querySelector(".card-text i.fa-syringe").parentElement
+                .innerText :
+                "";
+            var dataAplicacao = vacinaElement.querySelector(
+                    ".card-text i.fa-calendar-day"
+                ) ?
+                vacinaElement.querySelector(".card-text i.fa-calendar-day").parentElement
+                .innerText :
+                "";
+            var localAplicacao = vacinaElement.querySelector(
+                    ".card-text i.fa-map-marker-alt"
+                ) ?
+                vacinaElement.querySelector(".card-text i.fa-map-marker-alt")
+                .parentElement.innerText :
+                "";
+            var lote = vacinaElement.querySelector(".card-text i.fa-cogs") ?
+                vacinaElement.querySelector(".card-text i.fa-cogs").parentElement
+                .innerText :
+                "";
+            var observacoes = vacinaElement.querySelector(".card-text i.fa-sticky-note") ?
+                vacinaElement.querySelector(".card-text i.fa-sticky-note").parentElement
+                .innerText :
+                "";
+
+            var content = `
+      <div style="text-align: center; margin-bottom: 30px;">
+          <div style="display: flex; align-items: center; justify-content: center;">
+              <img src="../../../assets/img/logo-head.png" alt="Logo Minhas Vacinas" style="width: 100px; margin-right: 10px;">
+              <h1 style="font-size: 22px; color: #000000; font-weight: bold;">Minhas Vacinas</h1>
+      </div>
+      <div style="text-align: center; color: #495057;">
+        <p style="font-size: 16px;">Sistema para gerenciamento do histórico de vacinação. Mantenha seu histórico atualizado e tenha fácil acesso a informações importantes sobre suas vacinas.</p>
+      </div>
+          <h2 style="font-size: 20px; color: #333; margin-top: 20px;">${nomeVacina}</h2>
+          <div style="color: #333; font-size: 18px;">
+              <strong>${dose}</strong><br>
+              <strong>${dataAplicacao}</strong> <br>
+              <strong>${localAplicacao}</strong><br>
+              <strong>${lote}</strong> <br>
+              <strong>${observacoes}</strong><br>
+          </div>
+      </div>
+      <hr>
+      <div style="text-align: center; color: #495057;">
+          <p><a href="" target="_blank" style="color:rgb(0, 0, 0); text-decoration: none;">Exportado por https://www.minhasvacinas.online</a></p>
+          <p><a href="https://bit.ly/minhasvacinas" target="_blank" style="color: #007bff; text-decoration: none;">Visite nosso site: Minhas Vacinas</a></p>
+      </div>
+  `;
+
+            var opt = {
+                margin: 1,
+                filename: "vacina_" + idVacina + ".pdf",
+                image: {
+                    type: "jpeg",
+                    quality: 0.98,
+                },
+                html2canvas: {
+                    scale: 2,
+                },
+                jsPDF: {
+                    unit: "mm",
+                    format: "a4",
+                    orientation: "portrait",
+                },
+            };
+
+            html2pdf().from(content).set(opt).save();
+        }
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
