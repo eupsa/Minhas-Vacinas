@@ -17,7 +17,6 @@ document.querySelectorAll(".form-excluir-vacina").forEach((form) => {
     e.preventDefault();
 
     const dadosForm = new FormData(form);
-
     const id_vacina = dadosForm.get("id_vac");
 
     if (!id_vacina) {
@@ -55,7 +54,9 @@ document.querySelectorAll(".form-excluir-vacina").forEach((form) => {
           confirmButtonColor: "#3085d6",
           confirmButtonText: "Fechar",
         }).then(() => {
-          location.reload();
+          // Você pode remover o item da lista ou recarregar a página após o alerta
+          // Exemplo para remover o item do DOM:
+          form.closest(".vacina-card").remove();
         });
       } else {
         Swal.fire({
@@ -64,7 +65,8 @@ document.querySelectorAll(".form-excluir-vacina").forEach((form) => {
           confirmButtonColor: "#3085d6",
           confirmButtonText: "Fechar",
         }).then(() => {
-          location.reload();
+          // Caso de erro, recarregar a página ou apenas dar um feedback visual
+          // location.reload();
         });
       }
     } catch (error) {

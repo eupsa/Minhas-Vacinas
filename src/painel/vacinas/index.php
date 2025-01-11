@@ -115,9 +115,6 @@ if (!isset($_SESSION['session_id'])) {
                 <h3 class="fw-light">Registre e visualize as suas vacinas aplicadas.</h3>
                 <p class="lead">Mantenha seu histórico de vacinação atualizado para garantir sua proteção e a de todos ao seu redor. Adicione as vacinas aplicadas e consulte facilmente todas as informações sobre cada dose.</p>
                 <a type="button" class="btn btn-primary mt-3" href="cadastro-vacinas/">Registrar Doses</a>
-                <button type="button" class="btn btn-success mt-3" title="Exportar todas as vacinas para um arquivo">
-                    <i class="fas fa-file-export" style="font-size: 16px; padding-right: 0;"></i> Exportar Todas
-                </button>
             </div>
             <div class="d-flex justify-content-start align-items-center mt-3">
                 <span class="badge" style="background-color: #28a745; color: white; padding: 10px 15px; font-size: 16px; border-radius: 15px;">
@@ -232,7 +229,7 @@ if (!isset($_SESSION['session_id'])) {
 
             var opt = {
                 margin: 1,
-                filename: "vacina_" + idVacina + ".pdf",
+                filename: "minhasvacinas_" + nomeVacina + ".pdf",
                 image: {
                     type: "jpeg",
                     quality: 0.98,
