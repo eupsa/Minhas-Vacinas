@@ -7,6 +7,18 @@ document.addEventListener("DOMContentLoaded", function () {
     sidebar.classList.toggle("hide");
   });
 });
+
+document
+  .getElementById("localAplicacao")
+  .addEventListener("change", function () {
+    var outroLocalDiv = document.getElementById("outroLocalDiv");
+    if (this.value === "outro") {
+      outroLocalDiv.style.display = "block";
+    } else {
+      outroLocalDiv.style.display = "none";
+    }
+  });
+
 const form_vacina = document.querySelector("#form_vacina");
 
 if (form_vacina) {
@@ -21,6 +33,7 @@ if (form_vacina) {
     const lote = dadosForm.get("lote");
     const obs = dadosForm.get("obs");
     const localAplicacao = dadosForm.get("localAplicacao");
+    const outro_local = dadosForm.get("outro-local");
 
     if (!nomeVac || !dataAplicacao || !tipo || !dose || !localAplicacao) {
       Swal.fire({

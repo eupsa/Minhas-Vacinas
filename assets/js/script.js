@@ -17,3 +17,24 @@ scrollToTopBtn.addEventListener("click", () => {
     behavior: "smooth",
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Verificar se a sessão VPN foi detectada
+
+  if (vpnDetected) {
+    // Exibe a mensagem de alerta
+    Swal.fire({
+      title: "Acesso Bloqueado",
+      text: "Detectamos que você está utilizando uma VPN. Para continuar acessando o site, por favor, desative a VPN.",
+      icon: "error",
+      confirmButtonText: "Entendido",
+      confirmButtonColor: "#3085d6",
+      customClass: {
+        popup: "my-custom-swal",
+      },
+    });
+
+    // Bloqueia a navegação
+    window.location.href = "https://www.exemplo.com/bloqueado"; // Redireciona para uma página de bloqueio, se necessário
+  }
+});

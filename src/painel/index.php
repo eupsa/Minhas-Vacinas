@@ -6,7 +6,7 @@ if (!isset($_SESSION['session_id'])) {
     exit();
 } else {
     $id_usuario = $_SESSION['session_id'];
-    $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_usuario = :id_usuario ORDER BY data_aplicacao DESC LIMIT 3");
+    $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_usuario = :id_usuario ORDER BY id_vac DESC LIMIT 3");
     $sql->bindValue(':id_usuario', $id_usuario);
     $sql->execute();
     $vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -156,18 +156,17 @@ if (!isset($_SESSION['session_id'])) {
                 <?php if (count($vacinas) > 0): ?>
                     <?php foreach ($vacinas as $vacina): ?>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"> <!-- Responsividade melhorada -->
-                            <div class="card" style="width: 100%; height: 100%;"> <!-- Ajuste no tamanho do card -->
-                                <img src="../../../../assets/img/vac-card.jpg" class="card-img-top" alt="Vacina">
+                            <div class="card shadow-lg" style="width: 100%; height: 100%; border-radius: 20px; background-color: rgba(255, 255, 255, 0.95); transition: all 0.3s ease;">
+                                <img src="../../../../assets/img/vac-card.jpg" class="card-img-top" alt="Vacina" style="object-fit: cover; height: 250px; width: 100%; border-radius: 20px 20px 0 0;">
                                 <div class="card-body">
-                                    <h5 class="card-title"><?= htmlspecialchars($vacina['nome_vac']) ?></h5>
-                                    <p class="card-text">Dose: <?= htmlspecialchars($vacina['dose']) ?></p>
-                                    <p class="card-text">Data de Aplicação: <?= htmlspecialchars($vacina['data_aplicacao']) ?></p>
-                                    <p class="card-text">Local: <?= htmlspecialchars($vacina['local_aplicacao']) ?></p>
-                                    <p class="card-text">Lote: <?= htmlspecialchars($vacina['lote']) ?></p>
-                                    <p class="card-text">Observações: <?= htmlspecialchars($vacina['obs']) ?></p>
-                                    <form action="../backend/excluir-vacina.php" method="POST" style="display: inline;" class="form-excluir-vacina">
-                                        <input type="hidden" name="id_vac" value="<?= $vacina['id_vac'] ?>">
-                                    </form>
+                                    <h5 class="card-title text-center text-dark" style="font-weight: bold;"><?= htmlspecialchars($vacina['nome_vac']) ?></h5>
+                                    <div class="d-flex flex-column mt-3">
+                                        <p class="card-text"><i class="fas fa-syringe text-success"></i> <strong>Dose:</strong> <?= !empty($vacina['dose']) ? htmlspecialchars($vacina['dose']) : 'Não informado' ?></p>
+                                        <p class="card-text"><i class="fas fa-calendar-day text-info"></i> <strong>Data de Aplicação:</strong> <?= !empty($vacina['data_aplicacao']) ? htmlspecialchars($vacina['data_aplicacao']) : 'Não informada' ?></p>
+                                        <p class="card-text"><i class="fas fa-map-marker-alt text-warning"></i> <strong>Local:</strong> <?= !empty($vacina['local_aplicacao']) ? htmlspecialchars($vacina['local_aplicacao']) : 'Não informado' ?></p>
+                                        <p class="card-text"><i class="fas fa-cogs text-secondary"></i> <strong>Lote:</strong> <?= !empty($vacina['lote']) ? htmlspecialchars($vacina['lote']) : 'Não informado' ?></p>
+                                        <p class="card-text"><i class="fas fa-sticky-note text-dark"></i> <strong>Observações:</strong> <?= !empty($vacina['obs']) ? htmlspecialchars($vacina['obs']) : 'Sem observações' ?></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -180,6 +179,8 @@ if (!isset($_SESSION['session_id'])) {
             </div>
         </div>
     </section>
+
+
 
 
 

@@ -60,28 +60,7 @@ CREATE TABLE
 CREATE TABLE
     IF NOT EXISTS vacina (
         id_vac INT PRIMARY KEY AUTO_INCREMENT,
-        nome_vac ENUM (
-            'BCG - Proteção contra Tuberculose',
-            'Hepatite B',
-            'Pentavalente (DTP + Hib + Hepatite B)',
-            'Poliomielite (VOP e VIP)',
-            'Rotavírus',
-            'Pneumocócica 10-Valente',
-            'Meningocócica C (Conjugada)',
-            'Febre Amarela',
-            'Tríplice Viral (Sarampo, Caxumba, Rubéola)',
-            'Hepatite A',
-            'HPV Quadrivalente',
-            'Meningocócica ACWY',
-            'DTPa (Tríplice Bacteriana Acelular do Tipo Adulto)',
-            'Difteria e Tétano (Dupla Adulto)',
-            'Influenza (Gripe)',
-            'Pneumocócica 23-Valente',
-            'Herpes Zóster',
-            'Raiva',
-            'Meningocócica B',
-            'COVID-19'
-        ) NOT NULL,
+        nome_vac VARCHAR (255) NOT NULL,
         data_aplicacao DATE NOT NULL,
         proxima_dose DATE,
         local_aplicacao VARCHAR(200) NOT NULL,
@@ -112,7 +91,6 @@ CREATE TABLE
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
     );
     
-    
 CREATE TABLE
     IF NOT EXISTS mudar_senha (
         id INT PRIMARY KEY AUTO_INCREMENT,
@@ -122,7 +100,17 @@ CREATE TABLE
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE,
         FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE
     );
-
+    
+CREATE TABLE
+    IF NOT EXISTS mudar_email (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        email VARCHAR(255) NOT NULL,
+        codigo VARCHAR(255) NOT NULL,
+		data_adicao DATETIME DEFAULT CURRENT_TIMESTAMP,
+        id_usuario INT,
+        FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE
+	);
+    
 CREATE TABLE
     IF NOT EXISTS excluir_conta (
 		id_solicitacao INT PRIMARY KEY AUTO_INCREMENT,
@@ -130,6 +118,25 @@ CREATE TABLE
         email VARCHAR(255) NOT NULL,
         FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
     );
+    
+CREATE TABLE
+	IF NOT EXISTS vacinas_existentes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome_vac VARCHAR(255) NOT NULL,
+    tipo VARCHAR(100),
+    descricao TEXT,
+    adicao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE 
+	IF NOT EXISTS postos_vacinacao (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    endereco VARCHAR(255) NOT NULL,
+    tipo VARCHAR(50),
+    contato VARCHAR(20),
+	adicao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
     
 CREATE TABLE 
 	IF NOT EXISTS ip_logs (
@@ -141,5 +148,6 @@ CREATE TABLE
     empresa VARCHAR(255),
     data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 SELECT @@global.time_zone, @@session.time_zone;

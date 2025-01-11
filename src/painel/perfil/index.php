@@ -82,7 +82,7 @@ if ($sql->rowCount() == 1) {
                         </a>
                         <ul class="dropdown-menu shadow-sm" aria-labelledby="navbarDropdown" style="background: #343a40;">
                             <li><a class="dropdown-item text-white" href="../../auth/trocar-email/" data-bs-toggle="modal" data-bs-target="#alterar-email">Alterar e-mail</a></li>
-                            <li><a class="dropdown-item text-white" href="../">Alterar senha</a></li>
+                            <li><a class="dropdown-item text-white" href="../../auth/esqueceu-senha/">Alterar senha</a></li>
                             <li><a class="dropdown-item text-white" href="">Configurações (desativado)</a></li>
                             <li>
                                 <!-- <hr class="dropdown-divider"> -->
@@ -201,6 +201,7 @@ if ($sql->rowCount() == 1) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <p>Se você deseja atualizar seu e-mail <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#alterar-email">clique aqui</a> ou sua senha <a href="#" class="text-primary">clique aqui</a></p>
                         <form id="form-perfil" action="../backend/atualizar-dados.php" method="POST">
                             <div class="row mb-3">
                                 <div class="col">
@@ -308,7 +309,7 @@ if ($sql->rowCount() == 1) {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p class="text-muted">Um e-mail de confirmação será enviado para o e-mail abaixo. Verifique sua caixa de entrada para confirmar seu e-mail.
+                        <p class="text-muted">Um e-mail com um código será enviado para o e-mail abaixo. Verifique sua caixa de entrada para confirmar seu e-mail.
                         </p>
                         <form id="form-alterar-email" action="../backend/alterar-email.php" method="post">
                             <div class="row mb-3">
@@ -317,9 +318,9 @@ if ($sql->rowCount() == 1) {
                                     <input type="text" class="form-control" id="email" name="email" autocomplete="off">
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Alterar e-mail</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <div class="modal-footer custom-footer">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmar-codigo">Já tenho um código</button>
+                                <button type="submit" class="btn btn-secondary">Enviar código</button>
                             </div>
                         </form>
                     </div>
@@ -327,6 +328,36 @@ if ($sql->rowCount() == 1) {
             </div>
         </div>
     </section>
+
+    <section>
+        <div class="modal fade" id="confirmar-codigo" tabindex="-1" aria-labelledby="confirmar-codigo" aria-hidden="true" style="z-index: 1200;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmar-codigo">Confirmar Alteração de E-mail</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-muted">Verifique sua caixa de entrada e insira o código de confirmação que enviamos para o novo e-mail.</p>
+                        <form id="form-confirmar-codigo" action="../backend/confirmar-email.php" method="post">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="codigo" class="form-label">Código de Confirmação</label>
+                                    <input type="text" class="form-control" id="codigo" name="codigo" autocomplete="off" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer custom-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#alterar-email">Voltar</button>
+                                <button type="submit" class="btn btn-primary">Confirmar Alteração</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 7%;">
         <div class="me-5 d-none d-lg-block"></div>
@@ -369,7 +400,8 @@ if ($sql->rowCount() == 1) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script.js"></script>
-    <script src="cidades.js"></script>
+    <script src="mudar-email.js"></script>
+    <script src="confirmar-email.js"></script>
     <script>
 
     </script>

@@ -10,6 +10,30 @@ $dose = trim($dados['dose']);
 $lote = trim($dados['lote']);
 $obs = trim($dados['obs']);
 $localAplicacao = trim($dados['localAplicacao']);
+$outro_local = isset($dados['outro_local']) ? trim($dados['outro_local']) : '';
+
+if ($localAplicacao === 'outro' && empty($outro_local)) {
+    $retorna = ['status' => false, 'msg' => "Por favor, informe o nome do local de vacinação"];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
+}
+
+if ($localAplicacao === 'outro') {
+    $localAplicacao = $outro_local;
+}
+
+if (empty($lote) && empty($obs)) {
+    $lote = 'Lote não informado.';
+    $obs = 'Nenhuma observação.';
+}
+
+if (empty($nomeVac) || empty($dataAplicacao) || empty($tipo) || empty($dose) || empty($localAplicacao)) {
+    $retorna = ['status' => false, 'msg' => "Preencha todos os campos obrigatórios"];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
+}
 
 if (validarData($dataAplicacao)) {
     if (empty($nomeVac) || empty($dataAplicacao) || empty($tipo) || empty($dose) || empty($localAplicacao)) {

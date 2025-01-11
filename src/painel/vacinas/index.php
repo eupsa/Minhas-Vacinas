@@ -33,9 +33,8 @@ if (!isset($_SESSION['session_id'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3472234536437513"
-        crossorigin="anonymous"></script>
-    <title>Minhas Vacinas - Suas Vacinas</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+    <title>Minhas Vacinas - Vacinas</title>
 </head>
 
 <body>
@@ -109,40 +108,71 @@ if (!isset($_SESSION['session_id'])) {
         </div>
     </section>
 
-
     <div class="content">
         <section>
-            <div class="esq">
+            <div class="esq mb-4">
                 <h1>Vacinas</h1>
                 <h3 class="fw-light">Registre e visualize as suas vacinas aplicadas.</h3>
-                <a type="button" class="btn btn-primary" href="cadastro-vacinas/">Registrar Doses</a>
+                <p class="lead">Mantenha seu histórico de vacinação atualizado para garantir sua proteção e a de todos ao seu redor. Adicione as vacinas aplicadas e consulte facilmente todas as informações sobre cada dose.</p>
+                <a type="button" class="btn btn-primary mt-3" href="cadastro-vacinas/">Registrar Doses</a>
+                <button type="button" class="btn btn-success mt-3" title="Exportar todas as vacinas para um arquivo">
+                    <i class="fas fa-file-export" style="font-size: 16px; padding-right: 0;"></i> Exportar Todas
+                </button>
             </div>
-            <div class="vacinas-container">
+            <div class="d-flex justify-content-start align-items-center mt-3">
+                <span class="badge" style="background-color: #28a745; color: white; padding: 10px 15px; font-size: 16px; border-radius: 15px;">
+                    <?= count($vacinas) ?> Vacinas Adicionadas
+                </span>
+            </div>
+            <div class="vacinas-container d-flex flex-wrap gap-4 justify-content-center mt-4" id="vacinas-content">
                 <?php if (count($vacinas) > 0): ?>
                     <?php foreach ($vacinas as $vacina): ?>
-                        <div class="card" style="width: 300px;">
-                            <img src="../../../../assets/img/vac-card.jpg" class="card-img-top" alt="Vacina">
+                        <div class="card shadow-lg" style="width: 350px; border-radius: 20px; background-color: rgba(255, 255, 255, 0.95); transition: all 0.3s ease; padding: 20px; display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
+                            <img src="../../../../assets/img/vac-card.jpg" class="card-img-top" alt="Vacina" style="object-fit: cover; height: 250px; width: 100%; border-radius: 20px 20px 0 0;">
                             <div class="card-body">
-                                <h5 class="card-title"><?= htmlspecialchars($vacina['nome_vac']) ?></h5>
-                                <p class="card-text">Dose: <?= htmlspecialchars($vacina['dose']) ?></p>
-                                <p class="card-text">Data de Aplicação: <?= htmlspecialchars($vacina['data_aplicacao']) ?></p>
-                                <p class="card-text">Local: <?= htmlspecialchars($vacina['local_aplicacao']) ?></p>
-                                <p class="card-text">Lote: <?= htmlspecialchars($vacina['lote']) ?></p>
-                                <p class="card-text">Observações: <?= htmlspecialchars($vacina['obs']) ?></p>
-                                <form action="../backend/excluir-vacina.php" method="POST" style="display: inline;" class="form-excluir-vacina">
+                                <h5 class="card-title text-center text-dark" style="font-weight: bold;"><?= htmlspecialchars($vacina['nome_vac'], ENT_QUOTES, 'UTF-8') ?></h5>
+                                <div class="d-flex flex-column mt-3">
+                                    <?php if (!empty($vacina['dose'])): ?>
+                                        <p class="card-text"><i class="fas fa-syringe text-success"></i> <strong>Dose:</strong> <?= htmlspecialchars($vacina['dose'], ENT_QUOTES, 'UTF-8') ?></p>
+                                    <?php endif; ?>
+                                    <?php if (!empty($vacina['data_aplicacao'])): ?>
+                                        <p class="card-text"><i class="fas fa-calendar-day text-info"></i> <strong>Data de Aplicação:</strong> <?= date('d/m/Y', strtotime($vacina['data_aplicacao'])) ?></p>
+                                    <?php endif; ?>
+                                    <?php if (!empty($vacina['local_aplicacao'])): ?>
+                                        <p class="card-text"><i class="fas fa-map-marker-alt text-warning"></i> <strong>Local:</strong> <?= htmlspecialchars($vacina['local_aplicacao'], ENT_QUOTES, 'UTF-8') ?></p>
+                                    <?php endif; ?>
+                                    <?php if (!empty($vacina['lote'])): ?>
+                                        <p class="card-text"><i class="fas fa-cogs text-secondary"></i> <strong>Lote:</strong> <?= htmlspecialchars($vacina['lote'], ENT_QUOTES, 'UTF-8') ?></p>
+                                    <?php endif; ?>
+                                    <?php if (!empty($vacina['obs'])): ?>
+                                        <p class="card-text"><i class="fas fa-sticky-note text-dark"></i> <strong>Observações:</strong> <?= htmlspecialchars($vacina['obs'], ENT_QUOTES, 'UTF-8') ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between align-items-center">
+                                <form action="../backend/excluir-vacina.php" method="POST" class="form-excluir-vacina mb-0">
                                     <input type="hidden" name="id_vac" value="<?= $vacina['id_vac'] ?>">
-                                    <button type="submit" class="btn btn-danger" id="btn-excluir">
-                                        <i class="fas fa-trash"></i> Excluir
+                                    <button type="submit" class="btn btn-danger" data-toggle="tooltip" title="Excluir vacina" style="padding: 5px 10px;">
+                                        <i class="fas fa-trash-alt" style="font-size: 16px; padding-right: 0;"></i>
                                     </button>
                                 </form>
+                                <a href="editar-vacina.php?id_vac=<?= $vacina['id_vac'] ?>" class="btn btn-secondary" data-toggle="tooltip" title="Editar vacina" style="border: none; background: #6c757d; padding: 5px 10px;">
+                                    <i class="fas fa-edit" style="font-size: 16px; padding-right: 0;"></i>
+                                </a>
+                                <button type="button" class="btn btn-success" data-id="<?= $vacina['id_vac'] ?>" onclick="exportarVacina(this)">
+                                    <i class="fas fa-share-alt" style="font-size: 16px; padding-right: 0;"></i>
+                                </button>
                             </div>
                         </div>
                     <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="alert alert-info w-100" role="alert">
+                        <i class="fas fa-info-circle"></i> Nenhuma vacina registrada.
+                    </div>
                 <?php endif; ?>
             </div>
         </section>
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

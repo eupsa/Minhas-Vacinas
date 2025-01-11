@@ -8,7 +8,7 @@ require '../../scripts/conn.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+    $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $nome = ucwords(trim($dados['nome']));
 $email = filter_var(strtolower(trim($dados['email'])), FILTER_SANITIZE_EMAIL);
 $estado = trim($dados['estado']);
@@ -43,7 +43,7 @@ if ($senha !== $confsenha) {
 }
 
 if (!in_array($estado, $estados)) {
-    $retorna = ['status' => false, 'msg' => "A sigla do estado é inválida."];
+    $retorna = ['status' => false, 'msg' => "A sigla do estado é inválida. Por favor atualiza a página."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
