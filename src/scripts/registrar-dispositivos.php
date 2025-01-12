@@ -1,13 +1,12 @@
 <?php
 require 'conn.php';
 
-
 function registrar_dispositivo($pdo)
 {
-
     $id_usuario = 2;
-    // Obter IP
+    // Obter IP e garantir que seja IPv4
     $ip = $_SERVER['REMOTE_ADDR'];
+    $ip = getIPv4($ip); // Garantir que o IP seja IPv4
 
     // Obter informações de geolocalização usando o serviço de IP (ipinfo.io)
     $token = 'c4444d8bf12e24'; // Coloque seu token do ipinfo.io aqui
@@ -33,9 +32,9 @@ function registrar_dispositivo($pdo)
 
     // Inserir na tabela de dispositivos
     $sql = $pdo->prepare("INSERT INTO dispositivos
-(id_usuario, nome_dispositivo, tipo_dispositivo, ip, navegador, cidade, estado, pais)
-VALUES
-(:id_usuario, :nome_dispositivo, :tipo_dispositivo, :ip, :navegador, :cidade, :estado, :pais)");
+    (id_usuario, nome_dispositivo, tipo_dispositivo, ip, navegador, cidade, estado, pais)
+    VALUES
+    (:id_usuario, :nome_dispositivo, :tipo_dispositivo, :ip, :navegador, :cidade, :estado, :pais)");
 
     $sql->bindValue(':id_usuario', $id_usuario);
     $sql->bindValue(':nome_dispositivo', $nome_dispositivo);
@@ -48,6 +47,17 @@ VALUES
 
     // Executar a query
     $sql->execute();
+}
+
+// Função para garantir que o IP seja IPv4
+function getIPv4($ip)
+{
+    // Verifica se o IP é IPv6 e tenta pegar o IPv4 se for o caso
+    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+        $ipv4 = gethostbyname($ip); // Tenta converter para IPv4
+        return filter_var($ipv4, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? $ipv4 : $ip; // Retorna o IPv4 se válido, senão retorna o IPv6
+    }
+    return $ip; // Se for IPv4, retorna normalmente
 }
 
 // Função auxiliar para detectar o navegador e o sistema operacional
