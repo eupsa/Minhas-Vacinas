@@ -1,4 +1,6 @@
-const form_conf_email = document.querySelector("#form-confirmar-codigo");
+const form_conf_email = document.querySelector(
+  "#form-confirmar-codigo-alterar-email"
+);
 
 form_conf_email.addEventListener("submit", async (e) => {
   e.preventDefault();

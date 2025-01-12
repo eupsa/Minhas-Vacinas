@@ -55,6 +55,7 @@ if ($sql->rowCount() == 1) {
         </nav>
     </header>
 
+    <!-- Sidebar -->
     <section>
         <div>
             <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
@@ -112,6 +113,7 @@ if ($sql->rowCount() == 1) {
         </div>
     </section>
 
+    <!-- Perfil -->
     <section class="profile-section py-5 padding-left-10">
         <div class=" container">
             <div class="card shadow-lg border-0"">
@@ -178,11 +180,11 @@ if ($sql->rowCount() == 1) {
                                 <option value="Outro" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
                             </select>
                         </div>
-                        <div class="col-12 col-md-6">
+                        <!-- <div class="col-12 col-md-6">
                             <label for="cidade" class="form-label">Cidade</label>
                             <input type="text" class="form-control" id="cidade" name="cidade" disabled
                                 value="<?php echo isset($_SESSION['session_cidade']) ? $_SESSION['session_cidade'] : ''; ?>">
-                        </div>
+                        </div> -->
                     </div>
                     <div class="text-center mt-4">
                         <button type="button" class="btn btn w-100 py-1 text-white" data-bs-toggle="modal" data-bs-target="#updateModal" style="background: #3f3f3f;">Editar Dados</button>
@@ -192,6 +194,7 @@ if ($sql->rowCount() == 1) {
         </div>
     </section>
 
+    <!-- Modal de atualização do Perfil -->
     <section>
         <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true" style="z-index: 1200;">
             <div class="modal-dialog">
@@ -299,6 +302,7 @@ if ($sql->rowCount() == 1) {
         </div>
     </section>
 
+    <!-- Modal de atualização do e-mail -->
     <section>
         <div class="modal fade" id="alterar-email" tabindex="-1" aria-labelledby="alterar-email" aria-hidden="true" style="z-index: 1200;">
             <div class="modal-dialog">
@@ -318,7 +322,7 @@ if ($sql->rowCount() == 1) {
                                 </div>
                             </div>
                             <div class="modal-footer custom-footer">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmar-codigo">Já tenho um código</button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmar-codigo-alterar-email">Já tenho um código</button>
                                 <button type="submit" class="btn btn-secondary">Enviar código</button>
                             </div>
                         </form>
@@ -326,19 +330,17 @@ if ($sql->rowCount() == 1) {
                 </div>
             </div>
         </div>
-    </section>
 
-    <section>
-        <div class="modal fade" id="confirmar-codigo" tabindex="-1" aria-labelledby="confirmar-codigo" aria-hidden="true" style="z-index: 1200;">
+        <div class="modal fade" id="confirmar-codigo-alterar-email" tabindex="-1" aria-labelledby="confirmar-codigo-alterar-email" aria-hidden="true" style="z-index: 1200;">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="confirmar-codigo">Confirmar Alteração de E-mail</h5>
+                        <h5 class="modal-title" id="confirmar-codigo-alterar-email">Confirmar Alteração de E-mail</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <p class="text-muted">Verifique sua caixa de entrada e insira o código de confirmação que enviamos para o novo e-mail.</p>
-                        <form id="form-confirmar-codigo" action="../backend/confirmar-email.php" method="post">
+                        <form id="form-confirmar-codigo-alterar-email" action="../backend/confirmar-email.php" method="post">
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="codigo" class="form-label">Código de Confirmação</label>
@@ -356,6 +358,7 @@ if ($sql->rowCount() == 1) {
         </div>
     </section>
 
+    <!-- Modal de exclusão de conta -->
     <section>
         <div class="modal fade" id="excluir-conta" tabindex="-1" aria-labelledby="excluir-conta" aria-hidden="true" style="z-index: 1200;">
             <div class="modal-dialog">

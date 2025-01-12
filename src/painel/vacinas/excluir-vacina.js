@@ -19,14 +19,6 @@ if (form_excluir_vacina) {
       return;
     }
 
-    let loadingSwal = Swal.fire({
-      title: "Processando...",
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
-
     try {
       const dados = await fetch("../backend/excluir-vacina.php", {
         method: "POST",
@@ -38,31 +30,12 @@ if (form_excluir_vacina) {
       Swal.close();
 
       if (resposta["status"]) {
-        Swal.fire({
-          text: resposta["msg"],
-          icon: "success",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Fechar",
-        }).then(() => {
-          location.reload();
-        });
+        location.reload();
       } else {
-        Swal.fire({
-          text: resposta["msg"],
-          icon: "error",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Fechar",
-        });
+        location.reload();
       }
     } catch (error) {
       Swal.close();
-
-      Swal.fire({
-        text: "Ocorreu um erro ao tentar excluir a vacina. Tente novamente mais tarde.",
-        icon: "error",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "Fechar",
-      });
     }
   });
 }

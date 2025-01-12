@@ -7,7 +7,7 @@ $id_vac = $dados['id_vac'];
 $id_usuario = $_SESSION['session_id'];
 
 if (empty($id_vac)) {
-    $retorna = ['status' => false, 'msg' => "Não foi possível encontrar o atributo id_vac."];
+    $retorna = ['status'];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
@@ -30,19 +30,19 @@ if (empty($id_vac)) {
             $sql->execute();
 
             if ($sql->rowCount() === 0) {
-                $retorna = ['status' => true, 'msg' => "Vacina excluída com sucesso."];
+                $retorna = ['status'];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
                 exit();
             }
         } else {
-            $retorna = ['status' => false, 'msg' => "Vacina não encontrada."];
+            $retorna = ['status'];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit();
         }
     } catch (PDOException $e) {
-        $retorna = ['status' => false, 'msg' => "Erro ao buscar o token: " . $e->getMessage()];
+        $retorna = ['status'];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();

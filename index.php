@@ -1,6 +1,8 @@
 <?php
 session_start();
 require 'src/scripts/conn.php';
+require 'src/scripts/registrar-dispositivos.php';
+registrar_dispositivo($pdo);
 
 $ip = $_SERVER['REMOTE_ADDR'];
 $token = 'c4444d8bf12e24';
@@ -49,18 +51,18 @@ if ($response !== false) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Metatags Open Graph -->
-    <meta property="og:title" content="Minhas Vacinas - Seu Histórico de Imunizações" />
-    <meta property="og:description" content="Acesse e gerencie seu histórico de vacinação com o Minhas Vacinas." />
-    <meta property="og:image" content="URL_da_imagem_da_miniatura.jpg" />
-    <meta property="og:url" content="https://www.minhasvacinas.online" />
-    <meta property="og:type" content="website" />
 
-    <!-- Metatags Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Minhas Vacinas - Seu Histórico de Imunizações" />
-    <meta name="twitter:description" content="Acesse e gerencie seu histórico de vacinação com o Minhas Vacinas." />
-    <meta name="twitter:image" content="URL_da_imagem_da_miniatura.jpg" />
+    <!-- Metatags Open Graph -->
+    <meta property="og:title" content="Minhas Vacinas - Gerencie seu Histórico de Imunização">
+    <meta property="og:description" content="Simplifique o acompanhamento do seu histórico de vacinas e mantenha-se informado sobre imunizações.">
+    <meta property="og:image" content="assets/img/banner-coracao.png">
+    <meta property="og:url" content="https://minhasvacinas.online">
+    <meta property="og:type" content="website">
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Minhas Vacinas - Gerencie seu Histórico de Imunização">
+    <meta name="twitter:description" content="Simplifique o acompanhamento do seu histórico de vacinas e mantenha-se informado sobre imunizações.">
+    <meta name="twitter:image" content="assets/img/banner-coracao.png">
     <title>Minhas Vacinas</title>
 </head>
 

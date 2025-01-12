@@ -1,9 +1,9 @@
-const form_conf_email = document.querySelector("#form-confirmar-codigo");
+const form_conf_exclusao = document.querySelector("#form-confirmar-exclusao");
 
-form_conf_email.addEventListener("submit", async (e) => {
+form_conf_exclusao.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const dadosForm = new FormData(form_conf_email);
+  const dadosForm = new FormData(form_conf_exclusao);
   const codigo = dadosForm.get("codigo");
 
   if (!codigo) {
@@ -19,7 +19,6 @@ form_conf_email.addEventListener("submit", async (e) => {
     return;
   }
 
-  // Exibe o Swal de confirmação
   const confirmacao = await Swal.fire({
     title: "Você tem certeza?",
     text: "Esta ação não pode ser desfeita. A exclusão da conta é permanente.",

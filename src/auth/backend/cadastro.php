@@ -14,6 +14,7 @@ $email = filter_var(strtolower(trim($dados['email'])), FILTER_SANITIZE_EMAIL);
 $estado = trim($dados['estado']);
 $senha = $dados['senha'];
 $confsenha = $dados['confSenha'];
+$retorna = [];
 
 $estados = [
     'AC',
@@ -79,8 +80,6 @@ if (!in_array($estado, $estados)) {
     echo json_encode($retorna);
     exit();
 }
-
-$retorna = []; // Inicializa a variável $retorna antes de qualquer operação
 
 try {
     $senhaHash = password_hash($senha, PASSWORD_DEFAULT);

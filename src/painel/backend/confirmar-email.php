@@ -89,7 +89,7 @@ function enviarEmail($email)
         // Configurações de HTML e charset
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
-        $mail->Subject = 'E-mail alterado';
+        $mail->Subject = 'E-mail alterado com sucesso!';
 
         // Adiciona a imagem como anexo embutido (CID)
         $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img'); // Caminho da imagem e identificador CID

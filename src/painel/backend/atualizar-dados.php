@@ -38,15 +38,15 @@ if (!empty($data_nascimento)) {
 }
 
 try {
-    $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, genero = :genero WHERE email = :email");
+    $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, genero = :genero WHERE id_usuario = :id");
     $sql->bindValue(':nome', $nome);
-    $sql->bindValue(':cpf', $cpf);
+    $sql->bindValue(':cpf', $cpf_formatado);
     $sql->bindValue(':data_nascimento', $data_nascimento);
     $sql->bindValue(':telefone', $telefone);
     $sql->bindValue(':estado', $estado);
     $sql->bindValue(':genero', $genero);
     // $sql->bindValue(':cidade', $cidade);
-    $sql->bindValue(':email', $_SESSION['session_email']);
+    $sql->bindValue(':id', $_SESSION['session_id']);
     $sql->execute();
 
 

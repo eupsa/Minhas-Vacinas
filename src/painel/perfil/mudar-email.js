@@ -45,7 +45,7 @@ form_alterar_email.addEventListener("submit", async (e) => {
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
       }).then(() => {
-        $("#confirmar-codigo").modal("show");
+        $("#confirmar-codigo-alterar-email").modal("show");
         $("#alterar-email").modal("hide");
       });
     } else {
