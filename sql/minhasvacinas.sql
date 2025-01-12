@@ -44,7 +44,6 @@ CREATE TABLE
         cpf VARCHAR(14) UNIQUE,
         telefone VARCHAR(15),
 		cidade VARCHAR(100) DEFAULT 'Não informado',
-        
         data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 

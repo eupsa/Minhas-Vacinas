@@ -21,7 +21,7 @@ if (!empty($cpf)) {
     }
 }
 
-if (empty($nome) && empty($cpf_formatado) && empty($data_nascimento) && empty($telefone) && empty($estado) && empty($genero)) {
+if (empty($nome) && empty($cpf) && empty($data_nascimento) && empty($telefone) && empty($estado) && empty($genero)) {
     $retorna = ['status' => false, 'msg' => 'Preencha todos os campos.'];
     header('Content-Type: application/json');
     echo json_encode($retorna);
@@ -40,7 +40,7 @@ if (!empty($data_nascimento)) {
 try {
     $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, genero = :genero WHERE email = :email");
     $sql->bindValue(':nome', $nome);
-    $sql->bindValue(':cpf', $cpf_formatado);
+    $sql->bindValue(':cpf', $cpf);
     $sql->bindValue(':data_nascimento', $data_nascimento);
     $sql->bindValue(':telefone', $telefone);
     $sql->bindValue(':estado', $estado);
