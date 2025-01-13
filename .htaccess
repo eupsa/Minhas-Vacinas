@@ -3,6 +3,7 @@ RewriteEngine On
 
 # Redirecionar para www
 RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteCond %{HTTPS} on
 RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [L,R=301]
 
 # Redirecionar para HTTPS
