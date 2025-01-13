@@ -10,13 +10,14 @@
 <body>
     <script>
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", 'https://meuip.com/api/meuip.php', true); // A requisição é assíncrona
+        xmlhttp.open("GET", 'https://api.ipify.org?format=json', true); // Usando ipify API
         xmlhttp.send();
         xmlhttp.onload = function(e) {
-            if (xmlhttp.status === 200) { // Verifica se a requisição foi bem-sucedida
-                alert("Seu IP é: " + xmlhttp.responseText); // Corrige para 'responseText' para obter a resposta correta
+            if (xmlhttp.status === 200) {
+                var data = JSON.parse(xmlhttp.responseText);
+                alert("Seu IP é: " + data.ip); // Exibe o IP
             } else {
-                alert("Erro ao obter o IP. Status: " + xmlhttp.status); // Exibe o status HTTP se falhar
+                alert("Erro ao obter o IP. Status: " + xmlhttp.status);
             }
         };
 
