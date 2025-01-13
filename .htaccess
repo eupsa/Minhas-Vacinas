@@ -45,10 +45,3 @@ Deny from all
     ExpiresByType application/javascript "access plus 1 month"
     ExpiresByType application/x-javascript "access plus 1 month"
 </IfModule>
-
-# Bloquear IPs específicos
-
-<RequireAll>
-    Require all granted
-    Require not ip 189.70.247.238
-</RequireAll>
