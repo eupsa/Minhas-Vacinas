@@ -103,11 +103,11 @@ CREATE TABLE IF NOT EXISTS ip_logs (
 );
 
 CREATE TABLE IF NOT EXISTS dispositivos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT,
     id_usuario INT NOT NULL,
     nome_dispositivo VARCHAR(255) NOT NULL,
     tipo_dispositivo VARCHAR(100),
-    ip VARCHAR(45),
+    ip VARCHAR(45) UNIQUE,
     cidade VARCHAR(255),
     estado VARCHAR(255),
     pais VARCHAR(255),
