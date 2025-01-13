@@ -118,8 +118,4 @@ CREATE TABLE IF NOT EXISTS dispositivos (
 );
 
 
-
-UPDATE usuario SET ip_cadastro = '192' WHERE id_usuario = 2;
-
-
 SELECT @@global.time_zone, @@session.time_zone;
