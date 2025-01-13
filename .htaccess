@@ -46,6 +46,3 @@ Deny from all
     ExpiresByType application/x-javascript "access plus 1 month"
 </IfModule>
 
-# Forçar HTTPS para recursos
-
-Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
