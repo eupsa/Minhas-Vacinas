@@ -54,3 +54,10 @@ Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains
 
 Options -Indexes
 
+# Bloquear IPs específicos
+
+<RequireAll>
+    Require all granted
+    Require not ip 123.456.789.0
+    Require not ip 111.222.333.4
+</RequireAll>
