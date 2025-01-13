@@ -1,10 +1,40 @@
 <?php
-session_start();
-if (isset($_SESSION['session_id'])) {
-    header("Location: ../../painel/");
+require '../../scripts/conn.php';
+$id_usuario = isset($_GET['id']) ? $_GET['id'] : '';
+$ip = isset($_GET['ip']) ? $_GET['ip'] : '';
+$erro = '';
+
+if (empty($id_usuario) || empty($ip)) {
+    echo json_encode(['status' => false, 'msg' => "Variável IP ou ID não definida."]);
     exit();
 }
+
+$retorna = null;
+try {
+    $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip AND id_usuario = :id_usuario");
+    $sql->bindValue(':ip', $ip);
+    $sql->bindValue(':id_usuario', $id_usuario);
+    $sql->execute();
+
+    if ($sql->rowCount() === 0) {
+        $retorna = ['status' => false, 'msg' => "Nenhum dispositivo encontrado com o IP e ID fornecidos."];
+    } else {
+        $sql = $pdo->prepare("UPDATE dispositivos SET confirmado = 1 WHERE ip = :ip AND id_usuario = :id_usuario");
+        $sql->bindValue(':ip', $ip);
+        $sql->bindValue(':id_usuario', $id_usuario);
+        $sql->execute();
+
+        if ($sql->rowCount() > 0) {
+            $retorna = ['status' => true, 'msg' => "Dispositivo adicionado à sua conta."];
+        } else {
+            $retorna = ['status' => false, 'msg' => "Erro ao adicionar dispositivo."];
+        }
+    }
+} catch (PDOException $e) {
+    $retorna = ['status' => false, 'msg' => "Erro ao adicionar dispositivo: " . $e->getMessage()];
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -15,10 +45,8 @@ if (isset($_SESSION['session_id'])) {
     <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <meta name="google-signin-client_id" content="1012019764396-ktr2b26790k722jim5ssa0tkgc909811.apps.googleusercontent.com">
-    <title>Minhas Vacinas - Entrar</title>
+    <title>Minhas Vacinas - Novo dispositivo</title>
 </head>
 
 <body>
@@ -133,106 +161,74 @@ if (isset($_SESSION['session_id'])) {
         </div>
     </header>
 
-    <section class="form-log custom-section">
-        <div class="container mt-5">
-            <h4 class="mb-4 text-center" style="margin-top: 10%;">Entre na sua conta</h4>
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-8 col-lg-6">
-                    <div class="card shadow-lg border-0 rounded-lg">
-                        <div class="card-body p-5" style="background-color: #f8f9fa;">
-                            <form action="../backend/entrar.php" class="needs-validation" id="form_login" method="post" novalidate>
-                                <div class="mb-4">
-                                    <label for="email" class="form-label text-dark font-weight-semibold">E-mail</label>
-                                    <input type="email" class="form-control rounded-pill" id="email" name="email" required autocomplete="off"" value="pedruuu291@gmail.com">
-                                </div>
-                                <div class=" mb-4">
-                                    <label for="senha" class="form-label text-dark font-weight-semibold">Senha</label>
-                                    <div class="input-group">
-                                        <input type="password" class="form-control rounded-pill" id="senha" name="senha" required value="Chicote1@">
-                                        <button class="btn btn-outline-secondary rounded-pill" type="button" id="togglePassword">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <div>
-                                        <a href="../esqueceu-senha/" class="text-dark font-weight-medium">
-                                            <i class="bi bi-question-circle me-1"></i> Esqueceu a senha?
-                                        </a>
-                                    </div>
-                                </div>
-                                <button class="btn btn-success w-100 py-2 rounded-pill text-uppercase font-weight-bold" type="submit" id="submitBtn">
-                                    <i class="fas fa-door-open"></i> ENTRAR
-                                    <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status" aria-hidden="true" style="display: none;"></span>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="text-center mt-4">
-                        <hr class="custom-hr">
-                        <p class="mb-1 text-dark">Ainda não tem uma conta?</p>
-                        <a href="../cadastro/" class="text-primary" style="text-decoration: none;">
-                            <i class="bi bi-person-plus me-2"></i> Faça seu registro aqui
-                        </a>
-                    </div>
+    <?php if ($retorna): ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    text: '<?php echo $retorna['msg']; ?>',
+                    icon: '<?php echo $retorna['status'] ? 'success' : 'error'; ?>',
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: "Fechar",
+                }).then(() => {
+                    window.location.href = "../entrar/"; // Redireciona para login
+                });
+            });
+        </script>
+    <?php else: ?>
+        <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+            <div id="loadingAnimation" style="text-align: center; border: 3px solid #007bff; padding: 40px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); width: 400px; height: 300px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: -10%;">
+                <div class="spinner-border text-primary" role="status" style="animation: spin 1.5s linear infinite;">
+                    <span class="visually-hidden">Carregando...</span>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 3%;">
-        <div class="me-5 d-none d-lg-block"></div>
-        <div class="container text-center text-md-start mt-5">
-            <div class="row mt-3">
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">
-                        <i class="bi bi-gem me-2"></i>Minhas Vacinas
-                    </h6>
-                    <p>
-                        <i class="bi bi-info-circle me-1"></i> Protegendo você e sua família com informações e
-                        controle digital de vacinas.
-                    </p>
-                </div>
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Serviços</h6>
-                    <p>
-                        <a href="/src/auth/cadastro/" style="text-decoration: none; color: #adb5bd;" class="text-reset">Cadastro</a>
-                    </p>
-                    <p>
-                        <a href="/src/ajuda/" style="text-decoration: none; color: #adb5bd;" class="text-reset">Suporte</a>
-                    </p>
-                    <p>
-                        <a href="/src/painel/" style="text-decoration: none; color: #adb5bd;" class="text-reset">Histórico</a>
-                    </p>
-                </div>
-                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Links Úteis</h6>
-                    <p>
-                        <a href="../../../docs/Política-de-Privacidade.pdf"
-                            style="text-decoration: none; color: #adb5bd;" class="text-reset">Política de
-                            Privacidade</a>
-                    </p>
-                    <p>
-                        <a href="../../../docs/Termos-de-Servico.pdf" style="text-decoration: none; color: #adb5bd;"
-                            class="text-reset">Termos de Serviço</a>
-                    </p>
-                </div>
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Contato</h6>
-                    <p><i class="bi bi-envelope me-2"></i>minhasvacinas@hotmail.com</p>
-                </div>
+                <p class="mt-3" id="loadingText" style="font-size: 18px; font-weight: bold; color: #333;">Confirmando seu dispositivo...</p>
             </div>
         </div>
 
-        <div class="text-center p-4" style="background-color: #181a1b; color: #adb5bd;">
-            © 2025 Minhas Vacinas. Todos os direitos reservados.
-        </div>
-    </footer>
+        <script>
+            const loadingText = document.getElementById("loadingText");
+            const messages = [
+                "Confirmando seu dispositivo...",
+                "Verificando dados...",
+                "Conectando ao servidor...",
+                "Por favor, aguarde...",
+                "Processando suas informações..."
+            ];
 
+            let currentMessageIndex = 0;
+
+            setInterval(() => {
+                currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+                loadingText.textContent = messages[currentMessageIndex];
+            }, 3000);
+
+            setInterval(() => {
+                loadingText.classList.toggle("pulse");
+            }, 2000);
+
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+
+                @keyframes pulse {
+                    0% { transform: scale(1); opacity: 1; }
+                    50% { transform: scale(1.1); opacity: 0.8; }
+                    100% { transform: scale(1); opacity: 1; }
+                }
+
+                .pulse {
+                    animation: pulse 2s ease-in-out infinite;
+                }
+            `;
+            document.head.appendChild(style);
+        </script>
+    <?php endif; ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="script.js"></script>
 </body>
 
 </html>

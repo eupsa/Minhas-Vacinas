@@ -1,17 +1,14 @@
 <?php
 require 'conn.php';
+require '../../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require '../../../vendor/phpmailer/phpmailer/src/Exception.php';
+require '../../../vendor/phpmailer/phpmailer/src/SMTP.php';
+require '../../../vendor/autoload.php';
 
 function registrar_dispositivo($pdo, $id_usuario)
 {
-
-    // Obter IP real do cliente
-    $ip = get_real_ip(); // Chama a função para obter o IP real
-
-    // Garantir que seja IPv4
-    $ip = getIPv4($ip);
-
-    // Obter informações de geolocalização usando o serviço de IP (ipinfo.io)
-    $token = 'c4444d8bf12e24'; // Coloque seu token do ipinfo.io aqui
+    $ip = get_real_ip();
+    $token = 'c4444d8bf12e24';
     $response = file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}");
     $data = json_decode($response, true);
 
@@ -19,17 +16,14 @@ function registrar_dispositivo($pdo, $id_usuario)
     $estado = isset($data['region']) ? $data['region'] : 'Desconhecido';
     $pais = isset($data['country']) ? $data['country'] : 'Desconhecido';
 
-    // Obter informações do User-Agent (Navegador e SO)
     $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
     $browser_info = get_browser_info($user_agent);
     $navegador = $browser_info['browser'];
     $sistema_operacional = $browser_info['os'];
 
-    // Nome do dispositivo (pode ser personalizado se disponível no cabeçalho do dispositivo)
-    $nome_dispositivo = gethostname(); // Ou use uma variável de entrada se disponível
+    $nome_dispositivo = gethostname();
 
-    // Tipo do dispositivo (pode ser baseado no User-Agent ou outras informações)
     $tipo_dispositivo = (strpos($user_agent, 'Mobile') !== false) ? 'Mobile' : 'Desktop';
 
     $sql = $pdo->prepare("INSERT INTO dispositivos (id_usuario, nome_dispositivo, tipo_dispositivo, ip, navegador, confirmado, cidade, estado, pais)
@@ -41,7 +35,7 @@ function registrar_dispositivo($pdo, $id_usuario)
     $sql->bindValue(':tipo_dispositivo', $tipo_dispositivo);
     $sql->bindValue(':ip', $ip);
     $sql->bindValue(':navegador', $navegador);
-    $sql->bindValue(':confirmado', 1, PDO::PARAM_BOOL); // Define o valor como 1 (true)
+    $sql->bindValue(':confirmado', 1, PDO::PARAM_BOOL);
     $sql->bindValue(':cidade', $cidade);
     $sql->bindValue(':estado', $estado);
     $sql->bindValue(':pais', $pais);
@@ -51,42 +45,27 @@ function registrar_dispositivo($pdo, $id_usuario)
     return $ip;
 }
 
-// Função para garantir que o IP seja IPv4
-function getIPv4($ip)
-{
-    // Verifica se o IP é IPv6 e tenta pegar o IPv4 se for o caso
-    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-        $ipv4 = gethostbyname($ip); // Tenta converter para IPv4
-        return filter_var($ipv4, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? $ipv4 : $ip; // Retorna o IPv4 se válido, senão retorna o IPv6
-    }
-    return $ip; // Se for IPv4, retorna normalmente
-}
-
-// Função para pegar o IP real do cliente (considerando proxies)
 function get_real_ip()
 {
-    // Verifica se o tráfego passou por um proxy e se o IP não é o loopback
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
     } elseif (!empty($_SERVER['REMOTE_ADDR'])) {
         $ip = $_SERVER['REMOTE_ADDR'];
     } else {
-        $ip = 'Desconhecido'; // Se não conseguir determinar o IP
-    }
-
-    // Verifica se o IP é um endereço de loopback (IPv4 ou IPv6)
-    if ($ip === '127.0.0.1' || $ip === '::1') {
-        $ip = '192.168.0.1'; // Pode substituir por outro valor, se preferir
+        $ip = generate_random_ip();
     }
 
     return $ip;
 }
 
+function generate_random_ip()
+{
+    return long2ip(rand(0, 255) << 24 | rand(0, 255) << 16 | rand(0, 255) << 8 | rand(0, 255));
+}
 
-// Função auxiliar para detectar o navegador e o sistema operacional
+
 function get_browser_info($user_agent)
 {
-    // Detectando o sistema operacional
     if (strpos($user_agent, 'Windows NT') !== false) {
         $os = 'Windows';
     } elseif (strpos($user_agent, 'Macintosh') !== false) {
@@ -101,7 +80,6 @@ function get_browser_info($user_agent)
         $os = 'Desconhecido';
     }
 
-    // Detectando o navegador
     if (strpos($user_agent, 'Chrome') !== false) {
         $browser = 'Chrome';
     } elseif (strpos($user_agent, 'Firefox') !== false) {

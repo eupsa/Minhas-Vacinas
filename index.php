@@ -1,7 +1,6 @@
 <?php
 session_start();
 require 'src/scripts/conn.php';
-require 'src/scripts/registrar-dispositivos.php';
 
 $ip = $_SERVER['REMOTE_ADDR'];
 $token = 'c4444d8bf12e24';

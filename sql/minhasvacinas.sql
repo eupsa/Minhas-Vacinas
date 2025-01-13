@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS dispositivos (
     id_usuario INT NOT NULL,
     nome_dispositivo VARCHAR(255) NOT NULL,
     tipo_dispositivo VARCHAR(100),
-    ip VARCHAR(45) UNIQUE,
+    ip VARCHAR(45),
     cidade VARCHAR(255),
     estado VARCHAR(255),
     pais VARCHAR(255),

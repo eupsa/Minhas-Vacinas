@@ -157,14 +157,14 @@ if (isset($_SESSION['session_id'])) {
                         </div>
                     </div>
                     <div class="text-center mt-3">
-                        <a href="" data-bs-toggle="modal" data-bs-target="#emailModal" class="text-white" style="text-decoration: none;">
+                        <a href="" data-bs-toggle="modal" data-bs-target="#emailModal" class="text-primary" style="text-decoration: none;">
                             <i class="bi bi-arrow-clockwise me-2"></i>Reenviar e-mail de confirmação
                         </a>
                     </div>
                     <hr class="custom-hr">
                     <div class="text-center mt-3">
-                        <p class="mb-1 text-white">Ainda não tem uma conta?</p>
-                        <a href="../cadastro/" class="text-white" style="text-decoration: none;">
+                        <p class="mb-1 text-dark">Ainda não tem uma conta?</p>
+                        <a href="../cadastro/" class="text-primary" style="text-decoration: none;">
                             <i class="bi bi-person-plus me-2"></i>Faça seu registro aqui
                         </a>
                     </div>
