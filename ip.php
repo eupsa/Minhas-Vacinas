@@ -8,8 +8,18 @@
 </head>
 
 <body>
-    <!-- Embutindo o iframe para mostrar o IP do usuário -->
-    <iframe src="http://meuip.datahouse.com.br/meuip-site.php" name="meuip" width="525" height="132" scrolling="No" frameborder="0" id="meuip"></iframe>
+    <script>
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", 'https://meuip.com/api/meuip.php', true); // A requisição é assíncrona
+        xmlhttp.send();
+        xmlhttp.onload = function(e) {
+            if (xmlhttp.status === 200) { // Verifica se a requisição foi bem-sucedida
+                alert("Seu IP é: " + xmlhttp.responseText); // Corrige para 'responseText' para obter a resposta correta
+            } else {
+                alert("Erro ao obter o IP.");
+            }
+        }
+    </script>
 </body>
 
 </html>
