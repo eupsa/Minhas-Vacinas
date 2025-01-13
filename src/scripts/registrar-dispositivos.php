@@ -1,9 +1,8 @@
 <?php
 require 'conn.php';
 
-function registrar_dispositivo($pdo)
+function registrar_dispositivo($pdo, $id_usuario)
 {
-    $id_usuario = 2;
 
     // Obter IP real do cliente
     $ip = get_real_ip(); // Chama a função para obter o IP real
@@ -33,23 +32,23 @@ function registrar_dispositivo($pdo)
     // Tipo do dispositivo (pode ser baseado no User-Agent ou outras informações)
     $tipo_dispositivo = (strpos($user_agent, 'Mobile') !== false) ? 'Mobile' : 'Desktop';
 
-    // Inserir na tabela de dispositivos
-    $sql = $pdo->prepare("INSERT INTO dispositivos
-    (id_usuario, nome_dispositivo, tipo_dispositivo, ip, navegador, cidade, estado, pais)
+    $sql = $pdo->prepare("INSERT INTO dispositivos (id_usuario, nome_dispositivo, tipo_dispositivo, ip, navegador, confirmado, cidade, estado, pais)
     VALUES
-    (:id_usuario, :nome_dispositivo, :tipo_dispositivo, :ip, :navegador, :cidade, :estado, :pais)");
+    (:id_usuario, :nome_dispositivo, :tipo_dispositivo, :ip, :navegador, :confirmado, :cidade, :estado, :pais)");
 
     $sql->bindValue(':id_usuario', $id_usuario);
     $sql->bindValue(':nome_dispositivo', $nome_dispositivo);
     $sql->bindValue(':tipo_dispositivo', $tipo_dispositivo);
     $sql->bindValue(':ip', $ip);
     $sql->bindValue(':navegador', $navegador);
+    $sql->bindValue(':confirmado', 1, PDO::PARAM_BOOL); // Define o valor como 1 (true)
     $sql->bindValue(':cidade', $cidade);
     $sql->bindValue(':estado', $estado);
     $sql->bindValue(':pais', $pais);
-
-    // Executar a query
     $sql->execute();
+
+
+    return $ip;
 }
 
 // Função para garantir que o IP seja IPv4
@@ -66,18 +65,23 @@ function getIPv4($ip)
 // Função para pegar o IP real do cliente (considerando proxies)
 function get_real_ip()
 {
+    // Verifica se o tráfego passou por um proxy e se o IP não é o loopback
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        // Se o tráfego passar por um proxy, pegar o primeiro IP da lista (o real)
         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
     } elseif (!empty($_SERVER['REMOTE_ADDR'])) {
-        // Caso contrário, pegar o IP direto da requisição
         $ip = $_SERVER['REMOTE_ADDR'];
     } else {
         $ip = 'Desconhecido'; // Se não conseguir determinar o IP
     }
 
+    // Verifica se o IP é um endereço de loopback (IPv4 ou IPv6)
+    if ($ip === '127.0.0.1' || $ip === '::1') {
+        $ip = '192.168.0.1'; // Pode substituir por outro valor, se preferir
+    }
+
     return $ip;
 }
+
 
 // Função auxiliar para detectar o navegador e o sistema operacional
 function get_browser_info($user_agent)

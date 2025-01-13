@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     cpf VARCHAR(14) UNIQUE,
     telefone VARCHAR(15),
     cidade VARCHAR(100) DEFAULT 'Não informado',
-    ip_cadastro VARCHAR(45) NOT NULL,
+    ip_cadastro VARCHAR(45),
     data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS ip_logs (
 );
 
 CREATE TABLE IF NOT EXISTS dispositivos (
-    id INT AUTO_INCREMENT,
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- Definindo como chave primária
     id_usuario INT NOT NULL,
     nome_dispositivo VARCHAR(255) NOT NULL,
     tipo_dispositivo VARCHAR(100),
@@ -114,9 +114,12 @@ CREATE TABLE IF NOT EXISTS dispositivos (
     navegador VARCHAR(255),
     confirmado BOOLEAN DEFAULT 0,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
+    FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE
 );
 
+
+
+UPDATE usuario SET ip_cadastro = '192' WHERE id_usuario = 2;
 
 
 SELECT @@global.time_zone, @@session.time_zone;

@@ -17,8 +17,6 @@ if (isset($_SESSION['session_id'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3472234536437513"
-        crossorigin="anonymous"></script>
     <meta name="google-signin-client_id" content="1012019764396-ktr2b26790k722jim5ssa0tkgc909811.apps.googleusercontent.com">
     <title>Minhas Vacinas - Entrar</title>
 </head>
