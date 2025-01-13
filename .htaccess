@@ -21,16 +21,14 @@ ErrorDocument 500 /assets/error/500.html
 
 # Prevenir Hotlinking
 
-#Evita que outras pessoas usem suas imagens em outros sites, carregando-as do seu servidor.
 RewriteCond %{HTTP_REFERER} !^https://www\.minhasvacinas\.online [NC]
 RewriteCond %{HTTP_REFERER} !^$ [NC]
 RewriteRule \.(jpg|jpeg|png|gif|bmp|webp)$ - [F,NC]
 
 # Prevenir acesso a arquivos sensíveis
 
-<FilesMatch "^.\*(\.env|\.htaccess|\.git|\.gitignore|\.htpasswd|config\.php)$">
-Order Deny,Allow
-Deny from all
+<FilesMatch "\.(env|htaccess|git|gitignore|htpasswd|config\.php)$">
+Require all denied
 </FilesMatch>
 
 # Habilitar Cache de Navegador
