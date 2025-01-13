@@ -53,14 +53,14 @@ if ($response !== false) {
     <!-- Metatags Open Graph -->
     <meta property="og:title" content="Minhas Vacinas - Gerencie seu Histórico de Imunização">
     <meta property="og:description" content="Simplifique o acompanhamento do seu histórico de vacinas e mantenha-se informado sobre imunizações.">
-    <meta property="og:image" content="assets/img/banner-coracao.png">
-    <meta property="og:url" content="https://minhasvacinas.online">
+    <meta property="og:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao.png">
+    <meta property="og:url" content="https://www.minhasvacinas.online">
     <meta property="og:type" content="website">
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Minhas Vacinas - Gerencie seu Histórico de Imunização">
     <meta name="twitter:description" content="Simplifique o acompanhamento do seu histórico de vacinas e mantenha-se informado sobre imunizações.">
-    <meta name="twitter:image" content="https://minhasvacinas.online/assets/img/banner-coracao.png">
+    <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao.png">
     <title>Minhas Vacinas</title>
 </head>
 
