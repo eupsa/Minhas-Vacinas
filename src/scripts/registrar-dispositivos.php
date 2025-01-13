@@ -4,9 +4,9 @@ require 'conn.php';
 function registrar_dispositivo($pdo)
 {
     $id_usuario = 2;
-    // Obter IP e garantir que seja IPv4
-    $ip = $_SERVER['REMOTE_ADDR'];
-    $ip = getIPv4($ip); // Garantir que o IP seja IPv4
+
+    // Obter IP da API (ipify ou ipinfo.io)
+    $ip = get_external_ip(); // Função para obter IP externo
 
     // Obter informações de geolocalização usando o serviço de IP (ipinfo.io)
     $token = 'c4444d8bf12e24'; // Coloque seu token do ipinfo.io aqui
@@ -49,15 +49,12 @@ function registrar_dispositivo($pdo)
     $sql->execute();
 }
 
-// Função para garantir que o IP seja IPv4
-function getIPv4($ip)
+// Função para obter o IP público da API ipify
+function get_external_ip()
 {
-    // Verifica se o IP é IPv6 e tenta pegar o IPv4 se for o caso
-    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-        $ipv4 = gethostbyname($ip); // Tenta converter para IPv4
-        return filter_var($ipv4, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? $ipv4 : $ip; // Retorna o IPv4 se válido, senão retorna o IPv6
-    }
-    return $ip; // Se for IPv4, retorna normalmente
+    // Usando ipify para obter o IP público
+    $ip = file_get_contents("https://api.ipify.org?format=text");
+    return $ip ? $ip : 'Desconhecido';
 }
 
 // Função auxiliar para detectar o navegador e o sistema operacional
