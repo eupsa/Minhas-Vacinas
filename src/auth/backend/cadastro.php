@@ -1,7 +1,4 @@
 <?php
-require '../../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require '../../../vendor/phpmailer/phpmailer/src/Exception.php';
-require '../../../vendor/phpmailer/phpmailer/src/SMTP.php';
 require '../../../vendor/autoload.php';
 require '../../scripts/conn.php';
 require '../../scripts/registrar-dispositivos.php';
@@ -130,7 +127,7 @@ function email_cadastro($email, $codigo)
 {
     $email_body = file_get_contents('../../../assets/email/cadastro.html');
     $email_body = str_replace('{{code}}', $codigo, $email_body);
-    $mail = new PHPMailer(true);
+    $mail = new PHPMailer();
     try {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';

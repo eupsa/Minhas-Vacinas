@@ -138,6 +138,7 @@ function enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
     $email_body = str_replace('{{id}}', $id_usuario, $email_body);
     $email_body = str_replace('{{ip}}', $ip, $email_body);
     $mail = new PHPMailer(true);
+    
     try {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
