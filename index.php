@@ -60,7 +60,7 @@ if ($response !== false) {
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Minhas Vacinas - Gerencie seu Histórico de Imunização">
     <meta name="twitter:description" content="Simplifique o acompanhamento do seu histórico de vacinas e mantenha-se informado sobre imunizações.">
-    <meta name="twitter:image" content="assets/img/banner-coracao.png">
+    <meta name="twitter:image" content="https://minhasvacinas.online/assets/img/banner-coracao.png">
     <title>Minhas Vacinas</title>
 </head>
 
