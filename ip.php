@@ -1,3 +1,8 @@
+<?php
+$ip = $_SERVER['REMOTE_ADDR'];
+echo "Seu IP público é: " . $ip;
+?>
+
 <!DOCTYPE html>
 <html lang="pt">
 
