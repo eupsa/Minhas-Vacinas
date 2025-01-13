@@ -9,10 +9,6 @@ RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [L,R=301]
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
 
-# Redireciona todas as requisições para a pasta src, mas sem mostrar src na URL
-RewriteCond %{REQUEST_URI} !^/src/
-RewriteRule ^(.*)$ src/$1 [L]
-
 # Páginas de erro personalizadas
 ErrorDocument 401 /assets/error/401.html
 ErrorDocument 403 /assets/error/403.html
