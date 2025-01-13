@@ -59,7 +59,7 @@ Options -Indexes
 
 <RequireAll>
     Require all granted
-    Require not ip 189.70.247.238
+    Require not ip 123.456.789.0
 </RequireAll>
 
 # Bloquear User-Agent malicioso
