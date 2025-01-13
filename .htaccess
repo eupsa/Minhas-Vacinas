@@ -19,12 +19,6 @@ ErrorDocument 403 /assets/error/403.html
 ErrorDocument 404 /assets/error/404.html
 ErrorDocument 500 /assets/error/500.html
 
-# Prevenir Hotlinking
-
-RewriteCond %{HTTP_REFERER} !^https://www\.minhasvacinas\.online [NC]
-RewriteCond %{HTTP_REFERER} !^$ [NC]
-RewriteRule \.(jpg|jpeg|png|gif|bmp|webp)$ - [F,NC]
-
 # Prevenir acesso a arquivos sensíveis
 
 <FilesMatch "^.\*(\.env|\.htaccess|\.git|\.gitignore|\.htpasswd|config\.php)$">
