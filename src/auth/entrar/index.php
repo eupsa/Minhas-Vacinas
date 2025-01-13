@@ -143,12 +143,12 @@ if (isset($_SESSION['session_id'])) {
                             <form action="../backend/entrar.php" class="needs-validation" id="form_login" method="post" novalidate>
                                 <div class="mb-4">
                                     <label for="email" class="form-label text-dark font-weight-semibold">E-mail</label>
-                                    <input type="email" class="form-control rounded-pill" id="email" name="email" required autocomplete="off"" value="pedruuu291@gmail.com">
+                                    <input type="email" class="form-control rounded-pill" id="email" name="email" required autocomplete="off">
                                 </div>
                                 <div class=" mb-4">
                                     <label for="senha" class="form-label text-dark font-weight-semibold">Senha</label>
                                     <div class="input-group">
-                                        <input type="password" class="form-control rounded-pill" id="senha" name="senha" required value="Chicote1@">
+                                        <input type="password" class="form-control rounded-pill" id="senha" name="senha" required>
                                         <button class="btn btn-outline-secondary rounded-pill" type="button" id="togglePassword">
                                             <i class="bi bi-eye"></i>
                                         </button>
