@@ -49,15 +49,3 @@ Deny from all
 # Forçar HTTPS para recursos
 
 Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-
-# Prevenir listagem de diretórios
-
-Options -Indexes
-
-# Bloquear IPs específicos
-
-<RequireAll>
-    Require all granted
-    Require not ip 123.456.789.0
-    Require not ip 111.222.333.4
-</RequireAll>
