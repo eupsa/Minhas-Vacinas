@@ -140,7 +140,7 @@ function email_cadastro($email, $codigo)
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
-        $mail->Subject = 'Confirmação de Cadastro';
+        $mail->Subject = 'Confirmação de cadastro';
         $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img');
         $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;
