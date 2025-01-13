@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capturar IP Público</title>
+    <title>Capturar IP Público IPv4</title>
 </head>
 
 <body>
-    <h1>Seu IP Público</h1>
+    <h1>Seu IP Público (Somente IPv4)</h1>
     <p id="ip-info">Carregando...</p>
 
     <script>
@@ -17,8 +17,13 @@
             fetch('https://api-bdc.net/data/client-ip')
                 .then(response => response.json()) // Converte a resposta para JSON
                 .then(data => {
-                    // Exibe o IP público e o tipo de IP na página
-                    document.getElementById('ip-info').innerText = `Seu IP público é: ${data.ipString} (${data.ipType})`;
+                    // Verifica se o tipo de IP é "IPv4"
+                    if (data.ipType === "IPv4") {
+                        // Exibe o IP público IPv4 na página
+                        document.getElementById('ip-info').innerText = `Seu IP público IPv4 é: ${data.ipString}`;
+                    } else {
+                        document.getElementById('ip-info').innerText = 'O seu IP não é IPv4.';
+                    }
                 })
                 .catch(error => {
                     // Caso haja um erro na requisição
