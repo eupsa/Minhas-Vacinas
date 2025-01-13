@@ -50,17 +50,27 @@ if ($response !== false) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Metatags Open Graph -->
-    <meta property="og:title" content="Minhas Vacinas - Gerencie seu Histórico de Imunização">
-    <meta property="og:description" content="Simplifique o acompanhamento do seu histórico de vacinas e mantenha-se informado sobre imunizações.">
-    <meta property="og:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao.png">
-    <meta property="og:url" content="https://www.minhasvacinas.online">
-    <meta property="og:type" content="website">
+    <!-- SEO - Meta Description -->
+    <meta name="description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
+    <!-- SEO - Canonical -->
+    <link rel="canonical" href="https://www.minhasvacinas.online/" />
+    <!-- Open Graph (Facebook) -->
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Minhas Vacinas - Gestão de Vacinas" />
+    <meta property="og:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
+    <meta property="og:url" content="https://www.minhasvacinas.online/" />
+    <meta property="og:site_name" content="Minhas Vacinas" />
+    <meta property="article:publisher" content="https://facebook.com/minhasvacinas" />
+    <meta property="article:modified_time" content="2025-01-13T00:00:00+00:00" />
     <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Minhas Vacinas - Gerencie seu Histórico de Imunização">
-    <meta name="twitter:description" content="Simplifique o acompanhamento do seu histórico de vacinas e mantenha-se informado sobre imunizações.">
-    <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@pssilvagg" />
+    <meta name="twitter:title" content="Minhas Vacinas - Gestão de Vacinas" />
+    <meta name="twitter:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
+    <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao.png" />
+    <!-- SEO - Robots -->
+    <meta name="robots" content="index, follow">
     <title>Minhas Vacinas</title>
 </head>
 
