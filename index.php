@@ -245,7 +245,7 @@ if ($response !== false) {
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="assets/img/img-banner.png" class="d-block w-100" alt="Logo Vacinas" style="margin-top: 4%;">
+                    <img src="assets/img/familia-segura.jpg" class="d-block w-100" alt="Logo Vacinas" style="margin-top: 4%;">
                 </div>
     </section>
 

@@ -13,7 +13,7 @@ $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = strtolower(trim($dados['email']));
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 $senha = $dados['senha'];
-// $lembrarLogin = isset($_POST['lembrarLogin']) ? true : false;
+$lembrarLogin = isset($_POST['lembrarLogin']) ? true : false;
 
 
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -63,32 +63,33 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                             $sql->bindValue(':ip', $ip);
                             $sql->bindValue(':id_usuario', $id_usuario);
                             $sql->execute();
-                            $dispostivo = $sql->fetch(PDO::FETCH_BOTH);
-                            $dispositivo_confirmado = $dispostivo['confirmado'];
-
-                            if ($dispositivo_confirmado != 1) {
-                                $id_usuario = $dispostivo['id_usuario'];
-                                $ip = $dispostivo['ip'];
-                                $cidade = $dispostivo['cidade'];
-                                $estado = $dispostivo['estado'];
-                                $pais = $dispostivo['pais'];
-
-                                enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
-                                $retorna = ['status' => true, 'msg' => "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções."];
-                                header('Content-Type: application/json');
-                                echo json_encode($retorna);
-                                exit();
-                            }
 
                             if ($sql->rowCount() == 1) {
-                                $retorna = ['status' => true, 'msg' => "Bem-vindo à nossa plataforma, " . htmlspecialchars(explode(' ', $usuario['nome'])[0]) . "!"];
-                                header('Content-Type: application/json');
-                                echo json_encode($retorna);
-                                $_SESSION['session_id'] = $usuario['id_usuario'];
-                                $_SESSION['session_nome'] = $usuario['nome'];
-                                $_SESSION['session_email'] = $usuario['email'];
-                                $_SESSION['session_ip'] = $ip;
-                                exit();
+                                $dispostivo = $sql->fetch(PDO::FETCH_BOTH);
+                                $dispositivo_confirmado = $dispostivo['confirmado'];
+
+                                if ($dispositivo_confirmado != 1) {
+                                    $id_usuario = $dispostivo['id_usuario'];
+                                    $ip = $dispostivo['ip'];
+                                    $cidade = $dispostivo['cidade'];
+                                    $estado = $dispostivo['estado'];
+                                    $pais = $dispostivo['pais'];
+
+                                    enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
+                                    $retorna = ['status' => true, 'msg' => "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções."];
+                                    header('Content-Type: application/json');
+                                    echo json_encode($retorna);
+                                    exit();
+                                } else {
+                                    $retorna = ['status' => true, 'msg' => "Bem-vindo à nossa plataforma, " . htmlspecialchars(explode(' ', $usuario['nome'])[0]) . "!"];
+                                    header('Content-Type: application/json');
+                                    echo json_encode($retorna);
+                                    $_SESSION['session_id'] = $usuario['id_usuario'];
+                                    $_SESSION['session_nome'] = $usuario['nome'];
+                                    $_SESSION['session_email'] = $usuario['email'];
+                                    $_SESSION['session_ip'] = $ip;
+                                    exit();
+                                }
                             } else {
                                 registrar_dispositivo($pdo, $id_usuario);
                                 $token = 'c4444d8bf12e24';
