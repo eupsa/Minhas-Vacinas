@@ -602,19 +602,14 @@ if ($sql->rowCount() != 1) {
                                 </div>
                             <?php endif; ?>
                         </ul>
-                        <div class="text-center mt-4">
+                        <!-- <div class="text-center mt-4">
                             <button class="btn btn-danger btn-sm px-4 py-2 shadow-sm">Sair de Todos os Dispositivos</button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-
-
-
-
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 7%;">
         <div class="me-5 d-none d-lg-block"></div>

@@ -55,8 +55,10 @@ if (empty($codigo)) {
 
             enviarEmail($email);
             $_SESSION = [];
-            session_destroy();
-            header('Location: ../../auth/entrar/');
+            $retorna = ['status' => true, 'msg' => "Conta excluida com sucesso."];
+            header('Content-Type: application/json');
+            echo json_encode($retorna);
+            exit();
         } else {
             $retorna = ['status' => false, 'msg' => "O código está incorreto. Confira e tente novamente."];
             header('Content-Type: application/json');

@@ -54,6 +54,8 @@ form_excluir_conta.addEventListener("submit", async (e) => {
         icon: "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
+      }).then(() => {
+        location.reload();
       });
     }
   } catch (error) {
@@ -62,6 +64,8 @@ form_excluir_conta.addEventListener("submit", async (e) => {
       icon: "error",
       confirmButtonColor: "#3085d6",
       confirmButtonText: "Fechar",
+    }).then(() => {
+      location.reload();
     });
   }
 });
