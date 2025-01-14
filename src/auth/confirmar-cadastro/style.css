@@ -91,4 +91,29 @@ body {
   margin-bottom: 20px;
 }
 
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
 
+.theme-toggle.dark {
+  background-color: #121212;
+}
+
+#sunIcon {
+  color: #f9c74f;
+}
+
+#moonIcon {
+  color: #577590;
+}
+
+body {
+  background-color: #fff;
+  color: #000;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark {
+  background-color: #121212;
+  color: #fff;
+}

@@ -41,38 +41,79 @@ if ($response !== false) {
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- SEO - Meta Description -->
-    <meta name="description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
-    <!-- SEO - Canonical -->
-    <link rel="canonical" href="https://www.minhasvacinas.online/" />
-    <!-- Open Graph (Facebook) -->
-    <meta property="og:locale" content="pt_BR" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Minhas Vacinas - Gestão de Vacinas" />
-    <meta property="og:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
-    <meta property="og:url" content="https://www.minhasvacinas.online/" />
-    <meta property="og:site_name" content="Minhas Vacinas" />
-    <meta property="article:publisher" content="https://facebook.com/minhasvacinas" />
-    <meta property="article:modified_time" content="2025-01-13T00:00:00+00:00" />
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@pssilvagg" />
-    <meta name="twitter:title" content="Minhas Vacinas - Gestão de Vacinas" />
-    <meta name="twitter:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
-    <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao.png" />
-    <!-- SEO - Robots -->
-    <meta name="robots" content="index, follow">
-    <title>Minhas Vacinas</title>
-</head>
+    <head>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
+                if (darkModePreference) {
+                    document.documentElement.style.backgroundColor = "#121212"; // Fundo escuro inicial
+                    document.documentElement.style.color = "#ffffff"; // Cor do texto claro inicial
+                    document.body.classList.add('dark-mode'); // Adiciona uma classe para temas escuros
+                }
+            });
+        </script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/assets/css/style.css">
+        <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- SEO Metadata -->
+        <meta name="description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
+        <link rel="canonical" href="https://www.minhasvacinas.online/" />
+        <meta property="og:locale" content="pt_BR" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Minhas Vacinas - Gestão de Vacinas" />
+        <meta property="og:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
+        <meta property="og:url" content="https://www.minhasvacinas.online/" />
+        <meta property="og:site_name" content="Minhas Vacinas" />
+        <meta property="article:publisher" content="https://facebook.com/minhasvacinas" />
+        <meta property="article:modified_time" content="2025-01-13T00:00:00+00:00" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@pssilvagg" />
+        <meta name="twitter:title" content="Minhas Vacinas - Gestão de Vacinas" />
+        <meta name="twitter:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
+        <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao.png" />
+        <meta name="robots" content="index, follow">
+        <title>Minhas Vacinas</title>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                DarkReader.setFetchMethod(window.fetch);
+
+                function toggleDarkMode(isChecked = null) {
+                    const darkModeSwitch = document.getElementById('darkModeSwitch');
+                    const enableDarkMode = isChecked !== null ? isChecked : darkModeSwitch.checked;
+
+                    if (enableDarkMode) {
+                        DarkReader.enable({
+                            brightness: 90,
+                            contrast: 110,
+                            sepia: 0
+                        });
+                        localStorage.setItem('darkMode', 'enabled');
+                    } else {
+                        DarkReader.disable();
+                        localStorage.setItem('darkMode', 'disabled');
+                    }
+                }
+
+                // Aplica a preferência de modo escuro ao carregar a página
+                const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
+                toggleDarkMode(darkModePreference);
+                const darkModeSwitch = document.getElementById('darkModeSwitch');
+                if (darkModeSwitch) {
+                    darkModeSwitch.checked = darkModePreference;
+                    darkModeSwitch.addEventListener('change', function() {
+                        toggleDarkMode(darkModeSwitch.checked);
+                    });
+                }
+            });
+        </script>
+    </head>
+
 
 <body>
     <header>
@@ -92,15 +133,12 @@ if ($response !== false) {
                         <li class="nav-item">
                             <a class="nav-link" href="/#nossa-missao">Sobre</a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="">Blog<span class="badge bg-success">novo</span></a>
-                        </li> -->
                         <li class="nav-item">
                             <a href="#" onclick="Swal.fire({
-                        title: '🚧 O site está passando por modificações importantes!',
-                        text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
-                        icon: 'warning'
-                    }); return false;" class="nav-link">Campanhas</a>
+                    title: '🚧 O site está passando por modificações importantes!',
+                    text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
+                    icon: 'warning'
+                }); return false;" class="nav-link">Campanhas</a>
                         </li>
                         <li class="nav-item">
                             <a href="src/ajuda/" class="nav-link">Suporte</a>
@@ -130,6 +168,14 @@ if ($response !== false) {
                                 </a>
                             </li>
                         <?php endif; ?>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li style="margin-left: 20px; margin-top: 2%;">
+                            <div id="themeToggle" class="theme-toggle d-flex align-items-center" style="cursor: pointer;">
+                                <i class="bi bi-sun" id="sunIcon" style="font-size: 1.2em;"></i>
+                                <i class="bi bi-moon" id="moonIcon" style="font-size: 1.2em; display: none;"></i>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -398,17 +444,37 @@ if ($response !== false) {
     </button>
 
     <script src="assets/js/script.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
     <script>
-        // Configura o método de busca
         DarkReader.setFetchMethod(window.fetch);
 
-        // Ativa o Dark Reader com suas configurações
-        DarkReader.enable({
-            brightness: 100,
-            contrast: 90,
-            sepia: 10
+        const checkDarkModePreference = () => {
+            return localStorage.getItem('darkMode') === 'enabled';
+        };
+
+        const darkModeSwitch = document.getElementById('darkModeSwitch');
+
+        if (checkDarkModePreference()) {
+            DarkReader.enable({
+                brightness: 90,
+                contrast: 110,
+                sepia: 0
+            });
+            darkModeSwitch.checked = true;
+        }
+
+        darkModeSwitch.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                DarkReader.enable({
+                    brightness: 90,
+                    contrast: 110,
+                    sepia: 0
+                });
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                DarkReader.disable();
+                localStorage.setItem('darkMode', 'disabled');
+            }
         });
     </script>
 
