@@ -31,6 +31,18 @@ if (!isset($_SESSION['session_id'])) {
         exit();
     }
 }
+
+$sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip");
+$sql->bindValue(':ip', $_SESSION['session_ip']);
+$sql->execute();
+
+if ($sql->rowCount() != 1) {
+    $_SESSION = [];
+    session_destroy();
+
+    header("Location: ../../auth/entrar/");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

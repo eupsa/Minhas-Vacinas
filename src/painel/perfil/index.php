@@ -27,7 +27,7 @@ $sql->execute();
 if ($sql->rowCount() == 1) {
     info_user($pdo);
 
-    $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE id_usuario = :id_usuario");
+    $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE id_usuario = :id_usuario AND confirmado = 1");
     $sql->bindValue(':id_usuario', $_SESSION['session_id']);
     $sql->execute();
 
