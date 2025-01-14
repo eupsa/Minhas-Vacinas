@@ -31,6 +31,8 @@ if (isset($_SESSION['session_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <title>Minhas Vacinas - Cadastro</title>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -185,6 +187,22 @@ if (isset($_SESSION['session_id'])) {
                 <div class="col-12 col-md-8 col-lg-6">
                     <div class="card shadow-lg border-0">
                         <div class="card-body p-5" style="background-color: #f8f9fa;">
+                            <div class="mb-4">
+                                <div id="g_id_onload"
+                                    data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                                    data-login_uri="https://your.domain/your_login_endpoint"
+                                    data-auto_prompt="false">
+                                </div>
+                                <div class="g_id_signin"
+                                    data-type="standard"
+                                    data-size="medium"
+                                    data-theme="outline"
+                                    data-text="sign_in_with"
+                                    data-shape="rectangular"
+                                    data-logo_alignment="left"
+                                    style="width: 100%; max-width: 100%; display: block;">
+                                </div>
+                            </div>
                             <form action="../backend/cadastro.php" class="needs-validation" id="formcad" method="post" novalidate>
                                 <div class="mb-4">
                                     <label for="nome" class="form-label">Nome<span class="required-asterisk">*</span></label>
