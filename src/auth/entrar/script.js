@@ -83,6 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         }
       } catch (error) {
+        submitButton.disabled = false;
+        loadingSpinner.style.display = "none";
         Swal.fire({
           text: "Ocorreu um erro ao tentar fazer login. Tente novamente mais tarde.",
           icon: "error",

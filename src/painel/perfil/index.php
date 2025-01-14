@@ -8,12 +8,36 @@ if (!isset($_SESSION['session_id'])) {
     exit();
 }
 
+$sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip");
+$sql->bindValue(':ip', $_SESSION['session_ip']);
+$sql->execute();
+
+if ($sql->rowCount() != 1) {
+    $_SESSION = [];
+    session_destroy();
+
+    header("Location: ../../auth/entrar/");
+    exit();
+}
+
 $sql = $pdo->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario");
 $sql->bindValue(':id_usuario', $_SESSION['session_id']);
 $sql->execute();
 
 if ($sql->rowCount() == 1) {
     info_user($pdo);
+
+    $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE id_usuario = :id_usuario");
+    $sql->bindValue(':id_usuario', $_SESSION['session_id']);
+    $sql->execute();
+
+    $dispositivos = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($dispositivos) > 0) {
+        $_SESSION['dispositivos'] = $dispositivos;
+    } else {
+        $_SESSION['dispositivos'] = [];
+    }
 } else {
     $_SESSION = [];
     session_destroy();
@@ -495,57 +519,82 @@ var_dump($_SESSION['session_ip']);
 
     <!-- Modal Dispositivos -->
     <section>
-        <!-- Modal para exibir Dispositivos Logados -->
         <div class="modal fade" id="dispositivosModal" tabindex="-1" aria-labelledby="dispositivosModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- Aumentei o tamanho do modal para "modal-lg" -->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="dispositivosModalLabel"><i class="bi bi-laptop"></i> Dispositivos Logados</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content rounded-4 shadow-lg">
+                    <div class="modal-header border-0 bg-gradient p-3">
+                        <h5 class="modal-title text-white" id="dispositivosModalLabel"><i class="bi bi-laptop"></i> Dispositivos Logados</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <!-- Lista de dispositivos logados -->
-                        <ul class="list-group" id="dispositivosList">
-                            <!-- Exemplo de dispositivo logado -->
-                            <li class="list-group-item d-flex align-items-center">
-                                <i class="bi bi-phone me-2 text-primary"></i>
-                                <div class="flex-grow-1">
-                                    <strong>Dispositivo 1</strong><br>
-                                    <small class="text-muted">Último login: 10 de janeiro de 2025</small>
+                        <ul class="list-group list-group-flush">
+                            <?php
+                            $session_ip = $_SESSION['session_ip'];
+                            $desktop_atual = null;
+
+                            if (count($dispositivos) > 0):
+                                foreach ($dispositivos as $dispositivo):
+                                    // Verificando se o dispositivo é um desktop e corresponde ao IP da sessão
+                                    if ($dispositivo['tipo_dispositivo'] === 'desktop' && $dispositivo['ip'] === $session_ip) {
+                                        $desktop_atual = $dispositivo['nome_dispositivo'];
+                                        $classe_atual = 'bg-warning text-dark'; // Classe para destacar o desktop atual
+                                    } else {
+                                        $classe_atual = '';
+                                    }
+
+                                    switch ($dispositivo['tipo_dispositivo']) {
+                                        case 'celular':
+                                            $icone = 'bi-phone';
+                                            break;
+                                        case 'tablet':
+                                            $icone = 'bi-tablet';
+                                            break;
+                                        case 'desktop':
+                                            $icone = 'bi-pc-display';
+                                            break;
+                                        default:
+                                            $icone = 'bi-device-hdd';
+                                    }
+
+                                    // Concatenando cidade, estado e país
+                                    $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']])));
+                            ?>
+                                    <li class="list-group-item d-flex align-items-center py-3 mb-3 shadow-sm rounded-3 <?php echo $classe_atual; ?>">
+                                        <i class="bi <?php echo $icone; ?> me-3 text-primary" style="font-size: 1.7rem;"></i>
+                                        <div class="flex-grow-1">
+                                            <strong class="d-block mb-2 fs-6"><?php echo $dispositivo['nome_dispositivo']; ?></strong>
+                                            <small class="text-muted d-block mb-1 fs-7">Último login: <?php echo date("d/m/Y H:i", strtotime($dispositivo['data_cadastro'])); ?></small>
+                                            <p class="text-muted mb-0 fs-8"><strong>IP:</strong> <?php echo $dispositivo['ip']; ?></p>
+                                            <?php if (!empty($local)): ?>
+                                                <p class="text-muted mb-0 fs-8"><strong>Local:</strong> <?php echo $local; ?></p>
+                                            <?php endif; ?>
+                                        </div>
+                                        <form action="../backend/remover-dispositivo.php" method="POST" id="form-remover-dispositivo" class="d-inline">
+                                            <input type="hidden" name="dispositivo_id" value="<?php echo $dispositivo['id']; ?>" />
+                                            <button type="submit" class="btn btn-sm btn-outline-danger ms-2" aria-label="Sair">
+                                                <i class="bi bi-x-circle"></i>
+                                            </button>
+                                        </form>
+                                    </li>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <div class="text-center">
+                                    <p class="text-muted fs-5">Nenhum dispositivo encontrado</p>
                                 </div>
-                                <button class="btn btn-sm btn-link text-danger" aria-label="Sair">
-                                    <i class="bi bi-x-circle"></i>
-                                </button>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center">
-                                <i class="bi bi-laptop me-2 text-warning"></i>
-                                <div class="flex-grow-1">
-                                    <strong>Dispositivo 2</strong><br>
-                                    <small class="text-muted">Último login: 8 de janeiro de 2025</small>
-                                </div>
-                                <button class="btn btn-sm btn-link text-danger" aria-label="Sair">
-                                    <i class="bi bi-x-circle"></i>
-                                </button>
-                            </li>
-                            <li class="list-group-item d-flex align-items-center">
-                                <i class="bi bi-tablet me-2 text-success"></i>
-                                <div class="flex-grow-1">
-                                    <strong>Dispositivo 3</strong><br>
-                                    <small class="text-muted">Último login: 5 de janeiro de 2025</small>
-                                </div>
-                                <button class="btn btn-sm btn-link text-danger" aria-label="Sair">
-                                    <i class="bi bi-x-circle"></i>
-                                </button>
-                            </li>
+                            <?php endif; ?>
                         </ul>
                         <div class="text-center mt-4">
-                            <button class="btn btn-danger">Sair de Todos os Dispositivos</button>
+                            <button class="btn btn-danger btn-sm px-4 py-2 shadow-sm">Sair de Todos os Dispositivos</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+
+
+
 
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 7%;">
@@ -595,6 +644,7 @@ var_dump($_SESSION['session_ip']);
     <script src="excluir-conta.js"></script>
     <script src="confirmar-exclusao.js"></script>
     <script src="/assets/js/dark-reader.js"></script>
+    <script src="remover-dispositivo.js"></script>
     <script>
         DarkReader.setFetchMethod(window.fetch);
 
