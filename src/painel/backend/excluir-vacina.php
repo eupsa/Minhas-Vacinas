@@ -7,9 +7,7 @@ $id_vac = $dados['id_vac'];
 $id_usuario = $_SESSION['session_id'];
 
 if (empty($id_vac)) {
-    $retorna = ['status'];
-    header('Content-Type: application/json');
-    echo json_encode($retorna);
+    header('Location: ../vacinas/');
     exit();
 } else {
     try {
@@ -30,21 +28,15 @@ if (empty($id_vac)) {
             $sql->execute();
 
             if ($sql->rowCount() === 0) {
-                $retorna = ['status'];
-                header('Content-Type: application/json');
-                echo json_encode($retorna);
+                header('Location: ../vacinas/');
                 exit();
             }
         } else {
-            $retorna = ['status'];
-            header('Content-Type: application/json');
-            echo json_encode($retorna);
+            header('Location: ../vacinas/');
             exit();
         }
     } catch (PDOException $e) {
-        $retorna = ['status'];
-        header('Content-Type: application/json');
-        echo json_encode($retorna);
+        header('Location: ../vacinas/');
         exit();
     }
 }

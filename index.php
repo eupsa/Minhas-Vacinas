@@ -40,80 +40,78 @@ if ($response !== false) {
 <!DOCTYPE html>
 <html lang="pt-br">
 
+
+
 <head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
+            if (darkModePreference) {
+                document.documentElement.style.backgroundColor = "#121212"; // Fundo escuro inicial
+                document.documentElement.style.color = "#ffffff"; // Cor do texto claro inicial
+                document.body.classList.add('dark-mode'); // Adiciona uma classe para temas escuros
+            }
+        });
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SEO Metadata -->
+    <meta name="description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
+    <link rel="canonical" href="https://www.minhasvacinas.online/" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Minhas Vacinas - Gestão de Vacinas" />
+    <meta property="og:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
+    <meta property="og:url" content="https://www.minhasvacinas.online/" />
+    <meta property="og:site_name" content="Minhas Vacinas" />
+    <meta property="article:publisher" content="https://facebook.com/minhasvacinas" />
+    <meta property="article:modified_time" content="2025-01-13T00:00:00+00:00" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@pssilvagg" />
+    <meta name="twitter:title" content="Minhas Vacinas - Gestão de Vacinas" />
+    <meta name="twitter:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
+    <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao.png" />
+    <meta name="robots" content="index, follow">
+    <title>Minhas Vacinas</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            DarkReader.setFetchMethod(window.fetch);
 
-    <head>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
-                if (darkModePreference) {
-                    document.documentElement.style.backgroundColor = "#121212"; // Fundo escuro inicial
-                    document.documentElement.style.color = "#ffffff"; // Cor do texto claro inicial
-                    document.body.classList.add('dark-mode'); // Adiciona uma classe para temas escuros
-                }
-            });
-        </script>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/assets/css/style.css">
-        <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <!-- SEO Metadata -->
-        <meta name="description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
-        <link rel="canonical" href="https://www.minhasvacinas.online/" />
-        <meta property="og:locale" content="pt_BR" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="Minhas Vacinas - Gestão de Vacinas" />
-        <meta property="og:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
-        <meta property="og:url" content="https://www.minhasvacinas.online/" />
-        <meta property="og:site_name" content="Minhas Vacinas" />
-        <meta property="article:publisher" content="https://facebook.com/minhasvacinas" />
-        <meta property="article:modified_time" content="2025-01-13T00:00:00+00:00" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@pssilvagg" />
-        <meta name="twitter:title" content="Minhas Vacinas - Gestão de Vacinas" />
-        <meta name="twitter:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
-        <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao.png" />
-        <meta name="robots" content="index, follow">
-        <title>Minhas Vacinas</title>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                DarkReader.setFetchMethod(window.fetch);
-
-                function toggleDarkMode(isChecked = null) {
-                    const darkModeSwitch = document.getElementById('darkModeSwitch');
-                    const enableDarkMode = isChecked !== null ? isChecked : darkModeSwitch.checked;
-
-                    if (enableDarkMode) {
-                        DarkReader.enable({
-                            brightness: 90,
-                            contrast: 110,
-                            sepia: 0
-                        });
-                        localStorage.setItem('darkMode', 'enabled');
-                    } else {
-                        DarkReader.disable();
-                        localStorage.setItem('darkMode', 'disabled');
-                    }
-                }
-
-                // Aplica a preferência de modo escuro ao carregar a página
-                const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
-                toggleDarkMode(darkModePreference);
+            function toggleDarkMode(isChecked = null) {
                 const darkModeSwitch = document.getElementById('darkModeSwitch');
-                if (darkModeSwitch) {
-                    darkModeSwitch.checked = darkModePreference;
-                    darkModeSwitch.addEventListener('change', function() {
-                        toggleDarkMode(darkModeSwitch.checked);
-                    });
-                }
-            });
-        </script>
-    </head>
+                const enableDarkMode = isChecked !== null ? isChecked : darkModeSwitch.checked;
 
+                if (enableDarkMode) {
+                    DarkReader.enable({
+                        brightness: 90,
+                        contrast: 110,
+                        sepia: 0
+                    });
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    DarkReader.disable();
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            }
+
+            const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
+            toggleDarkMode(darkModePreference);
+            const darkModeSwitch = document.getElementById('darkModeSwitch');
+            if (darkModeSwitch) {
+                darkModeSwitch.checked = darkModePreference;
+                darkModeSwitch.addEventListener('change', function() {
+                    toggleDarkMode(darkModeSwitch.checked);
+                });
+            }
+        });
+    </script>
+</head>
 
 <body>
     <header>

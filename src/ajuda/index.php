@@ -2,6 +2,16 @@
 <html lang="pt-br">
 
 <head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
+            if (darkModePreference) {
+                document.documentElement.style.backgroundColor = "#121212"; // Fundo escuro inicial
+                document.documentElement.style.color = "#ffffff"; // Cor do texto claro inicial
+                document.body.classList.add('dark-mode'); // Adiciona uma classe para temas escuros
+            }
+        });
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
@@ -10,6 +20,39 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Minhas Vacinas - Ajuda</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            DarkReader.setFetchMethod(window.fetch);
+
+            function toggleDarkMode(isChecked = null) {
+                const darkModeSwitch = document.getElementById('darkModeSwitch');
+                const enableDarkMode = isChecked !== null ? isChecked : darkModeSwitch.checked;
+
+                if (enableDarkMode) {
+                    DarkReader.enable({
+                        brightness: 90,
+                        contrast: 110,
+                        sepia: 0
+                    });
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    DarkReader.disable();
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            }
+
+            // Aplica a preferência de modo escuro ao carregar a página
+            const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
+            toggleDarkMode(darkModePreference);
+            const darkModeSwitch = document.getElementById('darkModeSwitch');
+            if (darkModeSwitch) {
+                darkModeSwitch.checked = darkModePreference;
+                darkModeSwitch.addEventListener('change', function() {
+                    toggleDarkMode(darkModeSwitch.checked);
+                });
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -67,6 +110,14 @@
                                 </a>
                             </li>
                         <?php endif; ?>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li style="margin-left: 20px; margin-top: 2%;">
+                            <div id="themeToggle" class="theme-toggle d-flex align-items-center" style="cursor: pointer;">
+                                <i class="bi bi-sun" id="sunIcon" style="font-size: 1.2em;"></i>
+                                <i class="bi bi-moon" id="moonIcon" style="font-size: 1.2em; display: none;"></i>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -214,7 +265,41 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
     <script src="script.js"></script>
+    <script src="../../assets/js/dark-reader.js"></script>
+    <script>
+        DarkReader.setFetchMethod(window.fetch);
+
+        const checkDarkModePreference = () => {
+            return localStorage.getItem('darkMode') === 'enabled';
+        };
+
+        const darkModeSwitch = document.getElementById('darkModeSwitch');
+
+        if (checkDarkModePreference()) {
+            DarkReader.enable({
+                brightness: 90,
+                contrast: 110,
+                sepia: 0
+            });
+            darkModeSwitch.checked = true;
+        }
+
+        darkModeSwitch.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                DarkReader.enable({
+                    brightness: 90,
+                    contrast: 110,
+                    sepia: 0
+                });
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                DarkReader.disable();
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    </script>
 </body>
 
 </html>

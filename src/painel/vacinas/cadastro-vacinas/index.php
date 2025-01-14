@@ -30,6 +30,38 @@ if (!isset($_SESSION['session_id'])) {
 <html lang="pt-br">
 
 <head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            DarkReader.setFetchMethod(window.fetch);
+
+            function toggleDarkMode(isChecked = null) {
+                const darkModeSwitch = document.getElementById('darkModeSwitch');
+                const enableDarkMode = isChecked !== null ? isChecked : darkModeSwitch.checked;
+
+                if (enableDarkMode) {
+                    DarkReader.enable({
+                        brightness: 90,
+                        contrast: 110,
+                        sepia: 0
+                    });
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    DarkReader.disable();
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            }
+
+            const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
+            toggleDarkMode(darkModePreference);
+            const darkModeSwitch = document.getElementById('darkModeSwitch');
+            if (darkModeSwitch) {
+                darkModeSwitch.checked = darkModePreference;
+                darkModeSwitch.addEventListener('change', function() {
+                    toggleDarkMode(darkModeSwitch.checked);
+                });
+            }
+        });
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
@@ -41,6 +73,38 @@ if (!isset($_SESSION['session_id'])) {
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Cadastro de Vacinas</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            DarkReader.setFetchMethod(window.fetch);
+
+            function toggleDarkMode(isChecked = null) {
+                const darkModeSwitch = document.getElementById('darkModeSwitch');
+                const enableDarkMode = isChecked !== null ? isChecked : darkModeSwitch.checked;
+
+                if (enableDarkMode) {
+                    DarkReader.enable({
+                        brightness: 90,
+                        contrast: 110,
+                        sepia: 0
+                    });
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    DarkReader.disable();
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            }
+
+            const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
+            toggleDarkMode(darkModePreference);
+            const darkModeSwitch = document.getElementById('darkModeSwitch');
+            if (darkModeSwitch) {
+                darkModeSwitch.checked = darkModePreference;
+                darkModeSwitch.addEventListener('change', function() {
+                    toggleDarkMode(darkModeSwitch.checked);
+                });
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -55,6 +119,16 @@ if (!isset($_SESSION['session_id'])) {
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="sidebarToggle">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="collapse navbar-collapse" id="navbarNav" style="padding-left: 90%;">
+                    <ul class="navbar-nav">
+                        <li style="margin-left: 20px; margin-top: 2%;">
+                            <div id="themeToggle" class="theme-toggle d-flex align-items-center" style="cursor: pointer;">
+                                <i class="bi bi-sun" id="sunIcon" style="font-size: 1.2em;"></i>
+                                <i class="bi bi-moon" id="moonIcon" style="font-size: 1.2em; display: none;"></i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
@@ -194,10 +268,44 @@ if (!isset($_SESSION['session_id'])) {
             </form>
         </div>
     </section>
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
+    <script src="/assets/js/dark-reader.js"></script>
+    <script>
+        DarkReader.setFetchMethod(window.fetch);
+
+        const checkDarkModePreference = () => {
+            return localStorage.getItem('darkMode') === 'enabled';
+        };
+
+        const darkModeSwitch = document.getElementById('darkModeSwitch');
+
+        if (checkDarkModePreference()) {
+            DarkReader.enable({
+                brightness: 90,
+                contrast: 110,
+                sepia: 0
+            });
+            darkModeSwitch.checked = true;
+        }
+
+        darkModeSwitch.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                DarkReader.enable({
+                    brightness: 90,
+                    contrast: 110,
+                    sepia: 0
+                });
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                DarkReader.disable();
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    </script>
 </body>
 
 </html>

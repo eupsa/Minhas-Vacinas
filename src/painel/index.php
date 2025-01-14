@@ -22,6 +22,16 @@ if (!isset($_SESSION['session_id'])) {
 <html lang="pt-br">
 
 <head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
+            if (darkModePreference) {
+                document.documentElement.style.backgroundColor = "#121212"; // Fundo escuro inicial
+                document.documentElement.style.color = "#ffffff"; // Cor do texto claro inicial
+                document.body.classList.add('dark-mode'); // Adiciona uma classe para temas escuros
+            }
+        });
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -32,20 +42,60 @@ if (!isset($_SESSION['session_id'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Vacinas - Painel</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            DarkReader.setFetchMethod(window.fetch);
+
+            function toggleDarkMode(isChecked = null) {
+                const darkModeSwitch = document.getElementById('darkModeSwitch');
+                const enableDarkMode = isChecked !== null ? isChecked : darkModeSwitch.checked;
+
+                if (enableDarkMode) {
+                    DarkReader.enable({
+                        brightness: 90,
+                        contrast: 110,
+                        sepia: 0
+                    });
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    DarkReader.disable();
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            }
+
+            const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
+            toggleDarkMode(darkModePreference);
+            const darkModeSwitch = document.getElementById('darkModeSwitch');
+            if (darkModeSwitch) {
+                darkModeSwitch.checked = darkModePreference;
+                darkModeSwitch.addEventListener('change', function() {
+                    toggleDarkMode(darkModeSwitch.checked);
+                });
+            }
+        });
+    </script>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top"
-            style="background-color: #007bff; z-index: 1081; width: 100%; left: 50%; transform: translateX(-50%);" id="navi">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #007bff; z-index: 1081; width: 100%; left: 50%; transform: translateX(-50%);">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
+                    <img src="/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="sidebarToggle">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="collapse navbar-collapse" id="navbarNav" style="padding-left: 90%;">
+                    <ul class="navbar-nav">
+                        <li style="margin-left: 20px; margin-top: 2%;">
+                            <div id="themeToggle" class="theme-toggle d-flex align-items-center" style="cursor: pointer;">
+                                <i class="bi bi-sun" id="sunIcon" style="font-size: 1.2em;"></i>
+                                <i class="bi bi-moon" id="moonIcon" style="font-size: 1.2em; display: none;"></i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
@@ -180,9 +230,43 @@ if (!isset($_SESSION['session_id'])) {
         </div>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="assets/js/script.js"></script>
+    <script src="/assets/js/dark-reader.js"></script>
+    <script>
+        DarkReader.setFetchMethod(window.fetch);
+
+        const checkDarkModePreference = () => {
+            return localStorage.getItem('darkMode') === 'enabled';
+        };
+
+        const darkModeSwitch = document.getElementById('darkModeSwitch');
+
+        if (checkDarkModePreference()) {
+            DarkReader.enable({
+                brightness: 90,
+                contrast: 110,
+                sepia: 0
+            });
+            darkModeSwitch.checked = true;
+        }
+
+        darkModeSwitch.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                DarkReader.enable({
+                    brightness: 90,
+                    contrast: 110,
+                    sepia: 0
+                });
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                DarkReader.disable();
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    </script>
 </body>
 
 </html>

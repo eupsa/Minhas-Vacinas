@@ -21,12 +21,23 @@ if ($sql->rowCount() == 1) {
     header("Location: ../../auth/entrar/");
     exit();
 }
+var_dump($_SESSION['session_ip']);
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
+            if (darkModePreference) {
+                document.documentElement.style.backgroundColor = "#121212"; // Fundo escuro inicial
+                document.documentElement.style.color = "#ffffff"; // Cor do texto claro inicial
+                document.body.classList.add('dark-mode'); // Adiciona uma classe para temas escuros
+            }
+        });
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
@@ -37,6 +48,38 @@ if ($sql->rowCount() == 1) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <title>Vacinas - Perfil</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            DarkReader.setFetchMethod(window.fetch);
+
+            function toggleDarkMode(isChecked = null) {
+                const darkModeSwitch = document.getElementById('darkModeSwitch');
+                const enableDarkMode = isChecked !== null ? isChecked : darkModeSwitch.checked;
+
+                if (enableDarkMode) {
+                    DarkReader.enable({
+                        brightness: 90,
+                        contrast: 110,
+                        sepia: 0
+                    });
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    DarkReader.disable();
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            }
+
+            const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
+            toggleDarkMode(darkModePreference);
+            const darkModeSwitch = document.getElementById('darkModeSwitch');
+            if (darkModeSwitch) {
+                darkModeSwitch.checked = darkModePreference;
+                darkModeSwitch.addEventListener('change', function() {
+                    toggleDarkMode(darkModeSwitch.checked);
+                });
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -51,6 +94,16 @@ if ($sql->rowCount() == 1) {
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="sidebarToggle">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="collapse navbar-collapse" id="navbarNav" style="padding-left: 90%;">
+                    <ul class="navbar-nav">
+                        <li style="margin-left: 20px; margin-top: 2%;">
+                            <div id="themeToggle" class="theme-toggle d-flex align-items-center" style="cursor: pointer;">
+                                <i class="bi bi-sun" id="sunIcon" style="font-size: 1.2em;"></i>
+                                <i class="bi bi-moon" id="moonIcon" style="font-size: 1.2em; display: none;"></i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
@@ -78,18 +131,28 @@ if ($sql->rowCount() == 1) {
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person"></i> Conta
                         </a>
                         <ul class="dropdown-menu shadow-sm" aria-labelledby="navbarDropdown" style="background: #343a40;">
-                            <li><a class="dropdown-item text-white" href="../../auth/trocar-email/" data-bs-toggle="modal" data-bs-target="#alterar-email">Alterar e-mail</a></li>
-                            <li><a class="dropdown-item text-white" href="../../auth/esqueceu-senha/">Alterar senha</a></li>
-                            <li><a class="dropdown-item text-white" href="">Configurações (desativado)</a></li>
                             <li>
-                                <!-- <hr class="dropdown-divider"> -->
+                                <a class="dropdown-item text-white d-flex align-items-center" href="../../auth/trocar-email/" data-bs-toggle="modal" data-bs-target="#alterar-email">
+                                    <i class="bi bi-envelope me-2"></i> Alterar e-mail
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-white d-flex align-items-center" href="../../auth/esqueceu-senha/">
+                                    <i class="bi bi-key me-2"></i> Alterar senha
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-white d-flex align-items-center" href="../../auth/esqueceu-senha/" data-bs-toggle="modal" data-bs-target="#dispositivosModal">
+                                    <i class="bi bi-phone me-2"></i> Dispositivos
+                                </a>
                             </li>
                         </ul>
                     </li>
+
                 </ul>
                 <hr>
                 <div class="dropdown">
@@ -187,7 +250,15 @@ if ($sql->rowCount() == 1) {
                         </div> -->
                     </div>
                     <div class="text-center mt-4">
-                        <button type="button" class="btn btn w-100 py-1 text-white" data-bs-toggle="modal" data-bs-target="#updateModal" style="background: #3f3f3f;">Editar Dados</button>
+                        <button
+                            type="button"
+                            class="btn btn-dark w-100 py-2 rounded-pill d-flex align-items-center justify-content-center gap-2"
+                            data-bs-toggle="modal"
+                            data-bs-target="#updateModal"
+                            style="background-color: rgb(44, 44, 44); border: none; transition: background-color 0.3s;">
+                            <i class="bi bi-pencil-square"></i>
+                            Editar Dados
+                        </button>
                     </div>
                 </form>
             </div>
@@ -422,6 +493,60 @@ if ($sql->rowCount() == 1) {
 
     </section>
 
+    <!-- Modal Dispositivos -->
+    <section>
+        <!-- Modal para exibir Dispositivos Logados -->
+        <div class="modal fade" id="dispositivosModal" tabindex="-1" aria-labelledby="dispositivosModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- Aumentei o tamanho do modal para "modal-lg" -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="dispositivosModalLabel"><i class="bi bi-laptop"></i> Dispositivos Logados</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Lista de dispositivos logados -->
+                        <ul class="list-group" id="dispositivosList">
+                            <!-- Exemplo de dispositivo logado -->
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="bi bi-phone me-2 text-primary"></i>
+                                <div class="flex-grow-1">
+                                    <strong>Dispositivo 1</strong><br>
+                                    <small class="text-muted">Último login: 10 de janeiro de 2025</small>
+                                </div>
+                                <button class="btn btn-sm btn-link text-danger" aria-label="Sair">
+                                    <i class="bi bi-x-circle"></i>
+                                </button>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="bi bi-laptop me-2 text-warning"></i>
+                                <div class="flex-grow-1">
+                                    <strong>Dispositivo 2</strong><br>
+                                    <small class="text-muted">Último login: 8 de janeiro de 2025</small>
+                                </div>
+                                <button class="btn btn-sm btn-link text-danger" aria-label="Sair">
+                                    <i class="bi bi-x-circle"></i>
+                                </button>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="bi bi-tablet me-2 text-success"></i>
+                                <div class="flex-grow-1">
+                                    <strong>Dispositivo 3</strong><br>
+                                    <small class="text-muted">Último login: 5 de janeiro de 2025</small>
+                                </div>
+                                <button class="btn btn-sm btn-link text-danger" aria-label="Sair">
+                                    <i class="bi bi-x-circle"></i>
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="text-center mt-4">
+                            <button class="btn btn-danger">Sair de Todos os Dispositivos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 7%;">
         <div class="me-5 d-none d-lg-block"></div>
@@ -460,6 +585,7 @@ if ($sql->rowCount() == 1) {
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -468,8 +594,38 @@ if ($sql->rowCount() == 1) {
     <script src="confirmar-email.js"></script>
     <script src="excluir-conta.js"></script>
     <script src="confirmar-exclusao.js"></script>
+    <script src="/assets/js/dark-reader.js"></script>
     <script>
+        DarkReader.setFetchMethod(window.fetch);
 
+        const checkDarkModePreference = () => {
+            return localStorage.getItem('darkMode') === 'enabled';
+        };
+
+        const darkModeSwitch = document.getElementById('darkModeSwitch');
+
+        if (checkDarkModePreference()) {
+            DarkReader.enable({
+                brightness: 90,
+                contrast: 110,
+                sepia: 0
+            });
+            darkModeSwitch.checked = true;
+        }
+
+        darkModeSwitch.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                DarkReader.enable({
+                    brightness: 90,
+                    contrast: 110,
+                    sepia: 0
+                });
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                DarkReader.disable();
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
     </script>
 </body>
 
