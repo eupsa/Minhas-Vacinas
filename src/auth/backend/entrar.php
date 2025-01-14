@@ -59,7 +59,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                         $_SESSION['session_ip'] = $ip;
                         exit();
                     } else {
-                        $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip AND id_usuario = :id_usuario");
+                        $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip AND id_usuario = :id_usuario AND confirmado 1");
                         $sql->bindValue(':ip', $ip);
                         $sql->bindValue(':id_usuario', $id_usuario);
                         $sql->execute();
