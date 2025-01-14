@@ -161,7 +161,7 @@ if (isset($_SESSION['session_id'])) {
                                         </a>
                                     </div>
                                 </div>
-                                <button class="btn btn-success w-100 py-2 rounded-pill text-uppercase font-weight-bold" type="submit" id="submitBtn">
+                                <button class="btn btn-dark w-100 py-2 rounded-pill text-uppercase font-weight-bold" type="submit" id="submitBtn">
                                     <i class="fas fa-door-open"></i> ENTRAR
                                     <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status" aria-hidden="true" style="display: none;"></span>
                                 </button>

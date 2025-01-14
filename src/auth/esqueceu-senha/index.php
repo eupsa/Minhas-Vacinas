@@ -147,8 +147,8 @@
                                 <i class="bi bi-arrow-left-circle me-1"></i> Voltar para login?
                             </a>
                         </div>
-                        <button class="btn btn-primary w-100 py-2 rounded-pill mt-3" type="submit">
-                            <i class="bi bi-envelope-fill me-2"></i> Enviar e-mail
+                        <button class="btn btn-dark w-100 py-2 rounded-pill mt-3" type="submit">
+                            <i class="bi bi-key-fill me-2"></i> Redefinir senha
                         </button>
                     </form>
                     <hr class="custom-hr">

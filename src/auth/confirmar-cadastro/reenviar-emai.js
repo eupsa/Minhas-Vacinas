@@ -1,17 +1,17 @@
-const form_conf_cad = document.querySelector("#form-conf-cad");
+const form_reenviar_email = document.querySelector("#form-reenviar-email");
 
-form_conf_cad.addEventListener("submit", async (e) => {
+form_reenviar_email.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const dadosForm = new FormData(form_conf_cad);
+  const dadosForm = new FormData(form_reenviar_email);
 
-  const codigo = dadosForm.get("codigo");
+  const email = dadosForm.get("email");
   const loadingSpinner = document.getElementById("loadingSpinner");
   const submitButton = document.getElementById("submitBtn");
 
-  if (!codigo) {
+  if (!email) {
     Swal.fire({
-      text: "O código não foi inserido.",
+      text: "O e-mail não foi inserido.",
       icon: "error",
       confirmButtonColor: "#3085d6",
       confirmButtonText: "Fechar",
@@ -19,10 +19,16 @@ form_conf_cad.addEventListener("submit", async (e) => {
     return;
   }
 
-  submitButton.disabled = true;
-  loadingSpinner.style.display = "inline-block";
+  Swal.fire({
+    title: "Processando...",
+    timer: 10000,
+    timerProgressBar: true,
+    didOpen: () => {
+      Swal.showLoading();
+    },
+  });
 
-  const dados = await fetch("../backend/confirmar-cadastro.php", {
+  const dados = await fetch("../backend/reenviar-email.php", {
     method: "POST",
     body: dadosForm,
   });

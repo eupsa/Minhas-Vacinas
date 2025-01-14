@@ -92,12 +92,15 @@ if ($response !== false) {
                         <li class="nav-item">
                             <a class="nav-link" href="/#nossa-missao">Sobre</a>
                         </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="">Blog<span class="badge bg-success">novo</span></a>
+                        </li> -->
                         <li class="nav-item">
                             <a href="#" onclick="Swal.fire({
-                            title: '🚧 O site está passando por modificações importantes!',
-                            text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
-                            icon: 'warning'
-                        }); return false;" class="nav-link">Campanhas</a>
+                        title: '🚧 O site está passando por modificações importantes!',
+                        text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
+                        icon: 'warning'
+                    }); return false;" class="nav-link">Campanhas</a>
                         </li>
                         <li class="nav-item">
                             <a href="src/ajuda/" class="nav-link">Suporte</a>
@@ -145,12 +148,15 @@ if ($response !== false) {
                     <li class="nav-item">
                         <a class="nav-link" href="#nossa-missao">Sobre</a>
                     </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="">Blog<span class="badge bg-success">novo</span></a>
+                    </li> -->
                     <li class="nav-item">
                         <a href="#" onclick="Swal.fire({
-                        title: '🚧 O site está passando por modificações importantes!',
-                        text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
-                        icon: 'warning'
-                    }); return false;" class="nav-link">Campanhas</a>
+                    title: '🚧 O site está passando por modificações importantes!',
+                    text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
+                    icon: 'warning'
+                }); return false;" class="nav-link">Campanhas</a>
                     </li>
                     <li class="nav-item">
                         <a href="src/ajuda/" class="nav-link">Suporte</a>
@@ -189,6 +195,7 @@ if ($response !== false) {
             </div>
         </div>
     </header>
+
 
     <section class="carrosel">
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
@@ -390,9 +397,24 @@ if ($response !== false) {
         <i class="bi bi-arrow-up"></i>
     </button>
 
-    <script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script>
-    <script src="assets/js/theme-dark.js"></script>
     <script src="assets/js/script.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
+    <script>
+        // Configura o método de busca
+        DarkReader.setFetchMethod(window.fetch);
+
+        // Ativa o Dark Reader com suas configurações
+        DarkReader.enable({
+            brightness: 100,
+            contrast: 90,
+            sepia: 10
+        });
+    </script>
+
+</body>
+
+
 </body>
 
 </html>

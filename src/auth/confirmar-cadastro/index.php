@@ -18,8 +18,6 @@ if (isset($_SESSION['session_id'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3472234536437513"
-        crossorigin="anonymous"></script>
     <title>Confirmação de Cadastro</title>
 </head>
 
@@ -71,7 +69,6 @@ if (isset($_SESSION['session_id'])) {
                                 </a>
                             </li>
                         <?php endif; ?>
-
                     </ul>
                 </div>
             </div>
@@ -136,7 +133,7 @@ if (isset($_SESSION['session_id'])) {
     </header>
 
     <section class="pt-5 pb-5">
-        <div class=" container mt-5">
+        <div class="container mt-5">
             <h4 class="mb-4 text-center" style="margin-top: 10%;">Confirme seu cadastro</h4>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 col-lg-6">
@@ -150,8 +147,9 @@ if (isset($_SESSION['session_id'])) {
                                     <label for="codigo" class="form-label text-dark">Código</label>
                                     <input type="text" class="form-control rounded-pill" id="codigo" name="codigo" required autocomplete="off">
                                 </div>
-                                <button class="btn btn-success w-100 py-2 rounded-pill" type="submit" id="submitBtn">
-                                    CONFIRMAR CADASTRO <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status" aria-hidden="true" style="display: none;"></span>
+                                <button class="btn btn-dark w-100 py-2 rounded-pill d-flex align-items-center justify-content-center" type="submit" id="submitBtn">
+                                    <i class="bi bi-check-circle me-2"></i> CONFIRMAR CADASTRO
+                                    <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status" aria-hidden="true" style="display: none;"></span>
                                 </button>
                             </form>
                         </div>
@@ -174,7 +172,7 @@ if (isset($_SESSION['session_id'])) {
     </section>
 
     <section>
-        <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true" style="z-index: 2000;">
+        <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true" style="z-index: 1900;">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -183,19 +181,20 @@ if (isset($_SESSION['session_id'])) {
                     </div>
                     <div class="modal-body">
                         <p class="text-muted">Um novo código de 6 dígitos será enviado para o seu e-mail. Verifique sua caixa de entrada, a lixeira e o spam.</p>
+                        <div id="alerta" class="alert" style="display: none;"></div>
                         <form action="../backend/reenviar-email.php" id="form-reenviar-email" method="post" novalidate>
                             <div class="mb-3">
                                 <label for="email" class="form-label">E-mail</label>
-                                <input type="email" class="form-control" id="email" name="email" autocomplete="off" value="<?php echo isset($_SESSION['temp-cad']) ? $_SESSION['temp-cad'] : ''; ?>">
+                                <input type="email" class="form-control" id="email" name="email" autocomplete="off">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-primary" id="reenviarBtn">
+                                    <span id="reenviarText">Reenviar</span>
+                                    <span class="spinner-border spinner-border-sm" id="loadingSpinner" style="display:none;" role="status" aria-hidden="true"></span>
+                                </button>
                             </div>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary" id="reenviarBtn">
-                            <span id="reenviarText">Reenviar</span>
-                            <span class="spinner-border spinner-border-sm" id="loadingSpinner" style="display:none;" role="status" aria-hidden="true"></span>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -255,6 +254,7 @@ if (isset($_SESSION['session_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
+    <script src="reenviar-emai.js"></script>
 </body>
 
 </html>

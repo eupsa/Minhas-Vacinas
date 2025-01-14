@@ -154,7 +154,6 @@ if (isset($_SESSION['session_id'])) {
                                         </button>
                                     </div>
                                     <div class="invalid-feedback">Por favor, insira uma senha.</div>
-                                    <!-- Checklist de senha forte -->
                                     <ul id="passwordChecklist" class="d-none" style="list-style-type: none; padding-left: 0; margin-top: 10px; font-size: 14px;">
                                         <li id="length" class="text-muted"><i class="bi bi-check-circle-fill"></i> Mínimo 8 caracteres</li>
                                         <li id="uppercase" class="text-muted"><i class="bi bi-check-circle-fill"></i> Pelo menos uma letra maiúscula</li>
@@ -175,7 +174,7 @@ if (isset($_SESSION['session_id'])) {
                                 <div class="mb-4">
                                     <label for="estado" class="form-label">Selecione um estado<span class="required-asterisk">*</span></label>
                                     <select class="form-select rounded-pill" id="estado" name="estado" required>
-                                        <option value="">Selecione um estado</option>
+                                        <option value="" selected disabled>Selecione um estado</option>
                                         <option value="AC">Acre</option>
                                         <option value="AL">Alagoas</option>
                                         <option value="AP">Amapá</option>
@@ -209,8 +208,8 @@ if (isset($_SESSION['session_id'])) {
                                 <div class="form-check mb-4">
                                     <label class="form-check-label" for="termsCheckbox" style="padding-bottom: 2%;">Ao clicar em cadastrar, você concorda com os <a href="../../../docs/Termos-de-Servico.pdf" target="_blank">Termos de Serviço</a> e <a href="../../../docs/Política-de-Privacidade.pdf" target="_blank">Política de Privacidade</a>.</label>
                                 </div>
-                                <button class="btn btn-primary w-100 py-2 rounded-pill" type="submit">
-                                    <i class="bi bi-door-open"></i> CADASTRAR
+                                <button class="btn btn-primary w-100 py-2 rounded-pill d-flex align-items-center justify-content-center" type="submit">
+                                    <i class="bi bi-person-plus me-2"></i> CADASTRAR
                                 </button>
                             </form>
                         </div>
@@ -219,6 +218,12 @@ if (isset($_SESSION['session_id'])) {
                         <p class="mb-1">Já tem uma conta?</p>
                         <a href="../entrar/" style="text-decoration: none;">
                             <i class="bi bi-arrow-right-circle me-2"></i> Entre na sua conta
+                        </a>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="mb-1">Já tem cadastro, mas ainda não confirmou?</p>
+                        <a href="../confirmar-cadastro/" style="text-decoration: none;">
+                            <i class="bi bi-envelope-check me-2"></i> Confirmar e-mail
                         </a>
                     </div>
                 </div>

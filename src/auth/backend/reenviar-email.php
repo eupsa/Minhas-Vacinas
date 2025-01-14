@@ -38,7 +38,7 @@ if ($sql->rowCount() == 1) {
     $sql->bindValue(':email', $email);
     $sql->execute();
 
-    if ($sql->rowCount() < 2) {
+    if ($sql->rowCount() <= 3) {
         $codigo = rand(100000, 999999);
         $sql = $pdo->prepare("INSERT INTO confirmar_cadastro (nome, email, codigo) VALUES (:nome, :email, :codigo)");
         $sql->bindValue(':nome', $nome);
@@ -46,13 +46,13 @@ if ($sql->rowCount() == 1) {
         $sql->bindValue(':codigo', $codigo);
         $sql->execute();
 
-        reenviarEmail($nome, $email, $codigo);
+        reenviarEmail($email, $codigo);
         $retorna = ['status' => true, 'msg' => "Um novo código foi enviado para seu e-mail."];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();
     } else {
-        $retorna = ['status' => false, 'msg' => "Você excedeu o limite. Tente novamente mais tarde ou entre em contato com o suporte."];
+        $retorna = ['status' => false, 'msg' => "Você excedeu o limite de códigos. Tente novamente mais tarde."];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();
@@ -65,13 +65,11 @@ if ($sql->rowCount() == 1) {
 }
 
 
-function reenviarEmail($nome, $email, $codigo)
+function reenviarEmail($email, $codigo)
 {
-    $email_body = file_get_contents('../../../assets/email/cadastro.php');
-    $email_body = str_replace('{{nome}}', $nome, $email_body);
-    $email_body = str_replace('{{codigo}}', $codigo, $email_body);
-    $mail = new PHPMailer(true);
-
+    $email_body = file_get_contents('../../../assets/email/cadastro.html');
+    $email_body = str_replace('{{code}}', $codigo, $email_body);
+    $mail = new PHPMailer();
     try {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
@@ -85,6 +83,8 @@ function reenviarEmail($nome, $email, $codigo)
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
         $mail->Subject = 'Confirmação de Cadastro';
+        $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img');
+        $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;
         $mail->send();
         return true;

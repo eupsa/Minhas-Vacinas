@@ -98,8 +98,7 @@ try {
         $sql->execute();
 
         $codigo = rand(100000, 999999);
-        $sql = $pdo->prepare("INSERT INTO confirmar_cadastro (nome, email, codigo) VALUES (:nome, :email, :codigo)");
-        $sql->bindValue(':nome', $nome);
+        $sql = $pdo->prepare("INSERT INTO confirmar_cadastro (email, codigo) VALUES (:email, :codigo)");
         $sql->bindValue(':email', $email);
         $sql->bindValue(':codigo', $codigo);
         $sql->execute();

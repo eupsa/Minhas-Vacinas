@@ -11,7 +11,6 @@ if ($sql->rowCount() != 1) {
     header('Location: ../esqueceu-senha/');
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -23,9 +22,7 @@ if ($sql->rowCount() != 1) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3472234536437513"
-        crossorigin="anonymous"></script>
-    <title>Recuperação de Senha</title>
+    <title>Nova Senha</title>
 </head>
 
 <body>
@@ -125,14 +122,14 @@ if ($sql->rowCount() != 1) {
     </header>
 
     <section class="form-resetPassword">
-        <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 40px;">
-            <div class="row w-100">
-                <div class="col-12 col-md-8 col-lg-6 mx-auto">
+        <div class="container mt-5">
+            <h4 class="mb-4 text-center text-dark">Crie sua nova senha</h4>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6">
                     <form action="../backend/nova-senha.php" class="needs-validation bg-light p-5 rounded shadow-lg" id="form_reset" method="post" novalidate>
-                        <h4 class="mb-4 text-center text-dark">Crie sua nova senha</h4>
-                        <div id="passwordHelpBlock" class="form-text mb-3 text-muted">
+                        <p class="text-muted text-center mb-4">
                             <i class="bi bi-info-circle me-2"></i> Sua senha precisa atender aos requisitos abaixo:
-                        </div>
+                        </p>
                         <!-- Checklist de requisitos -->
                         <ul id="passwordChecklist" class="text-muted mb-3">
                             <li><i class="bi bi-check-circle me-2" id="checkLength"></i>Pelo menos 8 caracteres</li>
@@ -140,11 +137,11 @@ if ($sql->rowCount() != 1) {
                             <li><i class="bi bi-check-circle me-2" id="checkNumber"></i>Um número</li>
                             <li><i class="bi bi-check-circle me-2" id="checkSpecial"></i>Um caractere especial (@$!%*?&)</li>
                         </ul>
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="senha" class="form-label text-dark">Crie sua Senha <span class="required-asterisk">*</span></label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="senha" name="senha" required oninput="validatePassword()" autocomplete="new-password">
-                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                <input type="password" class="form-control rounded-pill" id="senha" name="senha" required oninput="validatePassword()" autocomplete="new-password">
+                                <button class="btn btn-outline-secondary rounded-pill" type="button" id="togglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>
@@ -154,19 +151,20 @@ if ($sql->rowCount() != 1) {
                                 <div id="passwordProgress" class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="confSenha" class="form-label text-dark">Confirme sua senha <span class="required-asterisk">*</span></label>
                             <div class="input-group">
-                                <input type="password" class="form-control" id="confSenha" name="confSenha" required oninput="checkPasswordMatch()" autocomplete="new-password">
-                                <button class="btn btn-outline-secondary" type="button" id="ConftogglePassword">
+                                <input type="password" class="form-control rounded-pill" id="confSenha" name="confSenha" required oninput="checkPasswordMatch()" autocomplete="new-password">
+                                <button class="btn btn-outline-secondary rounded-pill" type="button" id="ConftogglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>
                             <div id="passwordMatch" class="form-text mt-2 text-muted"></div>
                         </div>
-                        <br>
                         <input type="hidden" name="token" value="<?php echo !empty($_GET['token']) ? $_GET['token'] : null; ?>">
-                        <button class="btn btn-success w-100 py-2 rounded-pill" type="submit" id="submitBtn" disabled>Criar senha</button>
+                        <button class="btn btn-dark w-100 py-2 rounded-pill" type="submit" id="submitBtn" disabled>
+                            <i class="bi bi-check-circle me-2"></i> Criar senha
+                        </button>
                     </form>
                 </div>
             </div>
@@ -255,10 +253,7 @@ if ($sql->rowCount() != 1) {
         }
     </script>
 
-
-
-
-    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: -6%;">
+    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 6%;">
         <div class="me-5 d-none d-lg-block"></div>
         <div class="container text-center text-md-start mt-5">
             <div class="row mt-3">

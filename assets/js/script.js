@@ -1,3 +1,5 @@
+import DarkReader from "darkreader";
+
 const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
 window.onscroll = function () {
