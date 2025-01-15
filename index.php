@@ -437,6 +437,23 @@ if ($response !== false) {
         </div>
     </footer>
 
+    <div id="ios-install-banner" style="display:none;">
+        <p>Para uma melhor experiência, adicione este site à sua tela inicial. Abra o menu de compartilhamento no Safari e selecione <strong>Adicionar à Tela de Início</strong>.</p>
+    </div>
+
+    <script>
+        // Detecta se o usuário está usando iOS
+        function isIOS() {
+            return /iphone|ipod|ipad/i.test(navigator.userAgent);
+        }
+
+        // Mostra o banner se o dispositivo for iOS e o site não for um PWA
+        if (isIOS() && !window.matchMedia('(display-mode: standalone)').matches) {
+            document.getElementById('ios-install-banner').style.display = 'block';
+        }
+    </script>
+
+
     <button id="scrollToTopBtn" class="scroll-to-top">
         <i class="bi bi-arrow-up"></i>
     </button>
