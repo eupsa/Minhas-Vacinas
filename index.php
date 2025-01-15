@@ -61,6 +61,7 @@ if ($response !== false) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="manifest" href="manifest.json">
     <!-- SEO Metadata -->
     <meta name="description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
     <link rel="canonical" href="https://www.minhasvacinas.online/" />
@@ -437,23 +438,6 @@ if ($response !== false) {
         </div>
     </footer>
 
-    <div id="ios-install-banner" style="display:none;">
-        <p>Para uma melhor experiência, adicione este site à sua tela inicial. Abra o menu de compartilhamento no Safari e selecione <strong>Adicionar à Tela de Início</strong>.</p>
-    </div>
-
-    <script>
-        // Detecta se o usuário está usando iOS
-        function isIOS() {
-            return /iphone|ipod|ipad/i.test(navigator.userAgent);
-        }
-
-        // Mostra o banner se o dispositivo for iOS e o site não for um PWA
-        if (isIOS() && !window.matchMedia('(display-mode: standalone)').matches) {
-            document.getElementById('ios-install-banner').style.display = 'block';
-        }
-    </script>
-
-
     <button id="scrollToTopBtn" class="scroll-to-top">
         <i class="bi bi-arrow-up"></i>
     </button>
@@ -491,6 +475,18 @@ if ($response !== false) {
                 localStorage.setItem('darkMode', 'disabled');
             }
         });
+    </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+                    console.log('Service Worker registrado com sucesso:', registration);
+                }).catch((error) => {
+                    console.log('Erro ao registrar o Service Worker:', error);
+                });
+            });
+        }
     </script>
 
 </body>
