@@ -103,7 +103,7 @@ if ($sql->rowCount() != 1) {
                 <a class="navbar-brand" href="/">
                     <img src="/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <button class="navbar-toggler" id="sidebarToggle" type="button" data-bs-toggle="sidebar" data-bs-target="#sidebar" aria-controls="sidebar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav" style="padding-left: 90%;">
@@ -168,7 +168,7 @@ if ($sql->rowCount() != 1) {
     <section>
         <div>
             <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
-                <div class="d-flex align-items-center justify-content-center" style="height: 10vh;">
+                <div class="d-flex align-items-center justify-content-center" style="height: 10vh;" id="sidebar">
                 </div>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">

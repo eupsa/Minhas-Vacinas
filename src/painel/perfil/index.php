@@ -539,10 +539,12 @@ if ($sql->rowCount() != 1) {
     <!-- Modal Dispositivos -->
     <section>
         <div class="modal fade" id="dispositivosModal" tabindex="-1" aria-labelledby="dispositivosModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
                 <div class="modal-content rounded-4 shadow-lg">
-                    <div class="modal-header border-0 bg-gradient p-3">
-                        <h5 class="modal-title text-white" id="dispositivosModalLabel"><i class="bi bi-laptop"></i> Dispositivos Logados</h5>
+                    <div class="modal-header bg-gradient p-3">
+                        <h5 class="modal-title text-white" id="dispositivosModalLabel">
+                            <i class="bi bi-laptop"></i> Dispositivos Logados
+                        </h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -553,10 +555,9 @@ if ($sql->rowCount() != 1) {
 
                             if (count($dispositivos) > 0):
                                 foreach ($dispositivos as $dispositivo):
-                                    // Verificando se o dispositivo é um desktop e corresponde ao IP da sessão
                                     if ($dispositivo['tipo_dispositivo'] === 'desktop' && $dispositivo['ip'] === $session_ip) {
                                         $desktop_atual = $dispositivo['nome_dispositivo'];
-                                        $classe_atual = 'bg-warning text-dark'; // Classe para destacar o desktop atual
+                                        $classe_atual = 'bg-warning text-dark'; // Destaque para o desktop atual
                                     } else {
                                         $classe_atual = '';
                                     }
@@ -575,17 +576,16 @@ if ($sql->rowCount() != 1) {
                                             $icone = 'bi-device-hdd';
                                     }
 
-                                    // Concatenando cidade, estado e país
                                     $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']])));
                             ?>
-                                    <li class="list-group-item d-flex align-items-center py-3 mb-3 shadow-sm rounded-3 <?php echo $classe_atual; ?>">
-                                        <i class="bi <?php echo $icone; ?> me-3 text-primary" style="font-size: 1.7rem;"></i>
+                                    <li class="list-group-item d-flex flex-column flex-md-row align-items-start py-3 mb-3 shadow-sm rounded-3 <?php echo $classe_atual; ?>">
+                                        <i class="bi <?php echo $icone; ?> me-3 text-primary" style="font-size: 1.5rem;"></i>
                                         <div class="flex-grow-1">
-                                            <strong class="d-block mb-2 fs-6"><?php echo $dispositivo['nome_dispositivo']; ?></strong>
+                                            <strong class="d-block mb-2 fs-5"><?php echo $dispositivo['nome_dispositivo']; ?></strong>
                                             <small class="text-muted d-block mb-1 fs-7">Último login: <?php echo date("d/m/Y H:i", strtotime($dispositivo['data_cadastro'])); ?></small>
-                                            <p class="text-muted mb-0 fs-8"><strong>IP:</strong> <?php echo $dispositivo['ip']; ?></p>
+                                            <p class="text-muted mb-0 fs-7"><strong>IP:</strong> <?php echo $dispositivo['ip']; ?></p>
                                             <?php if (!empty($local)): ?>
-                                                <p class="text-muted mb-0 fs-8"><strong>Local:</strong> <?php echo $local; ?></p>
+                                                <p class="text-muted mb-0 fs-7"><strong>Local:</strong> <?php echo $local; ?></p>
                                             <?php endif; ?>
                                         </div>
                                         <form action="../backend/remover-dispositivo.php" method="POST" id="form-remover-dispositivo" class="d-inline">
@@ -602,9 +602,9 @@ if ($sql->rowCount() != 1) {
                                 </div>
                             <?php endif; ?>
                         </ul>
-                        <!-- <div class="text-center mt-4">
-                            <button class="btn btn-danger btn-sm px-4 py-2 shadow-sm">Sair de Todos os Dispositivos</button>
-                        </div> -->
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <button class="btn btn-secondary btn-sm w-100 w-sm-auto" data-bs-dismiss="modal">Fechar</button>
                     </div>
                 </div>
             </div>
