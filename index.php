@@ -439,8 +439,14 @@ if ($response !== false) {
     </footer>
 
     <button id="scrollToTopBtn" class="scroll-to-top">
-        <i class="bi bi-arrow-up"></i>
+        <span>&#8593;</span>
     </button>
+
+    <div id="cookieNotice" class="cookie-notice">
+        <p>Usamos cookies para melhorar sua experiência. Ao continuar, você aceita nossa <a href="docs/Política-de-Privacidade.pdf">Política de privacidade</a>.</p>
+        <button id="acceptCookies" class="cookie-accept-btn">Aceitar</button>
+    </div>
+
 
     <script src="assets/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>

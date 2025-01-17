@@ -65,3 +65,20 @@ window.onload = function () {
     }
   });
 };
+
+if (!localStorage.getItem("cookiesAccepted")) {
+  document.getElementById("cookieNotice").classList.add("show");
+} else {
+  document.getElementById("cookieNotice").style.display = "none";
+}
+
+document.getElementById("acceptCookies").addEventListener("click", function () {
+  localStorage.setItem("cookiesAccepted", "true");
+
+  const cookieNotice = document.getElementById("cookieNotice");
+  cookieNotice.style.opacity = 0;
+
+  setTimeout(function () {
+    cookieNotice.style.display = "none";
+  }, 500);
+});
