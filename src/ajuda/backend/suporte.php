@@ -42,14 +42,14 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
             try {
                 $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';
+                $mail->Host = 'smtp.zoho.com';
                 $mail->SMTPAuth = true;
-                $mail->Username = 'equipevaccilife@gmail.com';
-                $mail->Password = 'sfii esho quah qkjd';
+                $mail->Username = 'contato@minhasvacinas.online';
+                $mail->Password = 'H;H6<j$Vp<wd;AgA';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
 
-                $mail->setFrom('equipevaccilife@gmail.com', 'Suporte Vacinas');
+                $mail->setFrom('contato@minhasvacinas.online', 'Suporte Vacinas');
                 $mail->addAddress('minhasvacinas@hotmail.com');
                 $mail->isHTML(true);
                 $mail->CharSet = 'UTF-8';

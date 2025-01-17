@@ -85,15 +85,15 @@ function enviarEmail($email, $codigo)
     try {
         // Configurações SMTP
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
+        $mail->Host = 'smtp.zoho.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'equipevaccilife@gmail.com';
-        $mail->Password = 'sfii esho quah qkjd'; // Use uma senha de app
+        $mail->Username = 'noreply@minhasvacinas.online';
+        $mail->Password = 'JE1+ip-PWMZvy-4x'; // Use uma senha de app
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
         // Configurações do remetente e destinatário
-        $mail->setFrom('equipevaccilife@gmail.com', 'Minhas Vacinas');
+        $mail->setFrom('noreply@minhasvacinas.online', 'Minhas Vacinas');
         $mail->addAddress($email);
 
         // Configurações de HTML e charset

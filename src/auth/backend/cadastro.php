@@ -108,15 +108,15 @@ try {
             session_start();
             $_SESSION['temp-cad'] = $email;
         } else {
-            $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário: " . $e->getMessage()];
-            // $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário."];
+            // $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário: " . $e->getMessage()];
+            $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário."];
         }
     } else {
         $retorna = ['status' => false, 'msg' => "Erro ao cadastrar usuário. Tente novamente."];
     }
 } catch (PDOException $e) {
-    // $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário"];
-    $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário: " . $e->getMessage()];
+    $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário."];
+    // $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário: " . $e->getMessage()];
 } finally {
     echo json_encode($retorna);
     exit();
@@ -129,13 +129,13 @@ function email_cadastro($email, $codigo)
     $mail = new PHPMailer();
     try {
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
+        $mail->Host = 'smtp.zoho.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'equipevaccilife@gmail.com';
-        $mail->Password = 'sfii esho quah qkjd';
+        $mail->Username = 'noreply@minhasvacinas.online';
+        $mail->Password = 'JE1+ip-PWMZvy-4x';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom('equipevaccilife@gmail.com', 'Minhas Vacinas');
+        $mail->setFrom('noreply@minhasvacinas.online', 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';

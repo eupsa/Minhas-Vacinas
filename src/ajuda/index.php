@@ -178,11 +178,11 @@
                             <form id="form_suporte" class="needs-validation" novalidate action="backend/suporte.php" method="post">
                                 <div class="mb-4">
                                     <label for="suporte_nome" class="form-label">Nome</label>
-                                    <input type="text" class="form-control rounded-pill" id="suporte_nome" name="suporte_nome" placeholder="Digite seu nome completo" required>
+                                    <input type="text" class="form-control rounded-pill" id="suporte_nome" name="suporte_nome" required>
                                 </div>
                                 <div class="mb-4">
                                     <label for="suporte_email" class="form-label">E-mail</label>
-                                    <input type="email" class="form-control rounded-pill" id="suporte_email" name="suporte_email" placeholder="Digite seu e-mail" required>
+                                    <input type="email" class="form-control rounded-pill" id="suporte_email" name="suporte_email" required>
                                 </div>
                                 <div class="mb-4">
                                     <label for="motivo_contato" class="form-label">Motivo do Contato</label>
