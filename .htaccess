@@ -1,8 +1,6 @@
 # Ativar RewriteEngine
 RewriteEngine On
 
-
-
 # Páginas de erro personalizadas
 ErrorDocument 401 /assets/error/401.html
 ErrorDocument 403 /assets/error/403.html
