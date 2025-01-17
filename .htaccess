@@ -1,33 +1,27 @@
 # Ativar RewriteEngine
-
 RewriteEngine On
 
 # Forçar o redirecionamento para "www" e HTTPS
-
 RewriteCond %{HTTP_HOST} ^minhasvacinas\.online$ [NC]
-RewriteRule ^(.\*)$ https://www.minhasvacinas.online/$1 [L,R=301]
+RewriteRule ^(.*)$ https://www.minhasvacinas.online/$1 [L,R=301]
 
 # Redirecionar para HTTPS se não estiver usando
-
 RewriteCond %{HTTPS} off
-RewriteRule ^(.\*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
 
 # Páginas de erro personalizadas
-
 ErrorDocument 401 /assets/error/401.html
 ErrorDocument 403 /assets/error/403.html
 ErrorDocument 404 /assets/error/404.html
 ErrorDocument 500 /assets/error/500.html
 
 # Prevenir acesso a arquivos sensíveis
-
-<FilesMatch "^.\*(\.env|\.htaccess|\.git|\.gitignore|\.htpasswd|config\.php)$">
-Order Deny,Allow
-Deny from all
+<FilesMatch "^(.*\.(env|htaccess|git|gitignore|htpasswd|config\.php))$">
+  Order Deny,Allow
+  Deny from all
 </FilesMatch>
 
 # Habilitar Cache de Navegador
-
 <IfModule mod_expires.c>
     ExpiresActive On
     ExpiresDefault "access plus 1 month"
