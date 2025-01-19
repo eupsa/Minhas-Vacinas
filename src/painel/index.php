@@ -19,14 +19,15 @@ if (!isset($_SESSION['session_id'])) {
 }
 
 $sql = $pdo->prepare("SELECT * FROM usuario_google WHERE id_usuario = :id_usuario");
-$sql->bindValue(':id_usuario', $_SESSION['id_usuario']);
+$sql->bindValue(':id_usuario', $_SESSION['session_id']);
 $sql->execute();
 
 if ($sql->rowCount() === 1) {
     $usuario_google = $sql->fetch(PDO::FETCH_BOTH);
     $foto_url = $usuario_google['foto_url'];
-    print_r ($foto_url);
+    print_r($foto_url);
 }
+
 
 $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip");
 $sql->bindValue(':ip', $_SESSION['session_ip']);
