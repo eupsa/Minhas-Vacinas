@@ -343,6 +343,7 @@ if ($sql->rowCount() != 1) {
     <script src="script.js"></script>
     <script src="excluir-vacina.js"></script>
     <script src="/assets/js/dark-reader.js"></script>
+    <script src="../../../block.js"></script>
     <script>
         DarkReader.setFetchMethod(window.fetch);
 

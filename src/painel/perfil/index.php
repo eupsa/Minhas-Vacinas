@@ -659,6 +659,7 @@ if ($sql->rowCount() != 1) {
     <script src="confirmar-exclusao.js"></script>
     <script src="/assets/js/dark-reader.js"></script>
     <script src="remover-dispositivo.js"></script>
+    <script src="../../../block.js"></script>
     <script>
         DarkReader.setFetchMethod(window.fetch);
 

@@ -357,6 +357,7 @@ if ($sql->rowCount() != 1) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
+    <script src="../../../block.js"></script>
     <script src="../../../assets/js/dark-reader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
     <script>

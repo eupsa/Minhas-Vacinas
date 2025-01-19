@@ -164,7 +164,6 @@
         </div>
     </section>
 
-
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: -5%;">
         <div class="me-5 d-none d-lg-block"></div>
         <div class="container text-center text-md-start mt-5">
@@ -220,6 +219,8 @@
     <script src="script.js"></script>
     <script src="../../../assets/js/dark-reader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
+    <script src="../../../block.js"></script>
+
     <script>
         DarkReader.setFetchMethod(window.fetch);
 

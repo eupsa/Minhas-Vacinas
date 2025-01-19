@@ -401,6 +401,7 @@ if (isset($_SESSION['session_id'])) {
     <script src="../../../assets/js/dark-reader.js"></script>
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
+    <script src="../../../block.js"></script>
 </body>
 
 </html>

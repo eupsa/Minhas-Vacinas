@@ -308,6 +308,8 @@ if (isset($_SESSION['session_id'])) {
     <script src="reenviar-emai.js"></script>
     <script src="../../../assets/js/dark-reader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
+    <script src="../../../block.js"></script>
+
     <script>
         DarkReader.setFetchMethod(window.fetch);
 

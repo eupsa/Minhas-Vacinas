@@ -212,7 +212,6 @@
         </div>
     </section>
 
-
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px;">
         <div class="me-5 d-none d-lg-block"></div>
         <div class="container text-center text-md-start mt-5">
@@ -262,12 +261,12 @@
         </div>
     </footer>
 
-
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
     <script src="script.js"></script>
     <script src="../../assets/js/dark-reader.js"></script>
+    <script src="../../../block.js"></script>
     <script>
         DarkReader.setFetchMethod(window.fetch);
 
