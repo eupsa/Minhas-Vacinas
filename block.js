@@ -19,7 +19,7 @@ const modalContent = document.createElement("div");
 modalContent.classList.add("card", "text-center", "bg-dark", "text-white");
 modalContent.style.padding = "30px";
 modalContent.style.borderRadius = "15px";
-modalContent.style.width = "450px"; // Largura mais sóbria
+modalContent.style.width = "500px"; // Largura mais sóbria
 modalContent.style.boxShadow = "0px 4px 20px rgba(0, 0, 0, 0.6)";
 modalContent.style.transition = "transform 0.3s ease";
 modalContent.style.transform = "scale(1.05)"; // Efeito de zoom suave
@@ -37,16 +37,25 @@ message.textContent =
 message.classList.add("lead", "font-italic", "text-white", "mb-4");
 modalContent.appendChild(message);
 
-// Novo domínio
-const newDomain = document.createElement("h3");
+// Novo domínio (mais destacado e clicável)
+const newDomain = document.createElement("a");
+newDomain.href = "https://vacinasdigital.com";
 newDomain.textContent = "https://vacinasdigital.com";
 newDomain.classList.add("text-info", "font-weight-bold", "mb-4");
+newDomain.style.fontSize = "20px";
+newDomain.style.textDecoration = "underline";
+newDomain.style.cursor = "pointer";
+newDomain.addEventListener(
+  "mouseenter",
+  () => (newDomain.style.color = "#0d6efd")
+); // Cor ao passar o mouse
+newDomain.addEventListener("mouseleave", () => (newDomain.style.color = "")); // Volta à cor original
 modalContent.appendChild(newDomain);
 
 // Botão de confirmação
 const buttonYes = document.createElement("button");
 buttonYes.textContent = "Ir para o novo domínio";
-buttonYes.classList.add("btn", "btn-primary", "btn-lg", "mt-3");
+buttonYes.classList.add("btn", "btn-light", "btn-lg", "mt-3");
 buttonYes.style.width = "100%";
 buttonYes.style.borderRadius = "12px";
 buttonYes.style.padding = "10px";
