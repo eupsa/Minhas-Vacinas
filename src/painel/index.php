@@ -23,7 +23,7 @@ $sql->bindValue(':id_usuario', $_SESSION['id_usuario']);
 $sql->execute();
 
 if ($sql->rowCount() === 1) {
-    $usuario_google = $sql->fetch(PDO::FETCH_ASSOC);
+    $usuario_google = $sql->fetch(PDO::FETCH_BOTH);
     $foto_url = $usuario_google['foto_url'];
     var_dump($foto_url);
 }
