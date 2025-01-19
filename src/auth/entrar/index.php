@@ -106,11 +106,6 @@ if (isset($_SESSION['session_id'])) {
                                     <i class="bi bi-person-plus"></i> CADASTRE-SE
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="../entrar/">
-                                    <i class="bi bi-box-arrow-in-right"></i> ENTRAR
-                                </a>
-                            </li>
                         <?php endif; ?>
                     </ul>
                     <!-- <ul class="navbar-nav">
@@ -202,7 +197,8 @@ if (isset($_SESSION['session_id'])) {
                                     data-theme="filled_blue"
                                     data-text="signu_with_google"
                                     data-shape="circle"
-                                    data-logo_alignment="left">
+                                    data-logo_alignment="left"
+                                    style="transform: scale(1.1);">
                                 </div>
                             </div><br>
                             <?php

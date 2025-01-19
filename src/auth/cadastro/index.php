@@ -136,8 +136,6 @@ if (isset($_SESSION['session_id'])) {
         </div>
     </header>
 
-
-
     <section class="pt-5 pb-5">
         <div class="container mt-5">
             <h4 class="mb-4 text-center">Faça seu cadastro</h4>
@@ -145,30 +143,32 @@ if (isset($_SESSION['session_id'])) {
                 <div class="col-12 col-md-8 col-lg-6">
                     <div class="card shadow-lg border-0">
                         <div class="card-body p-5" style="background-color: #f8f9fa;">
-                            <div class="d-flex justify-content-center align-items-center">
-                                <div id="g_id_onload"
-                                    data-client_id="14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com"
-                                    data-login_uri="https://minhasvacinas.online/src/auth/backend/cadastro-google.php"
-                                    data-auto_prompt="false">
-                                </div>
-                                <div class="g_id_signin"
-                                    data-type="standard"
-                                    data-size=""
-                                    data-theme="filled_blue"
-                                    data-text="signu_with_google"
-                                    data-shape="circle"
-                                    data-logo_alignment="center">
-                                </div>
-                            </div><br>
-                            <?php
-                            if (isset($_SESSION['erro_email'])) {
-                                echo "<div class='alert alert-danger' role='alert'>" . $_SESSION['erro_email'] . "</div>";
-                                unset($_SESSION['erro_email']);
-                            }
-                            ?>
-                            <?php
-                            if (isset($_SESSION['sucesso_email'])) {
-                                echo '
+                            <div class="card-body p-5" style="background-color: #f8f9fa;">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <div id="g_id_onload"
+                                        data-client_id="14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com"
+                                        data-login_uri="https://minhasvacinas.online/src/auth/backend/cadastro-google.php"
+                                        data-auto_prompt="false">
+                                    </div>
+                                    <div class="g_id_signin custom-google-btn"
+                                        data-type="standard"
+                                        data-size="medium"
+                                        data-theme="filled_blue"
+                                        data-text="signu_with_google"
+                                        data-shape="circle"
+                                        data-logo_alignment="left"
+                                        style="transform: scale(1.1);">
+                                    </div>
+                                </div><br>
+                                <?php
+                                if (isset($_SESSION['erro_email'])) {
+                                    echo "<div class='alert alert-danger' role='alert'>" . $_SESSION['erro_email'] . "</div>";
+                                    unset($_SESSION['erro_email']);
+                                }
+                                ?>
+                                <?php
+                                if (isset($_SESSION['sucesso_email'])) {
+                                    echo '
 <div class="alert alert-success" role="alert">
     Cadastro realizado com sucesso! Você será redirecionado para o login em <span id="contador">5</span> segundos.
 </div>
@@ -190,104 +190,104 @@ if (isset($_SESSION['session_id'])) {
     }, 1000);
 </script>';
 
-                                unset($_SESSION['sucesso_email']);
-                            }
-                            ?>
-                            <form action="../backend/cadastro.php" class="needs-validation" id="formcad" method="post" novalidate>
-                                <div class="mb-4">
-                                    <label for="nome" class="form-label">Nome<span class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control rounded-pill" id="nome" name="nome" autocomplete="off" required>
-                                    <div class="invalid-feedback">Por favor, insira seu nome.</div>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="email" class="form-label">E-mail<span class="required-asterisk">*</span></label>
-                                    <input type="email" class="form-control rounded-pill" id="email" name="email" required autocomplete="off">
-                                    <div class="invalid-feedback">Por favor, insira um e-mail válido.</div>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="senha" class="form-label">Senha<span class="required-asterisk">*</span></label>
-                                    <div class="input-group">
-                                        <input type="password" class="form-control rounded-pill" id="senha" name="senha" autocomplete="new-password" required>
-                                        <button class="btn btn-outline-secondary rounded-pill" type="button" id="togglePassword">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
+                                    unset($_SESSION['sucesso_email']);
+                                }
+                                ?>
+                                <form action="../backend/cadastro.php" class="needs-validation" id="formcad" method="post" novalidate>
+                                    <div class="mb-4">
+                                        <label for="nome" class="form-label">Nome<span class="required-asterisk">*</span></label>
+                                        <input type="text" class="form-control rounded-pill" id="nome" name="nome" autocomplete="off" required>
+                                        <div class="invalid-feedback">Por favor, insira seu nome.</div>
                                     </div>
-                                    <div class="invalid-feedback">Por favor, insira uma senha.</div>
-                                    <ul id="passwordChecklist" class="d-none" style="list-style-type: none; padding-left: 0; margin-top: 10px; font-size: 14px;">
-                                        <li id="length" class="text-muted"><i class="bi bi-check-circle-fill"></i> Mínimo 8 caracteres</li>
-                                        <li id="uppercase" class="text-muted"><i class="bi bi-check-circle-fill"></i> Pelo menos uma letra maiúscula</li>
-                                        <li id="number" class="text-muted"><i class="bi bi-check-circle-fill"></i> Pelo menos um número</li>
-                                        <li id="special" class="text-muted"><i class="bi bi-check-circle-fill"></i> Pelo menos um caractere especial</li>
-                                    </ul>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="confSenha" class="form-label">Confirme sua senha<span class="required-asterisk">*</span></label>
-                                    <div class="input-group">
-                                        <input type="password" class="form-control rounded-pill" id="confSenha" name="confSenha" autocomplete="new-password" required>
-                                        <button class="btn btn-outline-secondary rounded-pill" type="button" id="ConftogglePassword">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
+                                    <div class="mb-4">
+                                        <label for="email" class="form-label">E-mail<span class="required-asterisk">*</span></label>
+                                        <input type="email" class="form-control rounded-pill" id="email" name="email" required autocomplete="off">
+                                        <div class="invalid-feedback">Por favor, insira um e-mail válido.</div>
                                     </div>
-                                    <div class="invalid-feedback">As senhas não coincidem.</div>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="estado" class="form-label">Selecione um estado<span class="required-asterisk">*</span></label>
-                                    <select class="form-select rounded-pill" id="estado" name="estado" required>
-                                        <option value="" selected disabled>Selecione um estado</option>
-                                        <option value="AC">Acre</option>
-                                        <option value="AL">Alagoas</option>
-                                        <option value="AP">Amapá</option>
-                                        <option value="AM">Amazonas</option>
-                                        <option value="BA">Bahia</option>
-                                        <option value="CE">Ceará</option>
-                                        <option value="DF">Distrito Federal</option>
-                                        <option value="ES">Espírito Santo</option>
-                                        <option value="GO">Goiás</option>
-                                        <option value="MA">Maranhão</option>
-                                        <option value="MT">Mato Grosso</option>
-                                        <option value="MS">Mato Grosso do Sul</option>
-                                        <option value="MG">Minas Gerais</option>
-                                        <option value="PA">Pará</option>
-                                        <option value="PB">Paraíba</option>
-                                        <option value="PR">Paraná</option>
-                                        <option value="PE">Pernambuco</option>
-                                        <option value="PI">Piauí</option>
-                                        <option value="RJ">Rio de Janeiro</option>
-                                        <option value="RN">Rio Grande do Norte</option>
-                                        <option value="RS">Rio Grande do Sul</option>
-                                        <option value="RO">Rondônia</option>
-                                        <option value="RR">Roraima</option>
-                                        <option value="SC">Santa Catarina</option>
-                                        <option value="SP">São Paulo</option>
-                                        <option value="SE">Sergipe</option>
-                                        <option value="TO">Tocantins</option>
-                                    </select>
-                                    <div class="invalid-feedback">Por favor, selecione um estado.</div>
-                                </div>
-                                <div class="form-check mb-4">
-                                    <label class="form-check-label" for="termsCheckbox" style="padding-bottom: 2%;">Ao clicar em cadastrar, você concorda com os <a href="../../../docs/Termos-de-Servico.pdf" target="_blank">Termos de Serviço</a> e <a href="../../../docs/Política-de-Privacidade.pdf" target="_blank">Política de Privacidade</a>.</label>
-                                </div>
-                                <button class="btn btn-primary w-100 py-2 rounded-pill d-flex align-items-center justify-content-center" type="submit">
-                                    <i class="bi bi-person-plus me-2"></i> CADASTRAR
-                                </button>
-                            </form>
+                                    <div class="mb-4">
+                                        <label for="senha" class="form-label">Senha<span class="required-asterisk">*</span></label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control rounded-pill" id="senha" name="senha" autocomplete="new-password" required>
+                                            <button class="btn btn-outline-secondary rounded-pill" type="button" id="togglePassword">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </div>
+                                        <div class="invalid-feedback">Por favor, insira uma senha.</div>
+                                        <ul id="passwordChecklist" class="d-none" style="list-style-type: none; padding-left: 0; margin-top: 10px; font-size: 14px;">
+                                            <li id="length" class="text-muted"><i class="bi bi-check-circle-fill"></i> Mínimo 8 caracteres</li>
+                                            <li id="uppercase" class="text-muted"><i class="bi bi-check-circle-fill"></i> Pelo menos uma letra maiúscula</li>
+                                            <li id="number" class="text-muted"><i class="bi bi-check-circle-fill"></i> Pelo menos um número</li>
+                                            <li id="special" class="text-muted"><i class="bi bi-check-circle-fill"></i> Pelo menos um caractere especial</li>
+                                        </ul>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="confSenha" class="form-label">Confirme sua senha<span class="required-asterisk">*</span></label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control rounded-pill" id="confSenha" name="confSenha" autocomplete="new-password" required>
+                                            <button class="btn btn-outline-secondary rounded-pill" type="button" id="ConftogglePassword">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </div>
+                                        <div class="invalid-feedback">As senhas não coincidem.</div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="estado" class="form-label">Selecione um estado<span class="required-asterisk">*</span></label>
+                                        <select class="form-select rounded-pill" id="estado" name="estado" required>
+                                            <option value="" selected disabled>Selecione um estado</option>
+                                            <option value="AC">Acre</option>
+                                            <option value="AL">Alagoas</option>
+                                            <option value="AP">Amapá</option>
+                                            <option value="AM">Amazonas</option>
+                                            <option value="BA">Bahia</option>
+                                            <option value="CE">Ceará</option>
+                                            <option value="DF">Distrito Federal</option>
+                                            <option value="ES">Espírito Santo</option>
+                                            <option value="GO">Goiás</option>
+                                            <option value="MA">Maranhão</option>
+                                            <option value="MT">Mato Grosso</option>
+                                            <option value="MS">Mato Grosso do Sul</option>
+                                            <option value="MG">Minas Gerais</option>
+                                            <option value="PA">Pará</option>
+                                            <option value="PB">Paraíba</option>
+                                            <option value="PR">Paraná</option>
+                                            <option value="PE">Pernambuco</option>
+                                            <option value="PI">Piauí</option>
+                                            <option value="RJ">Rio de Janeiro</option>
+                                            <option value="RN">Rio Grande do Norte</option>
+                                            <option value="RS">Rio Grande do Sul</option>
+                                            <option value="RO">Rondônia</option>
+                                            <option value="RR">Roraima</option>
+                                            <option value="SC">Santa Catarina</option>
+                                            <option value="SP">São Paulo</option>
+                                            <option value="SE">Sergipe</option>
+                                            <option value="TO">Tocantins</option>
+                                        </select>
+                                        <div class="invalid-feedback">Por favor, selecione um estado.</div>
+                                    </div>
+                                    <div class="form-check mb-4">
+                                        <label class="form-check-label" for="termsCheckbox" style="padding-bottom: 2%;">Ao clicar em cadastrar, você concorda com os <a href="../../../docs/Termos-de-Servico.pdf" target="_blank">Termos de Serviço</a> e <a href="../../../docs/Política-de-Privacidade.pdf" target="_blank">Política de Privacidade</a>.</label>
+                                    </div>
+                                    <button class="btn btn-primary w-100 py-2 rounded-pill d-flex align-items-center justify-content-center" type="submit">
+                                        <i class="bi bi-person-plus me-2"></i> CADASTRAR
+                                    </button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                    <div class="text-center text-dark mt-4">
-                        <p class="mb-1">Já tem uma conta?</p>
-                        <a href="../entrar/" style="text-decoration: none;">
-                            <i class="bi bi-arrow-right-circle me-2"></i> Entre na sua conta
-                        </a>
-                    </div>
-                    <div class="text-center mt-4">
-                        <p class="mb-1">Já tem cadastro, mas ainda não confirmou?</p>
-                        <a href="../confirmar-cadastro/" style="text-decoration: none;">
-                            <i class="bi bi-envelope-check me-2"></i> Confirmar e-mail
-                        </a>
+                        <div class="text-center text-dark mt-4">
+                            <p class="mb-1">Já tem uma conta?</p>
+                            <a href="../entrar/" style="text-decoration: none;">
+                                <i class="bi bi-arrow-right-circle me-2"></i> Entre na sua conta
+                            </a>
+                        </div>
+                        <div class="text-center mt-4">
+                            <p class="mb-1">Já tem cadastro, mas ainda não confirmou?</p>
+                            <a href="../confirmar-cadastro/" style="text-decoration: none;">
+                                <i class="bi bi-envelope-check me-2"></i> Confirmar e-mail
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <script>
