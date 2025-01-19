@@ -236,7 +236,6 @@ if ($response !== false) {
         </div>
     </header>
 
-
     <section class="carrosel">
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -442,12 +441,7 @@ if ($response !== false) {
     </div>
 
     <script src="assets/js/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
-    <script src="assets/js/dark-reader.js"></script>
 
-    <script>
-        DarkReader.enable();
-    </script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {

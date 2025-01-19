@@ -9,25 +9,14 @@ if (isset($_SESSION['session_id'])) {
 <html lang="pt-br">
 
 <head>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
-            if (darkModePreference) {
-                document.documentElement.style.backgroundColor = "#121212"; // Fundo escuro inicial
-                document.documentElement.style.color = "#ffffff"; // Cor do texto claro inicial
-                document.body.classList.add('dark-mode'); // Adiciona uma classe para temas escuros
-            }
-        });
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://accounts.google.com/gsi/client" async></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Minhas Vacinas - Entrar</title>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -305,43 +294,9 @@ if (isset($_SESSION['session_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://accounts.google.com/gsi/client" async></script>
     <script src="script.js"></script>
-    <script src="../../../assets/js/dark-reader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
     <script src="../../../block.js"></script>
-    
-    <script>
-        DarkReader.setFetchMethod(window.fetch);
-
-        const checkDarkModePreference = () => {
-            return localStorage.getItem('darkMode') === 'enabled';
-        };
-
-        const darkModeSwitch = document.getElementById('darkModeSwitch');
-
-        if (checkDarkModePreference()) {
-            DarkReader.enable({
-                brightness: 90,
-                contrast: 110,
-                sepia: 0
-            });
-            darkModeSwitch.checked = true;
-        }
-
-        darkModeSwitch.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                DarkReader.enable({
-                    brightness: 90,
-                    contrast: 110,
-                    sepia: 0
-                });
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                DarkReader.disable();
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        });
-    </script>
 </body>
 
 </html>

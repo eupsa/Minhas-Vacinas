@@ -7,10 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3472234536437513"
-        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Minhas Vacinas - Recuperação de Senha</title>
 </head>
 
@@ -217,42 +215,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
-    <script src="../../../assets/js/dark-reader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
-    <script src="../../../block.js"></script>
-
-    <script>
-        DarkReader.setFetchMethod(window.fetch);
-
-        const checkDarkModePreference = () => {
-            return localStorage.getItem('darkMode') === 'enabled';
-        };
-
-        const darkModeSwitch = document.getElementById('darkModeSwitch');
-
-        if (checkDarkModePreference()) {
-            DarkReader.enable({
-                brightness: 90,
-                contrast: 110,
-                sepia: 0
-            });
-            darkModeSwitch.checked = true;
-        }
-
-        darkModeSwitch.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                DarkReader.enable({
-                    brightness: 90,
-                    contrast: 110,
-                    sepia: 0
-                });
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                DarkReader.disable();
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        });
-    </script>
 </body>
 
 </html>
