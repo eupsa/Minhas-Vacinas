@@ -17,30 +17,30 @@ blockScreen.style.overflow = "hidden"; // Travar rolagem
 // Cria o conteúdo da tela de bloqueio
 const modalContent = document.createElement("div");
 modalContent.classList.add("card", "text-center", "bg-dark", "text-white");
-modalContent.style.padding = "30px";
-modalContent.style.borderRadius = "12px";
-modalContent.style.width = "400px"; // Diminuir a largura
-modalContent.style.boxShadow = "0px 4px 20px rgba(0, 0, 0, 0.5)";
+modalContent.style.padding = "35px";
+modalContent.style.borderRadius = "15px";
+modalContent.style.width = "420px"; // Diminuir a largura
+modalContent.style.boxShadow = "0px 6px 30px rgba(0, 0, 0, 0.6)";
 modalContent.style.transition = "transform 0.3s ease";
 modalContent.style.transform = "scale(1.05)"; // Efeito de zoom suave
 
 // Título da tela de bloqueio
 const modalTitle = document.createElement("h1");
-modalTitle.textContent = "🚨 Atenção! Mudança Importante 🚨";
-modalTitle.classList.add("display-4", "font-weight-bold");
+modalTitle.textContent = "🌟 Uma Nova Jornada Te Espera! 🌟";
+modalTitle.classList.add("display-3", "font-weight-bold");
 modalContent.appendChild(modalTitle);
 
 // Mensagem explicativa
 const message = document.createElement("p");
 message.textContent =
-  "Para uma experiência ainda melhor, nosso site foi movido para um novo endereço. Acesse o novo domínio:";
-message.classList.add("lead", "font-italic");
+  "Para continuar aproveitando todos os recursos incríveis, nossa plataforma mudou para um novo domínio. Por favor, acesse o novo site para seguir com a sua experiência:";
+message.classList.add("lead", "font-italic", "mb-4");
 modalContent.appendChild(message);
 
 // Novo domínio
-const newDomain = document.createElement("h3");
-newDomain.textContent = "vacinasdigital.com";
-newDomain.classList.add("text-info", "font-weight-bold");
+const newDomain = document.createElement("h2");
+newDomain.textContent = "🚀 vacinasdigital.com 🚀";
+newDomain.classList.add("text-info", "font-weight-bold", "mb-4");
 modalContent.appendChild(newDomain);
 
 // Botão de confirmação
@@ -48,7 +48,7 @@ const buttonYes = document.createElement("button");
 buttonYes.textContent = "Ir para o novo domínio";
 buttonYes.classList.add("btn", "btn-info", "btn-lg", "mt-3");
 buttonYes.style.width = "100%";
-buttonYes.style.borderRadius = "10px";
+buttonYes.style.borderRadius = "12px";
 buttonYes.addEventListener("mouseenter", () =>
   buttonYes.classList.add("btn-outline-info")
 );
