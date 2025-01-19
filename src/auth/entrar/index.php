@@ -193,15 +193,15 @@ if (isset($_SESSION['session_id'])) {
                             <div class="d-flex justify-content-center align-items-center">
                                 <div id="g_id_onload"
                                     data-client_id="14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com"
-                                    data-login_uri="http://minhasvacinas.online/src/auth/backend/login-google.php"
+                                    data-login_uri="https://minhasvacinas.online/src/auth/backend/login-google.php"
                                     data-auto_prompt="true">
                                 </div>
                                 <div class="g_id_signin custom-google-btn"
                                     data-type="standard"
                                     data-size="large"
-                                    data-theme="outline"
-                                    data-text="sign_in_with"
-                                    data-shape="rectangular"
+                                    data-theme="filled_blue"
+                                    data-text="signu_with_google"
+                                    data-shape="circle"
                                     data-logo_alignment="left">
                                 </div>
                             </div><br>
