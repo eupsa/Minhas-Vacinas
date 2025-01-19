@@ -24,10 +24,8 @@ $sql->execute();
 
 if ($sql->rowCount() === 1) {
     $usuario_google = $sql->fetch(PDO::FETCH_BOTH);
-    $foto_url = $usuario_google['foto_url'];
-    print_r($foto_url);
+    $_SESSION['session_fotourl'] = $usuario_google['foto_url'];
 }
-
 
 $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip");
 $sql->bindValue(':ip', $_SESSION['session_ip']);
@@ -173,8 +171,13 @@ if ($sql->rowCount() != 1) {
                 <div class="dropdown">
                     <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
-                            width="40" height="40">
+                        <?php if (isset($_SESSION['session_fotourl'])): ?>
+                            <img src="<?php echo $_SESSION['session_fotourl']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
+                                width="40" height="40">
+                        <?php else: ?>
+                            <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
+                                width="40" height="40">
+                        <?php endif; ?>
                         <span><?php echo isset($_SESSION['session_nome']) ? explode(' ', $_SESSION['session_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
@@ -185,6 +188,7 @@ if ($sql->rowCount() != 1) {
                         <li><a class="dropdown-item" href="../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                     </ul>
                 </div>
+
             </div>
     </section>
 
