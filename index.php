@@ -15,13 +15,58 @@ if ($host === 'minhasvacinas.online' || $host === 'www.minhasvacinas.online') {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Redirecionando...</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                background: #121212;
+                color: #f1f1f1;
+                font-family: "Arial", sans-serif;
+            }
+            .container {
+                background-color: #1f1f1f;
+                padding: 40px;
+                border-radius: 15px;
+                box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.7);
+                transition: all 0.3s ease;
+            }
+            .container:hover {
+                box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.8);
+                transform: translateY(-5px);
+            }
+            h1 {
+                color: #e74c3c;
+                font-size: 2.5rem;
+                font-weight: bold;
+            }
+            .lead {
+                font-size: 1.2rem;
+                color: #f1f1f1;
+            }
+            .btn-custom {
+                background-color: #3498db;
+                color: white;
+                border: none;
+                padding: 10px 25px;
+                font-size: 1.1rem;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+            .btn-custom:hover {
+                background-color: #2980b9;
+            }
+            .countdown {
+                font-size: 1.5rem;
+                color: #f39c12;
+                font-weight: bold;
+            }
+        </style>
     </head>
-    <body class="bg-light d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <div class="text-center p-5 bg-white rounded shadow-sm">
-            <h1 class="text-danger">Atenção!</h1>
-            <p class="lead">Você está sendo redirecionado para o novo site: <strong>vacinasdigital.com</strong>.</p>
-            <p>Se não for redirecionado automaticamente, <a href="https://vacinasdigital.com" class="btn btn-primary">clique aqui</a>.</p>
-            <p class="text-muted">Aguarde <span id="countdown">3</span> segundos...</p>
+    <body class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+
+        <div class="container text-center">
+            <h1>Redirecionando...</h1>
+            <p class="lead">Você está sendo redirecionado para <strong>vacinasdigital.com</strong>.</p>
+            <p class="lead">Se não for redirecionado automaticamente, <a href="https://vacinasdigital.com" class="btn btn-custom">clique aqui</a>.</p>
+            <p class="countdown">Aguarde <span id="countdown">3</span> segundos...</p>
         </div>
 
         <script>
@@ -39,7 +84,6 @@ if ($host === 'minhasvacinas.online' || $host === 'www.minhasvacinas.online') {
     </body>
     </html>
     ';
-
     exit();
 }
 
