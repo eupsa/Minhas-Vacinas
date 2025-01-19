@@ -73,45 +73,27 @@ try {
 
 function enviarEmail($email, $codigo)
 {
-    // Carrega o conteúdo do template HTML
     $email_body = file_get_contents('../../../assets/email/alterar-email.html');
-
-    // Substitui o marcador {{code}} pelo código de verificação
     $email_body = str_replace('{{code}}', $codigo, $email_body);
-
-    // Instancia o PHPMailer
     $mail = new PHPMailer(true);
-
     try {
-        // Configurações SMTP
         $mail->isSMTP();
         $mail->Host = 'smtp.zoho.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'noreply@minhasvacinas.online';
-        $mail->Password = 'JE1+ip-PWMZvy-4x'; // Use uma senha de app
+        $mail->Password = 'JE1+ip-PWMZvy-4x';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-
-        // Configurações do remetente e destinatário
         $mail->setFrom('noreply@minhasvacinas.online', 'Minhas Vacinas');
         $mail->addAddress($email);
-
-        // Configurações de HTML e charset
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
         $mail->Subject = 'Alteração de E-mail ';
-
-        // Adiciona a imagem como anexo embutido (CID)
         $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img'); // Caminho da imagem e identificador CID
-
-        // Substitui o marcador {{logo_img}} no corpo do e-mail pelo CID
         $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
-
-        // Define o corpo do e-mail
         $mail->Body = $email_body;
-
-        // Envia o e-mail
         $mail->send();
+
         return true;
     } catch (Exception $e) {
         return false;

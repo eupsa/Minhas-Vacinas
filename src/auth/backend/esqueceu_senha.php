@@ -25,13 +25,18 @@ if (empty($email)) {
         if ($sql->rowCount() === 1) {
             $usuario = $sql->fetch(PDO::FETCH_BOTH);
             $nome = $usuario['nome'];
+            $id_usuario = $usuario['id_usuario'];
+
             $token = bin2hex(random_bytes(50));
             $expiry = date('Y-m-d H:i:s', strtotime('+1 hour'));
-            $sql = $pdo->prepare("INSERT INTO esqueceu_senha (email, token, data_expiracao) VALUES (:email, :token, :data_expiracao)");
+
+            $sql = $pdo->prepare("INSERT INTO esqueceu_senha (email, token, data_expiracao, id_usuario) VALUES (:email, :token, :data_expiracao, :id_usuario)");
             $sql->bindValue(':email', $email);
             $sql->bindValue(':token', $token);
             $sql->bindValue(':data_expiracao', $expiry);
+            $sql->bindValue(':id_usuario', $id_usuario);
             $sql->execute();
+
             enviarEmail($email, $token);
             $retorna = ['status' => true, 'msg' => "Um e-mail foi enviado com um link para alteração da senha."];
             header('Content-Type: application/json');

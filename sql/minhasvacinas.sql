@@ -10,9 +10,9 @@ CREATE TABLE IF NOT EXISTS usuario (
     estado ENUM (
         'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 
         'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 
-        'RR', 'SC', 'SP', 'SE', 'TO'
-    ) NOT NULL,
-    senha VARCHAR(128) NOT NULL,
+        'RR', 'SC', 'SP', 'SE', 'TO', 'N/A'
+    ) DEFAULT 'N/A',
+    senha VARCHAR(128),
     email_conf TINYINT(1) DEFAULT 0,
     data_nascimento DATE,
     genero ENUM ('Não Informado', 'Masculino', 'Feminino', 'Outro') DEFAULT 'Não Informado',
@@ -21,6 +21,15 @@ CREATE TABLE IF NOT EXISTS usuario (
     cidade VARCHAR(100) DEFAULT 'Não informado',
     ip_cadastro VARCHAR(45),
     data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE 
+	IF NOT EXISTS usuario_google (
+    id_usuario_google INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    google_id VARCHAR(255) NOT NULL UNIQUE,
+    foto_url VARCHAR(255),
+    FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS confirmar_cadastro (
@@ -43,10 +52,10 @@ CREATE TABLE IF NOT EXISTS vacina (
     ) NOT NULL,
     dose VARCHAR(50) NOT NULL,
     lote VARCHAR(50),
-    obs VARCHAR(500),
+    obs VARCHAR(200),
     data_adicao DATETIME DEFAULT CURRENT_TIMESTAMP,
     id_usuario INT,
-    CONSTRAINT fk_usuario FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE SET NULL
+    FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS esqueceu_senha (
@@ -55,7 +64,8 @@ CREATE TABLE IF NOT EXISTS esqueceu_senha (
     token VARCHAR(255) UNIQUE NOT NULL,
     data_expiracao DATETIME NOT NULL,
     data_solicitacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
+    id_usuario INT,
+    FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS mudar_email (
@@ -69,9 +79,10 @@ CREATE TABLE IF NOT EXISTS mudar_email (
 
 CREATE TABLE IF NOT EXISTS excluir_conta (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    codigo INT NOT NULL,
     email VARCHAR(255) NOT NULL,
-    FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
+	codigo INT NOT NULL,
+    id_usuario INT,
+    FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS vacinas_existentes (
@@ -102,7 +113,7 @@ CREATE TABLE IF NOT EXISTS ip_logs (
 );
 
 CREATE TABLE IF NOT EXISTS dispositivos (
-    id INT AUTO_INCREMENT PRIMARY KEY,  -- Definindo como chave primária
+    id INT AUTO_INCREMENT PRIMARY KEY, 
     id_usuario INT NOT NULL,
     nome_dispositivo VARCHAR(255) NOT NULL,
     tipo_dispositivo VARCHAR(100),
@@ -115,6 +126,5 @@ CREATE TABLE IF NOT EXISTS dispositivos (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE
 );
-
 
 SELECT @@global.time_zone, @@session.time_zone;

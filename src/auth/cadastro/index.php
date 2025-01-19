@@ -10,16 +10,6 @@ if (isset($_SESSION['session_id'])) {
 <html lang="pt-br">
 
 <head>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
-            if (darkModePreference) {
-                document.documentElement.style.backgroundColor = "#121212"; // Fundo escuro inicial
-                document.documentElement.style.color = "#ffffff"; // Cor do texto claro inicial
-                document.body.classList.add('dark-mode'); // Adiciona uma classe para temas escuros
-            }
-        });
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
@@ -31,40 +21,8 @@ if (isset($_SESSION['session_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async></script>
     <title>Minhas Vacinas - Cadastro</title>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            DarkReader.setFetchMethod(window.fetch);
-
-            function toggleDarkMode(isChecked = null) {
-                const darkModeSwitch = document.getElementById('darkModeSwitch');
-                const enableDarkMode = isChecked !== null ? isChecked : darkModeSwitch.checked;
-
-                if (enableDarkMode) {
-                    DarkReader.enable({
-                        brightness: 90,
-                        contrast: 110,
-                        sepia: 0
-                    });
-                    localStorage.setItem('darkMode', 'enabled');
-                } else {
-                    DarkReader.disable();
-                    localStorage.setItem('darkMode', 'disabled');
-                }
-            }
-
-            // Aplica a preferência de modo escuro ao carregar a página
-            const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
-            toggleDarkMode(darkModePreference);
-            const darkModeSwitch = document.getElementById('darkModeSwitch');
-            if (darkModeSwitch) {
-                darkModeSwitch.checked = darkModePreference;
-                darkModeSwitch.addEventListener('change', function() {
-                    toggleDarkMode(darkModeSwitch.checked);
-                });
-            }
-        });
-    </script>
 </head>
 
 <body>
@@ -178,6 +136,8 @@ if (isset($_SESSION['session_id'])) {
         </div>
     </header>
 
+
+
     <section class="pt-5 pb-5">
         <div class="container mt-5">
             <h4 class="mb-4 text-center">Faça seu cadastro</h4>
@@ -185,22 +145,54 @@ if (isset($_SESSION['session_id'])) {
                 <div class="col-12 col-md-8 col-lg-6">
                     <div class="card shadow-lg border-0">
                         <div class="card-body p-5" style="background-color: #f8f9fa;">
-                            <!-- <div class="mb-4">
+                            <div class="d-flex justify-content-center align-items-center">
                                 <div id="g_id_onload"
-                                    data-client_id="YOUR_GOOGLE_CLIENT_ID"
-                                    data-login_uri="https://your.domain/your_login_endpoint"
+                                    data-client_id="14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com"
+                                    data-login_uri="http://localhost/src/auth/backend/cadastro-google.php"
                                     data-auto_prompt="false">
                                 </div>
                                 <div class="g_id_signin"
                                     data-type="standard"
                                     data-size="medium"
-                                    data-theme="outline"
-                                    data-text="sign_in_with"
-                                    data-shape="rectangular"
-                                    data-logo_alignment="left"
-                                    style="width: 100%; max-width: 100%; display: block;">
+                                    data-theme="filled_blue"
+                                    data-text="signu_with_google"
+                                    data-shape="circle"
+                                    data-logo_alignment="center">
                                 </div>
-                            </div> -->
+                            </div><br>
+                            <?php
+                            if (isset($_SESSION['erro_email'])) {
+                                echo "<div class='alert alert-danger' role='alert'>" . $_SESSION['erro_email'] . "</div>";
+                                unset($_SESSION['erro_email']);
+                            }
+                            ?>
+                            <?php
+                            if (isset($_SESSION['sucesso_email'])) {
+                                echo '
+<div class="alert alert-success" role="alert">
+    Cadastro realizado com sucesso! Você será redirecionado para o login em <span id="contador">5</span> segundos.
+</div>
+<script>
+    let countdown = 5;
+    const contador = document.getElementById("contador");
+
+    const redirectToLogin = () => {
+        window.location.href = "../entrar/"; // Altere o link conforme necessário
+    };
+
+    setInterval(function() {
+        if (countdown > 0) {
+            contador.textContent = countdown;
+            countdown--;
+        } else {
+            redirectToLogin(); // Redireciona quando o contador chega a zero
+        }
+    }, 1000);
+</script>';
+
+                                unset($_SESSION['sucesso_email']);
+                            }
+                            ?>
                             <form action="../backend/cadastro.php" class="needs-validation" id="formcad" method="post" novalidate>
                                 <div class="mb-4">
                                     <label for="nome" class="form-label">Nome<span class="required-asterisk">*</span></label>
@@ -409,38 +401,6 @@ if (isset($_SESSION['session_id'])) {
     <script src="../../../assets/js/dark-reader.js"></script>
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
-    <script>
-        DarkReader.setFetchMethod(window.fetch);
-
-        const checkDarkModePreference = () => {
-            return localStorage.getItem('darkMode') === 'enabled';
-        };
-
-        const darkModeSwitch = document.getElementById('darkModeSwitch');
-
-        if (checkDarkModePreference()) {
-            DarkReader.enable({
-                brightness: 90,
-                contrast: 110,
-                sepia: 0
-            });
-            darkModeSwitch.checked = true;
-        }
-
-        darkModeSwitch.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                DarkReader.enable({
-                    brightness: 90,
-                    contrast: 110,
-                    sepia: 0
-                });
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                DarkReader.disable();
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        });
-    </script>
 </body>
 
 </html>

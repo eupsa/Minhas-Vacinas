@@ -11,6 +11,7 @@ use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = filter_var(strtolower(trim($dados['email'])), FILTER_SANITIZE_EMAIL);
+$id_usuario = $_SESSION['session_id'];
 
 if (empty($email)) {
     $retorna = ['status' => false, 'msg' => "O campo e-mail não foi preenchido."];
@@ -39,9 +40,10 @@ if ($sql->rowCount() >= 3) {
 
 try {
     $codigo = rand(100000, 999999);
-    $sql = $pdo->prepare("INSERT INTO excluir_conta (email, codigo) VALUES (:email, :codigo)");
+    $sql = $pdo->prepare("INSERT INTO excluir_conta (email, codigo, id_usuario) VALUES (:email, :codigo, :id_usuario)");
     $sql->bindValue(':email', $email);
     $sql->bindValue(':codigo', $codigo);
+    $sql->bindValue(':id_usuario', $id_usuario);
     $sql->execute();
 
     enviarEmail($email, $codigo);

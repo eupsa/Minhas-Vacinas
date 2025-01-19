@@ -8,7 +8,7 @@ $cpf_formatado = isset($dados['cpf']) ? trim($dados['cpf']) : ($_SESSION['sessio
 $cpf = preg_replace('/[^0-9]/', '', $cpf_formatado);
 $data_nascimento = trim($dados['data_nascimento']);
 $telefone = trim($dados['telefone']);
-$estado = trim($dados['estado']);
+$estado = isset($dados['estado']) ? trim($dados['estado']) : 'N/A';
 $genero = ($dados['genero']);
 // $cidade = trim($dados['cidade']);
 

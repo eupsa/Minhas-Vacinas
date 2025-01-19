@@ -27,6 +27,7 @@ if (empty($codigo)) {
             $usuario = $sql->fetch(PDO::FETCH_BOTH);
             $nome = $usuario['nome'];
             $email = $usuario['email'];
+            
             $sql = $pdo->prepare("UPDATE usuario SET email_conf = 1 WHERE email = :email");
             $sql->bindValue(':email', $email);
             $sql->execute();

@@ -27,7 +27,7 @@ if (isset($_SESSION['session_id'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <meta name="google-signin-client_id" content="1012019764396-ktr2b26790k722jim5ssa0tkgc909811.apps.googleusercontent.com">
+    <script src="https://accounts.google.com/gsi/client" async></script>
     <title>Minhas Vacinas - Entrar</title>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -190,6 +190,33 @@ if (isset($_SESSION['session_id'])) {
                 <div class="col-12 col-md-8 col-lg-6">
                     <div class="card shadow-lg border-0 rounded-lg">
                         <div class="card-body p-5" style="background-color: #f8f9fa;">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <div id="g_id_onload"
+                                    data-client_id="14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com"
+                                    data-login_uri="http://localhost/src/auth/backend/login-google.php"
+                                    data-auto_prompt="true">
+                                </div>
+                                <div class="g_id_signin custom-google-btn"
+                                    data-type="standard"
+                                    data-size="large"
+                                    data-theme="outline"
+                                    data-text="sign_in_with"
+                                    data-shape="rectangular"
+                                    data-logo_alignment="left">
+                                </div>
+                            </div><br>
+                            <?php
+                            if (isset($_SESSION['erro_email'])) {
+                                echo "<div class='alert alert-danger' role='alert'>" . $_SESSION['erro_email'] . "</div>";
+                                unset($_SESSION['erro_email']);
+                            }
+                            ?>
+                            <?php
+                            if (isset($_SESSION['sucesso-email'])) {
+                                echo "<div class='alert alert-sucess' role='alert'>" . $_SESSION['sucesso-email'] . "</div>";
+                                unset($_SESSION['sucesso-email']);
+                            }
+                            ?>
                             <form action="../backend/entrar.php" class="needs-validation" id="form_login" method="post" novalidate>
                                 <div class="mb-4">
                                     <label for="email" class="form-label text-dark font-weight-semibold">E-mail</label>

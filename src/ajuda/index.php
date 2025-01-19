@@ -6,9 +6,9 @@
         document.addEventListener("DOMContentLoaded", function() {
             const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
             if (darkModePreference) {
-                document.documentElement.style.backgroundColor = "#121212"; // Fundo escuro inicial
-                document.documentElement.style.color = "#ffffff"; // Cor do texto claro inicial
-                document.body.classList.add('dark-mode'); // Adiciona uma classe para temas escuros
+                document.documentElement.style.backgroundColor = "#121212";
+                document.documentElement.style.color = "#ffffff";
+                document.body.classList.add('dark-mode');
             }
         });
     </script>

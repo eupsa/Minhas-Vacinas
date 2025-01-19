@@ -35,24 +35,11 @@ if ($response !== false) {
         }
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
-
-
 <head>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
-            if (darkModePreference) {
-                document.documentElement.style.backgroundColor = "#121212"; // Fundo escuro inicial
-                document.documentElement.style.color = "#ffffff"; // Cor do texto claro inicial
-                document.body.classList.add('dark-mode'); // Adiciona uma classe para temas escuros
-            }
-        });
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -80,38 +67,6 @@ if ($response !== false) {
     <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao.png" />
     <meta name="robots" content="index, follow">
     <title>Minhas Vacinas</title>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            DarkReader.setFetchMethod(window.fetch);
-
-            function toggleDarkMode(isChecked = null) {
-                const darkModeSwitch = document.getElementById('darkModeSwitch');
-                const enableDarkMode = isChecked !== null ? isChecked : darkModeSwitch.checked;
-
-                if (enableDarkMode) {
-                    DarkReader.enable({
-                        brightness: 90,
-                        contrast: 110,
-                        sepia: 0
-                    });
-                    localStorage.setItem('darkMode', 'enabled');
-                } else {
-                    DarkReader.disable();
-                    localStorage.setItem('darkMode', 'disabled');
-                }
-            }
-
-            const darkModePreference = localStorage.getItem('darkMode') === 'enabled';
-            toggleDarkMode(darkModePreference);
-            const darkModeSwitch = document.getElementById('darkModeSwitch');
-            if (darkModeSwitch) {
-                darkModeSwitch.checked = darkModePreference;
-                darkModeSwitch.addEventListener('change', function() {
-                    toggleDarkMode(darkModeSwitch.checked);
-                });
-            }
-        });
-    </script>
 </head>
 
 <body>
@@ -450,38 +405,7 @@ if ($response !== false) {
 
     <script src="assets/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
-    <script>
-        DarkReader.setFetchMethod(window.fetch);
-
-        const checkDarkModePreference = () => {
-            return localStorage.getItem('darkMode') === 'enabled';
-        };
-
-        const darkModeSwitch = document.getElementById('darkModeSwitch');
-
-        if (checkDarkModePreference()) {
-            DarkReader.enable({
-                brightness: 90,
-                contrast: 110,
-                sepia: 0
-            });
-            darkModeSwitch.checked = true;
-        }
-
-        darkModeSwitch.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                DarkReader.enable({
-                    brightness: 90,
-                    contrast: 110,
-                    sepia: 0
-                });
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                DarkReader.disable();
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        });
-    </script>
+    <script src="assets/js/dark-reader.js"></script>
 
     <script>
         if ('serviceWorker' in navigator) {
