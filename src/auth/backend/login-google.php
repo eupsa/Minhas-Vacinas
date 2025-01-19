@@ -75,12 +75,10 @@ if (isset($payload['email'])) {
 
                     enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
                     $_SESSION['sucesso-email'] = "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções.";
-                    header('Location: ../cadastro/');
+                    header('Location: ../entrar/');
                     exit();
                 } else {
-                    $retorna = ['status' => true, 'msg' => "Bem-vindo à nossa plataforma, " . htmlspecialchars(explode(' ', $usuario['nome'])[0]) . "!"];
-                    header('Content-Type: application/json');
-                    echo json_encode($retorna);
+                    header('Location: ../../painel/');
                     $_SESSION['session_id'] = $usuario['id_usuario'];
                     $_SESSION['session_nome'] = $usuario['nome'];
                     $_SESSION['session_email'] = $usuario['email'];
