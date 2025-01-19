@@ -80,11 +80,6 @@ if ($response !== false) {
 <html lang="pt-br">
 
 <head>
-    <script type="module">
-        import DarkReader from 'https://cdn.jsdelivr.net/npm/darkreader@4.9.38/darkreader.min.js';
-        DarkReader.enable();
-    </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -450,6 +445,9 @@ if ($response !== false) {
     <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>
     <script src="assets/js/dark-reader.js"></script>
 
+    <script>
+        DarkReader.enable();
+    </script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
