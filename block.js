@@ -17,12 +17,12 @@ blockScreen.style.overflow = "hidden"; // Travar rolagem
 // Cria o conteúdo da tela de bloqueio
 const modalContent = document.createElement("div");
 modalContent.classList.add("card", "text-center", "bg-dark", "text-white");
-modalContent.style.padding = "40px";
-modalContent.style.borderRadius = "15px";
-modalContent.style.width = "450px";
-modalContent.style.boxShadow = "0px 4px 30px rgba(0, 0, 0, 0.6)";
+modalContent.style.padding = "30px";
+modalContent.style.borderRadius = "12px";
+modalContent.style.width = "400px"; // Diminuir a largura
+modalContent.style.boxShadow = "0px 4px 20px rgba(0, 0, 0, 0.5)";
 modalContent.style.transition = "transform 0.3s ease";
-modalContent.style.transform = "scale(1.1)"; // Efeito de zoom suave
+modalContent.style.transform = "scale(1.05)"; // Efeito de zoom suave
 
 // Título da tela de bloqueio
 const modalTitle = document.createElement("h1");
@@ -38,7 +38,7 @@ message.classList.add("lead", "font-italic");
 modalContent.appendChild(message);
 
 // Novo domínio
-const newDomain = document.createElement("h2");
+const newDomain = document.createElement("h3");
 newDomain.textContent = "vacinasdigital.com";
 newDomain.classList.add("text-info", "font-weight-bold");
 modalContent.appendChild(newDomain);
@@ -68,7 +68,7 @@ document.body.appendChild(blockScreen);
 // Função para exibir a tela de bloqueio
 function showBlockScreen() {
   blockScreen.style.display = "flex";
-  modalContent.style.transform = "scale(1.1)";
+  modalContent.style.transform = "scale(1.05)";
 }
 
 // Função para redirecionar ao novo domínio
