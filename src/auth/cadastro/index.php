@@ -148,12 +148,12 @@ if (isset($_SESSION['session_id'])) {
                             <div class="d-flex justify-content-center align-items-center">
                                 <div id="g_id_onload"
                                     data-client_id="14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com"
-                                    data-login_uri="../backend/cadastro-google.php"
+                                    data-login_uri="https://minhasvacinas.online/src/auth/backend/cadastro-google.php"
                                     data-auto_prompt="false">
                                 </div>
                                 <div class="g_id_signin"
                                     data-type="standard"
-                                    data-size="large"
+                                    data-size=""
                                     data-theme="filled_blue"
                                     data-text="signu_with_google"
                                     data-shape="circle"
