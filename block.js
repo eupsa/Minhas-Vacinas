@@ -111,19 +111,25 @@ function hideBlockScreen() {
   modalContent.style.transform = "scale(1)";
 }
 
-// Adiciona comportamento para bloquear a navegação ao tentar sair ou navegar para outro site
-window.addEventListener("beforeunload", function (event) {
-  event.preventDefault(); // Previne a ação de navegação
-  event.returnValue = ""; // Ação necessária para exibir o pop-up padrão
+// Função para redirecionar ao novo domínio
+function redirectToNewDomain() {
+  window.location.href = "https://vacinasdigital.com"; // Redireciona para o novo domínio
+}
 
+// Verifica se o usuário está no domínio correto
+const currentDomain = window.location.hostname;
+
+if (
+  currentDomain === "www.minhasvacinas.online" ||
+  currentDomain === "minhasvacinas.online"
+) {
   // Exibe a tela de bloqueio
   showBlockScreen();
-});
+}
 
 // Ação do botão "Ir para o novo domínio"
 buttonYes.addEventListener("click", function () {
-  hideBlockScreen();
-  window.location.href = "https://vacinasdigital.com"; // Redireciona para o novo domínio
+  redirectToNewDomain();
 });
 
 // Ação do botão "Cancelar"
