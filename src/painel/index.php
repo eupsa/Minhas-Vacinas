@@ -25,7 +25,7 @@ $sql->execute();
 if ($sql->rowCount() === 1) {
     $usuario_google = $sql->fetch(PDO::FETCH_BOTH);
     $foto_url = $usuario_google['foto_url'];
-    var_dump($foto_url);
+    print_r ($foto_url);
 }
 
 $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip");
