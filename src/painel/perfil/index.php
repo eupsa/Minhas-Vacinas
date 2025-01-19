@@ -138,14 +138,14 @@ if ($sql->rowCount() != 1) {
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav" style="padding-left: 90%;">
-                    <ul class="navbar-nav">
+                    <!-- <ul class="navbar-nav">
                         <li style="margin-left: 20px; margin-top: 2%;">
                             <div id="themeToggle" class="theme-toggle d-flex align-items-center" style="cursor: pointer;">
                                 <i class="bi bi-sun" id="sunIcon" style="font-size: 1.2em;"></i>
                                 <i class="bi bi-moon" id="moonIcon" style="font-size: 1.2em; display: none;"></i>
                             </div>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </nav>

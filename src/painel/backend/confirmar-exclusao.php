@@ -52,6 +52,10 @@ if (empty($codigo)) {
             $sql->bindValue(':id_usuario', $id_usuario);
             $sql->execute();
 
+            $sql = $pdo->prepare("DELETE FROM usuario_google WHERE id_usuario = :id_usuario");
+            $sql->bindValue(':id_usuario', $id_usuario);
+            $sql->execute();
+
 
             enviarEmail($email);
             $_SESSION = [];

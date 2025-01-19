@@ -113,14 +113,14 @@ if (isset($_SESSION['session_id'])) {
                             </li>
                         <?php endif; ?>
                     </ul>
-                    <ul class="navbar-nav">
+                    <!-- <ul class="navbar-nav">
                         <li style="margin-left: 20px; margin-top: 2%;">
                             <div id="themeToggle" class="theme-toggle d-flex align-items-center" style="cursor: pointer;">
                                 <i class="bi bi-sun" id="sunIcon" style="font-size: 1.2em;"></i>
                                 <i class="bi bi-moon" id="moonIcon" style="font-size: 1.2em; display: none;"></i>
                             </div>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </nav>

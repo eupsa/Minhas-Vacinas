@@ -123,14 +123,14 @@ if ($response !== false) {
                             </li>
                         <?php endif; ?>
                     </ul>
-                    <ul class="navbar-nav">
+                    <!-- <ul class="navbar-nav">
                         <li style="margin-left: 20px; margin-top: 2%;">
                             <div id="themeToggle" class="theme-toggle d-flex align-items-center" style="cursor: pointer;">
                                 <i class="bi bi-sun" id="sunIcon" style="font-size: 1.2em;"></i>
                                 <i class="bi bi-moon" id="moonIcon" style="font-size: 1.2em; display: none;"></i>
                             </div>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </nav>
@@ -318,7 +318,6 @@ if ($response !== false) {
         </div>
     </section>
 
-
     <section class="bg-success text-white py-5" id="nossa-missao">
         <div class="container text-center">
             <h2 class="mb-4">A Nossa Missão</h2>
@@ -401,7 +400,6 @@ if ($response !== false) {
         <p>Usamos cookies para melhorar sua experiência. Ao continuar, você aceita nossa <a href="docs/Política-de-Privacidade.pdf">Política de privacidade</a>.</p>
         <button id="acceptCookies" class="cookie-accept-btn">Aceitar</button>
     </div>
-
 
     <script src="assets/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/darkreader"></script>

@@ -113,14 +113,14 @@ if (isset($_SESSION['session_id'])) {
                             </li>
                         <?php endif; ?>
                     </ul>
-                    <ul class="navbar-nav">
+                    <!-- <ul class="navbar-nav">
                         <li style="margin-left: 20px; margin-top: 2%;">
                             <div id="themeToggle" class="theme-toggle d-flex align-items-center" style="cursor: pointer;">
                                 <i class="bi bi-sun" id="sunIcon" style="font-size: 1.2em;"></i>
                                 <i class="bi bi-moon" id="moonIcon" style="font-size: 1.2em; display: none;"></i>
                             </div>
                         </li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </nav>
@@ -194,11 +194,11 @@ if (isset($_SESSION['session_id'])) {
                                 <div id="g_id_onload"
                                     data-client_id="14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com"
                                     data-login_uri="https://minhasvacinas.online/src/auth/backend/login-google.php"
-                                    data-auto_prompt="true">
+                                    data-auto_prompt="false">
                                 </div>
                                 <div class="g_id_signin custom-google-btn"
                                     data-type="standard"
-                                    data-size="large"
+                                    data-size="medium"
                                     data-theme="filled_blue"
                                     data-text="signu_with_google"
                                     data-shape="circle"
