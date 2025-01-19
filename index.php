@@ -15,13 +15,69 @@ if ($host === 'minhasvacinas.online' || $host === 'www.minhasvacinas.online') {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Redirecionando...</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                background: #111111;
+                color: #f1f1f1;
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+            .container {
+                background-color: #222222;
+                padding: 40px;
+                border-radius: 20px;
+                box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.7);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                max-width: 450px;
+                width: 100%;
+                text-align: center;
+            }
+            .container:hover {
+                box-shadow: 0px 30px 60px rgba(0, 0, 0, 0.8);
+                transform: translateY(-10px);
+            }
+            h1 {
+                color: #f39c12;
+                font-size: 3rem;
+                font-weight: 700;
+                text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.6);
+            }
+            .lead {
+                font-size: 1.4rem;
+                color: #ffffff;
+                margin-bottom: 25px;
+            }
+            .btn-custom {
+                background-color: #3498db;
+                color: white;
+                border: none;
+                padding: 12px 30px;
+                font-size: 1.2rem;
+                border-radius: 8px;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+            }
+            .btn-custom:hover {
+                background-color: #2980b9;
+                transform: scale(1.05);
+            }
+            .countdown {
+                font-size: 1.8rem;
+                color: #e74c3c;
+                font-weight: bold;
+            }
+        </style>
     </head>
-    <body class="bg-dark text-light d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <div class="text-center p-5 bg-secondary rounded shadow-lg">
-            <h1 class="text-danger">Atenção!</h1>
-            <p class="lead">Você está sendo redirecionado para o novo site: <strong>vacinasdigital.com</strong>.</p>
-            <p>Se não for redirecionado automaticamente, <a href="https://vacinasdigital.com" class="btn btn-light">clique aqui</a>.</p>
-            <p class="text-muted">Aguarde <span id="countdown">3</span> segundos...</p>
+    <body>
+
+        <div class="container">
+            <h1>Redirecionando...</h1>
+            <p class="lead">Você está sendo redirecionado para <strong>vacinasdigital.com</strong>.</p>
+            <p>Se não for redirecionado automaticamente, <a href="https://vacinasdigital.com" class="btn btn-custom">clique aqui</a>.</p>
+            <p class="countdown">Aguarde <span id="countdown">3</span> segundos...</p>
         </div>
 
         <script>
@@ -36,10 +92,10 @@ if ($host === 'minhasvacinas.online' || $host === 'www.minhasvacinas.online') {
                 }
             }, 1000);
         </script>
+
     </body>
     </html>
     ';
-
     exit();
 }
 
