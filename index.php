@@ -2,12 +2,9 @@
 session_start();
 require 'src/scripts/conn.php';
 
-// Obtém a URL da solicitação
 $host = $_SERVER['HTTP_HOST'];
 
-// Verifica se a URL é igual a www.minhasvacinas.online ou minhasvacinas.online
 if ($host === 'minhasvacinas.online' || $host === 'www.minhasvacinas.online') {
-    // Exibe a mensagem com Bootstrap
     echo '
     <!DOCTYPE html>
     <html lang="pt-BR">
