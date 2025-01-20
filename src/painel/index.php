@@ -1,13 +1,15 @@
 <?php
 require '../scripts/conn.php';
+require '../scripts/User-Information.php';
 session_start();
 if (!isset($_SESSION['session_id'])) {
     header("Location: ../auth/entrar/");
     exit();
 } else {
-    $id_usuario = $_SESSION['session_id'];
+    Sessions($pdo);
+
     $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_usuario = :id_usuario ORDER BY id_vac DESC LIMIT 3");
-    $sql->bindValue(':id_usuario', $id_usuario);
+    $sql->bindValue(':id_usuario', $_SESSION['session_id']);
     $sql->execute();
     $vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
 
@@ -16,34 +18,27 @@ if (!isset($_SESSION['session_id'])) {
     } else {
         $_SESSION['vacinas'] = [];
     }
-}
 
-$sql = $pdo->prepare("SELECT * FROM usuario_google WHERE id_usuario = :id_usuario");
-$sql->bindValue(':id_usuario', $_SESSION['session_id']);
-$sql->execute();
-
-if ($sql->rowCount() === 1) {
-    $usuario_google = $sql->fetch(PDO::FETCH_BOTH);
-    $_SESSION['session_fotourl'] = $usuario_google['foto_url'];
-}
-
-$sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip");
-$sql->bindValue(':ip', $_SESSION['session_ip']);
-$sql->execute();
-
-if ($sql->rowCount() != 1) {
     $sql = $pdo->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario AND ip_cadastro = :ip_cadastro");
-    $sql->bindValue(':id_usuario', $id_usuario);
+    $sql->bindValue(':id_usuario', $_SESSION['session_id']);
     $sql->bindValue(':ip_cadastro', $_SESSION['session_ip']);
     $sql->execute();
 
+
     if ($sql->rowCount() != 1) {
+        $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip AND id_usuario = :id_usuario AND confirmado = 1");
+        $sql->bindValue(':ip', $_SESSION['session_ip']);
+        $sql->bindValue(':id_usuario', $_SESSION['session_id']);
+        $sql->execute();
 
-        $_SESSION = [];
-        session_destroy();
+        if ($sql->rowCount() != 1) {
 
-        header("Location: ../auth/entrar/");
-        exit();
+            $_SESSION = [];
+            session_destroy();
+
+            header("Location: ../auth/entrar/");
+            exit();
+        }
     }
 }
 ?>

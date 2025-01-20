@@ -1,7 +1,7 @@
 <?php
 session_start();
 require '../../scripts/conn.php';
-require '../../scripts/auth.php';
+require '../../scripts/User-Information.php';
 
 if (!isset($_SESSION['session_id'])) {
     header("Location: ../../auth/entrar/");
@@ -25,7 +25,7 @@ $sql->bindValue(':id_usuario', $_SESSION['session_id']);
 $sql->execute();
 
 if ($sql->rowCount() == 1) {
-    info_user($pdo);
+    Sessions($pdo);
 
     $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE id_usuario = :id_usuario AND confirmado = 1");
     $sql->bindValue(':id_usuario', $_SESSION['session_id']);
@@ -254,10 +254,10 @@ if ($sql->rowCount() != 1) {
     <hr>
 
     <!-- Dispositivos -->
-    <section class="profile-section py-5" style="background-color: #f8f9fa;">
+    <section class="profile-section py-5" style="background-color: #f4f4f4;">
         <div class="container">
-            <h2 class="text-center mb-4 text-dark">Dispositivos Conectados</h2>
-            <div class="row justify-content-center">
+            <h2 class="text-center mb-5 text-dark">Dispositivos Conectados</h2>
+            <div class="row justify-content-center g-4">
                 <?php
                 $session_ip = $_SESSION['session_ip'];
                 if (count($dispositivos) > 0):
@@ -270,31 +270,32 @@ if ($sql->rowCount() != 1) {
                                 : ($dispositivo['tipo_dispositivo'] === 'Tablet'
                                     ? 'bi bi-tablet'
                                     : 'bi bi-device-hdd'));
-                        $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']])));
-                ?>
-                        <div class="col-12 col-md-6 col-lg-4 mb-4">
-                            <div class="card shadow-sm h-100" style="background-color: #e3f2fd; border-color: #bbdefb;">
+                        $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']]))); ?>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card border-0 shadow-sm" style="background-color: #ffffff;">
                                 <div class="card-body text-center">
-                                    <i class="<?php echo $icone; ?> text-info mb-3" style="font-size: 2.5rem;"></i>
-                                    <h5 class="card-title mb-2 text-dark">
+                                    <div class="mb-3">
+                                        <i class="<?php echo $icone; ?>" style="font-size: 2.5rem; color: #007bff;"></i>
+                                    </div>
+                                    <h5 class="card-title text-dark">
                                         <?php echo $dispositivo['nome_dispositivo']; ?>
                                         <?php if ($atual): ?>
-                                            <span class="badge bg-primary ms-2">Atual</span>
+                                            <span class="badge bg-success ms-2">Atual</span>
                                         <?php endif; ?>
                                     </h5>
-                                    <p class="card-text text-muted mb-1 fs-7">
+                                    <p class="text-muted mb-2">
                                         <strong>Último login:</strong> <?php echo date("d/m/Y H:i", strtotime($dispositivo['data_cadastro'])); ?>
                                     </p>
-                                    <p class="card-text text-muted mb-1 fs-7">
+                                    <p class="text-muted mb-2">
                                         <strong>IP:</strong> <?php echo $dispositivo['ip']; ?>
                                     </p>
                                     <?php if (!empty($local)): ?>
-                                        <p class="card-text text-muted fs-7">
+                                        <p class="text-muted mb-2">
                                             <strong>Local:</strong> <?php echo $local; ?>
                                         </p>
                                     <?php endif; ?>
                                 </div>
-                                <div class="card-footer text-center" style="background-color: #bbdefb;">
+                                <div class="card-footer bg-light text-center">
                                     <form action="../backend/remover-dispositivo.php" method="POST">
                                         <input type="hidden" name="dispositivo_id" value="<?php echo $dispositivo['id']; ?>" />
                                         <button type="submit" class="btn btn-outline-danger btn-sm">
@@ -313,7 +314,6 @@ if ($sql->rowCount() != 1) {
             </div>
         </div>
     </section>
-
 
     <!-- Modal de atualização do Perfil -->
     <section>
