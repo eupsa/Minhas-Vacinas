@@ -131,29 +131,10 @@ if ($sql->rowCount() != 1) {
                             <i class="fas fa-bullhorn"></i> Campanhas
                         </a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person"></i> Conta
-                        </a>
-                        <ul class="dropdown-menu shadow-sm" aria-labelledby="navbarDropdown" style="background: #343a40;">
-                            <li>
-                                <a class="dropdown-item text-white d-flex align-items-center" href="../../auth/trocar-email/" data-bs-toggle="modal" data-bs-target="#alterar-email">
-                                    <i class="bi bi-envelope me-2"></i> Alterar e-mail
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item text-white d-flex align-items-center" href="../../auth/esqueceu-senha/">
-                                    <i class="bi bi-key me-2"></i> Alterar senha
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item text-white d-flex align-items-center" href="../../auth/esqueceu-senha/" data-bs-toggle="modal" data-bs-target="#dispositivosModal">
-                                    <i class="bi bi-phone me-2"></i> Dispositivos
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
+                    <a class="nav-link active" aria-expanded="false">
+                        <i class="bi bi-person"></i> Conta
+                    </a>
+                    <hr>
                 </ul>
                 <hr>
                 <div class="dropdown">
@@ -267,6 +248,66 @@ if ($sql->rowCount() != 1) {
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </section>
+    <hr>
+
+    <!-- Dispositivos -->
+    <section class="profile-section py-5">
+        <div class="container text-center">
+            <h2 class="mb-4">Dispositivos Conectados</h2>
+            <div class="d-flex flex-wrap justify-content-center">
+                <?php
+                $session_ip = $_SESSION['session_ip']; // IP da sessão atual
+                if (count($dispositivos) > 0):
+                    foreach ($dispositivos as $dispositivo):
+                        // Verifica se o dispositivo atual corresponde ao IP da sessão
+                        $atual = $dispositivo['ip'] === $session_ip;
+                        $icone = $dispositivo['tipo_dispositivo'] === 'desktop' || $atual
+                            ? 'bi bi-pc-display'
+                            : ($dispositivo['tipo_dispositivo'] === 'celular'
+                                ? 'bi bi-phone'
+                                : ($dispositivo['tipo_dispositivo'] === 'tablet'
+                                    ? 'bi bi-tablet'
+                                    : 'bi bi-device-hdd'));
+
+                        $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']])));
+                ?>
+                        <div class="card m-2 shadow-sm" style="width: 18rem;">
+                            <div class="card-body">
+                                <i class="<?php echo $icone; ?> text-primary mb-3" style="font-size: 2rem;"></i>
+                                <h5 class="card-title">
+                                    <?php echo $dispositivo['nome_dispositivo']; ?>
+                                    <?php if ($atual): ?>
+                                        <span class="text-success fs-6">(Atual)</span>
+                                    <?php endif; ?>
+                                </h5>
+                                <p class="card-text text-muted mb-1 fs-7">
+                                    <strong>Último login:</strong> <?php echo date("d/m/Y H:i", strtotime($dispositivo['data_cadastro'])); ?>
+                                </p>
+                                <p class="card-text text-muted fs-7">
+                                    <strong>IP:</strong> <?php echo $dispositivo['ip']; ?>
+                                </p>
+                                <?php if (!empty($local)): ?>
+                                    <p class="card-text text-muted fs-7">
+                                        <strong>Local:</strong> <?php echo $local; ?>
+                                    </p>
+                                <?php endif; ?>
+                                <form action="../backend/remover-dispositivo.php" method="POST">
+                                    <input type="hidden" name="dispositivo_id" value="<?php echo $dispositivo['id']; ?>" />
+                                    <button type="submit" class="btn btn-outline-danger btn-sm mt-2" aria-label="Remover Dispositivo">
+                                        <i class="bi bi-x-circle"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="text-center">
+                        <p class="text-muted fs-5">Nenhum dispositivo encontrado</p>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>
@@ -515,7 +556,6 @@ if ($sql->rowCount() != 1) {
                             <?php
                             $session_ip = $_SESSION['session_ip'];
                             $desktop_atual = null;
-
                             if (count($dispositivos) > 0):
                                 foreach ($dispositivos as $dispositivo):
                                     if ($dispositivo['tipo_dispositivo'] === 'desktop' && $dispositivo['ip'] === $session_ip) {
@@ -524,7 +564,6 @@ if ($sql->rowCount() != 1) {
                                     } else {
                                         $classe_atual = '';
                                     }
-
                                     switch ($dispositivo['tipo_dispositivo']) {
                                         case 'celular':
                                             $icone = 'bi-phone';
