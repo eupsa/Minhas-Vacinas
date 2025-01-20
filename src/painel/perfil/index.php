@@ -137,6 +137,12 @@ if ($sql->rowCount() != 1) {
                     <hr>
                 </ul>
                 <hr>
+                <?php if (isset($_SESSION['session_fotourl'])): ?>
+                    <p class="text-success">
+                        <img src="https://img.icons8.com/?size=512&id=17949&format=png" alt="Ícone Google" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 2px;">
+                        <small>Conectado com Google</small>
+                    </p>
+                <?php endif; ?>
                 <div class="dropdown">
                     <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
