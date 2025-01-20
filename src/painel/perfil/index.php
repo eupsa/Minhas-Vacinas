@@ -254,9 +254,9 @@ if ($sql->rowCount() != 1) {
     <hr>
 
     <!-- Dispositivos -->
-    <section class="profile-section py-5">
+    <section class="profile-section py-5" style="background-color: #f8f9fa;">
         <div class="container">
-            <h2 class="text-center mb-4">Dispositivos Conectados</h2>
+            <h2 class="text-center mb-4 text-dark">Dispositivos Conectados</h2>
             <div class="row justify-content-center">
                 <?php
                 $session_ip = $_SESSION['session_ip'];
@@ -273,13 +273,13 @@ if ($sql->rowCount() != 1) {
                         $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']])));
                 ?>
                         <div class="col-12 col-md-6 col-lg-4 mb-4">
-                            <div class="card shadow-sm h-100">
+                            <div class="card shadow-sm h-100" style="background-color: #e3f2fd; border-color: #bbdefb;">
                                 <div class="card-body text-center">
-                                    <i class="<?php echo $icone; ?> text-primary mb-3" style="font-size: 2.5rem;"></i>
-                                    <h5 class="card-title mb-2">
+                                    <i class="<?php echo $icone; ?> text-info mb-3" style="font-size: 2.5rem;"></i>
+                                    <h5 class="card-title mb-2 text-dark">
                                         <?php echo $dispositivo['nome_dispositivo']; ?>
                                         <?php if ($atual): ?>
-                                            <span class="badge bg-success ms-2">Atual</span>
+                                            <span class="badge bg-primary ms-2">Atual</span>
                                         <?php endif; ?>
                                     </h5>
                                     <p class="card-text text-muted mb-1 fs-7">
@@ -294,7 +294,7 @@ if ($sql->rowCount() != 1) {
                                         </p>
                                     <?php endif; ?>
                                 </div>
-                                <div class="card-footer text-center">
+                                <div class="card-footer text-center" style="background-color: #bbdefb;">
                                     <form action="../backend/remover-dispositivo.php" method="POST">
                                         <input type="hidden" name="dispositivo_id" value="<?php echo $dispositivo['id']; ?>" />
                                         <button type="submit" class="btn btn-outline-danger btn-sm">
@@ -313,6 +313,7 @@ if ($sql->rowCount() != 1) {
             </div>
         </div>
     </section>
+
 
     <!-- Modal de atualização do Perfil -->
     <section>
