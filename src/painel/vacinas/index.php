@@ -10,15 +10,6 @@ if (!isset($_SESSION['session_id'])) {
     $sql->bindValue(':id_usuario', $_SESSION['session_id']);
     $sql->execute();
 
-    $sql = $pdo->prepare("SELECT * FROM usuario_google WHERE id_usuario = :id_usuario");
-    $sql->bindValue(':id_usuario', $_SESSION['session_id']);
-    $sql->execute();
-    
-    if ($sql->rowCount() === 1) {
-        $usuario_google = $sql->fetch(PDO::FETCH_BOTH);
-        $_SESSION['session_fotourl'] = $usuario_google['foto_url'];
-    }
-
     if ($sql->rowCount() == 1) {
         $id_usuario = $_SESSION['session_id'];
         $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_usuario = :id_usuario");

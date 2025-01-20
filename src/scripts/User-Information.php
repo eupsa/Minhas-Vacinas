@@ -16,20 +16,6 @@ function Sessions($pdo)
                         $_SESSION['session_' . $key] = $value;
                     }
                 }
-
-                $sql = $pdo->prepare("SELECT * FROM usuario_google WHERE id_usuario = :session_id");
-                $sql->bindValue(':session_id', $_SESSION['session_id']);
-                $sql->execute();
-
-                if ($sql->rowCount() === 1) {
-                    $user = $sql->fetch(PDO::FETCH_ASSOC);
-
-                    foreach ($user as $key => $value) {
-                        if (!empty($value)) {
-                            $_SESSION['session_' . $key] = $value;
-                        }
-                    }
-                }
             } else {
                 session_destroy();
                 header("Location: ../painel/index.php");
