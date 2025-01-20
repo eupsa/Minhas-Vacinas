@@ -142,7 +142,9 @@ if ($sql->rowCount() != 1) {
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="../../../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                        <li>
+                            <a class="dropdown-item" href="../../../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -150,86 +152,100 @@ if ($sql->rowCount() != 1) {
 
     <section>
         <div class="content">
-            <h2 class="fw-light">Cadastro de Vacinas</h2>
+            <h2 class="fw-light mb-4">Cadastro de Vacinas</h2>
             <form action="../../backend/cadastro-vacina.php" method="post" id="form_vacina">
-                <div class="mb-3">
-                    <label for="vacina" class="form-label">Vacina<span class="required-asterisk">*</span></label>
-                    <select class="form-select" id="nomeVac" name="nomeVac" aria-label="Selecione a vacina">
-                        <option value="" disabled selected>Selecione uma vacina...</option>
-                        <?php if (count($vacinas) > 0): ?>
-                            <?php foreach ($vacinas as $vacina): ?>
-                                <option value="<?= $vacina['nome_vac'] ?>">
-                                    <?= htmlspecialchars($vacina['nome_vac']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <option value="">Nenhuma vacina disponível</option>
-                        <?php endif; ?>
-                    </select>
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="vacina" class="form-label">Vacina<span class="required-asterisk">*</span></label>
+                        <select class="form-select" id="nomeVac" name="nomeVac" aria-label="Selecione a vacina">
+                            <option value="" disabled selected>Selecione uma vacina</option>
+                            <?php if (count($vacinas) > 0): ?>
+                                <?php foreach ($vacinas as $vacina): ?>
+                                    <option value="<?= $vacina['nome_vac'] ?>"><?= htmlspecialchars($vacina['nome_vac']) ?></option>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <option value="">Nenhuma vacina disponível</option>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="dataAplicacao" class="form-label">Data da Aplicação<span class="required-asterisk">*</span></label>
+                        <input type="date" class="form-control" id="dataAplicacao" name="dataAplicacao" autocomplete="off">
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="localAplicacao" class="form-label">Unidade de Vacinação<span class="required-asterisk">*</span></label>
+                        <select class="form-select" aria-label="Selecione a unidade de saúde" id="localAplicacao" name="localAplicacao">
+                            <option value="" disabled selected>Selecione a unidade</option>
+                            <?php if (count($postos) > 0): ?>
+                                <?php foreach ($postos as $posto): ?>
+                                    <option value="<?= $posto['nome'] ?>"><?= htmlspecialchars($posto['nome']) ?></option>
+                                <?php endforeach; ?>
+                                <option value="outro">Outro</option>
+                            <?php else: ?>
+                                <option value="">Nenhum local disponível</option>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3" id="outroLocalDiv" style="display: none;">
+                        <label for="outro_local" class="form-label">Local de Aplicação<span class="required-asterisk">*</span></label>
+                        <input type="text" class="form-control" id="outro_local" name="outro_local" autocomplete="off">
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="tipo" class="form-label">Tipo da Vacina<span class="required-asterisk">*</span></label>
+                        <select class="form-select" id="tipo" name="tipo">
+                            <option value="" disabled selected>Selecione o tipo</option>
+                            <option value="Imunização">Imunização</option>
+                            <option value="Vacina de Vírus Vivo Atenuado">Vacina de Vírus Vivo Atenuado</option>
+                            <option value="Vacina de Vírus Inativado">Vacina de Vírus Inativado</option>
+                            <option value="Vacina Subunitária">Vacina Subunitária</option>
+                            <option value="Vacina de RNA Mensageiro (mRNA)">Vacina de RNA Mensageiro (mRNA)</option>
+                            <option value="Vacina de Vetor Viral">Vacina de Vetor Viral</option>
+                            <option value="Vacina de Proteína Recombinante">Vacina de Proteína Recombinante</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="dose" class="form-label">Dose<span class="required-asterisk">*</span></label>
+                        <select class="form-select" id="dose" name="dose">
+                            <option value="" disabled selected>Selecione a dose</option>
+                            <option value="1ª Dose">1ª Dose</option>
+                            <option value="2ª Dose">2ª Dose</option>
+                            <option value="Reforço">Reforço</option>
+                            <option value="Dose Única">Dose Única</option>
+                            <option value="Dose de Manutenção">Dose de Manutenção</option>
+                            <option value="Dose Adicional">Dose Adicional</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="lote" class="form-label">Lote</label>
+                        <input type="text" class="form-control" id="lote" name="lote" autocomplete="off">
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label for="obs" class="form-label">Observações</label>
+                        <textarea class="form-control" id="obs" name="obs" rows="3" autocomplete="off"></textarea>
+                    </div>
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary w-50 rounded-pill shadow-sm text-white">
+                            <i class="fa fa-plus-circle me-2 "></i>Cadastrar Vacina
+                        </button>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="dataAplicacao" class="form-label">Data da Aplicação<span class="required-asterisk">*</span></label>
-                    <input type="date" class="form-control" id="dataAplicacao" name="dataAplicacao" autocomplete="off">
-                </div>
-                <div class="mb-3">
-                    <label for="localAplicacao" class="form-label">Unidade de Vacinação<span class="required-asterisk">*</span></label>
-                    <select class="form-select" aria-label="Selecione a unidade de saúde" id="localAplicacao" name="localAplicacao">
-                        <option value="" disabled selected>Selecione a unidade</option>
-                        <?php if (count($postos) > 0): ?>
-                            <?php foreach ($postos as $posto): ?>
-                                <option value="<?= $posto['nome'] ?>">
-                                    <?= htmlspecialchars($posto['nome']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                            <option value="outro">Outro</option>
-                        <?php else: ?>
-                            <option value="">Nenhum local disponível</option>
-                        <?php endif; ?>
-                    </select>
-                </div>
-
-                <div class="mb-3" id="outroLocalDiv" style="display: none;">
-                    <label for="outro_local" class="form-label">Local de Aplicação<span class="required-asterisk">*</span></label>
-                    <input type="text" class="form-control" id="outro_local" name="outro_local" autocomplete="off">
-                </div>
-                <div class="mb-3">
-                    <label for="tipo" class="form-label">Tipo da Vacina<span class="required-asterisk">*</span></label>
-                    <select class="form-select" id="tipo" name="tipo">
-                        <option value="" disabled selected>Selecione o tipo</option>
-                        <option value="Imunização">Imunização</option>
-                        <option value="Vacina de Vírus Vivo Atenuado">Vacina de Vírus Vivo Atenuado</option>
-                        <option value="Vacina de Vírus Inativado">Vacina de Vírus Inativado</option>
-                        <option value="Vacina Subunitária">Vacina Subunitária</option>
-                        <option value="Vacina de RNA Mensageiro (mRNA)">Vacina de RNA Mensageiro (mRNA)</option>
-                        <option value="Vacina de Vetor Viral">Vacina de Vetor Viral</option>
-                        <option value="Vacina de Proteína Recombinante">Vacina de Proteína Recombinante</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="dose" class="form-label">Dose<span class="required-asterisk">*</span></label>
-                    <select class="form-select" id="dose" name="dose">
-                        <option value="" disabled selected>Selecione a dose</option>
-                        <option value="1ª Dose">1ª Dose</option>
-                        <option value="2ª Dose">2ª Dose</option>
-                        <option value="Reforço">Reforço</option>
-                        <option value="Dose Única">Dose Única</option>
-                        <option value="Dose de Manutenção">Dose de Manutenção</option>
-                        <option value="Dose Adicional">Dose Adicional</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="lote" class="form-label">Lote</label>
-                    <input type="text" class="form-control" id="lote" name="lote" autocomplete="off">
-                </div>
-                <div class="mb-3">
-                    <label for="obs" class="form-label">Observações</label>
-                    <textarea class="form-control" id="obs" name="obs" rows="3"></textarea autocomplete="off">
-                </div>
-                <button type="submit" class="btn btn-primary">Cadastrar Vacina</button>
             </form>
         </div>
     </section>
-    
+
+
+    <script>
+        document.getElementById('localAplicacao').addEventListener('change', function() {
+            var outroLocalDiv = document.getElementById('outroLocalDiv');
+            if (this.value === 'outro') {
+                outroLocalDiv.style.display = 'block';
+            } else {
+                outroLocalDiv.style.display = 'none';
+            }
+        });
+    </script>
+
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="script.js"></script>

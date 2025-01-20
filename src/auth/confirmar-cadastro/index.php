@@ -157,7 +157,7 @@ if (isset($_SESSION['session_id'])) {
                                 </div>
                                 <button class="btn btn-dark w-100 py-2 rounded-pill d-flex align-items-center justify-content-center" type="submit" id="submitBtn">
                                     <i class="bi bi-check-circle me-2"></i> CONFIRMAR CADASTRO
-                                    <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status" aria-hidden="true" style="display: none;"></span>
+                                    <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status" aria-hidden="true" style="display: none; margin-left: 10px; border-width: 3px;"></span>
                                 </button>
                             </form>
                         </div>

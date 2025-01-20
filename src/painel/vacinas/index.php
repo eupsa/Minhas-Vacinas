@@ -157,7 +157,9 @@ if ($sql->rowCount() != 1) {
             <h1>Vacinas</h1>
             <h3 class="fw-light">Registre e visualize as suas vacinas aplicadas.</h3>
             <p class="lead">Mantenha seu histórico de vacinação atualizado para garantir sua proteção e a de todos ao seu redor. Adicione as vacinas aplicadas e consulte facilmente todas as informações sobre cada dose.</p>
-            <a type="button" class="btn btn-primary mt-3" href="cadastro-vacinas/">Registrar Doses</a>
+            <a type="button" class="btn btn-primary mt-3 px-3 py-2 rounded-pill shadow-sm text-white d-flex align-items-center justify-content-center" href="cadastro-vacinas/" style="width: 180px;">
+                <i class="bi bi-plus-circle me-2"></i> Registrar Doses
+            </a>
         </div>
         <div class="d-flex justify-content-start align-items-center mt-3">
             <span class="badge" style="background-color: #28a745; color: white; padding: 10px 15px; font-size: 16px; border-radius: 15px;">
@@ -203,7 +205,7 @@ if ($sql->rowCount() != 1) {
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
-                <div class="alert alert-info w-100" role="alert">
+                <div class="alert alert-info w-50" role="alert">
                     <i class="fas fa-info-circle"></i> Nenhuma vacina registrada.
                 </div>
             <?php endif; ?>

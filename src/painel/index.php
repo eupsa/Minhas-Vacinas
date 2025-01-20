@@ -176,7 +176,6 @@ if (!isset($_SESSION['session_id'])) {
         </div>
     </section>
 
-
     <section>
         <div>
             <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
@@ -266,8 +265,8 @@ if (!isset($_SESSION['session_id'])) {
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <div class="col-12">
-                        <p class="text-warning">Nenhuma vacina registrada ainda. Adicione uma nova vacina ao seu histórico.</p>
+                    <div class="alert alert-info w-50" role="alert">
+                        <i class="fas fa-info-circle"></i> Nenhuma vacina registrada ainda. Adicione uma nova vacina ao seu histórico.
                     </div>
                 <?php endif; ?>
             </div>

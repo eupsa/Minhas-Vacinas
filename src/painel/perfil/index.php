@@ -302,7 +302,7 @@ if ($sql->rowCount() != 1) {
                                     <?php endif; ?>
                                 </div>
                                 <div class="card-footer bg-light text-center">
-                                    <form action="../backend/remover-dispositivo.php" method="POST">
+                                    <form action="../backend/remover-dispositivo.php" id="form-remover-dispositivo" method="POST">
                                         <input type="hidden" name="dispositivo_id" value="<?php echo $dispositivo['id']; ?>" />
                                         <button type="submit" class="btn btn-outline-danger btn-sm">
                                             <i class="bi bi-x-circle"></i> Remover
