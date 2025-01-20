@@ -32,21 +32,27 @@ $sql->execute();
 
 if ($sql->rowCount() == 1) {
     $usuario = $sql->fetch(PDO::FETCH_BOTH);
-    $nome = $usuario['nome'];
+    $email_conf = $usuario['email_conf'];
+
+    if ($email_conf == 1) {
+        $retorna = ['status' => false, 'msg' => "Seu cadastro já foi confirmado, faça login."];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit();
+    }
 
     $sql = $pdo->prepare("SELECT * FROM confirmar_cadastro WHERE email = :email");
     $sql->bindValue(':email', $email);
     $sql->execute();
 
-    if ($sql->rowCount() <= 3) {
+    if ($sql->rowCount() != 3) {
         $codigo = rand(100000, 999999);
-        $sql = $pdo->prepare("INSERT INTO confirmar_cadastro (nome, email, codigo) VALUES (:nome, :email, :codigo)");
-        $sql->bindValue(':nome', $nome);
+        $sql = $pdo->prepare("INSERT INTO confirmar_cadastro (email, codigo) VALUES (:email, :codigo)");
         $sql->bindValue(':email', $email);
         $sql->bindValue(':codigo', $codigo);
         $sql->execute();
 
-        reenviarEmail($email, $codigo);
+        email_cadastro($email, $codigo);
         $retorna = ['status' => true, 'msg' => "Um novo código foi enviado para seu e-mail."];
         header('Content-Type: application/json');
         echo json_encode($retorna);
@@ -64,8 +70,7 @@ if ($sql->rowCount() == 1) {
     exit();
 }
 
-
-function reenviarEmail($email, $codigo)
+function email_cadastro($email, $codigo)
 {
     $email_body = file_get_contents('../../../assets/email/cadastro.html');
     $email_body = str_replace('{{code}}', $codigo, $email_body);
@@ -75,7 +80,7 @@ function reenviarEmail($email, $codigo)
         $mail->Host = 'smtp.zoho.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'noreply@minhasvacinas.online';
-        $mail->Password = 'sJE1+ip-PWMZvy-4x';
+        $mail->Password = 'JE1+ip-PWMZvy-4x';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
         $mail->setFrom('noreply@minhasvacinas.online', 'Minhas Vacinas');

@@ -44,8 +44,7 @@ form_reenviar_email.addEventListener("submit", async (e) => {
       confirmButtonColor: "#3085d6",
       confirmButtonText: "Fechar",
     }).then(() => {
-      window.location.href = "../entrar/";
-      formcad.reset();
+      form_reenviar_email.reset();
     });
   } else {
     submitButton.disabled = false;
