@@ -85,7 +85,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                                     $_SESSION['session_nome'] = $usuario['nome'];
                                     $_SESSION['session_email'] = $usuario['email'];
                                     $_SESSION['session_ip'] = $ip;
-                                    header('Location: <div class="">../painel/');
+                                    header('Location: ../../painel/');
                                     exit();
                                 }
                             } else {
