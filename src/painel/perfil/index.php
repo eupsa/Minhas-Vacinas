@@ -255,56 +255,58 @@ if ($sql->rowCount() != 1) {
 
     <!-- Dispositivos -->
     <section class="profile-section py-5">
-        <div class="container text-center">
-            <h2 class="mb-4">Dispositivos Conectados</h2>
-            <div class="d-flex flex-wrap justify-content-center">
+        <div class="container">
+            <h2 class="text-center mb-4">Dispositivos Conectados</h2>
+            <div class="row justify-content-center">
                 <?php
-                $session_ip = $_SESSION['session_ip']; // IP da sessão atual
+                $session_ip = $_SESSION['session_ip'];
                 if (count($dispositivos) > 0):
                     foreach ($dispositivos as $dispositivo):
-                        // Verifica se o dispositivo atual corresponde ao IP da sessão
                         $atual = $dispositivo['ip'] === $session_ip;
-                        $icone = $dispositivo['tipo_dispositivo'] === 'desktop' || $atual
+                        $icone = $dispositivo['tipo_dispositivo'] === 'Desktop' || $atual
                             ? 'bi bi-pc-display'
-                            : ($dispositivo['tipo_dispositivo'] === 'celular'
+                            : ($dispositivo['tipo_dispositivo'] === 'Mobile'
                                 ? 'bi bi-phone'
-                                : ($dispositivo['tipo_dispositivo'] === 'tablet'
+                                : ($dispositivo['tipo_dispositivo'] === 'Tablet'
                                     ? 'bi bi-tablet'
                                     : 'bi bi-device-hdd'));
-
                         $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']])));
                 ?>
-                        <div class="card m-2 shadow-sm" style="width: 18rem;">
-                            <div class="card-body">
-                                <i class="<?php echo $icone; ?> text-primary mb-3" style="font-size: 2rem;"></i>
-                                <h5 class="card-title">
-                                    <?php echo $dispositivo['nome_dispositivo']; ?>
-                                    <?php if ($atual): ?>
-                                        <span class="text-success fs-6">(Atual)</span>
-                                    <?php endif; ?>
-                                </h5>
-                                <p class="card-text text-muted mb-1 fs-7">
-                                    <strong>Último login:</strong> <?php echo date("d/m/Y H:i", strtotime($dispositivo['data_cadastro'])); ?>
-                                </p>
-                                <p class="card-text text-muted fs-7">
-                                    <strong>IP:</strong> <?php echo $dispositivo['ip']; ?>
-                                </p>
-                                <?php if (!empty($local)): ?>
-                                    <p class="card-text text-muted fs-7">
-                                        <strong>Local:</strong> <?php echo $local; ?>
+                        <div class="col-12 col-md-6 col-lg-4 mb-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body text-center">
+                                    <i class="<?php echo $icone; ?> text-primary mb-3" style="font-size: 2.5rem;"></i>
+                                    <h5 class="card-title mb-2">
+                                        <?php echo $dispositivo['nome_dispositivo']; ?>
+                                        <?php if ($atual): ?>
+                                            <span class="badge bg-success ms-2">Atual</span>
+                                        <?php endif; ?>
+                                    </h5>
+                                    <p class="card-text text-muted mb-1 fs-7">
+                                        <strong>Último login:</strong> <?php echo date("d/m/Y H:i", strtotime($dispositivo['data_cadastro'])); ?>
                                     </p>
-                                <?php endif; ?>
-                                <form action="../backend/remover-dispositivo.php" method="POST">
-                                    <input type="hidden" name="dispositivo_id" value="<?php echo $dispositivo['id']; ?>" />
-                                    <button type="submit" class="btn btn-outline-danger btn-sm mt-2" aria-label="Remover Dispositivo">
-                                        <i class="bi bi-x-circle"></i>
-                                    </button>
-                                </form>
+                                    <p class="card-text text-muted mb-1 fs-7">
+                                        <strong>IP:</strong> <?php echo $dispositivo['ip']; ?>
+                                    </p>
+                                    <?php if (!empty($local)): ?>
+                                        <p class="card-text text-muted fs-7">
+                                            <strong>Local:</strong> <?php echo $local; ?>
+                                        </p>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <form action="../backend/remover-dispositivo.php" method="POST">
+                                        <input type="hidden" name="dispositivo_id" value="<?php echo $dispositivo['id']; ?>" />
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                                            <i class="bi bi-x-circle"></i> Remover
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <div class="text-center">
+                    <div class="col-12 text-center">
                         <p class="text-muted fs-5">Nenhum dispositivo encontrado</p>
                     </div>
                 <?php endif; ?>
