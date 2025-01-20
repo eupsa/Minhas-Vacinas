@@ -254,7 +254,7 @@ if ($sql->rowCount() != 1) {
     <hr>
 
     <!-- Dispositivos -->
-    <section class="profile-section py-5" style="background-color: #f4f4f4;">
+    <section class="profile-section py-5" style="background-color: #f4f4f4;" id="dispositivos">
         <div class="container">
             <h2 class="text-center mb-5 text-dark">Dispositivos Conectados</h2>
             <div class="row justify-content-center g-4">

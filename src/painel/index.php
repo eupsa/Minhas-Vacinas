@@ -96,17 +96,17 @@ if (!isset($_SESSION['session_id'])) {
 
     <section class="access-quick">
         <div class="content text-center mb-5">
-            <h1>Acesso Rápido</h1>
+            <h1 class="text-dark font-weight-bold">Atualizações Recentes e Novidades</h1>
             <div class="row justify-content-center">
                 <div class="col-12 col-sm-6 col-md-3 mb-4">
                     <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
                         <div class="card-body d-flex flex-column text-center">
                             <p class="text-success text-center">
-                                <i class="fas fa-check-circle" style="color: #198754;"></i> Adicionada recentemente!
+                                <i class="fas fa-info-circle" style="color: #198754;"></i> Atualização disponível!
                             </p>
-                            <h5 class="card-title">Registro de Vacinas</h5>
-                            <p class="card-text">Com essa funcionalidade você poderá organizar seu histórico de Vacinas.</p>
-                            <a href="vacinas/cadastro-vacinas/" class="btn btn-primary btn-sm mt-auto">Acessar</a>
+                            <h5 class="card-title">Gerenciamento de Vacinas</h5>
+                            <p class="card-text">Agora você pode cadastrar e excluir vacinas do seu histórico com facilidade.</p>
+                            <a href="vacinas/cadastro-vacinas/" class="btn btn-success btn-sm mt-auto rounded-pill">Gerenciar</a>
                         </div>
                     </div>
                 </div>
@@ -114,11 +114,37 @@ if (!isset($_SESSION['session_id'])) {
                     <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
                         <div class="card-body d-flex flex-column text-center">
                             <p class="text-success text-center">
-                                <i class="fas fa-check-circle" style="color: #198754;"></i> Adicionada recentemente!
+                                <i class="fas fa-info-circle" style="color: #198754;"></i> Atualização disponível!
                             </p>
-                            <h5 class="card-title">Exclusão de Vacinas</h5>
-                            <p class="card-text">Com essa funcionalidade você poderá excluir uma vacina seu histórico.</p>
-                            <a href="vacinas/" class="btn btn-primary btn-sm mt-auto">Acessar</a>
+                            <h5 class="card-title text-dark">Gerenciar Dispositivos</h5>
+                            <p class="card-text">Veja os dispositivos conectados à sua conta e remova-os caso necessário.</p>
+                            <a href="vacinas/cadastro-vacinas/" class="btn btn-success btn-sm mt-auto rounded-pill">Gerenciar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 mb-4">
+                    <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
+                        <div class="card-body d-flex flex-column text-center">
+                            <p class="text-success text-center">
+                                <i class="fas fa-info-circle" style="color: #198754;"></i> Atualização disponível!
+                            </p>
+                            <h5 class="card-title text-dark">Login com Google</h5>
+                            <p class="card-text">Agora você pode acessar sua conta de forma rápida e segura utilizando sua conta do Google.</p>
+                            <a href="" class="btn btn btn-sm mt-auto rounded-pill disabled">Disponível apenas para novos usuários</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-6 col-md-3 mb-4">
+                    <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
+                        <div class="card-body d-flex flex-column text-center">
+                            <p class="text-warning text-center">
+                                <i class="fas fa-spinner fa-spin" style="color: #ffc107;"></i> Em desenvolvimento!
+                            </p>
+                            <h5 class="card-title">Cadastro de Dependentes</h5>
+                            <p class="card-text">Com essa funcionalidade você poderá adicionar seus dependentes e gerenciar suas vacinas.</p>
+                            <a href="" class="btn btn-warning btn-sm mt-auto rounded-pill disabled">Indisponível</a>
                         </div>
                     </div>
                 </div>
@@ -128,16 +154,28 @@ if (!isset($_SESSION['session_id'])) {
                             <p class="text-warning text-center">
                                 <i class="fas fa-spinner fa-spin" style="color: #ffc107;"></i> Em desenvolvimento!
                             </p>
-                            <h5 class="card-title">Cadastro de Dependentes</h5>
-                            <p class="card-text">Com essa funcionalidade você poderá adicionar seus dependentes e gerenciar suas vacinas.
+                            <h5 class="card-title">Blog MV!</h5>
+                            <p class="card-text">Em breve, você poderá acessar o Blog MV! Para ficar por dentro de todas as novidades, dicas e atualizações sobre vacinação e saúde.</p>
+                            <a href="" class="btn btn-warning btn-sm mt-auto rounded-pill disabled">Indisponível</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 mb-4">
+                    <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
+                        <div class="card-body d-flex flex-column text-center">
+                            <p class="text-warning text-center">
+                                <i class="fas fa-spinner fa-spin" style="color: #ffc107;"></i> Em desenvolvimento!
                             </p>
-                            <a href="#" class="btn btn-warning btn-sm mt-auto disabled">Indisponível</a>
+                            <h5 class="card-title">App Mobile para iOS e Android</h5>
+                            <p class="card-text">Em breve, você poderá acessar o Minhas Vacinas diretamente no seu celular! Acompanhe seu histórico de vacinas, receba alertas e muito mais, de forma prática e segura.</p>
+                            <a href="#" class="btn btn-warning btn-sm mt-auto rounded-pill disabled">Indisponível</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <section>
         <div>
@@ -201,11 +239,11 @@ if (!isset($_SESSION['session_id'])) {
 
     <section class="access-quick">
         <div class="content text-center mb-5" style="margin-top: -10%;">
-            <h1>Últimas vacinas</h1>
+            <h1>Últimas Vacinas Adicionadas</h1>
             <div class="row justify-content-center">
                 <?php if (count($vacinas) > 0): ?>
                     <?php foreach ($vacinas as $vacina): ?>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"> <!-- Responsividade melhorada -->
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="card shadow-lg" style="width: 100%; height: 100%; border-radius: 20px; background-color: rgba(255, 255, 255, 0.95); transition: all 0.3s ease;">
                                 <img src="../../../../assets/img/vac-card.jpg" class="card-img-top" alt="Vacina" style="object-fit: cover; height: 250px; width: 100%; border-radius: 20px 20px 0 0;">
                                 <div class="card-body">
