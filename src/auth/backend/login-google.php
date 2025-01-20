@@ -12,7 +12,7 @@ use PHPMailer\PHPMailer\Exception;
 
 if (empty($_POST['credential']) || empty($_POST['g_csrf_token'])) {
     $_SESSION['erro_email'] = "Dados de login inválidos.";
-    header('Location: ../cadastro/');
+    header('Location: ../entrar/');
     exit();
 }
 
@@ -20,7 +20,7 @@ $cookie = $_COOKIE['g_csrf_token'];
 
 if ($_POST['g_csrf_token'] != $cookie) {
     $_SESSION['erro_email'] = "Token CSRF inválido.";
-    header('Location: ../cadastro/');
+    header('Location: ../entrar/');
     exit();
 }
 
@@ -98,18 +98,18 @@ if (isset($payload['email'])) {
 
                 enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
                 $_SESSION['sucesso-email'] = "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções.";
-                header('Location: ../cadastro/');
+                header('Location: ../entrar/');
                 exit();
             }
         }
     } else {
         $_SESSION['erro_email'] = "Usuário não cadastrado.";
-        header('Location: ../cadastro/');
+        header('Location: ../entrar/');
         exit();
     }
 } else {
     $_SESSION['erro_email'] = "Erro ao verificar o login com o Google.";
-    header('Location: ../cadastro/');
+    header('Location: ../entrar/');
     exit();
 }
 

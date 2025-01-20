@@ -47,7 +47,6 @@ if (isset($payload['email'])) {
     $sql->execute();
 
     $id_usuario = $pdo->lastInsertId();
-    $pdo->exec("SET time_zone = 'America/Sao_Paulo'");
     $sql = $pdo->prepare("INSERT INTO usuario_google (id_usuario, google_id, foto_url) VALUES (:id_usuario, :google_id, :foto_url)");
     $sql->bindValue(':id_usuario', $id_usuario);
     $sql->bindValue(':google_id', $googleId);
