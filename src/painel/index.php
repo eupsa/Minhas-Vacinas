@@ -45,8 +45,6 @@ if (!isset($_SESSION['session_id'])) {
     }
 }
 ?>
-
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
