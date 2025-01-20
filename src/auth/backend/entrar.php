@@ -81,11 +81,13 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                                     echo json_encode($retorna);
                                     exit();
                                 } else {
+                                    $retorna = ['status' => true, 'msg' => "Bem-vindo à nossa plataforma, " . htmlspecialchars(explode(' ', $usuario['nome'])[0]) . "!"];
+                                    header('Content-Type: application/json');
+                                    echo json_encode($retorna);
                                     $_SESSION['session_id'] = $usuario['id_usuario'];
                                     $_SESSION['session_nome'] = $usuario['nome'];
                                     $_SESSION['session_email'] = $usuario['email'];
                                     $_SESSION['session_ip'] = $ip;
-                                    header('Location: ../../painel/');
                                     exit();
                                 }
                             } else {
