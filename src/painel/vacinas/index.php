@@ -1,6 +1,5 @@
 <?php
 require '../../scripts/conn.php';
-require '../../scripts/auth.php';
 
 session_start();
 if (!isset($_SESSION['session_id'])) {
