@@ -1,6 +1,5 @@
 <?php
 require '../scripts/conn.php';
-require '../scripts/User-Information.php';
 session_start();
 
 if (!isset($_SESSION['session_id'])) {
@@ -17,7 +16,6 @@ if (!isset($_SESSION['session_id'])) {
         header("Location: ../auth/entrar/");
         exit();
     } else {
-        Sessions($pdo);
 
         $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_usuario = :id_usuario ORDER BY id_vac DESC LIMIT 3");
         $sql->bindValue(':id_usuario', $_SESSION['session_id']);
