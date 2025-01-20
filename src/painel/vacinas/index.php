@@ -15,7 +15,7 @@ if (!isset($_SESSION['session_id'])) {
     $sql->execute();
 
     if ($sql->rowCount() == 1) {
-        $usuario_google = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $usuario_google = $sql->fetch(PDO::FETCH_ASSOC);
         $_SESSION['session_fotourl'] = $usuario_google['foto_url'];
     }
 
