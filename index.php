@@ -2,45 +2,44 @@
 session_start();
 require 'src/scripts/conn.php';
 
-$host = $_SERVER['HTTP_HOST'];
+// $host = $_SERVER['HTTP_HOST'];
 
-if ($host === 'minhasvacinas.online' || $host === 'www.minhasvacinas.online') {
-    echo '
-    <!DOCTYPE html>
-    <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Redirecionando...</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    </head>
-    <body class="bg-light d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <div class="text-center p-5 bg-white rounded shadow-sm">
-            <h1 class="text-danger">Atenção!</h1>
-            <p class="lead">Você está sendo redirecionado para o novo site: <strong>vacinasdigital.com</strong>.</p>
-            <p>Se não for redirecionado automaticamente, <a href="https://vacinasdigital.com" class="btn btn-primary">clique aqui</a>.</p>
-            <p class="text-muted">Aguarde <span id="countdown">3</span> segundos...</p>
-        </div>
+// if ($host === 'minhasvacinas.online' || $host === 'www.minhasvacinas.online') {
+//     echo '
+//     <!DOCTYPE html>
+//     <html lang="pt-BR">
+//     <head>
+//         <meta charset="UTF-8">
+//         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//         <title>Redirecionando...</title>
+//         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+//     </head>
+//     <body class="bg-light d-flex justify-content-center align-items-center" style="height: 100vh;">
+//         <div class="text-center p-5 bg-white rounded shadow-sm">
+//             <h1 class="text-danger">Atenção!</h1>
+//             <p class="lead">Você está sendo redirecionado para o novo site: <strong>vacinasdigital.com</strong>.</p>
+//             <p>Se não for redirecionado automaticamente, <a href="https://vacinasdigital.com" class="btn btn-primary">clique aqui</a>.</p>
+//             <p class="text-muted">Aguarde <span id="countdown">3</span> segundos...</p>
+//         </div>
 
-        <script>
-            var countdown = document.getElementById("countdown");
-            var seconds = 3;
-            var interval = setInterval(function() {
-                seconds--;
-                countdown.textContent = seconds;
-                if (seconds <= 0) {
-                    clearInterval(interval);
-                    window.location.href = "https://vacinasdigital.com";
-                }
-            }, 1000);
-        </script>
-    </body>
-    </html>
-    ';
+//         <script>
+//             var countdown = document.getElementById("countdown");
+//             var seconds = 3;
+//             var interval = setInterval(function() {
+//                 seconds--;
+//                 countdown.textContent = seconds;
+//                 if (seconds <= 0) {
+//                     clearInterval(interval);
+//                     window.location.href = "https://vacinasdigital.com";
+//                 }
+//             }, 1000);
+//         </script>
+//     </body>
+//     </html>
+//     ';
 
-    exit();
-}
-
+//     exit();
+// }
 
 $ip = $_SERVER['REMOTE_ADDR'];
 $token = 'c4444d8bf12e24';
@@ -104,7 +103,7 @@ if ($response !== false) {
     <meta name="twitter:site" content="@pssilvagg" />
     <meta name="twitter:title" content="Minhas Vacinas - Gestão de Vacinas" />
     <meta name="twitter:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
-    <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao.png" />
+    <meta name="twitter:image" content="https://vacinasdigital.com/assets/img/banner-coracao.png" />
     <meta name="robots" content="index, follow">
     <title>Minhas Vacinas</title>
 </head>
