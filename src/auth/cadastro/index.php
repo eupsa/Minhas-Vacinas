@@ -143,7 +143,7 @@ if (isset($_SESSION['session_id'])) {
                                 <div class="d-flex justify-content-center align-items-center">
                                     <div id="g_id_onload"
                                         data-client_id="14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com"
-                                        data-login_uri="https://vacinasdigital.com/src/auth/backend/cadastro-google.php"
+                                        data-login_uri="https://minhasvacinas.online/src/auth/backend/cadastro-google.php"
                                         data-auto_prompt="false">
                                     </div>
                                     <div class="g_id_signin custom-google-btn"
@@ -373,12 +373,12 @@ if (isset($_SESSION['session_id'])) {
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">Links Úteis</h6>
                     <p>
-                        <a href="../../../docs/Política-de-Privacidade.pdf"
+                        <a href="../../../docs/Politica-de-Privacidade.php"
                             style="text-decoration: none; color: #adb5bd;" class="text-reset">Política de
                             Privacidade</a>
                     </p>
                     <p>
-                        <a href="../../../docs/Termos-de-Servico.pdf" style="text-decoration: none; color: #adb5bd;"
+                        <a href="../../../docs/Termos-de-Servico.php" style="text-decoration: none; color: #adb5bd;"
                             class="text-reset">Termos de Serviço</a>
                     </p>
                 </div>

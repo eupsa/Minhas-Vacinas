@@ -409,18 +409,18 @@ if ($response !== false) {
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">Links Úteis</h6>
                     <p>
-                        <a href="docs/Política-de-Privacidade.pdf" style="text-decoration: none; color: #adb5bd;"
+                        <a href="docs/Politica-de-Privacidade.php" style="text-decoration: none; color: #adb5bd;"
                             class="text-reset">Política de
                             Privacidade</a>
                     </p>
                     <p>
-                        <a href="docs/Termos-de-Servico.pdf" style="text-decoration: none; color: #adb5bd;"
+                        <a href="docs/Termos-de-Servico.php" style="text-decoration: none; color: #adb5bd;"
                             class="text-reset">Termos de Serviço</a>
                     </p>
                 </div>
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">Contato</h6>
-                    <p><i class="bi bi-envelope me-2"></i>contato@minhasvacinas.online</p>
+                    <p><i class="bi bi-envelope me-2"></i>pedro@minhasvacinas.online</p>
                 </div>
             </div>
         </div>
@@ -435,7 +435,7 @@ if ($response !== false) {
     </button>
 
     <div id="cookieNotice" class="cookie-notice">
-        <p>Usamos cookies para melhorar sua experiência. Ao continuar, você aceita nossa <a href="docs/Política-de-Privacidade.pdf">Política de privacidade</a>.</p>
+        <p>Usamos cookies para melhorar sua experiência. Ao continuar, você aceita nossa <a href="docs/Politica-de-Privacidade.php">Política de privacidade</a>.</p>
         <button id="acceptCookies" class="cookie-accept-btn">Aceitar</button>
     </div>
 
