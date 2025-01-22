@@ -435,7 +435,7 @@ if ($response !== false) {
     </button>
 
     <div id="cookieNotice" class="cookie-notice">
-        <p>Usamos cookies para melhorar sua experiência. Ao continuar, você aceita nossa <a href="docs/Politica-de-Privacidade.php">Política de privacidade</a>.</p>
+        <p>Usamos cookies para melhorar sua experiência. Ao continuar, você aceita nossa <a href="docs/Politica-de-Privacidade.php">Política de privacidade</a>.<p>
         <button id="acceptCookies" class="cookie-accept-btn">Aceitar</button>
     </div>
 
