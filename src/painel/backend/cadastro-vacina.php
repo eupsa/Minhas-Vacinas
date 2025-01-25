@@ -62,7 +62,7 @@ if (validarData($dataAplicacao)) {
             $sql->bindValue(':dose', $dose);
             $sql->bindValue(':lote', $lote);
             $sql->bindValue(':obs', $obs);
-            $sql->bindValue(':imagem', $imagemBinaria, PDO::PARAM_LOB); // Bind da imagem binária
+            $sql->bindValue(':imagem', $imagemBinaria, PDO::PARAM_LOB); 
             $sql->bindValue(':id_usuario', $_SESSION['session_id']);
             $sql->execute();
 

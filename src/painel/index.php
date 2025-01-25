@@ -74,7 +74,42 @@ if (!isset($_SESSION['session_id'])) {
     <title>Vacinas - Painel</title>
 </head>
 
+
 <body>
+    <div>
+        <div class="toast-container top-0 end-0">
+            <div id="photoUploadToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="/assets/img/img-web.png" class="rounded me-2" alt="Logo do Minhas Vacinas">
+                    <strong class="me-auto">Nova atualização</strong>
+                    <small>Agora</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <p>Você pode fazer upload da sua foto de perfil para personalizar sua conta. Toque aqui para escolher sua imagem!</p>
+                    <a href="perfil/#updateModal" class="link-primary" data-bs-toggle="modal" data-bs-target="#updateModal">
+                        Toque aqui para escolher sua imagem!
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <script>
+            window.onload = function() {
+                if (!document.cookie.split(';').some((item) => item.trim().startsWith('photoUploadToastShown='))) {
+                    const toastElement = document.getElementById('photoUploadToast');
+                    const toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+
+                    document.cookie = "photoUploadToastShown=true; max-age=" + (10 * 60) + "; path=/";
+                }
+            }
+        </script>
+    </div>
+
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #007bff; z-index: 1081; width: 100%; left: 50%; transform: translateX(-50%);">
             <div class="container">
@@ -225,7 +260,6 @@ if (!isset($_SESSION['session_id'])) {
                 <div class="dropdown">
                     <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-
                         <?php if (isset($_SESSION['session_fotourl'])): ?>
                             <img src="<?php echo $_SESSION['session_fotourl']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
                                 width="40" height="40">

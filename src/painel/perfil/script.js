@@ -52,6 +52,7 @@ form_perfil.addEventListener("submit", async (e) => {
   const estado = dadosForm.get("estado");
   const genero = dadosForm.get("genero");
   // const cidade = dadosForm.get("cidade");
+  const foto_perfil = dadosForm.get("foto_perfil");
 
   if (
     !nome &&
@@ -59,7 +60,8 @@ form_perfil.addEventListener("submit", async (e) => {
     !data_nascimento &&
     !telefone &&
     !estado &&
-    !genero //colocar CIDADE AQUII DNVVV, descomentar e add no if no php
+    !genero &&
+    !foto_perfil // ADD o campo CIDADE DPS
   ) {
     Swal.fire({
       text: "Nenhum dado foi alterado.",

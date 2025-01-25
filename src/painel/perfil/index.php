@@ -152,12 +152,11 @@ if ($sql->rowCount() != 1) {
                 <div class="dropdown">
                     <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-
                         <?php if (isset($_SESSION['session_fotourl'])): ?>
                             <img src="<?php echo $_SESSION['session_fotourl']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
                                 width="40" height="40">
-                        <?php elseif (isset($_SESSION['session_foto_perfil'])): ?>
-                            <img src="<?php echo $_SESSION['session_foto_perfil']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
+                        <?php elseif (isset($_SESSION['session_foto_perfil']) && !empty($_SESSION['session_foto_perfil'])): ?>
+                            <img src="data:image/jpeg;base64,<?php echo base64_encode($_SESSION['session_foto_perfil']); ?>" alt="Foto do Usuário" class="rounded-circle me-2"
                                 width="40" height="40">
                         <?php else: ?>
                             <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
@@ -265,6 +264,7 @@ if ($sql->rowCount() != 1) {
             </div>
         </div>
     </section>
+   
     <hr>
 
     <!-- Dispositivos -->
@@ -340,7 +340,7 @@ if ($sql->rowCount() != 1) {
                     </div>
                     <div class="modal-body">
                         <p>Se você deseja atualizar seu e-mail <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#alterar-email">clique aqui</a> ou sua senha <a href="../../auth/esqueceu-senha/" class="text-primary">clique aqui</a></p>
-                        <form id="form-perfil" action="../backend/atualizar-dados.php" method="POST">
+                        <form id="form-perfil" action="../backend/atualizar-dados.php" method="POST" enctype="multipart/form-data">
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="nome" class="form-label">Nome</label>
@@ -426,6 +426,10 @@ if ($sql->rowCount() != 1) {
                                     </select>
                                 </div>
                             </div> -->
+                            <div class="mb-3">
+                                <label for="foto_perfil" class="form-label">Foto de Perfil</label>
+                                <input type="file" class="form-control" id="foto_perfil" name="foto_perfil" accept="image/*">
+                            </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Atualizar Dados</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

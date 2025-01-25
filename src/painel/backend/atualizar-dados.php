@@ -12,6 +12,14 @@ $estado = isset($dados['estado']) ? trim($dados['estado']) : 'N/A';
 $genero = ($dados['genero']);
 // $cidade = trim($dados['cidade']);
 
+$imagem = $_FILES['foto_perfil']['tmp_name'] ?? null; // Captura o arquivo de imagem enviado
+
+if ($imagem && is_uploaded_file($imagem)) {
+    $foto_perfil = file_get_contents($imagem); // Converte a imagem para binário
+} else {
+    $foto_perfil = null; // Se não for enviado um arquivo, o campo será nulo
+}
+
 if (!empty($cpf)) {
     if (!validaCPF($cpf)) {
         $retorna = ['status' => false, 'msg' => 'O CPF informado é inválido. Por favor, verifique e tente novamente.'];
@@ -38,7 +46,7 @@ if (!empty($data_nascimento)) {
 }
 
 try {
-    $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, genero = :genero WHERE id_usuario = :id");
+    $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, genero = :genero, foto_perfil = :foto_perfil WHERE id_usuario = :id");
     $sql->bindValue(':nome', $nome);
     $sql->bindValue(':cpf', $cpf_formatado);
     $sql->bindValue(':data_nascimento', $data_nascimento);
@@ -46,6 +54,7 @@ try {
     $sql->bindValue(':estado', $estado);
     $sql->bindValue(':genero', $genero);
     // $sql->bindValue(':cidade', $cidade);
+    $sql->bindValue(':foto_perfil', $foto_perfil, PDO::PARAM_LOB);
     $sql->bindValue(':id', $_SESSION['session_id']);
     $sql->execute();
 

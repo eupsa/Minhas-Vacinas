@@ -1,6 +1,6 @@
 <?php
 require '../../../scripts/conn.php';
-require '../../scripts/User-Information.php';
+require '../../../scripts/User-Information.php';
 
 session_start();
 if (!isset($_SESSION['session_id'])) {
@@ -138,12 +138,11 @@ if ($sql->rowCount() != 1) {
                 <div class="dropdown">
                     <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-
                         <?php if (isset($_SESSION['session_fotourl'])): ?>
                             <img src="<?php echo $_SESSION['session_fotourl']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
                                 width="40" height="40">
-                        <?php elseif (isset($_SESSION['session_foto_perfil'])): ?>
-                            <img src="<?php echo $_SESSION['session_foto_perfil']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
+                        <?php elseif (isset($_SESSION['session_foto_perfil']) && !empty($_SESSION['session_foto_perfil'])): ?>
+                            <img src="data:image/jpeg;base64,<?php echo base64_encode($_SESSION['session_foto_perfil']); ?>" alt="Foto do Usuário" class="rounded-circle me-2"
                                 width="40" height="40">
                         <?php else: ?>
                             <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
