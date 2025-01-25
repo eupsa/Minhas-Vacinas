@@ -28,9 +28,11 @@ if (form_vacina) {
     const dadosForm = new FormData(form_vacina);
     const nomeVac = dadosForm.get("nomeVac");
     const dataAplicacao = dadosForm.get("dataAplicacao");
+    const proxima_dose = dadosForm.get("proxima_dose");
     const tipo = dadosForm.get("tipo");
     const dose = dadosForm.get("dose");
     const lote = dadosForm.get("lote");
+    const imagem_card = dadosForm.get("imagem");
     const obs = dadosForm.get("obs");
     const localAplicacao = dadosForm.get("localAplicacao");
     const outro_local = dadosForm.get("outro-local");

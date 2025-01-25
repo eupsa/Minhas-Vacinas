@@ -1,10 +1,13 @@
 <?php
 require '../../../scripts/conn.php';
+require '../../scripts/User-Information.php';
+
 session_start();
 if (!isset($_SESSION['session_id'])) {
     header("Location: ../../../auth/entrar/");
     exit();
 } else {
+    Sessions($pdo);
     $sql = $pdo->prepare("SELECT * FROM vacinas_existentes");
     $sql->execute();
     $vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -25,6 +28,7 @@ if (!isset($_SESSION['session_id'])) {
         $_SESSION['postos'] = [];
     }
 }
+
 
 $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip");
 $sql->bindValue(':ip', $_SESSION['session_ip']);
@@ -125,11 +129,21 @@ if ($sql->rowCount() != 1) {
                     </li>
                 </ul>
                 <hr>
+                <?php if (isset($_SESSION['session_fotourl'])): ?>
+                    <p class="text-success">
+                        <img src="https://img.icons8.com/?size=512&id=17949&format=png" alt="Ícone Google" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 2px;">
+                        <small>Conectado com Google</small>
+                    </p>
+                <?php endif; ?>
                 <div class="dropdown">
                     <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+
                         <?php if (isset($_SESSION['session_fotourl'])): ?>
                             <img src="<?php echo $_SESSION['session_fotourl']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
+                                width="40" height="40">
+                        <?php elseif (isset($_SESSION['session_foto_perfil'])): ?>
+                            <img src="<?php echo $_SESSION['session_foto_perfil']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
                                 width="40" height="40">
                         <?php else: ?>
                             <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
@@ -138,13 +152,11 @@ if ($sql->rowCount() != 1) {
                         <span><?php echo isset($_SESSION['session_nome']) ? explode(' ', $_SESSION['session_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="../../perfil/"><i class="fas fa-user"></i> Minha conta</a></li>
+                        <li><a class="dropdown-item" href="perfil/"><i class="fas fa-user"></i> Minha conta</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li>
-                            <a class="dropdown-item" href="../../../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a>
-                        </li>
+                        <li><a class="dropdown-item" href="../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                     </ul>
                 </div>
             </div>
@@ -152,10 +164,10 @@ if ($sql->rowCount() != 1) {
 
     <section>
         <div class="content">
-            <h2 class="fw-light mb-4">Cadastro de Vacinas</h2>
+            <h2 class="fw-light mb-5 text-center">Cadastro de Vacinas</h2>
             <form action="../../backend/cadastro-vacina.php" method="post" id="form_vacina">
-                <div class="row">
-                    <div class="col-12 col-md-6 mb-3">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-8 mb-4">
                         <label for="vacina" class="form-label">Vacina<span class="required-asterisk">*</span></label>
                         <select class="form-select" id="nomeVac" name="nomeVac" aria-label="Selecione a vacina">
                             <option value="" disabled selected>Selecione uma vacina</option>
@@ -168,13 +180,17 @@ if ($sql->rowCount() != 1) {
                             <?php endif; ?>
                         </select>
                     </div>
-                    <div class="col-12 col-md-6 mb-3">
+                    <div class="col-12 col-md-8 mb-4">
                         <label for="dataAplicacao" class="form-label">Data da Aplicação<span class="required-asterisk">*</span></label>
                         <input type="date" class="form-control" id="dataAplicacao" name="dataAplicacao" autocomplete="off">
                     </div>
-                    <div class="col-12 col-md-6 mb-3">
+                    <div class="col-12 col-md-8 mb-4">
+                        <label for="proxima_dose" class="form-label">Próxima Dose</label>
+                        <input type="date" class="form-control" id="proxima_dose" name="proxima_dose" autocomplete="off">
+                    </div>
+                    <div class="col-12 col-md-8 mb-4">
                         <label for="localAplicacao" class="form-label">Unidade de Vacinação<span class="required-asterisk">*</span></label>
-                        <select class="form-select" aria-label="Selecione a unidade de saúde" id="localAplicacao" name="localAplicacao">
+                        <select class="form-select" id="localAplicacao" name="localAplicacao">
                             <option value="" disabled selected>Selecione a unidade</option>
                             <?php if (count($postos) > 0): ?>
                                 <?php foreach ($postos as $posto): ?>
@@ -186,11 +202,11 @@ if ($sql->rowCount() != 1) {
                             <?php endif; ?>
                         </select>
                     </div>
-                    <div class="col-12 col-md-6 mb-3" id="outroLocalDiv" style="display: none;">
+                    <div class="col-12 col-md-8 mb-4" id="outroLocalDiv" style="display: none;">
                         <label for="outro_local" class="form-label">Local de Aplicação<span class="required-asterisk">*</span></label>
                         <input type="text" class="form-control" id="outro_local" name="outro_local" autocomplete="off">
                     </div>
-                    <div class="col-12 col-md-6 mb-3">
+                    <div class="col-12 col-md-8 mb-4">
                         <label for="tipo" class="form-label">Tipo da Vacina<span class="required-asterisk">*</span></label>
                         <select class="form-select" id="tipo" name="tipo">
                             <option value="" disabled selected>Selecione o tipo</option>
@@ -203,7 +219,7 @@ if ($sql->rowCount() != 1) {
                             <option value="Vacina de Proteína Recombinante">Vacina de Proteína Recombinante</option>
                         </select>
                     </div>
-                    <div class="col-12 col-md-6 mb-3">
+                    <div class="col-12 col-md-8 mb-4">
                         <label for="dose" class="form-label">Dose<span class="required-asterisk">*</span></label>
                         <select class="form-select" id="dose" name="dose">
                             <option value="" disabled selected>Selecione a dose</option>
@@ -215,24 +231,48 @@ if ($sql->rowCount() != 1) {
                             <option value="Dose Adicional">Dose Adicional</option>
                         </select>
                     </div>
-                    <div class="col-12 col-md-6 mb-3">
+                    <div class="col-12 col-md-8 mb-4">
+                        <label for="imagem" class="form-label">Imagem da Vacina</label>
+                        <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*" onchange="previewImage(event)">
+                        <div id="imagePreview" style="margin-top: 10px;">
+                            <img id="preview" src="" alt="Prévia da Imagem" style="max-width: 150px; display: none;" />
+                        </div>
+                    </div>
+
+                    <script>
+                        function previewImage(event) {
+                            const file = event.target.files[0];
+                            const reader = new FileReader();
+
+                            reader.onload = function() {
+                                const preview = document.getElementById('preview');
+                                preview.src = reader.result;
+                                preview.style.display = 'block';
+                            }
+
+                            if (file) {
+                                reader.readAsDataURL(file);
+                            }
+                        }
+                    </script>
+
+                    <div class="col-12 col-md-8 mb-4">
                         <label for="lote" class="form-label">Lote</label>
                         <input type="text" class="form-control" id="lote" name="lote" autocomplete="off">
                     </div>
-                    <div class="col-12 mb-3">
+                    <div class="col-12 col-md-8 mb-2">
                         <label for="obs" class="form-label">Observações</label>
                         <textarea class="form-control" id="obs" name="obs" rows="3" autocomplete="off"></textarea>
                     </div>
-                    <div class="col-12 text-center">
+                    <div class="col-12 text-center mt-5">
                         <button type="submit" class="btn btn-primary w-50 rounded-pill shadow-sm text-white">
-                            <i class="fa fa-plus-circle me-2 "></i>Cadastrar Vacina
+                            <i class="fa fa-plus-circle me-2"></i>Cadastrar Vacina
                         </button>
                     </div>
                 </div>
             </form>
         </div>
     </section>
-
 
     <script>
         document.getElementById('localAplicacao').addEventListener('change', function() {

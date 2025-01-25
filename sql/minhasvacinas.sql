@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     telefone VARCHAR(15),
     cidade VARCHAR(100) DEFAULT 'Não informado',
     ip_cadastro VARCHAR(45),
+    foto_perfil LONGBLOB,
     data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -41,6 +42,7 @@ CREATE TABLE IF NOT EXISTS confirmar_cadastro (
 
 CREATE TABLE IF NOT EXISTS vacina (
     id_vac INT PRIMARY KEY AUTO_INCREMENT,
+    imagem LONGBLOB,
     nome_vac VARCHAR(255) NOT NULL,
     data_aplicacao DATE NOT NULL,
     proxima_dose DATE,

@@ -1,0 +1,26 @@
+{
+  "name": "minhas-vacinas",
+  "version": "1.0.0",
+  "main": "service-worker.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/psilvagg/minhas-vacinas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/psilvagg/minhas-vacinas/issues"
+  },
+  "homepage": "https://github.com/psilvagg/minhas-vacinas#readme",
+  "description": "",
+  "dependencies": {
+    "puppeteer": "^24.1.1"
+  }
+}
