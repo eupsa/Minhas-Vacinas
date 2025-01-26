@@ -149,7 +149,7 @@ if (isset($_SESSION['session_id'])) {
                                 </div>
                                 <div class="g_id_signin custom-google-btn"
                                     data-type="standard"
-                                    data-size="medium"
+                                    data-size="large"
                                     data-theme="filled_blue"
                                     data-text="signu_with_google"
                                     data-shape="circle"
