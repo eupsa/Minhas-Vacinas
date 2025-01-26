@@ -153,7 +153,7 @@
                             </a>
                         </div>
                         <button class="btn btn-dark w-100 py-2 rounded-pill mt-3" type="submit">
-                            <i class="bi bi-key-fill me-2"></i> Redefinir senha
+                            <i class="bi bi-key-fill me-2"></i> REDEFINIR SENHA
                         </button>
                     </form>
                     <hr class="custom-hr">

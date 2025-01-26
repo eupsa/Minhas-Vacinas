@@ -127,22 +127,23 @@ if ($sql->rowCount() != 1) {
                         </a>
                     </li>
                     <li>
+                        <a class="nav-link text-white" href="" aria-expanded="false">
+                            <i class="bi bi-check-circle"></i> Status de Vacinação
+                        </a>
+                    </li>
+                    <li>
                         <a href="" onclick="alert('Indisponível')" class="nav-link text-white">
                             <i class="fas fa-bullhorn"></i> Campanhas
                         </a>
                     </li>
-                    <a class="nav-link active" aria-expanded="false">
-                        <i class="bi bi-person"></i> Conta
-                    </a>
+                    <li>
+                        <a class="nav-link active" aria-expanded="false">
+                            <i class="bi bi-person"></i> Conta
+                        </a>
+                    </li>
                     <hr>
                 </ul>
                 <hr>
-                <?php if (isset($_SESSION['session_fotourl'])): ?>
-                    <p class="text-success">
-                        <img src="https://img.icons8.com/?size=512&id=17949&format=png" alt="Ícone Google" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 2px;">
-                        <small>Conectado com Google</small>
-                    </p>
-                <?php endif; ?>
                 <?php if (isset($_SESSION['session_fotourl'])): ?>
                     <p class="text-success">
                         <img src="https://img.icons8.com/?size=512&id=17949&format=png" alt="Ícone Google" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 2px;">
@@ -165,11 +166,12 @@ if ($sql->rowCount() != 1) {
                         <span><?php echo isset($_SESSION['session_nome']) ? explode(' ', $_SESSION['session_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="perfil/"><i class="fas fa-user"></i> Minha conta</a></li>
                         <li>
-                            <hr class="dropdown-divider">
-                        </li>
                         <li><a class="dropdown-item" href="../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                        <hr class="dropdown-divider">
+                        <li><a class="dropdown-item text-danger" href="" data-bs-toggle="modal"
+                                data-bs-target="#excluir-conta"><i class="fas fa-trash-alt"></i> Excluir conta</a></li>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -264,7 +266,7 @@ if ($sql->rowCount() != 1) {
             </div>
         </div>
     </section>
-   
+
     <hr>
 
     <!-- Dispositivos -->

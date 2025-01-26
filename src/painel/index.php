@@ -71,6 +71,8 @@ if (!isset($_SESSION['session_id'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="test.js"></script>
     <title>Vacinas - Painel</title>
 </head>
 
@@ -94,8 +96,6 @@ if (!isset($_SESSION['session_id'])) {
             </div>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
         <script>
             window.onload = function() {
@@ -235,6 +235,11 @@ if (!isset($_SESSION['session_id'])) {
                         </a>
                     </li>
                     <li>
+                        <a class="nav-link text-white" href="" aria-expanded="false">
+                            <i class="bi bi-check-circle"></i> Status de Vacinação
+                        </a>
+                    </li>
+                    <li>
                         <a href="" onclick="alert('Indisponível')" class="nav-link text-white">
                             <i class="fas fa-bullhorn"></i>
                             Campanhas
@@ -263,8 +268,8 @@ if (!isset($_SESSION['session_id'])) {
                         <?php if (isset($_SESSION['session_fotourl'])): ?>
                             <img src="<?php echo $_SESSION['session_fotourl']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
                                 width="40" height="40">
-                        <?php elseif (isset($_SESSION['session_foto_perfil'])): ?>
-                            <img src="<?php echo $_SESSION['session_foto_perfil']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
+                        <?php elseif (isset($_SESSION['session_foto_perfil']) && !empty($_SESSION['session_foto_perfil'])): ?>
+                            <img src="data:image/jpeg;base64,<?php echo base64_encode($_SESSION['session_foto_perfil']); ?>" alt="Foto do Usuário" class="rounded-circle me-2"
                                 width="40" height="40">
                         <?php else: ?>
                             <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
@@ -316,6 +321,7 @@ if (!isset($_SESSION['session_id'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> -->
     <script src="assets/js/script.js"></script>
     <script src="../../block.js"></script>
 </body>

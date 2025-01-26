@@ -100,20 +100,6 @@ if (isset($_SESSION['session_id'])) {
                     <li class="nav-item">
                         <a href="src/ajuda/" class="nav-link">Suporte</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <a class="dropdown-item" href="https://www.apple.com/br/app-store/">
-                                    <img src="https://api.iconify.design/logos:apple-app-store.svg" alt="App Store" style="width: 20px; height: 20px;" class="me-2"> App Store
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="https://play.google.com/">
-                                    <img src="https://api.iconify.design/logos:google-play-icon.svg" alt="Google Play" style="width: 20px; height: 20px;" class="me-2"> Google Play
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
                 <ul class="navbar-nav">
                     <?php if (isset($_SESSION['session_id'])): ?>
@@ -124,7 +110,7 @@ if (isset($_SESSION['session_id'])) {
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="btn btn-primary w-100 mb-2 rounded-pill px-3 py-1 text-white transition-transform transform-hover" href="../auth/entrar/">ENTRAR</a>
+                            <a class="btn btn-primary w-100 mb-2 rounded-pill px-3 py-1 text-white transition-transform transform-hover" href="../entrar/">ENTRAR</a>
                         </li>
                     <?php endif; ?>
                 </ul>
@@ -227,6 +213,12 @@ if (isset($_SESSION['session_id'])) {
                                         <option value="TO">Tocantins</option>
                                     </select>
                                 </div>
+                                <div class="form-check mt-4 mb-4">
+                                    <input type="checkbox" class="form-check-input" id="termsCheckbox" style="margin-top: 5px;" required>
+                                    <label class="form-check-label text-dark ms-2" for="termsCheckbox">
+                                        Eu li e aceito os <a href="/docs/Termos-de-Servico.php" class="text-primary" target="_blank" style="text-decoration: none;">Termos de Serviço</a> e a <a href="/docs/Politica-de-Privacidade.php" class="text-primary" target="_blank" style="text-decoration: none;">Política de Privacidade</a>.
+                                    </label>
+                                </div>
                                 <button class="btn btn-dark w-100 py-2 rounded-pill text-uppercase font-weight-bold" type="submit">
                                     <i class="bi bi-person-plus"></i> CADASTRAR
                                     <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status" aria-hidden="true" style="display: none;"></span>
@@ -239,6 +231,12 @@ if (isset($_SESSION['session_id'])) {
                         <p class="mb-1 text-dark">Já tem uma conta?</p>
                         <a href="../entrar/" class="text-primary" style="text-decoration: none;">
                             <i class="bi bi-door-open"></i> Faça login aqui
+                        </a>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="mb-1 text-dark">Ainda não confirmou o cadastro?</p>
+                        <a href="../confirmar-cadastro/" class="text-primary" style="text-decoration: none;">
+                            <i class="bi bi-check-circle"></i> Confirmar cadastro
                         </a>
                     </div>
                 </div>
@@ -305,7 +303,7 @@ if (isset($_SESSION['session_id'])) {
         });
     </script>
 
-    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px;">
+    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 3%;">
         <div class="me-5 d-none d-lg-block"></div>
         <div class="container text-center text-md-start mt-5">
             <div class="row mt-3">
