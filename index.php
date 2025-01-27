@@ -92,8 +92,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-
-
 $repoOwner = 'psilvagg';
 $repoName = 'app-minhas-vacinas';
 $token = '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';

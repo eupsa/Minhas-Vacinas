@@ -10,6 +10,37 @@ $sql->execute();
 if ($sql->rowCount() != 1) {
     header('Location: ../esqueceu-senha/');
 }
+
+
+$repoOwner = 'psilvagg';
+$repoName = 'app-minhas-vacinas';
+$token = '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';
+
+$url = "https://api.github.com/repos/$repoOwner/$repoName/releases/latest";
+
+$curl = curl_init($url);
+
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_HTTPHEADER, [
+    'User-Agent: MinhasVacinas-App',
+    "Authorization: Bearer $token"
+]);
+
+$response = curl_exec($curl);
+$httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+curl_close($curl);
+
+if ($httpCode === 200 && $response) {
+    $data = json_decode($response, true);
+    $latestVersion = $data['tag_name'] ?? 'Versão não encontrada';
+} elseif ($httpCode === 401) {
+    $latestVersion = 'Erro: Não autorizado. Verifique o token.';
+} elseif ($httpCode === 404) {
+    $latestVersion = 'Erro: Repositório não encontrado.';
+} else {
+    $latestVersion = 'Erro ao buscar versão';
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -27,16 +58,15 @@ if ($sql->rowCount() != 1) {
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top"
-            style="background-color: #007bff; z-index: 1081; width: 100%; left: 50%; transform: translateX(-50%);">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #007bff; z-index: 1081; width: 100%; left: 50%; transform: translateX(-50%);">
             <div class="container">
                 <a class="navbar-brand" href="/">
                     <img src="/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                    aria-controls="offcanvasNavbar">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
@@ -47,19 +77,32 @@ if ($sql->rowCount() != 1) {
                         </li>
                         <li class="nav-item">
                             <a href="#" onclick="Swal.fire({
-                                title: '🚧 O site está passando por modificações importantes!',
-                                text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
-                                icon: 'warning'
-                            }); return false;" class="nav-link">Campanhas</a>
+                            title: '🚧 O site está passando por modificações importantes!',
+                            text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
+                            icon: 'warning'
+                        }); return false;" class="nav-link">Campanhas</a>
                         </li>
                         <li class="nav-item">
                             <a href="../../ajuda/" class="nav-link">Suporte</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-download"></i> Baixe o App
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="https://github.com/psilvagg/app-minhas-vacinas/releases/latest" target="_blank">
+                                        <i class="bi bi-github"></i> Release no GitHub
+                                        <span class="badge bg-warning text-dark ms-2"><?php echo htmlspecialchars($latestVersion); ?></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav ms-auto d-flex align-items-center">
                         <?php if (isset($_SESSION['session_id'])): ?>
                             <li class="nav-item">
-                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="../../painel/">
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="../../ajuda/">
                                     <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
                                 </a>
                             </li>
@@ -76,69 +119,20 @@ if ($sql->rowCount() != 1) {
                             </li>
                         <?php endif; ?>
                     </ul>
-                    <!-- <ul class="navbar-nav">
-                        <li style="margin-left: 20px; margin-top: 2%;">
-                            <div id="themeToggle" class="theme-toggle d-flex align-items-center" style="cursor: pointer;">
-                                <i class="bi bi-sun" id="sunIcon" style="font-size: 1.2em;"></i>
-                                <i class="bi bi-moon" id="moonIcon" style="font-size: 1.2em; display: none;"></i>
-                            </div>
-                        </li>
-                    </ul> -->
                 </div>
             </div>
         </nav>
-
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="position: fixed; top: 0; left: 0; z-index: 1100;">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Início</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/#nossa-missao">Sobre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" onclick="Swal.fire({
-                        title: '🚧 O site está passando por modificações importantes!',
-                        text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
-                        icon: 'warning'
-                    }); return false;" class="nav-link">Campanhas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../../ajuda/" class="nav-link">Suporte</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <?php if (isset($_SESSION['session_id'])): ?>
-                        <li class="nav-item">
-                            <a class="btn btn-outline-primary w-100 mb-2 rounded-pill px-3 py-1 text-primary transition-transform transform-hover" href="../../painel/">
-                                <i class="bi bi-arrow-return-left me-2"></i> Voltar à sua conta
-                            </a>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <a class="btn btn-primary w-100 mb-2 rounded-pill px-3 py-1 text-white transition-transform transform-hover" href="../entrar/">ENTRAR</a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </div>
-        </div>
     </header>
 
     <section class="form-resetPassword">
         <div class="container mt-5">
-            <h4 class="mb-4 text-center text-dark">Crie sua nova senha</h4>
-            <div class="row justify-content-center">
+            <div class="row justify-content-center" style="margin-top: 9%;">
+                <h4 class="mb-4 text-center text-dark">Crie sua nova senha</h4>
                 <div class="col-12 col-md-8 col-lg-6">
                     <form action="../backend/nova-senha.php" class="needs-validation bg-light p-5 rounded shadow-lg" id="form_reset" method="post" novalidate>
                         <p class="text-muted text-center mb-4">
                             <i class="bi bi-info-circle me-2"></i> Sua senha precisa atender aos requisitos abaixo:
                         </p>
-                        <!-- Checklist de requisitos -->
                         <ul id="passwordChecklist" class="text-muted mb-3">
                             <li><i class="bi bi-check-circle me-2" id="checkLength"></i>Pelo menos 8 caracteres</li>
                             <li><i class="bi bi-check-circle me-2" id="checkUppercase"></i>Uma letra maiúscula</li>
@@ -154,7 +148,6 @@ if ($sql->rowCount() != 1) {
                                 </button>
                             </div>
                             <div id="passwordStrength" class="form-text mt-2 text-muted"></div>
-                            <!-- Barra de progresso -->
                             <div class="progress mt-2" style="height: 5px;">
                                 <div id="passwordProgress" class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
