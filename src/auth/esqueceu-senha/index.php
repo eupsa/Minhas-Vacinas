@@ -1,27 +1,5 @@
 <?php
-$repoOwner = 'psilvagg';
-$repoName = 'app-minhas-vacinas';
-$url = "https://api.github.com/repos/$repoOwner/$repoName/releases/latest";
-
-$curl = curl_init($url);
-
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($curl, CURLOPT_HTTPHEADER, [
-    'User-Agent: MinhasVacinas-App'
-]);
-
-$response = curl_exec($curl);
-$httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-curl_close($curl);
-
-if ($httpCode === 200 && $response) {
-    $data = json_decode($response, true);
-    $latestVersion = $data['tag_name'] ?? 'Versão não encontrada';
-} elseif ($httpCode === 404) {
-    $latestVersion = 'Erro: Repositório não encontrado.';
-} else {
-    $latestVersion = 'Erro ao buscar versão';
-}
+$latestVersion = 'v0.1';
 ?>
 
 <!DOCTYPE html>

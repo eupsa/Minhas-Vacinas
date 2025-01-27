@@ -4,6 +4,8 @@ if (isset($_SESSION['session_id'])) {
     header("Location: ../../painel/");
     exit();
 }
+
+$latestVersion = 'v0.1';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
