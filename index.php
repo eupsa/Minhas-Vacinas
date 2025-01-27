@@ -74,6 +74,55 @@ if ($response !== false) {
         }
     }
 }
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+
+    try {
+        $sql = $pdo->prepare("INSERT INTO novidades (email) VALUES (:email)");
+        $sql->bindValue(':email', $email);
+        $sql->execute();
+
+        if ($sql->rowCount() > 0) {
+            header("Location: /?status=sucesso#nossa-missao");
+        }
+        header("Location: /?status=sucesso#nossa-missao");
+    } catch (PDOException $e) {
+        header("Location: /?status=sucesso#nossa-missao");
+    }
+}
+
+
+
+$repoOwner = 'psilvagg';
+$repoName = 'app-minhas-vacinas';
+$token = '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';
+
+$url = "https://api.github.com/repos/$repoOwner/$repoName/releases/latest";
+
+$curl = curl_init($url);
+
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_HTTPHEADER, [
+    'User-Agent: MinhasVacinas-App',
+    "Authorization: Bearer $token"
+]);
+
+$response = curl_exec($curl);
+$httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+curl_close($curl);
+
+if ($httpCode === 200 && $response) {
+    $data = json_decode($response, true);
+    $latestVersion = $data['tag_name'] ?? 'Versão não encontrada';
+} elseif ($httpCode === 401) {
+    $latestVersion = 'Erro: Não autorizado. Verifique o token.';
+} elseif ($httpCode === 404) {
+    $latestVersion = 'Erro: Repositório não encontrado.';
+} else {
+    $latestVersion = 'Erro ao buscar versão';
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -115,9 +164,10 @@ if ($response !== false) {
                 <a class="navbar-brand" href="/">
                     <img src="/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
@@ -128,16 +178,29 @@ if ($response !== false) {
                         </li>
                         <li class="nav-item">
                             <a href="#" onclick="Swal.fire({
-                    title: '🚧 O site está passando por modificações importantes!',
-                    text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
-                    icon: 'warning'
-                }); return false;" class="nav-link">Campanhas</a>
+                            title: '🚧 O site está passando por modificações importantes!',
+                            text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
+                            icon: 'warning'
+                        }); return false;" class="nav-link">Campanhas</a>
                         </li>
                         <li class="nav-item">
                             <a href="src/ajuda/" class="nav-link">Suporte</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-download"></i> Baixe o App
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="https://github.com/psilvagg/app-minhas-vacinas/releases/latest" target="_blank">
+                                        <i class="bi bi-github"></i> Release no GitHub
+                                        <span class="badge bg-warning text-dark ms-2"><?php echo htmlspecialchars($latestVersion); ?></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav ms-auto d-flex align-items-center">
                         <?php if (isset($_SESSION['session_id'])): ?>
                             <li class="nav-item">
                                 <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="src/painel/">
@@ -150,8 +213,8 @@ if ($response !== false) {
                                 </a>
                             </li>
                         <?php else: ?>
-                            <li class="nav-item">
-                                <a class="btn btn-light text-primary rounded-pill px-4 py-2 transition-transform transform-hover" style="margin-right: 10px;" href="src/auth/cadastro/">
+                            <li class="nav-item me-3">
+                                <a class="btn btn-light text-primary rounded-pill px-4 py-2 transition-transform transform-hover" href="src/auth/cadastro/">
                                     <i class="bi bi-person-plus"></i> CADASTRE-SE
                                 </a>
                             </li>
@@ -162,77 +225,9 @@ if ($response !== false) {
                             </li>
                         <?php endif; ?>
                     </ul>
-                    <!-- <ul class="navbar-nav">
-                        <li style="margin-left: 20px; margin-top: 2%;">
-                            <div id="themeToggle" class="theme-toggle d-flex align-items-center" style="cursor: pointer;">
-                                <i class="bi bi-sun" id="sunIcon" style="font-size: 1.2em;"></i>
-                                <i class="bi bi-moon" id="moonIcon" style="font-size: 1.2em; display: none;"></i>
-                            </div>
-                        </li>
-                    </ul> -->
                 </div>
             </div>
         </nav>
-
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="position: fixed; top: 0; left: 0; z-index: 1100;">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Início</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#nossa-missao">Sobre</a>
-                    </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="">Blog<span class="badge bg-success">novo</span></a>
-                    </li> -->
-                    <li class="nav-item">
-                        <a href="#" onclick="Swal.fire({
-                    title: '🚧 O site está passando por modificações importantes!',
-                    text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
-                    icon: 'warning'
-                }); return false;" class="nav-link">Campanhas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="src/ajuda/" class="nav-link">Suporte</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <a class="dropdown-item" href="https://www.apple.com/br/app-store/">
-                                    <img src="https://api.iconify.design/logos:apple-app-store.svg" alt="App Store" style="width: 20px; height: 20px;" class="me-2"> App Store
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="https://play.google.com/">
-                                    <img src="https://api.iconify.design/logos:google-play-icon.svg" alt="Google Play" style="width: 20px; height: 20px;" class="me-2"> Google Play
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <?php if (isset($_SESSION['session_id'])): ?>
-                        <li class="nav-item">
-                            <a class="btn btn-outline-primary w-100 mb-2 rounded-pill px-3 py-1 text-primary transition-transform transform-hover" href="src/painel/">
-                                <i class="bi bi-arrow-return-left me-2"></i> Voltar à sua conta
-                            </a>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <a class="btn btn-outline-primary w-100 mb-2 rounded-pill px-3 py-1 text-primary transition-transform transform-hover" href="src/auth/cadastro/">CADASTRE-SE</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-primary w-100 mb-2 rounded-pill px-3 py-1 text-white transition-transform transform-hover" href="src/auth/entrar/">ENTRAR</a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </div>
-        </div>
     </header>
 
     <section class="carrosel">
@@ -378,8 +373,31 @@ if ($response !== false) {
         </div>
     </section>
 
-    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px;">
-        <div class="me-5 d-none d-lg-block"></div>
+    <button id="scrollToTopBtn" class="scroll-to-top">
+        <span>&#8593;</span>
+    </button>
+
+    <div id="cookieNotice" class="cookie-notice">
+        <p>Usamos cookies para melhorar sua experiência. Ao continuar, você aceita nossa <a href="docs/Politica-de-Privacidade.php">Política de privacidade</a>.
+        <p>
+            <button id="acceptCookies" class="cookie-accept-btn">Aceitar</button>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+                    console.log('Service Worker registrado com sucesso:', registration);
+                }).catch((error) => {
+                    console.log('Erro ao registrar o Service Worker:', error);
+                });
+            });
+        }
+    </script>
+
+    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px;" id="footer">
         <div class="container text-center text-md-start mt-5">
             <div class="row mt-3">
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
@@ -410,8 +428,7 @@ if ($response !== false) {
                     <h6 class="text-uppercase fw-bold mb-4">Links Úteis</h6>
                     <p>
                         <a href="docs/Politica-de-Privacidade.php" style="text-decoration: none; color: #adb5bd;"
-                            class="text-reset">Política de
-                            Privacidade</a>
+                            class="text-reset">Política de Privacidade</a>
                     </p>
                     <p>
                         <a href="docs/Termos-de-Servico.php" style="text-decoration: none; color: #adb5bd;"
@@ -419,8 +436,19 @@ if ($response !== false) {
                     </p>
                 </div>
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Contato</h6>
-                    <p><i class="bi bi-envelope me-2"></i>contato@minhasvacinas.online</p>
+                    <h6 class="text-uppercase fw-bold mb-4">Receba novidades</h6>
+                    <p>Inscreva-se para receber novidades sobre campanhas de vacinação, novidade e futuras atualizações.</p>
+                    <form action="" method="POST">
+                        <div class="input-group">
+                            <input type="email" name="email" class="form-control" placeholder="Seu e-mail" style="background-color: #181a1b; color: #f8f9fa;" required>
+                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        </div>
+                        <?php if (isset($_GET['status'])): ?>
+                            <p style="color: <?php echo $_GET['status'] === 'sucesso' ? 'green' : 'red'; ?>; margin-top: 10px;">
+                                <?php echo $_GET['status'] === 'sucesso' ? 'Sucesso!' : 'Erro! Tente novamente.'; ?>
+                            </p>
+                        <?php endif; ?>
+                    </form>
                 </div>
             </div>
         </div>
@@ -429,30 +457,6 @@ if ($response !== false) {
             © 2025 Minhas Vacinas. Todos os direitos reservados.
         </div>
     </footer>
-
-    <button id="scrollToTopBtn" class="scroll-to-top">
-        <span>&#8593;</span>
-    </button>
-
-    <div id="cookieNotice" class="cookie-notice">
-        <p>Usamos cookies para melhorar sua experiência. Ao continuar, você aceita nossa <a href="docs/Politica-de-Privacidade.php">Política de privacidade</a>.<p>
-        <button id="acceptCookies" class="cookie-accept-btn">Aceitar</button>
-    </div>
-
-    <script src="assets/js/script.js"></script>
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js').then((registration) => {
-                    console.log('Service Worker registrado com sucesso:', registration);
-                }).catch((error) => {
-                    console.log('Erro ao registrar o Service Worker:', error);
-                });
-            });
-        }
-    </script>
-
 </body>
 
 

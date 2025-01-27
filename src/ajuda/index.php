@@ -134,15 +134,15 @@
                         <div class="card-body p-5" style="background-color: #f8f9fa;">
                             <form id="form_suporte" class="needs-validation" novalidate action="backend/suporte.php" method="post">
                                 <div class="mb-4">
-                                    <label for="suporte_nome" class="form-label">Nome</label>
+                                    <label for="suporte_nome" class="form-label">Nome<span class="required-asterisk">*</span></label>
                                     <input type="text" class="form-control rounded-pill" id="suporte_nome" name="suporte_nome" required>
                                 </div>
                                 <div class="mb-4">
-                                    <label for="suporte_email" class="form-label">E-mail</label>
+                                    <label for="suporte_email" class="form-label">E-mail<span class="required-asterisk">*</span></label>
                                     <input type="email" class="form-control rounded-pill" id="suporte_email" name="suporte_email" required>
                                 </div>
                                 <div class="mb-4">
-                                    <label for="motivo_contato" class="form-label">Motivo do Contato</label>
+                                    <label for="motivo_contato" class="form-label">Motivo do Contato<span class="required-asterisk">*</span></label>
                                     <select class="form-select rounded-pill" id="motivo_contato" name="motivo_contato" required>
                                         <option value="" disabled selected>Selecione o motivo</option>
                                         <option value="problema_tecnico">Problema técnico</option>
@@ -153,7 +153,7 @@
                                     </select>
                                 </div>
                                 <div class="mb-4">
-                                    <label for="mensagem" class="form-label">Mensagem</label>
+                                    <label for="mensagem" class="form-label">Mensagem<span class="required-asterisk">*</span></label>
                                     <textarea class="form-control rounded" id="mensagem" name="mensagem" rows="4" placeholder="Escreva sua mensagem aqui..." required></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100 py-2 rounded-pill">

@@ -129,4 +129,20 @@ CREATE TABLE IF NOT EXISTS dispositivos (
     FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS novidades (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL
+);
+
+DELIMITER $$
+
+CREATE TRIGGER after_usuario_insert
+AFTER INSERT ON usuario
+FOR EACH ROW
+BEGIN
+    INSERT INTO novidades (email) VALUES (NEW.email);
+END$$
+
+DELIMITER ;
+
 SELECT @@global.time_zone, @@session.time_zone;

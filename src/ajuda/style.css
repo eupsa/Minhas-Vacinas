@@ -103,3 +103,8 @@ body.dark {
   background-color: #121212;
   color: #fff;
 }
+
+.required-asterisk {
+  color: red;
+  margin-left: 2px;
+}
