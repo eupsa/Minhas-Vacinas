@@ -106,6 +106,7 @@ $latestVersion = 'v0.1';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
     <!-- SEO Metadata -->
     <meta name="description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
@@ -208,127 +209,153 @@ $latestVersion = 'v0.1';
                 </div>
     </section>
 
-    <div class="container-card">
-        <div class="carrosel-card">
-            <section>
-                <h1 class="text-center my-4 display-4">Proteja-se com Minhas Vacinas: Vacinas na Palma da Sua Mão!</h1>
-                <p class="text-center lead">Descubra a importância de manter seu histórico de vacinação sempre atualizado.</p>
-                <div class="d-flex flex-wrap justify-content-center">
-                    <div class="card-carrosel">
-                        <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                            <img src="assets/img/iphone-mao.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Gestão de Vacinas</h5>
-                                <p class="card-text">Mantenha o controle de todas as suas vacinas em um só lugar.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-carrosel">
-                        <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                            <img src="assets/img/iphone-calendario.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Lembretes Personalizados</h5>
-                                <p class="card-text">Receba notificações sobre suas próximas vacinas para não perder nenhuma!</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-carrosel">
-                        <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                            <img src="assets/img/vacina.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Informações sobre Imunizações</h5>
-                                <p class="card-text">Acesse informações atualizadas e confiáveis sobre as vacinas e receba alertas
-                                    sobre campanhas de vacinação perto de você.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-carrosel">
-                        <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                            <img src="assets/img/familia-segura.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Proteja Sua Família</h5>
-                                <p class="card-text">Garanta a saúde de quem você ama com um histórico de vacinação sempre
-                                    atualizado.</p>
-                            </div>
-                        </div>
-                    </div>
+    <section>
+        <h1 class="text-center my-5 display-4">Proteja-se com Minhas Vacinas: Vacinas na Palma da Sua Mão!</h1>
+        <p class="text-center lead mb-5">Descubra a importância de manter seu histórico de vacinação sempre atualizado.</p>
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="card m-3 animate__animated animate__fadeIn" style="max-width: 22rem; min-width: 18rem;">
+                <img src="assets/img/iphone-mao.jpg" class="card-img-top" alt="Gestão de Vacinas">
+                <div class="card-body">
+                    <h5 class="card-title fs-4">Gestão de Vacinas</h5>
+                    <p class="card-text">Mantenha o controle de todas as suas vacinas em um só lugar.</p>
                 </div>
-            </section>
+            </div>
+            <div class="card m-3 animate__animated animate__fadeIn" style="max-width: 22rem; min-width: 18rem;">
+                <img src="assets/img/iphone-calendario.jpg" class="card-img-top" alt="Lembretes Personalizados">
+                <div class="card-body">
+                    <h5 class="card-title fs-4">Lembretes Personalizados</h5>
+                    <p class="card-text">Receba notificações sobre suas próximas vacinas para não perder nenhuma!</p>
+                </div>
+            </div>
+            <div class="card m-3 animate__animated animate__fadeIn" style="max-width: 22rem; min-width: 18rem;">
+                <img src="assets/img/vacina.jpg" class="card-img-top" alt="Informações sobre Imunizações">
+                <div class="card-body">
+                    <h5 class="card-title fs-4">Informações sobre Imunizações</h5>
+                    <p class="card-text">Acesse informações atualizadas e confiáveis sobre as vacinas e receba alertas
+                        sobre campanhas de vacinação perto de você.</p>
+                </div>
+            </div>
+            <div class="card m-3 animate__animated animate__fadeIn" style="max-width: 22rem; min-width: 18rem;">
+                <img src="assets/img/familia-segura.jpg" class="card-img-top" alt="Proteja Sua Família">
+                <div class="card-body">
+                    <h5 class="card-title fs-4">Proteja Sua Família</h5>
+                    <p class="card-text">Garanta a saúde de quem você ama com um histórico de vacinação sempre
+                        atualizado.</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
 
     <div style="height: 50px;"></div>
 
     <section class="bg-secondary py-5">
         <div class="container text-center">
-            <h2 class="mb-4 text-white animate__animated animate__fadeInDown">O que a nossa plataforma oferta?</h2>
+            <h2 class="mb-5 animate__animated animate__fadeInDown">Recursos Essenciais e Proteção</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp">
+                        <div class="icon-container bg-success text-white">
+                            <i class="bi bi-shield-lock" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="mt-3">Registro Digital de Vacinas</h4>
+                        <p class="text-muted">Mantenha um digital seguro de todas as vacinas da sua família. Isso facilita o acompanhamento da imunização e o acesso a informações importantes.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp">
+                        <div class="icon-container bg-warning text-white">
+                            <i class="bi bi-bell" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="mt-3">Alertas de Vacinação</h4>
+                        <p class="text-muted">Obtenha relatórios detalhados sobre o estado das suas vacinas, ajudando você a entender o que está em dia e o que precisa ser atualizado.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp">
+                        <div class="icon-container bg-info text-white">
+                            <i class="bi bi-file-earmark-text" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="mt-3">Cartão de Vacinação Digital</h4>
+                        <p class="text-muted">Carregue seu cartão de vacinação no celular, facilitando o acesso às informações em qualquer lugar e a qualquer momento.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp">
+                        <div class="icon-container bg-danger text-white">
+                            <i class="bi bi-heart" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="mt-3">Proteja Sua Família</h4>
+                        <p class="text-muted">Mantenha o histórico de vacinação da sua família sempre atualizado, organizado, acessível e seguro.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp">
+                        <div class="icon-container bg-primary text-white">
+                            <i class="bi bi-book" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="mt-3">Dicas de Cuidados Pós-Vacinação</h4>
+                        <p class="text-muted">Receba dicas sobre cuidados pós-vacinação e garanta uma recuperação tranquila.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp">
+                        <div class="icon-container bg-info text-white">
+                            <i class="bi bi-calendar-event" style="font-size: 3rem;"></i>
+                        </div>
+                        <h4 class="mt-3">Campanhas de Vacinação</h4>
+                        <p class="text-muted">Receba dicas sobre cuidados pós-vacinação para garantir uma recuperação tranquila e saudável.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-dark text-white py-5">
+        <div class="container text-center">
+            <h2 class="mb-5 animate__animated animate__fadeInDown">Recursos Essenciais e Proteção</h2>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 <div class="col">
-                    <div class="card h-100 shadow-lg animate__animated animate__fadeInUp">
-                        <div class="card-body d-flex flex-column">
-                            <i class="bi bi-shield-lock text-success" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Registro Digital de Vacinas</h5>
-                            <p class="card-text">Mantenha digital seguro de todas as vacinas de sua família.
-                                Isso facilita o acompanhamento da imunização e o acesso a informações importantes.
-                            </p>
-                        </div>
+                    <div class="resource-block shadow-lg animate__animated animate__fadeInUp">
+                        <dotlottie-player
+                            src="https://lottie.host/241a629f-5fb6-43f9-b6fe-8a45d8b3de5b/gQf9kyQpqN.lottie"
+                            background="transparent"
+                            speed="1"
+                            style="width: 80px; height: 80px; margin: 0 auto;"
+                            loop autoplay>
+                        </dotlottie-player>
+                        <h4 class="mt-3">Segurança de Dados</h4>
+                        <p class="text-white">Protegemos suas informações com sistemas de segurança avançados para garantir que seus dados permaneçam seguros.</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="resource-block shadow-lg animate__animated animate__fadeInUp">
+                        <dotlottie-player
+                            src="https://lottie.host/30f70f44-49b1-4f1f-b679-3d722eba500c/AqWeHVKtjF.lottie"
+                            background="transparent"
+                            speed="1"
+                            style="width: 80px; height: 80px; margin: 0 auto;"
+                            loop autoplay>
+                        </dotlottie-player>
+                        <h4 class="mt-3">Criptografia de Dados</h4>
+                        <p class="text-white">Utilizamos criptografia de ponta para garantir que seus dados sensíveis permaneçam confidenciais e protegidos.</p>
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card h-100 shadow-lg animate__animated animate__fadeInUp">
-                        <div class="card-body d-flex flex-column">
-                            <i class="bi bi-bell text-warning" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Alertas de Vacinação</h5>
-                            <p class="card-text">Obtenha relatórios detalhados sobre o estado das suas vacinas, ajudando
-                                você a entender o que está em dia e o que precisa ser atualizado.
-                            </p>
-                        </div>
+                    <div class="resource-block shadow-lg animate__animated animate__fadeInUp">
+                        <dotlottie-player
+                            src="https://lottie.host/3187dfa0-5b8a-42c3-83c1-de7a49a03c74/yfecr5ccaw.lottie"
+                            background="transparent"
+                            speed="1"
+                            style="width: 80px; height: 80px; margin: 0 auto;"
+                            loop autoplay>
+                        </dotlottie-player>
+                        <h4 class="mt-3">Armazenamento Seguro em Nuvem</h4>
+                        <p class="text-white">Seus dados são armazenados em servidores seguros na nuvem, garantindo fácil acesso e proteção contínua.</p>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card h-100 shadow-lg animate__animated animate__fadeInUp">
-                        <div class="card-body d-flex flex-column">
-                            <i class="bi bi-file-earmark-text text-info" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Cartão de Vacinação Digital</h5>
-                            <p class="card-text">Carregue seu cartão de vacinação no celular, facilitando o acesso às
-                                informações em qualquer lugar e a qualquer momento.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 shadow-lg animate__animated animate__fadeInUp">
-                        <div class="card-body d-flex flex-column">
-                            <i class="bi bi-heart text-danger" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Proteja Sua Família</h5>
-                            <p class="card-text">Mantenha o histórico de vacinação da sua família sempre atualizado,
-                                organizado, acessível e seguro.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 shadow-lg animate__animated animate__fadeInUp">
-                        <div class="card-body d-flex flex-column">
-                            <i class="bi bi-book text-primary" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Dicas de Cuidados Pós-Vacinação</h5>
-                            <p class="card-text">Receba dicas sobre cuidados pós-vacinação e garanta uma recuperação
-                                tranquila.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 shadow-lg animate__animated animate__fadeInUp">
-                        <div class="card-body d-flex flex-column">
-                            <i class="bi bi-calendar-event text-info" style="font-size: 3rem;"></i>
-                            <h5 class="card-title mt-3">Campanhas de Vacinação</h5>
-                            <p class="card-text">Receba dicas sobre cuidados pós-vacinação para garantir uma recuperação
-                                tranquila e saudável.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </section>
@@ -365,8 +392,6 @@ $latestVersion = 'v0.1';
             <button id="acceptCookies" class="cookie-accept-btn">Aceitar</button>
     </div>
 
-    <script src="assets/js/script.js"></script>
-
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -378,6 +403,9 @@ $latestVersion = 'v0.1';
             });
         }
     </script>
+
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+    <script src="assets/js/script.js"></script>
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px;" id="footer">
         <div class="container text-center text-md-start mt-5">
