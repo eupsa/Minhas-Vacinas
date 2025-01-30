@@ -1,6 +1,10 @@
 # Ativar RewriteEngine
 RewriteEngine On
 
+# Forçar www em todas as URLs
+RewriteCond %{HTTP_HOST} ^seusite\.com [NC]
+RewriteRule ^(.*)$ http://www.seusite.com/$1 [L,R=301]
+
 # Páginas de erro personalizadas
 ErrorDocument 401 /assets/error/401.html
 ErrorDocument 403 /assets/error/403.html
@@ -8,7 +12,7 @@ ErrorDocument 404 /assets/error/404.html
 ErrorDocument 500 /assets/error/500.html
 
 # Prevenir acesso a arquivos sensíveis
-<FilesMatch "^(.*\.(env|htaccess|git|gitignore|htpasswd|config\.php))$">
+<FilesMatch "^(.*\.(env|htaccess|git|gitignore|htpasswd|conn|config\.php))$">
   Order Deny,Allow
   Deny from all
 </FilesMatch>
