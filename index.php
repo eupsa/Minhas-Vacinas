@@ -10,11 +10,7 @@ if (isset($_COOKIE['continue_without_www']) && $_COOKIE['continue_without_www'] 
     return;
 }
 
-$host = $_SERVER['HTTP_HOST'];
-
-// Verifica se o usuário já escolheu continuar sem www
-
-if ($host === 'minhasvacinas.online' || 'localhost') {
+if ($host === 'minhasvacinas.online') {
     echo '
     <!DOCTYPE html>
     <html lang="pt-BR">
@@ -39,7 +35,7 @@ if ($host === 'minhasvacinas.online' || 'localhost') {
         // Função para salvar o cookie e recarregar a página
         function setCookieAndStay() {
             document.cookie = "continue_without_www=true; path=/; max-age=" + 60*60*24*365; // 1 ano
-            window.location.href = window.location.href; // Recarrega a página mantendo a URL sem www
+            window.location.reload();
         }
     </script>
     </html>
