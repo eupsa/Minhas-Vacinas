@@ -10,7 +10,6 @@ require 'src/scripts/conn.php';
 //     <html lang="pt-BR">
 //     <head>
 //         <meta charset="UTF-8">
-//         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 //         <title>Redirecionando...</title>
 //         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 //     </head>
@@ -405,6 +404,8 @@ $latestVersion = 'v0.1';
     </script>
 
     <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
     <script src="assets/js/script.js"></script>
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px;" id="footer">
