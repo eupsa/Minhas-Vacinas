@@ -1,7 +1,9 @@
 # Ativar RewriteEngine
 RewriteEngine On
 
-
+# Forçar www.minhasvacinas.online em todas as URLs
+RewriteCond %{HTTP_HOST} ^minhasvacinas\.online$ [NC]
+RewriteRule ^(.*)$ https://www.minhasvacinas.online/$1 [L,R=301]
 
 # Páginas de erro personalizadas
 ErrorDocument 401 /assets/error/401.html
