@@ -208,42 +208,54 @@ $latestVersion = 'v0.1';
                 </div>
     </section>
 
-    <section>
-        <h1 class="text-center my-4 display-4">Proteja-se com Minhas Vacinas: Vacinas na Palma da Sua Mão!</h1>
-        <p class="text-center lead">Descubra a importância de manter seu histórico de vacinação sempre atualizado.</p>
-        <div class="d-flex flex-wrap justify-content-center">
-            <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                <img src="assets/img/iphone-mao.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Gestão de Vacinas</h5>
-                    <p class="card-text">Mantenha o controle de todas as suas vacinas em um só lugar.</p>
+    <div class="container-card">
+        <div class="carrosel-card">
+            <section>
+                <h1 class="text-center my-4 display-4">Proteja-se com Minhas Vacinas: Vacinas na Palma da Sua Mão!</h1>
+                <p class="text-center lead">Descubra a importância de manter seu histórico de vacinação sempre atualizado.</p>
+                <div class="d-flex flex-wrap justify-content-center">
+                    <div class="card-carrosel">
+                        <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
+                            <img src="assets/img/iphone-mao.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Gestão de Vacinas</h5>
+                                <p class="card-text">Mantenha o controle de todas as suas vacinas em um só lugar.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-carrosel">
+                        <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
+                            <img src="assets/img/iphone-calendario.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Lembretes Personalizados</h5>
+                                <p class="card-text">Receba notificações sobre suas próximas vacinas para não perder nenhuma!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-carrosel">
+                        <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
+                            <img src="assets/img/vacina.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Informações sobre Imunizações</h5>
+                                <p class="card-text">Acesse informações atualizadas e confiáveis sobre as vacinas e receba alertas
+                                    sobre campanhas de vacinação perto de você.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-carrosel">
+                        <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
+                            <img src="assets/img/familia-segura.jpg" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Proteja Sua Família</h5>
+                                <p class="card-text">Garanta a saúde de quem você ama com um histórico de vacinação sempre
+                                    atualizado.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                <img src="assets/img/iphone-calendario.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Lembretes Personalizados</h5>
-                    <p class="card-text">Receba notificações sobre suas próximas vacinas para não perder nenhuma!</p>
-                </div>
-            </div>
-            <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                <img src="assets/img/vacina.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Informações sobre Imunizações</h5>
-                    <p class="card-text">Acesse informações atualizadas e confiáveis sobre as vacinas e receba alertas
-                        sobre campanhas de vacinação perto de você.</p>
-                </div>
-            </div>
-            <div class="card m-2 animate__animated animate__fadeIn" style="width: 18rem;">
-                <img src="assets/img/familia-segura.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Proteja Sua Família</h5>
-                    <p class="card-text">Garanta a saúde de quem você ama com um histórico de vacinação sempre
-                        atualizado.</p>
-                </div>
-            </div>
+            </section>
         </div>
-    </section>
+    </div>
 
     <div style="height: 50px;"></div>
 
