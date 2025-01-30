@@ -2,43 +2,53 @@
 session_start();
 require 'src/scripts/conn.php';
 
-// $host = $_SERVER['HTTP_HOST'];
+$host = $_SERVER['HTTP_HOST'];
 
-// if ($host === 'minhasvacinas.online' || $host === 'www.minhasvacinas.online') {
-//     echo '
-//     <!DOCTYPE html>
-//     <html lang="pt-BR">
-//     <head>
-//         <meta charset="UTF-8">
-//         <title>Redirecionando...</title>
-//         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-//     </head>
-//     <body class="bg-light d-flex justify-content-center align-items-center" style="height: 100vh;">
-//         <div class="text-center p-5 bg-white rounded shadow-sm">
-//             <h1 class="text-danger">Atenção!</h1>
-//             <p class="lead">Você está sendo redirecionado para o novo site: <strong>vacinasdigital.com</strong>.</p>
-//             <p>Se não for redirecionado automaticamente, <a href="https://vacinasdigital.com" class="btn btn-primary">clique aqui</a>.</p>
-//             <p class="text-muted">Aguarde <span id="countdown">3</span> segundos...</p>
-//         </div>
+// Verifica se o usuário já fez a escolha de continuar sem www
+if (isset($_COOKIE['continue_without_www']) && $_COOKIE['continue_without_www'] == 'true') {
+    // Usuário escolheu continuar sem www, não redireciona mais
+    return;
+}
 
-//         <script>
-//             var countdown = document.getElementById("countdown");
-//             var seconds = 3;
-//             var interval = setInterval(function() {
-//                 seconds--;
-//                 countdown.textContent = seconds;
-//                 if (seconds <= 0) {
-//                     clearInterval(interval);
-//                     window.location.href = "https://vacinasdigital.com";
-//                 }
-//             }, 1000);
-//         </script>
-//     </body>
-//     </html>
-//     ';
+$host = $_SERVER['HTTP_HOST'];
 
-//     exit();
-// }
+// Verifica se o usuário já escolheu continuar sem www
+if (isset($_COOKIE['continue_without_www']) && $_COOKIE['continue_without_www'] == 'true' && $host === 'minhasvacinas.online') {
+    return; // Se o cookie existe e o host está sem www, não faz nada
+}
+
+if ($host === 'minhasvacinas.online' || 'localhost') {
+    echo '
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <title>Atenção! Verifique a URL</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-light d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="text-center p-5 bg-white rounded shadow-sm">
+            <h1 class="text-danger">Atenção!</h1>
+            <p class="lead">Você está acessando o site sem o <strong>www</strong>. Isso pode causar erros de exibição ou funcionalidades no site.</p>
+            <p>Recomendamos que você acesse o site usando <strong>www.minhasvacinas.online</strong> para garantir o melhor desempenho e segurança.</p>
+            <div class="d-flex justify-content-center">
+                <a href="https://www.minhasvacinas.online" class="btn btn-primary me-3">Ir para o site com www</a>
+                <a href="#" class="btn btn-secondary" onclick="setCookieAndStay()">Continuar sem www</a>
+            </div>
+            <p class="text-muted mt-3">Se você continuar sem o <strong>www</strong>, alguns recursos podem não funcionar corretamente.</p>
+        </div>
+    </body>
+    <script>
+        // Função para salvar o cookie e recarregar a página
+        function setCookieAndStay() {
+            document.cookie = "continue_without_www=true; path=/; max-age=" + 60*60*24*365; // 1 ano
+            window.location.href = window.location.href; // Recarrega a página mantendo a URL sem www
+        }
+    </script>
+    </html>
+    ';
+    exit();
+}
 
 $ip = $_SERVER['REMOTE_ADDR'];
 $token = 'c4444d8bf12e24';
