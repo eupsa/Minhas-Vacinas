@@ -72,44 +72,13 @@ if (!isset($_SESSION['session_id'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
     <script src="test.js"></script>
     <title>Vacinas - Painel</title>
 </head>
 
 
 <body>
-    <div>
-        <div class="toast-container top-0 end-0">
-            <div id="photoUploadToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <img src="/assets/img/img-web.png" class="rounded me-2" alt="Logo do Minhas Vacinas">
-                    <strong class="me-auto">Nova atualização</strong>
-                    <small>Agora</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    <p>Você pode fazer upload da sua foto de perfil para personalizar sua conta. Toque aqui para escolher sua imagem!</p>
-                    <a href="perfil/#updateModal" class="link-primary" data-bs-toggle="modal" data-bs-target="#updateModal">
-                        Toque aqui para escolher sua imagem!
-                    </a>
-                </div>
-            </div>
-        </div>
-
-
-        <script>
-            window.onload = function() {
-                if (!document.cookie.split(';').some((item) => item.trim().startsWith('photoUploadToastShown='))) {
-                    const toastElement = document.getElementById('photoUploadToast');
-                    const toast = new bootstrap.Toast(toastElement);
-                    toast.show();
-
-                    document.cookie = "photoUploadToastShown=true; max-age=" + (10 * 60) + "; path=/";
-                }
-            }
-        </script>
-    </div>
-
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #007bff; z-index: 1081; width: 100%; left: 50%; transform: translateX(-50%);">
             <div class="container">
@@ -318,6 +287,18 @@ if (!isset($_SESSION['session_id'])) {
             </div>
         </div>
     </section>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+                    console.log('Service Worker registrado com sucesso:', registration);
+                }).catch((error) => {
+                    console.log('Erro ao registrar o Service Worker:', error);
+                });
+            });
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

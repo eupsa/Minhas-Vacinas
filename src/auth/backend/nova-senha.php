@@ -43,8 +43,8 @@ if (empty($senha) || empty($confsenha) || empty($token)) {
 
                         if ($sql->rowCount() === 1) {
                             try {
-                                $sql = $pdo->prepare("DELETE FROM esqueceu_senha WHERE token = :token");
-                                $sql->bindValue(':token', $token);
+                                $sql = $pdo->prepare("DELETE FROM esqueceu_senha WHERE email = :email");
+                                $sql->bindValue(':email', $email);
                                 $sql->execute();
 
                                 enviarEmail($email);

@@ -45,6 +45,19 @@ if (!empty($data_nascimento)) {
     }
 }
 
+if (!empty($cpf_formatado)) {
+    $sql = $pdo->prepare("SELECT * FROM usuario WHERE cpf = :cpf");
+    $sql->bindValue(':cpf', $cpf_formatado);
+    $sql->execute();
+
+    if ($sql->rowCount() > 0) {
+        $retorna = ['status' => false, 'msg' => 'CPF já cadastrado.'];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit();
+    }
+}
+
 try {
     $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, genero = :genero, foto_perfil = :foto_perfil WHERE id_usuario = :id");
     $sql->bindValue(':nome', $nome);

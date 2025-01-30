@@ -206,7 +206,6 @@ $latestVersion = 'v0.1';
         </div>
     </section>
 
-
     <div style="height: 50px;"></div>
 
     <section class="bg-secondary py-5">

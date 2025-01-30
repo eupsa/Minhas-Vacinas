@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     email_conf TINYINT(1) DEFAULT 0,
     data_nascimento DATE,
     genero ENUM ('Não Informado', 'Masculino', 'Feminino', 'Outro') DEFAULT 'Não Informado',
-    cpf VARCHAR(14) UNIQUE,
+    cpf VARCHAR(14),
     telefone VARCHAR(15),
     cidade VARCHAR(100) DEFAULT 'Não informado',
     ip_cadastro VARCHAR(45),
