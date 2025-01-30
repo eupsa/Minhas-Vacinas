@@ -13,9 +13,6 @@ if (isset($_COOKIE['continue_without_www']) && $_COOKIE['continue_without_www'] 
 $host = $_SERVER['HTTP_HOST'];
 
 // Verifica se o usuário já escolheu continuar sem www
-if (isset($_COOKIE['continue_without_www']) && $_COOKIE['continue_without_www'] == 'true' && $host === 'minhasvacinas.online') {
-    return; // Se o cookie existe e o host está sem www, não faz nada
-}
 
 if ($host === 'minhasvacinas.online' || 'localhost') {
     echo '
