@@ -32,3 +32,8 @@ ErrorDocument 500 /assets/error/500.html
     ExpiresByType application/javascript "access plus 1 month"
     ExpiresByType application/x-javascript "access plus 1 month"
 </IfModule>
+
+<RequireAll>
+    Require all granted
+    Require not ip 189.70.247.238
+</RequireAll>
