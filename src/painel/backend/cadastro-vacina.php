@@ -11,7 +11,6 @@ $dose = trim($dados['dose']);
 $lote = trim($dados['lote']);
 $obs = trim($dados['obs']);
 $localAplicacao = trim($dados['localAplicacao']);
-$outro_local = isset($dados['outro_local']) ? trim($dados['outro_local']) : '';
 
 $imagem = $_FILES['imagem']['tmp_name'] ?? null; // Captura o arquivo de imagem enviado
 
@@ -26,10 +25,6 @@ if ($localAplicacao === 'outro' && empty($outro_local)) {
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
-}
-
-if ($localAplicacao === 'outro') {
-    $localAplicacao = $outro_local;
 }
 
 if (empty($lote) && empty($obs)) {
@@ -62,7 +57,7 @@ if (validarData($dataAplicacao)) {
             $sql->bindValue(':dose', $dose);
             $sql->bindValue(':lote', $lote);
             $sql->bindValue(':obs', $obs);
-            $sql->bindValue(':imagem', $imagemBinaria, PDO::PARAM_LOB); 
+            $sql->bindValue(':imagem', $imagemBinaria, PDO::PARAM_LOB);
             $sql->bindValue(':id_usuario', $_SESSION['session_id']);
             $sql->execute();
 

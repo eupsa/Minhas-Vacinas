@@ -34,9 +34,8 @@ ErrorDocument 500 /assets/error/500.html
 </IfModule>
 
 
-# <RequireAll>
-#     Require all granted
-#     Require not ip 189.70.247.238
-#     Require not ip 201.29.190.208
-# </RequireAll>
+<RequireAll>
+    Require all granted
+    Require not ip 201.29.190.208
+</RequireAll>
 

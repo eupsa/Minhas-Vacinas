@@ -180,7 +180,7 @@ if ($sql->rowCount() != 1) {
 
     <!-- Perfil -->
     <section class="profile-section py-5 padding-left-10">
-        <div class=" container">
+        <div class="container">
             <div class="card shadow-lg border-0"">
                 <div class=" card-header bg text-white text-center py-3" style="background: #3f3f3f;">
                 <h3>Dados do Perfil</h3>

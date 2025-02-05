@@ -17,16 +17,6 @@ if (!isset($_SESSION['session_id'])) {
     } else {
         $_SESSION['vacinas'] = [];
     }
-
-    $sql = $pdo->prepare("SELECT * FROM postos_vacinacao");
-    $sql->execute();
-    $postos = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-    if (count($postos) > 0) {
-        $_SESSION['postos'] = $postos;
-    } else {
-        $_SESSION['postos'] = [];
-    }
 }
 
 
@@ -189,22 +179,12 @@ if ($sql->rowCount() != 1) {
                         <input type="date" class="form-control" id="dataAplicacao" name="dataAplicacao" autocomplete="off">
                     </div>
                     <div class="col-12 col-md-8 mb-4">
-                        <label for="proxima_dose" class="form-label">Próxima Dose</label>
+                        <label for="proxima_dose" class="form-label">Próxima Dose<span class="required-asterisk">*</span></label>
                         <input type="date" class="form-control" id="proxima_dose" name="proxima_dose" autocomplete="off">
                     </div>
                     <div class="col-12 col-md-8 mb-4">
-                        <label for="localAplicacao" class="form-label">Unidade de Vacinação<span class="required-asterisk">*</span></label>
-                        <select class="form-select" id="localAplicacao" name="localAplicacao">
-                            <option value="" disabled selected>Selecione a unidade</option>
-                            <?php if (count($postos) > 0): ?>
-                                <?php foreach ($postos as $posto): ?>
-                                    <option value="<?= $posto['nome'] ?>"><?= htmlspecialchars($posto['nome']) ?></option>
-                                <?php endforeach; ?>
-                                <option value="outro">Outro</option>
-                            <?php else: ?>
-                                <option value="">Nenhum local disponível</option>
-                            <?php endif; ?>
-                        </select>
+                        <label for="localAplicacao" class="form-label">Local de Aplicação</label>
+                        <input type="text" class="form-control" id="localAplicacao" name="localAplicacao" autocomplete="off">
                     </div>
                     <div class="col-12 col-md-8 mb-4" id="outroLocalDiv" style="display: none;">
                         <label for="outro_local" class="form-label">Local de Aplicação<span class="required-asterisk">*</span></label>

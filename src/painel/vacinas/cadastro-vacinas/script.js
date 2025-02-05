@@ -35,7 +35,6 @@ if (form_vacina) {
     const imagem_card = dadosForm.get("imagem");
     const obs = dadosForm.get("obs");
     const localAplicacao = dadosForm.get("localAplicacao");
-    const outro_local = dadosForm.get("outro-local");
 
     if (!nomeVac || !dataAplicacao || !tipo || !dose || !localAplicacao) {
       Swal.fire({

@@ -126,7 +126,7 @@ if (!isset($_SESSION['session_id'])) {
                             </p>
                             <h5 class="card-title text-dark">Gerenciar Dispositivos</h5>
                             <p class="card-text">Veja os dispositivos conectados à sua conta e remova-os caso necessário.</p>
-                            <a href="vacinas/cadastro-vacinas/" class="btn btn-success btn-sm mt-auto rounded-pill">Gerenciar</a>
+                            <a href="perfil/#dispositivos" class="btn btn-success btn-sm mt-auto rounded-pill">Gerenciar</a>
                         </div>
                     </div>
                 </div>
