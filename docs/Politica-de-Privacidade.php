@@ -185,7 +185,7 @@
 
         <section>
             <h2>1. Introdução</h2>
-            <p>Esta Política de Privacidade descreve como coletamos, usamos e protegemos suas informações pessoais ao acessar o site <strong>minhasvacinas.online</strong>. O objetivo do Site é oferecer serviços relacionados à gestão de informações de vacinação. Ao utilizar o Site, você concorda com os termos desta Política.</p>
+            <p>Esta Política de Privacidade descreve como coletamos, usamos e protegemos suas informações pessoais ao acessar o site <strong>minhasvacinas.online</strong>. O objetivo do site é oferecer serviços relacionados à gestão de informações de vacinação. Ao utilizar o site, você concorda com os termos desta Política.</p>
         </section>
 
         <section>
@@ -203,7 +203,6 @@
                 <li><strong>Cookies:</strong> Utilizamos cookies para autenticar usuários, melhorar a experiência do usuário e analisar o tráfego no site.</li>
                 <li><strong>Dados de Uso:</strong> Informações sobre como você interage com o site, incluindo tempo de navegação e recursos mais acessados.</li>
             </ul>
-            <p>Essas informações são essenciais para garantir a segurança do sistema e oferecer uma experiência personalizada.</p>
         </section>
 
         <section>
@@ -212,7 +211,7 @@
             <ul>
                 <li>Gerenciar o histórico de vacinação do usuário.</li>
                 <li>Enviar comunicações relacionadas ao serviço, como notificações de vacinas ou atualizações no sistema.</li>
-                <li>Melhorar o funcionamento do Site e personalizar a experiência do usuário.</li>
+                <li>Melhorar o funcionamento do site e personalizar a experiência do usuário.</li>
                 <li>Atender solicitações de suporte ou dúvidas enviadas pelos usuários.</li>
             </ul>
         </section>
@@ -222,8 +221,8 @@
             <p>Não compartilhamos suas informações pessoais com terceiros, exceto:</p>
             <ul>
                 <li>Quando exigido por lei ou por ordem judicial.</li>
-                <li>Para proteger os direitos, a segurança e a integridade do Site.</li>
-                <li>Com provedores de serviços contratados para operar e melhorar o Site, sujeitos a acordos de confidencialidade.</li>
+                <li>Para proteger os direitos, a segurança e a integridade do site.</li>
+                <li>Com provedores de serviços contratados para operar e melhorar o site, sujeitos a acordos de confidencialidade.</li>
             </ul>
         </section>
 
@@ -244,7 +243,6 @@
                 <li>Acessar, corrigir ou excluir suas informações pessoais.</li>
                 <li>Retirar o consentimento para o uso de suas informações.</li>
                 <li>Solicitar informações sobre como seus dados estão sendo usados.</li>
-                <li>Reclamar junto às autoridades competentes em caso de dúvidas ou insatisfações.</li>
             </ul>
             <p>Para exercer seus direitos, entre em contato pelo e-mail: <a href="">pedro@minhasvacinas.online</a>.</p>
         </section>
@@ -254,7 +252,7 @@
             <p>Utilizamos cookies para:</p>
             <ul>
                 <li>Autenticar usuários e manter sessões ativas.</li>
-                <li>Analisar o tráfego no Site.</li>
+                <li>Analisar o tráfego no site.</li>
                 <li>Fornecer funcionalidades adicionais, como salvar preferências do usuário.</li>
             </ul>
             <p>Você pode gerenciar ou desativar cookies diretamente nas configurações do seu navegador.</p>
@@ -262,7 +260,7 @@
 
         <section>
             <h2>8. Alterações na Política de Privacidade</h2>
-            <p>Reservamo-nos o direito de atualizar esta Política de Privacidade a qualquer momento. Notificaremos os usuários sobre alterações significativas por meio do Site ou por e-mail.</p>
+            <p>Reservamo-nos o direito de atualizar esta Política de Privacidade a qualquer momento. Notificaremos os usuários sobre alterações significativas por meio do site ou por e-mail.</p>
         </section>
 
         <section>

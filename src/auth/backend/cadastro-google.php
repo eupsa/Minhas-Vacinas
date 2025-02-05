@@ -40,7 +40,6 @@ if (isset($payload['email'])) {
         exit();
     }
 
-    $pdo->exec("SET time_zone = 'America/Sao_Paulo'");
     $sql = $pdo->prepare("INSERT INTO usuario (nome, email, email_conf) VALUES (:nome, :email, 1)");
     $sql->bindValue(':nome', $nome);
     $sql->bindValue(':email', $email);
