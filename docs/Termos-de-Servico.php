@@ -184,11 +184,11 @@
 
         <section>
             <h2>1. Aceitação dos Termos</h2>
-            <p>Bem-vindo ao site <strong>minhasvacinas.online</strong>. Ao acessar ou utilizar nossos serviços, você concorda em cumprir estes Termos e Condições de Uso. Caso não concorde com os Termos, não utilize o Site.</p>
+            <p>Bem-vindo ao site <strong>minhasvacinas.online</strong>. Ao acessar ou utilizar nossos serviços, você concorda em cumprir estes Termos e Condições de Uso. Caso não concorde com os Termos, não utilize o site.</p>
         </section>
 
         <section>
-            <h2>2. Objetivo do Site</h2>
+            <h2>2. Objetivo do site</h2>
             <p>O <strong>minhasvacinas.online</strong> é uma plataforma destinada à gestão de informações de vacinação. Os serviços oferecidos incluem o registro, consulta e gerenciamento de dados de imunização.</p>
         </section>
 
@@ -207,20 +207,20 @@
         </section>
 
         <section>
-            <h2>4. Uso do Site</h2>
+            <h2>4. Uso do site</h2>
             <h3 class="text-center">4.1 Restrições</h3>
             <ul>
-                <li>É proibido utilizar o Site para fins ilegais ou não autorizados.</li>
+                <li>É proibido utilizar o site para fins ilegais ou não autorizados.</li>
                 <li>Transmitir vírus ou outros códigos maliciosos.</li>
                 <li>Realizar atividades que prejudiquem o funcionamento do site ou a experiência de outros usuários.</li>
             </ul>
             <h3 class="text-center">4.2 Suspensão ou Encerramento</h3>
-            <p>Podemos suspender ou encerrar o acesso ao Site caso identifiquemos violações destes Termos.</p>
+            <p>Podemos suspender ou encerrar o acesso ao site caso identifiquemos violações destes Termos.</p>
         </section>
 
         <section>
             <h2>5. Propriedade Intelectual</h2>
-            <p>Todo o conteúdo do Site, incluindo textos, imagens, logos e códigos, é protegido por leis de propriedade intelectual. É proibido reproduzir, distribuir ou modificar qualquer conteúdo sem autorização prévia.</p>
+            <p>Todo o conteúdo do site, incluindo textos, imagens, logos e códigos, é protegido por leis de propriedade intelectual. É proibido reproduzir, distribuir ou modificar qualquer conteúdo sem autorização prévia.</p>
         </section>
 
         <section>
@@ -228,19 +228,19 @@
             <p>O <strong>minhasvacinas.online</strong> não se responsabiliza por:</p>
             <ul>
                 <li>Erros ou interrupções no serviço.</li>
-                <li>Perdas ou danos causados pelo uso ou incapacidade de usar o Site.</li>
+                <li>Perdas ou danos causados pelo uso ou incapacidade de usar o site.</li>
                 <li>Dados incorretos fornecidos pelos usuários.</li>
             </ul>
         </section>
 
         <section>
             <h2>7. Privacidade</h2>
-            <p>O uso do Site está sujeito à nossa <a href="Politica-de-Privacidade.php">Política de Privacidade</a>, que descreve como coletamos, usamos e protegemos suas informações pessoais.</p>
+            <p>O uso do site está sujeito à nossa <a href="Politica-de-Privacidade.php">Política de Privacidade</a>, que descreve como coletamos, usamos e protegemos suas informações pessoais.</p>
         </section>
 
         <section>
             <h2>8. Modificações nos Termos</h2>
-            <p>Reservamo-nos o direito de alterar estes Termos a qualquer momento. As alterações serão notificadas aos usuários por meio do Site ou por e-mail. O uso continuado do Site após as alterações implica a aceitação dos novos Termos.</p>
+            <p>Reservamo-nos o direito de alterar estes Termos a qualquer momento. As alterações serão notificadas aos usuários por meio do site ou por e-mail. O uso continuado do site após as alterações implica a aceitação dos novos Termos.</p>
         </section>
 
         <section>
