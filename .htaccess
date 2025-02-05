@@ -6,8 +6,8 @@ RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 # Adiciona www. no prefixo do domínio
-RewriteCond %{HTTP_HOST} !^www\. [NC]
-RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+RewriteCond %{HTTP_HOST} ^minhasvacinas\.online$ [NC]
+RewriteRule ^ https://www.minhasvacinas.online%{REQUEST_URI} [R=301,L]
 
 # Páginas de erro personalizadas
 ErrorDocument 401 /assets/error/401.html
