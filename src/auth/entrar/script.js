@@ -31,26 +31,29 @@ document.addEventListener("DOMContentLoaded", () => {
       const submitButton = document.getElementById("submitBtn");
 
       if (!email || !senha) {
-        Swal.fire({
-          text: "Preencha todos os campos.",
-          icon: "error",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Fechar",
+        iziToast.show({
+          message: "Preencha todos os campos obrigatórios.",
+          position: "topRight",
+          color: "red",
+          icon: "fas fa-exclamation-circle",
+          theme: "dark",
+          iconColor: "#fff",
+          progressBarColor: "#fff",
+          timeout: 5000,
+          close: true,
+          balloon: true,
+          transitionIn: "bounceInUp",
+          transitionOut: "bounceOutDown",
+          titleColor: "#fff",
+          messageColor: "#e1e1e1",
+          backgroundColor: "#ff5f5f",
+          displayMode: 2,
         });
         return;
       }
 
       submitButton.disabled = true;
       loadingSpinner.style.display = "inline-block";
-
-      // Swal.fire({
-      //   title: "Processando...",
-      //   timer: 5000,
-      //   timerProgressBar: true,
-      //   didOpen: () => {
-      //     Swal.showLoading();
-      //   },
-      // });
 
       try {
         const dados = await fetch("../backend/entrar.php", {
@@ -63,23 +66,30 @@ document.addEventListener("DOMContentLoaded", () => {
         if (resposta["status"]) {
           submitButton.disabled = false;
           loadingSpinner.style.display = "none";
-          Swal.fire({
-            text: resposta["msg"],
-            icon: "success",
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "Fechar",
-          }).then(() => {
-            form_login.reset();
-            window.location.href = "../../painel/";
-          });
+          form_login.reset();
+          window.location.href = "../../painel/";
         } else {
           submitButton.disabled = false;
           loadingSpinner.style.display = "none";
-          Swal.fire({
-            text: resposta["msg"],
-            icon: "error",
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "Fechar",
+          iziToast.destroy();
+          iziToast.show({
+            title: "Erro!",
+            message: resposta["msg"],
+            position: "topRight",
+            color: "red",
+            icon: "fas fa-times-circle",
+            theme: "dark",
+            iconColor: "#fff",
+            progressBarColor: "#fff",
+            titleColor: "#fff",
+            messageColor: "#e1e1e1",
+            backgroundColor: "#dc3545",
+            timeout: 5000,
+            close: true,
+            balloon: true,
+            transitionIn: "fadeInDown",
+            transitionOut: "fadeOutUp",
+            maxWidth: 450,
           });
         }
       } catch (error) {

@@ -15,6 +15,6 @@ TRUNCATE TABLE dispositivos;
 SET SQL_SAFE_UPDATES = 1;
 SET foreign_key_checks = 1;
 
-SET time_zone = 'America/Sao_Paulo';
+-- SET time_zone = 'America/Sao_Paulo';
 
 -- SEMPRE EXECUTAR TUDO --

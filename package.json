@@ -21,6 +21,7 @@
   "homepage": "https://github.com/psilvagg/minhas-vacinas#readme",
   "description": "",
   "dependencies": {
+    "izitoast": "^1.4.0",
     "puppeteer": "^24.1.1"
   }
 }

@@ -81,7 +81,6 @@ if (!in_array($estado, $estados)) {
 
 try {
     $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-    $pdo->exec("SET time_zone = 'America/Sao_Paulo'");
     $sql = $pdo->prepare("INSERT INTO usuario (nome, email, estado, senha) VALUES (:nome, :email, :estado, :senha)");
     $sql->bindValue(':nome', $nome);
     $sql->bindValue(':email', $email);
@@ -99,7 +98,6 @@ try {
         $sql->execute();
 
         $codigo = rand(100000, 999999);
-        $pdo->exec("SET time_zone = 'America/Sao_Paulo'");
         $sql = $pdo->prepare("INSERT INTO confirmar_cadastro (email, codigo) VALUES (:email, :codigo)");
         $sql->bindValue(':email', $email);
         $sql->bindValue(':codigo', $codigo);
@@ -117,8 +115,8 @@ try {
         $retorna = ['status' => false, 'msg' => "Erro ao cadastrar usuário. Tente novamente."];
     }
 } catch (PDOException $e) {
-    $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário."];
-    // $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário: " . $e->getMessage()];
+    // $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário."];
+    $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário: " . $e->getMessage()];
 } finally {
     echo json_encode($retorna);
     exit();
