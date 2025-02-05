@@ -95,14 +95,25 @@ CREATE TABLE IF NOT EXISTS vacinas_existentes (
     adicao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS postos_vacinacao (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    endereco VARCHAR(255) NOT NULL,
-    tipo VARCHAR(50),
-    contato VARCHAR(20),
-    adicao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+INSERT INTO vacinas_existentes (nome_vac, tipo, descricao) VALUES
+('BCG', 'Vacina de Vírus Vivo Atenuado', 'Vacina contra a tuberculose, aplicada logo após o nascimento.'),
+('Hepatite A', 'Vacina de Vírus Inativado', 'Vacina contra o vírus da Hepatite A, transmitido principalmente por alimentos e água contaminada.'),
+('Hepatite B', 'Vacina de Proteína Recombinante', 'Vacina contra o vírus da Hepatite B, administrada em três doses.'),
+('Penta', 'Vacina de Proteína Recombinante', 'Vacina combinada contra difteria, tétano, coqueluche, Hib e hepatite B.'),
+('Pneumocócica 10-valente', 'Vacina de Polissacarídeo', 'Vacina contra infecções causadas pela bactéria pneumocócica, incluindo pneumonia e meningite.'),
+('Vacina Inativada Poliomielite (VIP)', 'Vacina de Vírus Inativado', 'Vacina inativada contra a poliomielite, administrada em várias doses.'),
+('Vacina Oral Poliomielite (VOP)', 'Vacina de Vírus Vivo Atenuado', 'Vacina oral contra a poliomielite, administrada em várias doses.'),
+('Vacina Rotavírus Humano (VRH)', 'Vacina de Vírus Vivo Atenuado', 'Vacina contra o rotavírus, causador de diarreia grave em crianças.'),
+('Meningocócica C (conjugada)', 'Vacina de Polissacarídeo', 'Vacina contra meningite causada pelo meningococo do tipo C.'),
+('Febre Amarela', 'Vacina de Vírus Vivo Atenuado', 'Vacina contra o vírus da febre amarela, indicada para regiões de risco.'),
+('Tríplice Viral', 'Vacina de Vírus Vivo Atenuado', 'Vacina combinada contra sarampo, caxumba e rubéola.'),
+('Tetraviral', 'Vacina de Vírus Vivo Atenuado', 'Vacina combinada contra sarampo, caxumba, rubéola e varicela.'),
+('DTP', 'Vacina de Vetor Viral', 'Vacina contra difteria, tétano e coqueluche, administrada em várias doses.'),
+('Varicela', 'Vacina de Vírus Vivo Atenuado', 'Vacina contra a varicela (catapora), indicada principalmente para crianças.'),
+('HPV Quadrivalente', 'Vacina de Proteína Recombinante', 'Vacina contra o Papilomavírus Humano, que pode causar câncer de colo de útero.'),
+('dT', 'Vacina de Vetor Viral', 'Vacina dupla contra difteria e tétano, indicada para adultos.'),
+('dTpa', 'Vacina de Vetor Viral', 'Vacina contra difteria, tétano e coqueluche acelular, indicada para adultos e crianças.'),
+('Meningocócica ACWY', 'Vacina de Polissacarídeo', 'Vacina contra meningite causada pelos meningococos dos tipos A, C, W e Y.');
 
 CREATE TABLE IF NOT EXISTS ip_logs (
     id INT AUTO_INCREMENT PRIMARY KEY,
