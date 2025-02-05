@@ -1,6 +1,6 @@
 -- SEMPRE EXECUTAR TUDO
 
-SET time_zone = 'America/Sao_Paulo';
+-- SET time_zone = 'America/Sao_Paulo';
 -- SET GLOBAL event_scheduler = ON;
 
 DELIMITER $$
