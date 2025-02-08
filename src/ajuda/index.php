@@ -116,11 +116,11 @@ $latestVersion = 'v0.1';
                                     <label for="motivo_contato" class="form-label">Motivo do Contato<span class="required-asterisk">*</span></label>
                                     <select class="form-select rounded-pill" id="motivo_contato" name="motivo_contato" required>
                                         <option value="" disabled selected>Selecione o motivo</option>
-                                        <option value="problema_tecnico">Problema técnico</option>
-                                        <option value="duvida">Dúvida</option>
-                                        <option value="sugestao">Sugestão</option>
-                                        <option value="reclamacao">Reclamação</option>
-                                        <option value="outro">Outro</option>
+                                        <option value="Problema Técnico">Problema técnico</option>
+                                        <option value="Dúvida">Dúvida</option>
+                                        <option value="Sugestão">Sugestão</option>
+                                        <option value="Reclamação">Reclamação</option>
+                                        <option value="Outro">Outro</option>
                                     </select>
                                 </div>
                                 <div class="mb-4">
@@ -134,7 +134,6 @@ $latestVersion = 'v0.1';
                             <div id="resposta-container"></div>
                         </div>
                     </div>
-                    <p class="text-center text-white mt-4">Responderemos sua mensagem o mais rápido possível.</p>
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 <h2>Mensagem de Suporte</h2>
                 <p><strong>Nome:</strong> {$nome}</p>
                 <p><strong>E-mail:</strong> {$email}</p>
-                <p><strong>Motivo do Contato:</strong> {$motivo_contato}</p> <!-- Adicionando motivo -->
+                <p><strong>Motivo do Contato:</strong> {$motivo_contato}</p>
                 <p><strong>Mensagem:</strong></p>
                 <p>{$mensagem}</p>
             </body>
@@ -39,7 +39,6 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             ";
 
             $mail = new PHPMailer(true);
-
             try {
                 $mail->isSMTP();
                 $mail->Host = 'smtp.zoho.com';

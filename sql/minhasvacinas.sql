@@ -1,5 +1,5 @@
 SET sql_mode = 'STRICT_TRANS_TABLES';
-SET time_zone = 'America/Sao_Paulo';
+-- SET time_zone = 'America/Sao_Paulo';
 CREATE DATABASE IF NOT EXISTS minhasvacinas;
 USE minhasvacinas;
 
@@ -145,6 +145,15 @@ CREATE TABLE IF NOT EXISTS novidades (
     email VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS suporte (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome_usuario VARCHAR(100) NOT NULL,
+    email_usuario VARCHAR(100) NOT NULL,
+    motivo_contato VARCHAR(50) NOT NULL,
+    mensagem TEXT,
+    data_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 DELIMITER $$
 
 CREATE TRIGGER after_usuario_insert
@@ -156,4 +165,4 @@ END$$
 
 DELIMITER ;
 
-SELECT @@global.time_zone, @@session.time_zone;
+-- SELECT @@global.time_zone, @@session.time_zone;
