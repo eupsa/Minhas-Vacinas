@@ -2,6 +2,7 @@
 require '../../../vendor/phpmailer/phpmailer/src/Exception.php';
 require '../../../vendor/phpmailer/phpmailer/src/SMTP.php';
 require '../../../vendor/autoload.php';
+require '../../scripts/conn.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -22,6 +23,13 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         exit();
     } else {
         try {
+            $sql = $pdo->prepare("INSERT INTO suporte (nome_usuario, email_usuario, motivo_contato, mensagem) VALUES (:nome_usuario, :email_usuario, :motivo_contato, :mensagem)");
+            $sql->bindValue(':nome_usuario', $nome);
+            $sql->bindValue(':email_usuario', $email);
+            $sql->bindValue(':motivo_contato', $motivo_contato);
+            $sql->bindValue(':mensagem', $mensagem);
+            $sql->execute();
+            
             $email_body = "
             <html>
             <head>
