@@ -43,18 +43,18 @@ $latestVersion = 'v0.1';
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
                         <?php if (isset($_SESSION['session_id'])): ?>
                             <li class="nav-item">
-                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white" href="src/painel/">
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white" href="../../painel/">
                                     <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
                                 </a>
                             </li>
                             <li class="nav-item ms-2">
-                                <a class="btn btn-danger rounded-pill px-4 py-2 text-white" href="src/scripts/sair.php">
+                                <a class="btn btn-danger rounded-pill px-4 py-2 text-white" href="../../scripts/sair.php">
                                     <i class="bi bi-box-arrow-left"></i> Sair
                                 </a>
                             </li>
                         <?php else: ?>
                             <li class="nav-item me-3">
-                                <a class="btn btn-light text-primary rounded-pill px-4 py-2" href="src/auth/cadastro/">
+                                <a class="btn btn-light text-primary rounded-pill px-4 py-2" href="../cadastro/">
                                     <i class="bi bi-person-plus"></i> CADASTRE-SE
                                 </a>
                             </li>
@@ -77,14 +77,14 @@ $latestVersion = 'v0.1';
                 </ul>
                 <div class="d-flex flex-column align-items-center gap-2 mt-3">
                     <?php if (isset($_SESSION['session_id'])): ?>
-                        <a class="btn btn-primary rounded-pill px-4 py-2 text-white w-100 text-center" href="src/painel/">
+                        <a class="btn btn-primary rounded-pill px-4 py-2 text-white w-100 text-center" href="../../painel/">
                             <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
                         </a>
-                        <a class="btn btn-danger rounded-pill px-4 py-2 text-white w-100 text-center" href="src/scripts/sair.php">
+                        <a class="btn btn-danger rounded-pill px-4 py-2 text-white w-100 text-center" href="../../scripts/sair.php">
                             <i class="bi bi-box-arrow-left"></i> Sair
                         </a>
                     <?php else: ?>
-                        <a class="btn btn-light text-primary rounded-pill px-4 py-2 w-100 text-center" href="src/auth/cadastro/">
+                        <a class="btn btn-light text-primary rounded-pill px-4 py-2 w-100 text-center" href="../cadastro/">
                             <i class="bi bi-person-plus"></i> CADASTRE-SE
                         </a>
                     <?php endif; ?>
