@@ -68,34 +68,44 @@ $latestVersion = 'v0.1';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
-    <!-- SEO -->
+    <!-- SEO - Configurações básicas -->
     <meta name="description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações.">
     <meta name="author" content="Minhas Vacinas Inc">
-    <meta name="keywords" content="Minhas Vacinas Inc" />
-    <link rel="alternate" href="" hreflang="pt-br" />
+    <meta name="keywords" content="Minhas Vacinas Inc">
     <meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta property="og:url" content="https://www.minhasvacinas.online/" />
-    <meta property="og:title" content="Minhas Vacinas" />
-    <meta property="og:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao-200x200.png" />
-    <meta property="og:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
     <meta name="theme-color" content="#0056b3">
-    <meta property="business:contact_data:country_name" content="Brasil" />
-    <meta property="business:contact_data:website" content="https://www.minhasvacinas.online/" />
-    <meta property="business:contact_data:region" content="BA" />
-    <meta property="business:contact_data:email" content="contato@minhasvacinas.online" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
-    <meta name="twitter:title" content="Minhas Vacinas" />
-    <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao-200x200.png" />
-    <meta name="geo.placename" content="Bahia" />
-    <meta name="geo.region" content="BR" />
-    <meta name="description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
-    <link rel="canonical" href="https://www.minhasvacinas.online/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="pt_BR" />
     <meta name="format-detection" content="telephone=no">
-    <!-- SEO -->
+
+    <!-- SEO - Versão alternativa do site para outros idiomas -->
+    <link rel="alternate" href="" hreflang="pt-br">
+
+    <!-- SEO - URL canônica para evitar conteúdo duplicado -->
+    <link rel="canonical" href="https://www.minhasvacinas.online/">
+
+    <!-- Open Graph (Facebook, LinkedIn e outras redes sociais) -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:url" content="https://www.minhasvacinas.online/">
+    <meta property="og:title" content="Minhas Vacinas">
+    <meta property="og:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações.">
+    <meta property="og:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao-200x200.png">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Minhas Vacinas">
+    <meta name="twitter:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações.">
+    <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao-200x200.png">
+
+    <!-- Informações de contato do negócio -->
+    <meta property="business:contact_data:country_name" content="Brasil">
+    <meta property="business:contact_data:region" content="BA">
+    <meta property="business:contact_data:website" content="https://www.minhasvacinas.online/">
+    <meta property="business:contact_data:email" content="contato@minhasvacinas.online">
+
+    <!-- Geolocalização -->
+    <meta name="geo.placename" content="Bahia">
+    <meta name="geo.region" content="BR">
     <title>Minhas Vacinas</title>
 </head>
 
