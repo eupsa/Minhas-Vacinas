@@ -1,3 +1,17 @@
+<?php
+require '../../scripts/conn.php';
+
+$token = $_GET['token'];
+
+$sql = $pdo->prepare("SELECT * FROM esqueceu_senha WHERE token = :token");
+$sql->bindValue(':token', $token);
+$sql->execute();
+
+if ($sql->rowCount() != 1) {
+    header('Location: ../esqueceu-senha/');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -26,7 +40,7 @@
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
                         <li class="nav-item"><a class="nav-link" href="/#nossa-missao">Sobre</a></li>
-                        <li class="nav-item"><a href="../../ajuda/" class="nav-link">Suporte</a></li>
+                        <li class="nav-item"><a href="/src/ajuda/" class="nav-link">Suporte</a></li>
                     </ul>
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
                         <?php if (isset($_SESSION['session_id'])): ?>

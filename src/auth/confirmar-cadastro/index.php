@@ -5,7 +5,6 @@ if (isset($_SESSION['session_id'])) {
     exit();
 }
 
-$latestVersion = 'v0.1';
 ?>
 
 <!DOCTYPE html>
