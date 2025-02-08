@@ -117,13 +117,6 @@ $latestVersion = 'v0.1';
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
                         <li class="nav-item"><a class="nav-link" href="/#nossa-missao">Sobre</a></li>
-                        <li class="nav-item">
-                            <a href="#" onclick="Swal.fire({
-                            title: '🚧 O site está passando por modificações importantes!',
-                            text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
-                            icon: 'warning'
-                        }); return false;" class="nav-link">Campanhas</a>
-                        </li>
                         <li class="nav-item"><a href="src/ajuda/" class="nav-link">Suporte</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -177,13 +170,6 @@ $latestVersion = 'v0.1';
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
                     <li class="nav-item"><a class="nav-link" href="/#nossa-missao">Sobre</a></li>
-                    <li class="nav-item">
-                        <a href="#" onclick="Swal.fire({
-                        title: '🚧 O site está passando por modificações importantes!',
-                        text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
-                        icon: 'warning'
-                    }); return false;" class="nav-link">Campanhas</a>
-                    </li>
                     <li class="nav-item"><a href="src/ajuda/" class="nav-link">Suporte</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

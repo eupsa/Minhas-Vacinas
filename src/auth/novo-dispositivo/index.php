@@ -59,107 +59,72 @@ $latestVersion = 'v0.1';
                 <a class="navbar-brand" href="/">
                     <img src="/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="collapse navbar-collapse d-none d-lg-flex" id="navbarNav">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Início</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/#nossa-missao">Sobre</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" onclick="Swal.fire({
-                            title: '🚧 O site está passando por modificações importantes!',
-                            text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
-                            icon: 'warning'
-                        }); return false;" class="nav-link">Campanhas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../../ajuda/" class="nav-link">Suporte</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/#nossa-missao">Sobre</a></li>
+                        <li class="nav-item"><a href="../../ajuda/" class="nav-link">Suporte</a></li>
                     </ul>
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav ms-auto d-flex align-items-center">
                         <?php if (isset($_SESSION['session_id'])): ?>
                             <li class="nav-item">
-                                <a class="btn btn-outline-primary w-100 mb-2 rounded-pill px-3 py-1 text-primary transition-transform transform-hover" href="../../painel/">
-                                    <i class="bi bi-arrow-return-left me-2"></i> Voltar à sua conta
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white" href="../../painel/">
+                                    <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
+                                </a>
+                            </li>
+                            <li class="nav-item ms-2">
+                                <a class="btn btn-danger rounded-pill px-4 py-2 text-white" href="../../scripts/sair.php">
+                                    <i class="bi bi-box-arrow-left"></i> Sair
                                 </a>
                             </li>
                         <?php else: ?>
-                            <li class="nav-item">
-                                <a class="btn btn-light text-primary rounded-pill px-4 py-2 transition-transform transform-hover" style="margin-right: 10px;" href="../cadastro/">
+                            <li class="nav-item me-3">
+                                <a class="btn btn-light text-primary rounded-pill px-4 py-2" href="../cadastro/">
                                     <i class="bi bi-person-plus"></i> CADASTRE-SE
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="../entrar/">
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white" href="../entrar/">
                                     <i class="bi bi-box-arrow-in-right"></i> ENTRAR
                                 </a>
                             </li>
                         <?php endif; ?>
-
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="position: fixed; top: 0; left: 0; z-index: 1100;">
+        <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="width: 75%; background: rgba(255, 255, 255, 0.8);">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-            <div class="offcanvas-body">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Início</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#nossa-missao">Sobre</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" onclick="Swal.fire({
-                        title: '🚧 O site está passando por modificações importantes!',
-                        text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
-                        icon: 'warning'
-                    }); return false;" class="nav-link">Campanhas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../../ajuda/" class="nav-link">Suporte</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <a class="dropdown-item" href="https://www.apple.com/br/app-store/">
-                                    <img src="https://api.iconify.design/logos:apple-app-store.svg" alt="App Store" style="width: 20px; height: 20px;" class="me-2"> App Store
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="https://play.google.com/">
-                                    <img src="https://api.iconify.design/logos:google-play-icon.svg" alt="Google Play" style="width: 20px; height: 20px;" class="me-2"> Google Play
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+            <div class="offcanvas-body d-flex flex-column justify-content-between" style="height: 100%;">
                 <ul class="navbar-nav">
-                    <?php if (isset($_SESSION['session_id'])): ?>
-                        <li class="nav-item">
-                            <a class="btn btn-outline-primary w-100 mb-2 rounded-pill px-3 py-1 text-primary transition-transform transform-hover" href="../../painel/">
-                                <i class="bi bi-arrow-return-left me-2"></i> Voltar à sua conta
-                            </a>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <a class="btn btn-outline-primary w-100 mb-2 rounded-pill px-3 py-1 text-primary transition-transform transform-hover" href="../cadastro/">CADASTRE-SE</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="btn btn-primary w-100 mb-2 rounded-pill px-3 py-1 text-white transition-transform transform-hover" href="../entrar/">ENTRAR</a>
-                        </li>
-                    <?php endif; ?>
+                    <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#nossa-missao">Sobre</a></li>
+                    <li class="nav-item"><a href="src/ajuda/" class="nav-link">Suporte</a></li>
                 </ul>
+                <div class="d-flex flex-column align-items-center gap-2 mt-3">
+                    <?php if (isset($_SESSION['session_id'])): ?>
+                        <a class="btn btn-primary rounded-pill px-4 py-2 text-white w-100 text-center" href="../../painel/">
+                            <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
+                        </a>
+                        <a class="btn btn-danger rounded-pill px-4 py-2 text-white w-100 text-center" href="../../scripts/sair.php">
+                            <i class="bi bi-box-arrow-left"></i> Sair
+                        </a>
+                    <?php else: ?>
+                        <a class="btn btn-light text-primary rounded-pill px-4 py-2 w-100 text-center" href="../cadastro/">
+                            <i class="bi bi-person-plus"></i> CADASTRE-SE
+                        </a>
+                        <a class="btn btn-primary rounded-pill px-4 py-2 text-white w-100 text-center" href="../entrar/">
+                            <i class="bi bi-box-arrow-in-right"></i> ENTRAR
+                        </a>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </header>

@@ -31,57 +31,30 @@ $latestVersion = 'v0.1';
                 <a class="navbar-brand" href="/">
                     <img src="/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="collapse navbar-collapse d-none d-lg-flex" id="navbarNav">
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Início</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/#nossa-missao">Sobre</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" onclick="Swal.fire({
-                            title: '🚧 O site está passando por modificações importantes!',
-                            text: 'Algumas funcionalidades podem não estar disponíveis. Por favor, tente novamente mais tarde.',
-                            icon: 'warning'
-                        }); return false;" class="nav-link">Campanhas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../../ajuda/" class="nav-link">Suporte</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-download"></i> Baixe o App
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a class="dropdown-item" href="https://github.com/psilvagg/app-minhas-vacinas/releases/latest" target="_blank">
-                                        <i class="bi bi-github"></i> Release no GitHub
-                                        <span class="badge bg-warning text-dark ms-2"><?php echo htmlspecialchars($latestVersion); ?></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/#nossa-missao">Sobre</a></li>
+                        <li class="nav-item"><a href="/src/ajuda/" class="nav-link">Suporte</a></li>
                     </ul>
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
                         <?php if (isset($_SESSION['session_id'])): ?>
                             <li class="nav-item">
-                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="../../painel/">
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white" href="src/painel/">
                                     <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
                                 </a>
                             </li>
-                            <li class="nav-item" style="margin-left: 10px;">
-                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white transition-transform transform-hover" href="../../scripts/sair.php">
-                                    <i class="bi bi-box-arrow-left"></i>
+                            <li class="nav-item ms-2">
+                                <a class="btn btn-danger rounded-pill px-4 py-2 text-white" href="src/scripts/sair.php">
+                                    <i class="bi bi-box-arrow-left"></i> Sair
                                 </a>
                             </li>
                         <?php else: ?>
                             <li class="nav-item me-3">
-                                <a class="btn btn-light text-primary rounded-pill px-4 py-2 transition-transform transform-hover" href="../cadastro/">
+                                <a class="btn btn-light text-primary rounded-pill px-4 py-2" href="src/auth/cadastro/">
                                     <i class="bi bi-person-plus"></i> CADASTRE-SE
                                 </a>
                             </li>
@@ -90,6 +63,34 @@ $latestVersion = 'v0.1';
                 </div>
             </div>
         </nav>
+
+        <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="width: 75%; background: rgba(255, 255, 255, 0.8);">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body d-flex flex-column justify-content-between" style="height: 100%;">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#nossa-missao">Sobre</a></li>
+                    <li class="nav-item"><a href="/src/ajuda/" class="nav-link">Suporte</a></li>
+                </ul>
+                <div class="d-flex flex-column align-items-center gap-2 mt-3">
+                    <?php if (isset($_SESSION['session_id'])): ?>
+                        <a class="btn btn-primary rounded-pill px-4 py-2 text-white w-100 text-center" href="src/painel/">
+                            <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
+                        </a>
+                        <a class="btn btn-danger rounded-pill px-4 py-2 text-white w-100 text-center" href="src/scripts/sair.php">
+                            <i class="bi bi-box-arrow-left"></i> Sair
+                        </a>
+                    <?php else: ?>
+                        <a class="btn btn-light text-primary rounded-pill px-4 py-2 w-100 text-center" href="src/auth/cadastro/">
+                            <i class="bi bi-person-plus"></i> CADASTRE-SE
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
     </header>
 
     <section class="form-log custom-section">
