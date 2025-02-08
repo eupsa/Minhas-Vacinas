@@ -61,30 +61,41 @@ $latestVersion = 'v0.1';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
-    <!-- SEO Metadata -->
+    <!-- SEO -->
+    <meta name="description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações.">
+    <meta name="author" content="Minhas Vacinas Inc">
+    <meta name="keywords" content="Minhas Vacinas Inc" />
+    <link rel="alternate" href="" hreflang="pt-br" />
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:url" content="https://www.minhasvacinas.online/" />
+    <meta property="og:title" content="Minhas Vacinas" />
+    <meta property="og:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao-200x200.png" />
+    <meta property="og:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
+    <meta name="theme-color" content="#0056b3">
+    <meta property="business:contact_data:country_name" content="Brasil" />
+    <meta property="business:contact_data:website" content="https://www.minhasvacinas.online/" />
+    <meta property="business:contact_data:region" content="BA" />
+    <meta property="business:contact_data:email" content="contato@minhasvacinas.online" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
+    <meta name="twitter:title" content="Minhas Vacinas" />
+    <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao-200x200.png" />
+    <meta name="geo.placename" content="Bahia" />
+    <meta name="geo.region" content="BR" />
     <meta name="description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
     <link rel="canonical" href="https://www.minhasvacinas.online/" />
-    <meta property="og:locale" content="pt_BR" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Minhas Vacinas - Gestão de Vacinas" />
-    <meta property="og:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
-    <meta property="og:url" content="https://www.minhasvacinas.online/" />
-    <meta property="og:site_name" content="Minhas Vacinas" />
-    <meta property="article:publisher" content="https://facebook.com/minhasvacinas" />
-    <meta property="article:modified_time" content="2025-01-13T00:00:00+00:00" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@pssilvagg" />
-    <meta name="twitter:title" content="Minhas Vacinas - Gestão de Vacinas" />
-    <meta name="twitter:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações." />
-    <meta name="twitter:image" content="https://vacinasdigital.com/assets/img/banner-coracao.png" />
-    <meta name="robots" content="index, follow">
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="format-detection" content="telephone=no">
+    <!-- SEO -->
     <title>Minhas Vacinas</title>
 </head>
 
@@ -204,7 +215,6 @@ $latestVersion = 'v0.1';
             </div>
         </div>
     </header>
-
 
     <section class="carrosel">
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
