@@ -103,11 +103,6 @@ if ($sql->rowCount() != 1) {
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link text-white" href="" aria-expanded="false">
-                            <i class="bi bi-check-circle"></i> Status de Vacinação
-                        </a>
-                    </li>
-                    <li>
                         <a href="" onclick="alert('Indisponível')" class="nav-link text-white">
                             <i class="fas fa-bullhorn"></i>
                             Campanhas
@@ -183,7 +178,7 @@ if ($sql->rowCount() != 1) {
                         <input type="date" class="form-control" id="proxima_dose" name="proxima_dose" autocomplete="off">
                     </div>
                     <div class="col-12 col-md-8 mb-4">
-                        <label for="localAplicacao" class="form-label">Local de Aplicação</label>
+                        <label for="localAplicacao" class="form-label">Local de Aplicação<span class="required-asterisk">*</span></label>
                         <input type="text" class="form-control" id="localAplicacao" name="localAplicacao" autocomplete="off">
                     </div>
                     <div class="col-12 col-md-8 mb-4" id="outroLocalDiv" style="display: none;">

@@ -12,12 +12,12 @@ $lote = trim($dados['lote']);
 $obs = trim($dados['obs']);
 $localAplicacao = trim($dados['localAplicacao']);
 
-$imagem = $_FILES['imagem']['tmp_name'] ?? null; // Captura o arquivo de imagem enviado
+$imagem = $_FILES['imagem']['tmp_name'] ?? null;
 
 if ($imagem && is_uploaded_file($imagem)) {
-    $imagemBinaria = file_get_contents($imagem); // Converte a imagem para binário
+    $imagemBinaria = file_get_contents($imagem);
 } else {
-    $imagemBinaria = null; // Se não for enviado um arquivo, o campo será nulo
+    $imagemBinaria = null;
 }
 
 if ($localAplicacao === 'outro' && empty($outro_local)) {
@@ -80,15 +80,19 @@ if (validarData($dataAplicacao)) {
         }
     }
 } else {
-    $retorna = ['status' => false, 'msg' => "Data inválida ou data no futuro. A data precisa estar no formato 'DIA-MÊS-ANO' e não pode ser posterior ao dia de hoje."];
+    $retorna = [
+        'status' => false,
+        'msg' => "Data inválida ou no futuro. A data precisa estar no formato 'DIA-MÊS-ANO', não pode ser posterior ao dia de hoje e a próxima dose não pode ser anterior à data de aplicação."
+    ];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
 }
 
-function validarData($dataAplicacao)
+function validarData($dataAplicacao, $proximaDose)
 {
     $dataFormatada = DateTime::createFromFormat('Y-m-d', $dataAplicacao);
+    $proximaDoseFormatada = DateTime::createFromFormat('Y-m-d', $proximaDose);
 
     if (!$dataFormatada || $dataFormatada->format('Y-m-d') !== $dataAplicacao) {
         return false;
@@ -101,6 +105,10 @@ function validarData($dataAplicacao)
 
     $dataMinima = new DateTime('1900-01-01');
     if ($dataFormatada < $dataMinima) {
+        return false;
+    }
+
+    if ($proximaDoseFormatada <= $dataFormatada) {
         return false;
     }
 

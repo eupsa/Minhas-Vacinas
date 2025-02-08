@@ -114,11 +114,6 @@ if ($sql->rowCount() != 1) {
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link text-white" href="" aria-expanded="false">
-                            <i class="bi bi-check-circle"></i> Status de Vacinação
-                        </a>
-                    </li>
-                    <li>
                         <a href="" onclick="alert('Indisponível')" class="nav-link text-white">
                             <i class="fas fa-bullhorn"></i>
                             Campanhas

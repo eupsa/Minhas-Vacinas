@@ -109,7 +109,7 @@ if (isset($_SESSION['session_id'])) {
                                     data-type="standard"
                                     data-size="large"
                                     data-theme="filled_blue"
-                                    data-text="signu_with_google"
+                                    data-text="sign_in_with_google"
                                     data-shape="circle"
                                     data-logo_alignment="left"
                                     style="transform: scale(1.1);">

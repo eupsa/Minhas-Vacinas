@@ -38,11 +38,14 @@ if (empty($nome) && empty($cpf) && empty($data_nascimento) && empty($telefone) &
 
 if (!empty($data_nascimento)) {
     if (!validarData($data_nascimento)) {
-        $retorna = ['status' => false, 'msg' => "Data inválida ou data no futuro. A data precisa estar no formato 'DIA-MÊS-ANO' e não pode ser posterior ao dia de hoje."];
+        $retorna = ['status' => false, 'msg' => "Data inválida ou no futuro. A data precisa estar no formato 'DIA-MÊS-ANO' e não pode ser posterior ao dia de hoje."];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();
     }
+} else {
+    // Se a data de nascimento estiver vazia, definimos ela como NULL para o banco de dados
+    $data_nascimento = null;
 }
 
 if (!empty($cpf_formatado)) {
@@ -59,25 +62,24 @@ if (!empty($cpf_formatado)) {
 }
 
 try {
+    // Atualizar os dados no banco
     $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, genero = :genero, foto_perfil = :foto_perfil WHERE id_usuario = :id");
     $sql->bindValue(':nome', $nome);
     $sql->bindValue(':cpf', $cpf_formatado);
-    $sql->bindValue(':data_nascimento', $data_nascimento);
+    $sql->bindValue(':data_nascimento', $data_nascimento, PDO::PARAM_STR); // Enviar como NULL se vazio
     $sql->bindValue(':telefone', $telefone);
     $sql->bindValue(':estado', $estado);
     $sql->bindValue(':genero', $genero);
-    // $sql->bindValue(':cidade', $cidade);
     $sql->bindValue(':foto_perfil', $foto_perfil, PDO::PARAM_LOB);
     $sql->bindValue(':id', $_SESSION['session_id']);
     $sql->execute();
-
 
     $_SESSION['session_nome'] = $nome;
     $_SESSION['session_data_nascimento'] = $data_nascimento;
     $_SESSION['session_telefone'] = $telefone;
     $_SESSION['session_estado'] = $estado;
     $_SESSION['session_genero'] = $genero;
-    // $_SESSION['session_cidade'] = $cidade;
+
     $retorna = ['status' => true, 'msg' => "Alteração realizada com sucesso. Suas informações estão atualizadas."];
     header('Content-Type: application/json');
     echo json_encode($retorna);

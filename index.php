@@ -122,14 +122,6 @@ $latestVersion = 'v0.1';
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-download"></i> Baixe o App
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a class="dropdown-item" href="https://github.com/psilvagg/app-minhas-vacinas/releases/latest" target="_blank">
-                                        <i class="bi bi-github"></i> Release no GitHub
-                                        <span class="badge bg-warning text-dark ms-2"><?php echo htmlspecialchars($latestVersion); ?></span>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
@@ -171,19 +163,6 @@ $latestVersion = 'v0.1';
                     <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
                     <li class="nav-item"><a class="nav-link" href="/#nossa-missao">Sobre</a></li>
                     <li class="nav-item"><a href="src/ajuda/" class="nav-link">Suporte</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-download"></i> Baixe o App
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li>
-                                <a class="dropdown-item" href="https://github.com/psilvagg/app-minhas-vacinas/releases/latest" target="_blank">
-                                    <i class="bi bi-github"></i> Release no GitHub
-                                    <span class="badge bg-warning text-dark ms-2"><?php echo htmlspecialchars($latestVersion); ?></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
                 <div class="d-flex flex-column align-items-center gap-2 mt-3">
                     <?php if (isset($_SESSION['session_id'])): ?>

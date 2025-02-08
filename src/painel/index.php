@@ -13,13 +13,14 @@ if (!isset($_SESSION['session_id'])) {
     if ($sql->rowCount() != 1) {
         $_SESSION = [];
         session_destroy();
+
         header("Location: ../auth/entrar/");
         exit();
     } else {
         $usuario = $sql->fetch(PDO::FETCH_ASSOC);
         if (!empty($usuario['foto_perfil'])) {
             $_SESSION['session_foto_perfil'] = 'data:image/jpeg;base64,' . base64_encode($usuario['foto_perfil']);
-        }
+        }        
 
         $sql = $pdo->prepare("SELECT * FROM usuario_google WHERE id_usuario = :id_usuario");
         $sql->bindValue(':id_usuario', $_SESSION['session_id']);
@@ -204,11 +205,6 @@ if (!isset($_SESSION['session_id'])) {
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link text-white" href="" aria-expanded="false">
-                            <i class="bi bi-check-circle"></i> Status de Vacinação
-                        </a>
-                    </li>
-                    <li>
                         <a href="" onclick="alert('Indisponível')" class="nav-link text-white">
                             <i class="fas fa-bullhorn"></i>
                             Campanhas
@@ -238,7 +234,7 @@ if (!isset($_SESSION['session_id'])) {
                             <img src="<?php echo $_SESSION['session_fotourl']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
                                 width="40" height="40">
                         <?php elseif (isset($_SESSION['session_foto_perfil']) && !empty($_SESSION['session_foto_perfil'])): ?>
-                            <img src="data:image/jpeg;base64,<?php echo base64_encode($_SESSION['session_foto_perfil']); ?>" alt="Foto do Usuário" class="rounded-circle me-2"
+                            <img src="<?= $_SESSION['session_foto_perfil'] ?>" alt="Foto do Usuário" class="rounded-circle me-2"
                                 width="40" height="40">
                         <?php else: ?>
                             <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
