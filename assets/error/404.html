@@ -5,120 +5,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
-    <title>404 - Página não encontrada</title>
-    <style>
-        /* Estilo para o corpo da página com o gradiente animado */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            color: #405060;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(45deg, #007bff, #003366);
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
-        }
-
-        /* Animação para o gradiente */
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        /* Estilo para o container da mensagem */
-        div {
-            width: 30%;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-            text-shadow: 0 2px 1px hsla(0, 0%, 100%, .2);
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-        }
-
-        /* Tamanho do título */
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 0.2em;
-            color: #007bff;
-        }
-
-        /* Tamanho do subtítulo */
-        h2 {
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            color: #405060;
-        }
-
-        /* Estilo para os textos */
-        p {
-            font-size: 1em;
-            padding-bottom: 15px;
-            color: #555;
-        }
-
-        /* Estilo para os links */
-        a {
-            text-decoration: none;
-            border-bottom: 1px solid currentColor;
-            color: #007bff;
-        }
-
-        /* Efeito ao passar o mouse nos links */
-        a:hover {
-            color: indigo;
-        }
-
-        /* Responsividade */
-        @media (max-width: 600px) {
-            div {
-                width: 80%;
-                padding: 15px;
-            }
-
-            h1 {
-                font-size: 2em;
-            }
-
-            h2 {
-                font-size: 1.5em;
-            }
-
-            p {
-                font-size: 0.9em;
-            }
-        }
-
-        /* Remover o elemento estranho */
-        #rre5w14v5q {
-            display: none !important;
-        }
-    </style>
+    <title>401 - Não autorizado</title>
 </head>
 
+<style>
+    * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    body {
+        padding: 0;
+        margin: 0;
+        background: #0056b3;
+    }
+
+    #notfound {
+        position: relative;
+        height: 100vh;
+    }
+
+    #notfound .notfound {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    .notfound {
+        max-width: 520px;
+        width: 100%;
+        text-align: center;
+        line-height: 1.4;
+    }
+
+    .notfound .notfound-404 {
+        height: 190px;
+    }
+
+    .notfound .notfound-404 h1 {
+        font-family: "Montserrat", sans-serif;
+        font-size: 146px;
+        font-weight: 700;
+        margin: 0px;
+        color: #232323;
+    }
+
+    .notfound .notfound-404 h1>span {
+        display: inline-block;
+        width: 120px;
+        height: 120px;
+        background-image: url("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/mozilla/36/pensive-face_1f614.png");
+        background-size: cover;
+        -webkit-transform: scale(1.4);
+        -ms-transform: scale(1.4);
+        transform: scale(1.4);
+        z-index: -1;
+        animation-name: floating;
+        animation-duration: 4s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+    }
+
+    .notfound h2 {
+        font-family: "Montserrat", sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        margin: 0;
+        text-transform: uppercase;
+        color: #232323;
+    }
+
+    .notfound p {
+        font-family: "Montserrat", sans-serif;
+        color: #787878;
+        font-weight: 300;
+    }
+
+    .notfound a {
+        font-family: "Montserrat", sans-serif;
+        display: inline-block;
+        padding: 12px 30px;
+        font-weight: 700;
+        background-color: #fff;
+        color: #232323;
+        border-radius: 40px;
+        text-decoration: none;
+        -webkit-transition: 0.2s all;
+        transition: 0.2s all;
+    }
+
+    .notfound a:hover {
+        opacity: 0.8;
+    }
+
+    @media only screen and (max-width: 767px) {
+        .notfound .notfound-404 {
+            height: 115px;
+        }
+
+        .notfound .notfound-404 h1 {
+            font-size: 86px;
+        }
+
+        .notfound .notfound-404 h1>span {
+            width: 86px;
+            height: 86px;
+        }
+    }
+
+    @keyframes floating {
+        from {
+            transform: scale(1.4) translate(0, 0);
+        }
+
+        50% {
+            transform: scale(1.4) translate(0, 15px);
+        }
+
+        to {
+            transform: scale(1.4) translate(0, 0);
+        }
+    }
+</style>
+
 <body>
-
-    <div>
-        <h1>404</h1>
-        <h2>Página não encontrada</h2>
-        <p>Desculpe, não conseguimos encontrar a página que você procurou.</p>
-        <p>Experimente <a href="javascript:twindow.history.back()">voltar</a>, ou vá para a <a href="/">página
-                inicial</a>.</p>
+    <div id="notfound">
+        <div class="notfound">
+            <div class="notfound-404">
+                <h1>404</h1>
+            </div>
+            <h2>Erro 404 - Página não encontrada</h2>
+            <p style="color: #fff;">Desculpe, não conseguimos encontrar a página que você está procurando. Ela pode ter
+                sido removida, renomeada ou está temporariamente indisponível.</p>
+            <a href="https://www.minhasvacinas.online">Voltar para a página inicial</a>
+        </div>
     </div>
-
 </body>
+
 
 </html>

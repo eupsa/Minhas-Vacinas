@@ -76,13 +76,10 @@ $latestVersion = 'v0.1';
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="theme-color" content="#0056b3">
     <meta name="format-detection" content="telephone=no">
-
     <!-- SEO - Versão alternativa do site para outros idiomas -->
     <link rel="alternate" href="" hreflang="pt-br">
-
     <!-- SEO - URL canônica para evitar conteúdo duplicado -->
     <link rel="canonical" href="https://www.minhasvacinas.online/">
-
     <!-- Open Graph (Facebook, LinkedIn e outras redes sociais) -->
     <meta property="og:type" content="website">
     <meta property="og:locale" content="pt_BR">
@@ -90,19 +87,16 @@ $latestVersion = 'v0.1';
     <meta property="og:title" content="Minhas Vacinas">
     <meta property="og:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações.">
     <meta property="og:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao-200x200.png">
-
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Minhas Vacinas">
     <meta name="twitter:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações.">
     <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao-200x200.png">
-
     <!-- Informações de contato do negócio -->
     <meta property="business:contact_data:country_name" content="Brasil">
     <meta property="business:contact_data:region" content="BA">
     <meta property="business:contact_data:website" content="https://www.minhasvacinas.online/">
     <meta property="business:contact_data:email" content="contato@minhasvacinas.online">
-
     <!-- Geolocalização -->
     <meta name="geo.placename" content="Bahia">
     <meta name="geo.region" content="BR">
@@ -433,7 +427,7 @@ $latestVersion = 'v0.1';
     <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
-    <script src="assets/js/script.js"></script>
+    <script src="script.js"></script>
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px;" id="footer">
         <div class="container text-center text-md-start mt-5">
