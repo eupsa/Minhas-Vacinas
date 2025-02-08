@@ -244,7 +244,7 @@
                 <li>Retirar o consentimento para o uso de suas informações.</li>
                 <li>Solicitar informações sobre como seus dados estão sendo usados.</li>
             </ul>
-            <p>Para exercer seus direitos, entre em contato pelo e-mail: <a href="">pedro@minhasvacinas.online</a>.</p>
+            <p>Para exercer seus direitos, entre em contato pelo e-mail: <a href="">contato@minhasvacinas.online</a>.</p>
         </section>
 
         <section>
@@ -266,12 +266,12 @@
         <section>
             <h2>9. Login com Google</h2>
             <p>Nosso site oferece a opção de login com Google para maior praticidade e segurança. Ao optar por este método, você autoriza o acesso às informações básicas da sua conta Google, como nome, e-mail e foto de perfil. Essas informações serão usadas exclusivamente para fins de autenticação e não serão compartilhadas com terceiros.</p>
-            <p>Se desejar desconectar sua conta Google do nosso site, entre em contato pelo e-mail: <a href="">pedro@minhasvacinas.online</a>.</p>
+            <p>Se desejar desconectar sua conta Google do nosso site, entre em contato pelo e-mail: <a href="">contato@minhasvacinas.online</a>.</p>
         </section>
 
         <section>
             <h2>10. Contato</h2>
-            <p>Se você tiver dúvidas ou preocupações sobre esta Política de Privacidade, entre em contato conosco pelo e-mail: <a href="">pedro@minhasvacinas.online</a>.</p>
+            <p>Se você tiver dúvidas ou preocupações sobre esta Política de Privacidade, entre em contato conosco pelo e-mail: <a href="">contato@minhasvacinas.online</a>.</p>
         </section>
     </div>
 

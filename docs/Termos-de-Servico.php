@@ -250,7 +250,7 @@
 
         <section>
             <h2>10. Contato</h2>
-            <p>Se você tiver dúvidas ou preocupações sobre estes Termos, entre em contato conosco pelo e-mail: <a href="">pedro@minhasvacinas.online</a>.</p>
+            <p>Se você tiver dúvidas ou preocupações sobre estes Termos, entre em contato conosco pelo e-mail: <a href="">contato@minhasvacinas.online</a>.</p>
         </section>
 
         <section>
