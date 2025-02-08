@@ -18,25 +18,20 @@
         padding: 0;
         margin: 0;
         background: #0056b3;
+        font-family: "Montserrat", sans-serif;
     }
 
     #notfound {
         position: relative;
         height: 100vh;
-    }
-
-    #notfound .notfound {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .notfound {
-        max-width: 520px;
-        width: 100%;
+        max-width: 90%;
+        width: 520px;
         text-align: center;
         line-height: 1.4;
     }
@@ -46,10 +41,9 @@
     }
 
     .notfound .notfound-404 h1 {
-        font-family: "Montserrat", sans-serif;
         font-size: 146px;
         font-weight: 700;
-        margin: 0px;
+        margin: 0;
         color: #232323;
     }
 
@@ -59,8 +53,6 @@
         height: 120px;
         background-image: url("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/mozilla/36/pensive-face_1f614.png");
         background-size: cover;
-        -webkit-transform: scale(1.4);
-        -ms-transform: scale(1.4);
         transform: scale(1.4);
         z-index: -1;
         animation-name: floating;
@@ -70,7 +62,6 @@
     }
 
     .notfound h2 {
-        font-family: "Montserrat", sans-serif;
         font-size: 22px;
         font-weight: 700;
         margin: 0;
@@ -79,13 +70,11 @@
     }
 
     .notfound p {
-        font-family: "Montserrat", sans-serif;
         color: #787878;
         font-weight: 300;
     }
 
     .notfound a {
-        font-family: "Montserrat", sans-serif;
         display: inline-block;
         padding: 12px 30px;
         font-weight: 700;
@@ -93,7 +82,6 @@
         color: #232323;
         border-radius: 40px;
         text-decoration: none;
-        -webkit-transition: 0.2s all;
         transition: 0.2s all;
     }
 
@@ -114,6 +102,19 @@
             width: 86px;
             height: 86px;
         }
+
+        .notfound h2 {
+            font-size: 18px;
+        }
+
+        .notfound p {
+            font-size: 14px;
+        }
+
+        .notfound a {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
     }
 
     @keyframes floating {
@@ -130,6 +131,7 @@
         }
     }
 </style>
+
 
 <body>
     <div id="notfound">
