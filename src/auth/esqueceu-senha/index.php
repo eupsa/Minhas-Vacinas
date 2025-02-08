@@ -70,12 +70,7 @@ $latestVersion = 'v0.1';
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
                     <li class="nav-item"><a class="nav-link" href="/#nossa-missao">Sobre</a></li>
-                    <li class="nav-item"><a href="src/ajuda/" class="nav-link">Suporte</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-download"></i> Baixe o App
-                        </a>
-                    </li>
+                    <li class="nav-item"><a href="/src/ajuda/" class="nav-link">Suporte</a></li>
                 </ul>
                 <div class="d-flex flex-column align-items-center gap-2 mt-3">
                     <?php if (isset($_SESSION['session_id'])): ?>
