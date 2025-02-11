@@ -436,7 +436,8 @@ $latestVersion = 'v0.1';
                     <h6 class="text-uppercase fw-bold mb-4">Receba novidades</h6>
                     <p>Inscreva-se para receber novidades sobre campanhas de vacinação, novidade e futuras atualizações.</p>
                     <form action="" method="POST">
-                        <input type="email" name="email" class="form-control mb-2" placeholder="Seu e-mail" style="background-color: #181a1b; color: #f8f9fa;" required>
+                        <label for="">Seu-email</label>
+                        <input type="email" name="email" class="form-control mb-2" style="background-color: #181a1b; color: #f8f9fa;" required>
                         <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
                         <?php if (isset($_GET['status'])): ?>
                             <p style="color: <?php echo $_GET['status'] === 'sucesso' ? 'green' : 'red'; ?>; margin-top: 10px;">
