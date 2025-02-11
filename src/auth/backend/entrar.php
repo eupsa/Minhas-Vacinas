@@ -197,12 +197,9 @@ function registrar_dispositivo($pdo, $id_usuario)
     $browser_info = get_browser_info($user_agent);
     $navegador = $browser_info['browser'];
     $sistema_operacional = $browser_info['os'];
-
     $nome_dispositivo = gethostname();
-
     $tipo_dispositivo = (strpos($user_agent, 'Mobile') !== false) ? 'Mobile' : 'Desktop';
 
-    $pdo->exec("SET time_zone = 'America/Sao_Paulo'");
     $sql = $pdo->prepare("INSERT INTO dispositivos (id_usuario, nome_dispositivo, tipo_dispositivo, ip, navegador, cidade, estado, pais)
     VALUES
     (:id_usuario, :nome_dispositivo, :tipo_dispositivo, :ip, :navegador, :cidade, :estado, :pais)");
@@ -216,7 +213,6 @@ function registrar_dispositivo($pdo, $id_usuario)
     $sql->bindValue(':estado', $estado);
     $sql->bindValue(':pais', $pais);
     $sql->execute();
-
 
     return $ip;
 }
