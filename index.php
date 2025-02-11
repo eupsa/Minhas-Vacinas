@@ -86,12 +86,12 @@ $latestVersion = 'v0.1';
     <meta property="og:url" content="https://www.minhasvacinas.online/">
     <meta property="og:title" content="Minhas Vacinas">
     <meta property="og:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações.">
-    <meta property="og:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao.png">
+    <meta property="og:image" content="https://www.minhasvacinas.online/assets/img/banner-200x200.png">
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Minhas Vacinas">
     <meta name="twitter:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações.">
-    <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao.png">
+    <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-200x200.png">
     <!-- Informações de contato do negócio -->
     <meta property="business:contact_data:country_name" content="Brasil">
     <meta property="business:contact_data:region" content="BA">
