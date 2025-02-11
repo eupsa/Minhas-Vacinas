@@ -86,12 +86,12 @@ $latestVersion = 'v0.1';
     <meta property="og:url" content="https://www.minhasvacinas.online/">
     <meta property="og:title" content="Minhas Vacinas">
     <meta property="og:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações.">
-    <meta property="og:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao-200x200.png">
+    <meta property="og:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao.png">
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Minhas Vacinas">
     <meta name="twitter:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações.">
-    <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao-200x200.png">
+    <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-coracao.png">
     <!-- Informações de contato do negócio -->
     <meta property="business:contact_data:country_name" content="Brasil">
     <meta property="business:contact_data:region" content="BA">
@@ -118,11 +118,6 @@ $latestVersion = 'v0.1';
                         <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
                         <li class="nav-item"><a class="nav-link" href="/#nossa-missao">Sobre</a></li>
                         <li class="nav-item"><a href="src/ajuda/" class="nav-link">Suporte</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-download"></i> Baixe o App
-                            </a>
-                        </li>
                     </ul>
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
                         <?php if (isset($_SESSION['session_id'])): ?>
@@ -193,38 +188,42 @@ $latestVersion = 'v0.1';
                 </div>
     </section>
 
-    <section>
-        <h1 class="text-center my-5 display-4">Proteja-se com Minhas Vacinas: Vacinas na Palma da Sua Mão!</h1>
-        <p class="text-center lead mb-5">Descubra a importância de manter seu histórico de vacinação sempre atualizado.</p>
-        <div class="d-flex flex-wrap justify-content-center">
-            <div class="card m-3 animate__animated animate__fadeIn" style="max-width: 22rem; min-width: 18rem;">
-                <img src="assets/img/iphone-mao.jpg" class="card-img-top" alt="Gestão de Vacinas">
-                <div class="card-body">
-                    <h5 class="card-title fs-4">Gestão de Vacinas</h5>
-                    <p class="card-text">Mantenha o controle de todas as suas vacinas em um só lugar.</p>
+    <section class="py-5 bg-light">
+        <div class="container text-center">
+            <h1 class="display-5 fw-bold mb-4">Proteja-se com Minhas Vacinas</h1>
+            <p class="lead text-muted mb-4">Mantenha seu histórico de vacinação sempre atualizado com praticidade.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-4">
+                <div class="card p-2 border border-2 shadow-sm animate__animated animate__fadeIn"
+                    style="max-width: 22%; min-width: 18rem; border-radius: 12px; transition: transform 0.3s;">
+                    <img src="assets/img/iphone-mao.jpg" class="card-img-top rounded-top" alt="Gestão de Vacinas">
+                    <div class="card-body text-center">
+                        <h5 class="fw-semibold">Gestão de Vacinas</h5>
+                        <p class="text-muted small">Controle suas vacinas de forma simples e organizada.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="card m-3 animate__animated animate__fadeIn" style="max-width: 22rem; min-width: 18rem;">
-                <img src="assets/img/iphone-calendario.jpg" class="card-img-top" alt="Lembretes Personalizados">
-                <div class="card-body">
-                    <h5 class="card-title fs-4">Lembretes Personalizados</h5>
-                    <p class="card-text">Receba notificações sobre suas próximas vacinas para não perder nenhuma!</p>
+                <div class="card p-2 border border-2 shadow-sm animate__animated animate__fadeIn"
+                    style="max-width: 22%; min-width: 18rem; border-radius: 12px; transition: transform 0.3s;">
+                    <img src="assets/img/iphone-calendario.jpg" class="card-img-top rounded-top" alt="Lembretes Personalizados">
+                    <div class="card-body text-center">
+                        <h5 class="fw-semibold">Lembretes Personalizados</h5>
+                        <p class="text-muted small">Receba notificações e nunca perca uma vacina!</p>
+                    </div>
                 </div>
-            </div>
-            <div class="card m-3 animate__animated animate__fadeIn" style="max-width: 22rem; min-width: 18rem;">
-                <img src="assets/img/vacina.jpg" class="card-img-top" alt="Informações sobre Imunizações">
-                <div class="card-body">
-                    <h5 class="card-title fs-4">Informações sobre Imunizações</h5>
-                    <p class="card-text">Acesse informações atualizadas e confiáveis sobre as vacinas e receba alertas
-                        sobre campanhas de vacinação perto de você.</p>
+                <div class="card p-2 border border-2 shadow-sm animate__animated animate__fadeIn"
+                    style="max-width: 22%; min-width: 18rem; border-radius: 12px; transition: transform 0.3s;">
+                    <img src="assets/img/vacina.jpg" class="card-img-top rounded-top" alt="Informações sobre Imunizações">
+                    <div class="card-body text-center">
+                        <h5 class="fw-semibold">Informações Atualizadas</h5>
+                        <p class="text-muted small">Saiba tudo sobre vacinas e campanhas de imunização.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="card m-3 animate__animated animate__fadeIn" style="max-width: 22rem; min-width: 18rem;">
-                <img src="assets/img/familia-segura.jpg" class="card-img-top" alt="Proteja Sua Família">
-                <div class="card-body">
-                    <h5 class="card-title fs-4">Proteja Sua Família</h5>
-                    <p class="card-text">Garanta a saúde de quem você ama com um histórico de vacinação sempre
-                        atualizado.</p>
+                <div class="card p-2 border border-2 shadow-sm animate__animated animate__fadeIn"
+                    style="max-width: 22%; min-width: 18rem; border-radius: 12px; transition: transform 0.3s;">
+                    <img src="assets/img/familia-segura.jpg" class="card-img-top rounded-top" alt="Proteja Sua Família">
+                    <div class="card-body text-center">
+                        <h5 class="fw-semibold">Proteja Sua Família</h5>
+                        <p class="text-muted small">Mantenha todos seguros com um histórico atualizado.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -236,63 +235,64 @@ $latestVersion = 'v0.1';
         <div class="container text-center">
             <h2 class="mb-5 animate__animated animate__fadeInDown">Recursos Essenciais e Proteção</h2>
             <div class="row g-4">
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp">
+                <div class="col-md-6 col-lg-4 d-flex">
+                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp p-4 w-100 h-100 d-flex flex-column">
                         <div class="icon-container bg-success text-white">
                             <i class="bi bi-shield-lock" style="font-size: 3rem;"></i>
                         </div>
                         <h4 class="mt-3">Registro Digital de Vacinas</h4>
-                        <p class="text-muted">Mantenha um digital seguro de todas as vacinas da sua família. Isso facilita o acompanhamento da imunização e o acesso a informações importantes.</p>
+                        <p class="text-muted flex-grow-1">Mantenha um digital seguro de todas as vacinas da sua família. Isso facilita o acompanhamento da imunização e o acesso a informações importantes.</p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp">
+                <div class="col-md-6 col-lg-4 d-flex">
+                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp p-4 w-100 h-100 d-flex flex-column">
                         <div class="icon-container bg-warning text-white">
                             <i class="bi bi-bell" style="font-size: 3rem;"></i>
                         </div>
                         <h4 class="mt-3">Alertas de Vacinação</h4>
-                        <p class="text-muted">Obtenha relatórios detalhados sobre o estado das suas vacinas, ajudando você a entender o que está em dia e o que precisa ser atualizado.</p>
+                        <p class="text-muted flex-grow-1">Obtenha relatórios detalhados sobre o estado das suas vacinas, ajudando você a entender o que está em dia e o que precisa ser atualizado.</p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp">
+                <div class="col-md-6 col-lg-4 d-flex">
+                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp p-4 w-100 h-100 d-flex flex-column">
                         <div class="icon-container bg-info text-white">
                             <i class="bi bi-file-earmark-text" style="font-size: 3rem;"></i>
                         </div>
                         <h4 class="mt-3">Cartão de Vacinação Digital</h4>
-                        <p class="text-muted">Carregue seu cartão de vacinação no celular, facilitando o acesso às informações em qualquer lugar e a qualquer momento.</p>
+                        <p class="text-muted flex-grow-1">Carregue seu cartão de vacinação no celular, facilitando o acesso às informações em qualquer lugar e a qualquer momento.</p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp">
+                <div class="col-md-6 col-lg-4 d-flex">
+                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp p-4 w-100 h-100 d-flex flex-column">
                         <div class="icon-container bg-danger text-white">
                             <i class="bi bi-heart" style="font-size: 3rem;"></i>
                         </div>
                         <h4 class="mt-3">Proteja Sua Família</h4>
-                        <p class="text-muted">Mantenha o histórico de vacinação da sua família sempre atualizado, organizado, acessível e seguro.</p>
+                        <p class="text-muted flex-grow-1">Mantenha o histórico de vacinação da sua família sempre atualizado, organizado, acessível e seguro.</p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp">
+                <div class="col-md-6 col-lg-4 d-flex">
+                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp p-4 w-100 h-100 d-flex flex-column">
                         <div class="icon-container bg-primary text-white">
                             <i class="bi bi-book" style="font-size: 3rem;"></i>
                         </div>
                         <h4 class="mt-3">Dicas de Cuidados Pós-Vacinação</h4>
-                        <p class="text-muted">Receba dicas sobre cuidados pós-vacinação e garanta uma recuperação tranquila.</p>
+                        <p class="text-muted flex-grow-1">Receba dicas sobre cuidados pós-vacinação e garanta uma recuperação tranquila.</p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp">
+                <div class="col-md-6 col-lg-4 d-flex">
+                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp p-4 w-100 h-100 d-flex flex-column">
                         <div class="icon-container bg-info text-white">
                             <i class="bi bi-calendar-event" style="font-size: 3rem;"></i>
                         </div>
                         <h4 class="mt-3">Campanhas de Vacinação</h4>
-                        <p class="text-muted">Receba dicas sobre cuidados pós-vacinação para garantir uma recuperação tranquila e saudável.</p>
+                        <p class="text-muted flex-grow-1">Receba dicas sobre cuidados pós-vacinação para garantir uma recuperação tranquila e saudável.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <section class="bg-dark text-white py-5">
         <div class="container text-center">
@@ -396,7 +396,7 @@ $latestVersion = 'v0.1';
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px;" id="footer">
         <div class="container text-center text-md-start mt-5">
-            <div class="row mt-3">
+            <div class="row mt-3" style="padding-bottom: 5%;">
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">
                         <i class="bi bi-gem me-2"></i>Minhas Vacinas
@@ -436,10 +436,8 @@ $latestVersion = 'v0.1';
                     <h6 class="text-uppercase fw-bold mb-4">Receba novidades</h6>
                     <p>Inscreva-se para receber novidades sobre campanhas de vacinação, novidade e futuras atualizações.</p>
                     <form action="" method="POST">
-                        <div class="input-group">
-                            <input type="email" name="email" class="form-control" placeholder="Seu e-mail" style="background-color: #181a1b; color: #f8f9fa;" required>
-                            <button type="submit" class="btn btn-primary">Cadastrar</button>
-                        </div>
+                        <input type="email" name="email" class="form-control mb-2" placeholder="Seu e-mail" style="background-color: #181a1b; color: #f8f9fa;" required>
+                        <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
                         <?php if (isset($_GET['status'])): ?>
                             <p style="color: <?php echo $_GET['status'] === 'sucesso' ? 'green' : 'red'; ?>; margin-top: 10px;">
                                 <?php echo $_GET['status'] === 'sucesso' ? 'Sucesso!' : 'Erro! Tente novamente.'; ?>

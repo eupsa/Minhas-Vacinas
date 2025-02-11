@@ -363,7 +363,7 @@ body.dark {
   transition: opacity 0.3s ease, transform 0.3s ease;
   z-index: 1000;
   cursor: pointer;
-  animation: pulse 2s infinite;
+  animation: backwards 2s infinite;
 }
 
 .scroll-to-top span {
