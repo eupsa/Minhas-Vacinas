@@ -293,7 +293,6 @@ $latestVersion = 'v0.1';
         </div>
     </section>
 
-
     <section class="bg-dark text-white py-5">
         <div class="container text-center">
             <h2 class="mb-5 animate__animated animate__fadeInDown">Recursos Essenciais e Proteção</h2>
@@ -393,6 +392,24 @@ $latestVersion = 'v0.1';
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
+
+    <script type="module">
+        import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0.3/dist/web.js'
+
+        Typebot.initBubble({
+            typebot: "suporte-ao-cliente-toghj2q",
+            theme: {
+                button: {
+                    backgroundColor: "#0042DA",
+                    customIconSrc: "https://s3.typebot.io/public/workspaces/cm72dfrc20005o121xs7h16xt/typebots/yce6w8sadydxocue6toghj2q/bubble-icon?v=1739396394829",
+                    size: "large",
+                },
+                chatWindow: {
+                    backgroundColor: "#fff"
+                },
+            },
+        });
+    </script>
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px;" id="footer">
         <div class="container text-center text-md-start mt-5">
