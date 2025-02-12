@@ -57,7 +57,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $mail->Port = 587;
 
                 $mail->setFrom('contato@minhasvacinas.online', 'Suporte Vacinas');
-                $mail->addAddress('minhasvacinas@hotmail.com');
+                $mail->addAddress('pedruuu291@gmail.com');
                 $mail->isHTML(true);
                 $mail->CharSet = 'UTF-8';
                 $mail->Subject = 'Nova Mensagem de Suporte';
