@@ -73,11 +73,11 @@ function enviarEmail($email)
         $mail->isSMTP();
         $mail->Host = 'smtp.zoho.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'noreply@minhasvacinas.online';
+        $mail->Username = 'nao.responder@minhasvacinas.online';
         $mail->Password = 'JE1+ip-PWMZvy-4x';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom('noreply@minhasvacinas.online', 'Minhas Vacinas');
+        $mail->setFrom('nao.responder@minhasvacinas.online', 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';

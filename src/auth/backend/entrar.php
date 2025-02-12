@@ -162,15 +162,15 @@ function enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
         $mail->isSMTP();
         $mail->Host = 'smtp.zoho.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'noreply@minhasvacinas.online';
+        $mail->Username = 'nao.responder@minhasvacinas.online';
         $mail->Password = 'JE1+ip-PWMZvy-4x';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom('noreply@minhasvacinas.online', 'Minhas Vacinas');
+        $mail->setFrom('nao.responder@minhasvacinas.online', 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
-        $mail->Subject = 'Novo acesso a sua conta';
+        $mail->Subject = 'Sua conta Minhas Vacinas foi acessada a partir de um novo endereço IP';
         $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img');
         $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;

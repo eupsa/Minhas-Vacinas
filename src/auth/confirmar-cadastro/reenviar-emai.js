@@ -19,6 +19,12 @@ form_reenviar_email.addEventListener("submit", async (e) => {
     return;
   }
 
+  var emailModalEl = document.getElementById("emailModal");
+  var emailModal = bootstrap.Modal.getInstance(emailModalEl);
+  if (emailModal) {
+    emailModal.hide();
+  }
+
   Swal.fire({
     title: "Processando...",
     timer: 10000,
