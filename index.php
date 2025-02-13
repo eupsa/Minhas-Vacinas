@@ -364,15 +364,15 @@ $latestVersion = 'v0.1';
         </div>
     </section>
 
-    <button id="scrollToTopBtn" class="scroll-to-top">
+    <!-- <button id="scrollToTopBtn" class="scroll-to-top">
         <span>&#8593;</span>
-    </button>
+    </button> -->
 
     <div id="cookieNotice" class="cookie-notice">
-        <p>Usamos cookies para melhorar sua experiência. Ao continuar, você aceita nossa <a href="docs/Politica-de-Privacidade.php">Política de privacidade</a>.
-        <p>
-            <button id="acceptCookies" class="cookie-accept-btn">Aceitar</button>
+        <p>Usamos cookies para melhorar sua experiência. <a href="docs/Politica-de-Privacidade.php">Saiba mais</a></p>
+        <button id="acceptCookies">Aceitar</button>
     </div>
+
 
     <script>
         if ('serviceWorker' in navigator) {
@@ -400,9 +400,7 @@ $latestVersion = 'v0.1';
             typebot: "suporte-ao-cliente-toghj2q",
             theme: {
                 button: {
-                    backgroundColor: "#0042DA",
-                    customIconSrc: "https://s3.typebot.io/public/workspaces/cm72dfrc20005o121xs7h16xt/typebots/yce6w8sadydxocue6toghj2q/bubble-icon?v=1739396394829",
-                    size: "large",
+                    backgroundColor: "#666460"
                 },
                 chatWindow: {
                     backgroundColor: "#fff"

@@ -404,79 +404,6 @@ body.dark {
   transform: scale(0.95);
 }
 
-.cookie-notice {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: #333;
-  color: white;
-  text-align: center;
-  padding: 15px;
-  font-size: 16px;
-  z-index: 9999;
-  box-shadow: 0px -2px 8px rgba(0, 0, 0, 0.2);
-  border-top: 3px solid #ffd700;
-  border-radius: 8px 8px 0 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.cookie-notice.show {
-  display: flex;
-  opacity: 1;
-}
-
-.cookie-notice a {
-  color: #ffd700;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.cookie-notice a:hover {
-  text-decoration: underline;
-}
-
-.cookie-notice button {
-  background-color: #ffd700;
-  border: none;
-  color: black;
-  padding: 8px 20px;
-  cursor: pointer;
-  font-size: 14px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.cookie-notice button:hover {
-  background-color: #ffa500;
-}
-
-.cookie-notice button:focus {
-  outline: none;
-}
-
-@media (max-width: 600px) {
-  .cookie-notice {
-    padding: 10px;
-    font-size: 14px;
-  }
-
-  .cookie-notice button {
-    padding: 6px 15px;
-    font-size: 12px;
-  }
-
-  .cookie-notice p {
-    font-size: 14px;
-  }
-}
-
 .feature-block {
   background: #fff;
   border-radius: 15px;
@@ -562,5 +489,71 @@ h4 {
 
   h4 {
     font-size: 1.1rem;
+  }
+}
+
+.cookie-notice {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 8px 15px;
+  font-size: 14px;
+  z-index: 9999;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
+  border-top: 3px solid #ffd700;
+  border-radius: 8px 8px 0 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.cookie-notice.show {
+  display: flex;
+  opacity: 1;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cookie-notice a {
+  color: #ffd700;
+  text-decoration: none;
+}
+
+.cookie-notice a:hover {
+  text-decoration: underline;
+}
+
+.cookie-notice button {
+  background-color: #ffd700;
+  border: none;
+  color: black;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cookie-notice button:hover {
+  background-color: #ffa500;
+}
+
+.cookie-notice button:focus {
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  .cookie-notice {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .cookie-notice button {
+    padding: 4px 10px;
+    font-size: 11px;
   }
 }
