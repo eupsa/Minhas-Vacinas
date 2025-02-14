@@ -91,7 +91,7 @@ if ($sql->rowCount() != 1) {
                 <a class="navbar-brand" href="/">
                     <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                <button style="margin-left: 90%;" class="navbar-toggler d-block" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="sidebarToggle">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -112,6 +112,12 @@ if ($sql->rowCount() != 1) {
     <!-- Sidebar -->
     <section>
         <div>
+            <!-- Botão de alternância sempre visível -->
+            <button class="navbar-toggler d-block d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="sidebarToggle">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
             <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
                 <div class="d-flex align-items-center justify-content-center" style="height: 10vh;"></div>
                 <hr>
@@ -156,12 +162,10 @@ if ($sql->rowCount() != 1) {
                         <span><?php echo isset($_SESSION['session_nome']) ? explode(' ', $_SESSION['session_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li>
                         <li><a class="dropdown-item" href="../../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                         <hr class="dropdown-divider">
                         <li><a class="dropdown-item text-danger" href="" data-bs-toggle="modal"
                                 data-bs-target="#excluir-conta"><i class="fas fa-trash-alt"></i> Excluir conta</a></li>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -171,88 +175,84 @@ if ($sql->rowCount() != 1) {
     <!-- Perfil -->
     <section class="profile-section py-5 padding-left-10">
         <div class="container">
-            <div class="card shadow-lg border-0"">
-                <div class=" card-header bg text-white text-center py-3" style="background: #3f3f3f;">
-                <h3>Dados do Perfil</h3>
-            </div>
-            <div class="card-body">
-                <form id="form_perfil" action="../../../backend/update_register.php" method="post">
-                    <div class="row g-3">
-                        <div class="col-12 col-md-6">
-                            <label for="nome" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="nome" name="nome" disabled
-                                value="<?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : ''; ?>">
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label for="email" class="form-label">E-Mail</label>
-                            <div class="position-relative">
-                                <input type="email" class="form-control" id="email" name="email" disabled
-                                    value="<?php echo isset($_SESSION['session_email']) ? $_SESSION['session_email'] : ''; ?>">
-                                <small class="text-success d-flex align-items-center position-absolute top-50 end-0 translate-middle-y me-2">
-                                    <i class="fas fa-check-circle me-2" title="E-mail confirmado com sucesso!"></i>
-                                </small>
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white text-center py-3">
+                    <h3>Dados do Perfil</h3>
+                </div>
+                <div class="card-body">
+                    <form id="form_perfil" action="../../../backend/update_register.php" method="post" enctype="multipart/form-data">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="nome" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="nome" name="nome" disabled
+                                    value="<?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : ''; ?>">
                             </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-                            <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" disabled
-                                value="<?php echo isset($_SESSION['session_data_nascimento']) && !empty($_SESSION['session_data_nascimento']) ? $_SESSION['session_data_nascimento'] : ''; ?>"
-                                placeholder="aaaaa">
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label for="telefone" class="form-label">Telefone</label>
-                            <div class="input-group">
-                                <span class="input-group-text">
-                                    <img src="../../../assets/img/num-img-br.png" alt="Bandeira do Brasil" style="width: 20px; height: 15px;" class="me-2">+55
-                                </span>
-                                <input type="text" class="form-control" id="telefone" name="telefone" disabled
-                                    value="<?php echo isset($_SESSION['session_telefone']) ? $_SESSION['session_telefone'] : ''; ?>">
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <label for="cpf" class="form-label">CPF</label>
-                            <div class="position-relative">
-                                <input type="text" class="form-control" id="cpf" name="cpf" disabled
-                                    value="<?php echo isset($_SESSION['session_cpf']) ? $_SESSION['session_cpf'] : ''; ?>">
-                                <?php if (!empty($_SESSION['session_cpf'])): ?>
+                            <div class="col-12 col-md-6">
+                                <label for="email" class="form-label">E-Mail</label>
+                                <div class="position-relative">
+                                    <input type="email" class="form-control" id="email" name="email" disabled
+                                        value="<?php echo isset($_SESSION['session_email']) ? $_SESSION['session_email'] : ''; ?>">
                                     <small class="text-success d-flex align-items-center position-absolute top-50 end-0 translate-middle-y me-2">
-                                        <i class="fas fa-check-circle me-2" title="CPF válido!"></i>
+                                        <i class="fas fa-check-circle me-2" title="E-mail confirmado com sucesso!"></i>
                                     </small>
-                                <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                                <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" disabled
+                                    value="<?php echo isset($_SESSION['session_data_nascimento']) && !empty($_SESSION['session_data_nascimento']) ? $_SESSION['session_data_nascimento'] : ''; ?>">
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="telefone" class="form-label">Telefone</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <img src="../../../assets/img/num-img-br.png" alt="Bandeira do Brasil" style="width: 20px; height: 15px;" class="me-2">+55
+                                    </span>
+                                    <input type="text" class="form-control" id="telefone" name="telefone" disabled
+                                        value="<?php echo isset($_SESSION['session_telefone']) ? $_SESSION['session_telefone'] : ''; ?>">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="cpf" class="form-label">CPF</label>
+                                <div class="position-relative">
+                                    <input type="text" class="form-control" id="cpf" name="cpf" disabled
+                                        value="<?php echo isset($_SESSION['session_cpf']) ? $_SESSION['session_cpf'] : ''; ?>">
+                                    <?php if (!empty($_SESSION['session_cpf'])): ?>
+                                        <small class="text-success d-flex align-items-center position-absolute top-50 end-0 translate-middle-y me-2">
+                                            <i class="fas fa-check-circle me-2" title="CPF válido!"></i>
+                                        </small>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="genero" class="form-label">Gênero</label>
+                                <select class="form-control" id="genero" name="genero" disabled>
+                                    <option value="Não Informado" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Não Informado') ? 'selected' : ''; ?>>Não Informado</option>
+                                    <option value="Masculino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
+                                    <option value="Feminino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Feminino') ? 'selected' : ''; ?>>Feminino</option>
+                                    <option value="Outro" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="estado" class="form-label">Estado</label>
+                                <input type="text" class="form-control" id="state" name="state" disabled
+                                    value="<?php echo isset($_SESSION['session_estado']) ? $_SESSION['session_estado'] : ''; ?>">
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="cidade" class="form-label">Cidade</label>
+                                <input type="text" class="form-control" id="capital" name="capital" disabled
+                                    value="<?php echo isset($_SESSION['session_cidade']) ? $_SESSION['session_cidade'] : ''; ?>">
                             </div>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <label for="cidade" class="form-label">Estado</label>
-                            <input type="text" class="form-control" id="estado" name="estado" disabled
-                                value="<?php echo isset($_SESSION['session_estado']) ? $_SESSION['session_estado'] : ''; ?>">
+                        <div class="text-center mt-4">
+                            <button type="button" class="btn btn-dark w-100 py-2 rounded-pill d-flex align-items-center justify-content-center gap-2"
+                                data-bs-toggle="modal" data-bs-target="#updateModal" style="background-color: rgb(44, 44, 44); border: none; transition: background-color 0.3s;">
+                                <i class="bi bi-pencil-square"></i>
+                                EDITAR DADOS
+                            </button>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <label for="genero" class="form-label">Gênero</label>
-                            <select class="form-control" id="genero" name="genero" disabled>
-                                <option value="Não Informado" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Não Informado') ? 'selected' : ''; ?>>Não Informado</option>
-                                <option value="Masculino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
-                                <option value="Feminino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Feminino') ? 'selected' : ''; ?>>Feminino</option>
-                                <option value="Outro" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
-                            </select>
-                        </div>
-                        <!-- <div class="col-12 col-md-6">
-                            <label for="cidade" class="form-label">Cidade</label>
-                            <input type="text" class="form-control" id="cidade" name="cidade" disabled
-                                value="<?php echo isset($_SESSION['session_cidade']) ? $_SESSION['session_cidade'] : ''; ?>">
-                        </div> -->
-                    </div>
-                    <div class="text-center mt-4">
-                        <button
-                            type="button"
-                            class="btn btn-dark w-100 py-2 rounded-pill d-flex align-items-center justify-content-center gap-2"
-                            data-bs-toggle="modal"
-                            data-bs-target="#updateModal"
-                            style="background-color: rgb(44, 44, 44); border: none; transition: background-color 0.3s;">
-                            <i class="bi bi-pencil-square"></i>
-                            EDITAR DADOS
-                        </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -360,10 +360,10 @@ if ($sql->rowCount() != 1) {
                                 <div class="col-md-6">
                                     <label for="genero" class="form-label">Gênero</label>
                                     <select class="form-select" id="genero" name="genero">
-                                        <option value="Não Informado">Não Informado</option>
-                                        <option value="Masculino">Masculino</option>
-                                        <option value="Feminino">Feminino</option>
-                                        <option value="Outro">Outro</option>
+                                        <option value="Não Informado" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Não Informado') ? 'selected' : ''; ?>>Não Informado</option>
+                                        <option value="Masculino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
+                                        <option value="Feminino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Feminino') ? 'selected' : ''; ?>>Feminino</option>
+                                        <option value="Outro" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
@@ -398,6 +398,17 @@ if ($sql->rowCount() != 1) {
                                         <option value="SE" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'SE') ? 'selected' : ''; ?>>Sergipe</option>
                                         <option value="TO" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'TO') ? 'selected' : ''; ?>>Tocantins</option>
                                     </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Cidade" class="form-label">Cidade</label>
+                                    <div class="d-flex">
+                                        <select class="form-select" id="cidade" name="cidade">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="foto_perfil" class="form-label">Foto de Perfil</label>
+                                    <input type="file" class="form-control" id="foto_perfil" name="foto_perfil" accept="image/*">
                                 </div>
                             </div>
                             <div class="text-end mt-4">
@@ -650,7 +661,7 @@ if ($sql->rowCount() != 1) {
     <script src="excluir-conta.js"></script>
     <script src="confirmar-exclusao.js"></script>
     <script src="remover-dispositivo.js"></script>
-    <script src="../../../block.js"></script>
+    <script src="api-ibge.js"></script>
 </body>
 
 </html>

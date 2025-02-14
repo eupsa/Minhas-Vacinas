@@ -101,14 +101,15 @@ if (isset($_SESSION['session_id'])) {
                             <div class="d-flex justify-content-center align-items-center">
                                 <div id="g_id_onload"
                                     data-client_id="14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com"
-                                    data-login_uri="https://www.minhasvacinas.online/src/auth/backend/login-google.php"
-                                    data-auto_prompt="false">
+                                    data-login_uri="https://www.minhasvacinas.online/src/auth/backend/cadastro-google.php"
+                                    data-auto_prompt="true"
+                                    data-itp_support="true">
                                 </div>
                                 <div class="g_id_signin custom-google-btn"
                                     data-type="standard"
-                                    data-size="large"
-                                    data-theme="filled_blue"
-                                    data-text="sign_in_with_google"
+                                    data-size="medium"
+                                    data-theme="filled_black"
+                                    data-text="continue"
                                     data-shape="circle"
                                     data-logo_alignment="left"
                                     style="transform: scale(1.1);">
@@ -225,7 +226,6 @@ if (isset($_SESSION['session_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://accounts.google.com/gsi/client" async></script>
-    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
     <script src="script.js"></script>
     <script src="../../../block.js"></script>
 </body>

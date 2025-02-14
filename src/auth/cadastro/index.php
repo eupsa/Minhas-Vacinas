@@ -104,13 +104,14 @@ if (isset($_SESSION['session_id'])) {
                                 <div id="g_id_onload"
                                     data-client_id="14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com"
                                     data-login_uri="https://www.minhasvacinas.online/src/auth/backend/cadastro-google.php"
-                                    data-auto_prompt="false">
+                                    data-auto_prompt="true"
+                                    data-itp_support="true">
                                 </div>
                                 <div class="g_id_signin custom-google-btn"
                                     data-type="standard"
-                                    data-size="large"
-                                    data-theme="filled_blue"
-                                    data-text="signu_with_google"
+                                    data-size="medium"
+                                    data-theme="filled_black"
+                                    data-text="signup_with"
                                     data-shape="circle"
                                     data-logo_alignment="left"
                                     style="transform: scale(1.1);">
@@ -205,7 +206,7 @@ if (isset($_SESSION['session_id'])) {
                         <hr class="custom-hr">
                         <p class="mb-1 text-dark">Já tem uma conta?</p>
                         <a href="../entrar/" class="text-primary" style="text-decoration: none;">
-                            <i class="bi bi-door-open"></i> Faça login aqui
+                            <i class="bi bi-door-open"></i> Entre na sua conta
                         </a>
                     </div>
                     <div class="text-center mt-4">
@@ -272,7 +273,6 @@ if (isset($_SESSION['session_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="https://accounts.google.com/gsi/client" async></script>
-    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
     <script src="script.js"></script>
     <script src="index.js"></script>
     <script src="../../../block.js"></script>

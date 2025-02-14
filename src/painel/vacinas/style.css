@@ -61,7 +61,7 @@ body {
   .dropstart,
   .dropup,
   .dropup-center {
-    margin-bottom: 31%;
+    margin-bottom: 1%;
   }
   .sidebar {
     transform: translateX(-100%);

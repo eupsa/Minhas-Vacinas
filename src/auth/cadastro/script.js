@@ -33,57 +33,34 @@ if (formcad) {
     const confSenha = dadosForm.get("confSenha");
 
     if (!nome || !email || !estado || !senha || !confSenha) {
-      iziToast.show({
-        message: "Preencha todos os campos obrigatórios.",
-        position: "topRight",
-        color: "red",
-        icon: "fas fa-exclamation-circle",
-        theme: "dark",
-        iconColor: "#fff",
-        progressBarColor: "#fff",
-        timeout: 5000,
-        close: true,
-        balloon: true,
-        transitionIn: "bounceInUp",
-        transitionOut: "bounceOutDown",
-        titleColor: "#fff",
-        messageColor: "#e1e1e1",
-        backgroundColor: "#ff5f5f",
-        displayMode: 2,
+      Swal.fire({
+        text: "Preencha todos os campos obrigatórios.",
+        icon: "warning",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Fechar",
       });
       return;
     }
 
     if (senha !== confSenha) {
-      iziToast.show({
-        message: "As senhas precisam ser iguais.",
-        position: "topRight",
-        color: "red",
-        icon: "fas fa-exclamation-circle",
-        theme: "dark",
-        iconColor: "#fff",
-        progressBarColor: "#fff",
-        timeout: 5000,
-        close: true,
-        balloon: true,
-        transitionIn: "bounceInUp",
-        transitionOut: "bounceOutDown",
-        titleColor: "#fff",
-        messageColor: "#e1e1e1",
-        backgroundColor: "#ff5f5f",
-        displayMode: 2,
+      Swal.fire({
+        text: "As senhas precisam ser iguais.",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Fechar",
       });
       return;
     }
 
-    iziToast.show({
+    Swal.fire({
       title: "Processando...",
-      message: "Aguarde enquanto processamos sua solicitação.",
-      position: "topRight",
-      color: "warning",
-      timeout: 7000,
-      progressBar: true,
-      icon: "fas fa-cogs",
+      text: "Aguarde enquanto processamos sua solicitação.",
+      icon: "info",
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
     });
 
     try {
@@ -97,34 +74,30 @@ if (formcad) {
       const resposta = await dados.json();
 
       if (resposta["status"]) {
-        iziToast.destroy();
-
-        window.location.href = "../confirmar-cadastro/";
-        formcad.reset();
+        Swal.fire({
+          text: "Cadastro realizado com sucesso!",
+          icon: "success",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "OK",
+        }).then(() => {
+          window.location.href = "../confirmar-cadastro/";
+          formcad.reset();
+        });
       } else {
-        iziToast.destroy();
-        iziToast.show({
-          title: "Erro!",
-          message: resposta["msg"],
-          position: "topRight",
-          color: "red",
-          icon: "fas fa-times-circle",
-          theme: "dark",
-          iconColor: "#fff",
-          progressBarColor: "#fff",
-          titleColor: "#fff",
-          messageColor: "#e1e1e1",
-          backgroundColor: "#dc3545",
-          timeout: 5000,
-          close: true,
-          balloon: true,
-          transitionIn: "fadeInDown",
-          transitionOut: "fadeOutUp",
-          maxWidth: 450,
+        Swal.fire({
+          text: resposta["msg"],
+          icon: "error",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Fechar",
         });
       }
     } catch (error) {
-      console.log("Erro ao cadastrar");
+      Swal.fire({
+        text: "Erro ao cadastrar. Tente novamente.",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Fechar",
+      });
     }
   });
 }

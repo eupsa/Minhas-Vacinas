@@ -64,7 +64,7 @@ body {
   .dropstart,
   .dropup,
   .dropup-center {
-    margin-bottom: 31%;
+    margin-bottom: 1%;
   }
 
   .sidebar {
@@ -159,4 +159,13 @@ body {
 body.dark {
   background-color: #121212;
   color: #fff;
+}
+
+@media (max-width: 992px) {
+  #sidebarToggle {
+    position: absolute;
+    top: 15px; /* Ajuste a distância do topo conforme necessário */
+    left: -30px; /* Ajuste a distância da esquerda conforme necessário */
+    z-index: 1050; /* Garantir que o botão fique acima de outros elementos */
+  }
 }

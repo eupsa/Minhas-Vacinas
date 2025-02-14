@@ -31,23 +31,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const submitButton = document.getElementById("submitBtn");
 
       if (!email || !senha) {
-        iziToast.show({
-          message: "Preencha todos os campos obrigatórios.",
-          position: "topRight",
-          color: "red",
-          icon: "fas fa-exclamation-circle",
-          theme: "dark",
-          iconColor: "#fff",
-          progressBarColor: "#fff",
-          timeout: 5000,
-          close: true,
-          balloon: true,
-          transitionIn: "bounceInUp",
-          transitionOut: "bounceOutDown",
-          titleColor: "#fff",
-          messageColor: "#e1e1e1",
-          backgroundColor: "#ff5f5f",
-          displayMode: 2,
+        Swal.fire({
+          text: "Preencha todos os campos.",
+          icon: "error",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Fechar",
         });
         return;
       }
@@ -56,52 +44,48 @@ document.addEventListener("DOMContentLoaded", () => {
       loadingSpinner.style.display = "inline-block";
 
       try {
-        const dados = await fetch("../backend/entrar.php", {
+        const resposta = await fetch("../backend/entrar.php", {
           method: "POST",
           body: dadosForm,
         });
 
-        const resposta = await dados.json();
+        const dados = await resposta.json(); 
 
-        if (resposta["status"]) {
-          submitButton.disabled = false;
-          loadingSpinner.style.display = "none";
-          form_login.reset();
-          window.location.href = "../../painel/";
+        submitButton.disabled = false;
+        loadingSpinner.style.display = "none";
+
+        if (dados.status) {
+          Swal.fire({
+            text: dados.msg,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Fechar",
+          }).then(() => {
+            form_login.reset();
+            window.location.href = "../../painel/";
+          });
         } else {
-          submitButton.disabled = false;
-          loadingSpinner.style.display = "none";
-          iziToast.destroy();
-          iziToast.show({
-            title: "Erro!",
-            message: resposta["msg"],
-            position: "topRight",
-            color: "red",
-            icon: "fas fa-times-circle",
-            theme: "dark",
-            iconColor: "#fff",
-            progressBarColor: "#fff",
-            titleColor: "#fff",
-            messageColor: "#e1e1e1",
-            backgroundColor: "#dc3545",
-            timeout: 5000,
-            close: true,
-            balloon: true,
-            transitionIn: "fadeInDown",
-            transitionOut: "fadeOutUp",
-            maxWidth: 450,
+          Swal.fire({
+            text: dados.msg,
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Fechar",
           });
         }
       } catch (error) {
         submitButton.disabled = false;
         loadingSpinner.style.display = "none";
+
         Swal.fire({
-          text: "Ocorreu um erro ao tentar fazer login. Tente novamente mais tarde.",
+          text: "Erro ao fazer login. Tente novamente.",
           icon: "error",
           confirmButtonColor: "#3085d6",
           confirmButtonText: "Fechar",
         });
+
+        console.error("Erro:", error);
       }
     });
+    console.error("Erro:", error);
   }
 });

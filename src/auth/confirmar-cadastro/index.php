@@ -4,7 +4,6 @@ if (isset($_SESSION['session_id'])) {
     header("Location: ../../painel/");
     exit();
 }
-
 ?>
 
 <!DOCTYPE html>

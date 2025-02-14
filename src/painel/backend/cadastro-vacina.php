@@ -27,6 +27,10 @@ if (!empty($proxima_dose) && !compararDatas($dataAplicacao, $proxima_dose)) {
     exit();
 }
 
+if (empty($proxima_dose)) {
+    $proxima_dose = NULL;
+}
+
 if ($localAplicacao === 'outro' && empty($outro_local)) {
     $retorna = ['status' => false, 'msg' => "Por favor, informe o nome do local de vacinação"];
     header('Content-Type: application/json');

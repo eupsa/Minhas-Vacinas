@@ -16,15 +16,24 @@ function registrar_dispositivo($pdo, $id_usuario)
     $estado = isset($data['region']) ? $data['region'] : 'Desconhecido';
     $pais = isset($data['country']) ? $data['country'] : 'Desconhecido';
 
+    // $user_agent = $_SERVER['HTTP_USER_AGENT'];
+
+    // $browser_info = get_browser_info($user_agent);
+    // $navegador = $browser_info['browser'];
+    // $sistema_operacional = $browser_info['os'];
+
+    // $nome_dispositivo = gethostname();
+
+    // $tipo_dispositivo = (strpos($user_agent, 'Mobile') !== false) ? 'Mobile' : 'Desktop';
+
     $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
     $browser_info = get_browser_info($user_agent);
     $navegador = $browser_info['browser'];
     $sistema_operacional = $browser_info['os'];
-
-    $nome_dispositivo = gethostname();
-
     $tipo_dispositivo = (strpos($user_agent, 'Mobile') !== false) ? 'Mobile' : 'Desktop';
+    $tipo_dispositivo = strtoupper($tipo_dispositivo);
+    $nome_dispositivo = $tipo_dispositivo . " - " . $sistema_operacional . " | " . $navegador;
 
     $sql = $pdo->prepare("INSERT INTO dispositivos (id_usuario, nome_dispositivo, tipo_dispositivo, ip, navegador, confirmado, cidade, estado, pais)
     VALUES

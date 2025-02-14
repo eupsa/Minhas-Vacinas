@@ -51,7 +51,7 @@ form_perfil.addEventListener("submit", async (e) => {
   const telefone = dadosForm.get("telefone");
   const estado = dadosForm.get("estado");
   const genero = dadosForm.get("genero");
-  // const cidade = dadosForm.get("cidade");
+  const cidade = dadosForm.get("cidade");
   const foto_perfil = dadosForm.get("foto_perfil");
 
   if (
@@ -61,7 +61,8 @@ form_perfil.addEventListener("submit", async (e) => {
     !telefone &&
     !estado &&
     !genero &&
-    !foto_perfil // ADD o campo CIDADE DPS
+    !foto_perfil &&
+    !cidade
   ) {
     Swal.fire({
       text: "Nenhum dado foi alterado.",

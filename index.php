@@ -373,7 +373,6 @@ $latestVersion = 'v0.1';
         <button id="acceptCookies">Aceitar</button>
     </div>
 
-
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -397,10 +396,11 @@ $latestVersion = 'v0.1';
         import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0.3/dist/web.js'
 
         Typebot.initBubble({
-            typebot: "suporte-ao-cliente-toghj2q",
+            typebot: "my-typebot-32hb9a8",
             theme: {
                 button: {
-                    backgroundColor: "#666460"
+                    backgroundColor: "#0042DA",
+                    size: "medium"
                 },
                 chatWindow: {
                     backgroundColor: "#fff"

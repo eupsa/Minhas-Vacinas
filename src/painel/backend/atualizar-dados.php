@@ -10,7 +10,7 @@ $data_nascimento = trim($dados['data_nascimento']);
 $telefone = trim($dados['telefone']);
 $estado = isset($dados['estado']) ? trim($dados['estado']) : 'N/A';
 $genero = ($dados['genero']);
-// $cidade = trim($dados['cidade']);
+$cidade = isset($dados['cidade']) ? trim($dados['cidade']) : $_SESSION['session_cidade'];
 
 $imagem = $_FILES['foto_perfil']['tmp_name'] ?? null; // Captura o arquivo de imagem enviado
 
@@ -44,7 +44,6 @@ if (!empty($data_nascimento)) {
         exit();
     }
 } else {
-    // Se a data de nascimento estiver vazia, definimos ela como NULL para o banco de dados
     $data_nascimento = null;
 }
 
@@ -63,13 +62,14 @@ if (!empty($cpf_formatado)) {
 
 try {
     // Atualizar os dados no banco
-    $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, genero = :genero, foto_perfil = :foto_perfil WHERE id_usuario = :id");
+    $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, cidade = :cidade, genero = :genero, foto_perfil = :foto_perfil WHERE id_usuario = :id");
     $sql->bindValue(':nome', $nome);
     $sql->bindValue(':cpf', $cpf_formatado);
     $sql->bindValue(':data_nascimento', $data_nascimento, PDO::PARAM_STR); // Enviar como NULL se vazio
     $sql->bindValue(':telefone', $telefone);
     $sql->bindValue(':estado', $estado);
     $sql->bindValue(':genero', $genero);
+    $sql->bindValue(':cidade', $cidade);
     $sql->bindValue(':foto_perfil', $foto_perfil, PDO::PARAM_LOB);
     $sql->bindValue(':id', $_SESSION['session_id']);
     $sql->execute();
