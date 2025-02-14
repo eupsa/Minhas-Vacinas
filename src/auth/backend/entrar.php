@@ -196,7 +196,7 @@ function registrar_dispositivo($pdo, $id_usuario)
 
     $browser_info = get_browser_info($user_agent);
     $navegador = $browser_info['browser'];
-    // $sistema_operacional = $browser_info['os'];
+    $sistema_operacional = $browser_info['os'];
     $nome_dispositivo = gethostname();
     $tipo_dispositivo = (strpos($user_agent, 'Mobile') !== false) ? 'Mobile' : 'Desktop';
 

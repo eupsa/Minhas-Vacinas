@@ -127,11 +127,6 @@ if ($sql->rowCount() != 1) {
                         </a>
                     </li>
                     <li>
-                        <a href="" onclick="alert('Indisponível')" class="nav-link text-white">
-                            <i class="fas fa-bullhorn"></i> Campanhas
-                        </a>
-                    </li>
-                    <li>
                         <a class="nav-link active" aria-expanded="false">
                             <i class="bi bi-person"></i> Conta
                         </a>
@@ -254,7 +249,7 @@ if ($sql->rowCount() != 1) {
                             data-bs-target="#updateModal"
                             style="background-color: rgb(44, 44, 44); border: none; transition: background-color 0.3s;">
                             <i class="bi bi-pencil-square"></i>
-                            Editar Dados
+                            EDITAR DADOS
                         </button>
                     </div>
                 </form>
@@ -329,60 +324,50 @@ if ($sql->rowCount() != 1) {
     <!-- Modal de atualização do Perfil -->
     <section>
         <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true" style="z-index: 1200;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="updateModalLabel">Seus Dados</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content shadow-lg rounded-4">
+                    <div class="modal-header bg-white text-white">
+                        <h5 class="modal-title" style="color: #212529;" id="updateModalLabel">Seus Dados</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <p>Se você deseja atualizar seu e-mail <a href="#" class="text-primary" data-bs-toggle="modal" data-bs-target="#alterar-email">clique aqui</a> ou sua senha <a href="../../auth/esqueceu-senha/" class="text-primary">clique aqui</a></p>
+                    <div class="modal-body p-4">
+                        <p class="mb-4">Se deseja atualizar seu e-mail <a href="#" class="fw-bold text-primary" data-bs-toggle="modal" data-bs-target="#alterar-email">clique aqui</a> ou sua senha <a href="../../auth/esqueceu-senha/" class="fw-bold text-primary">clique aqui</a>.</p>
                         <form id="form-perfil" action="../backend/atualizar-dados.php" method="POST" enctype="multipart/form-data">
-                            <div class="row mb-3">
-                                <div class="col">
+                            <div class="row g-3">
+                                <div class="col-md-6">
                                     <label for="nome" class="form-label">Nome</label>
-                                    <input type="text" class="form-control" id="nome" name="nome" autocomplete="off"
-                                        value="<?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : ''; ?>">
+                                    <input type="text" class="form-control" id="nome" name="nome" autocomplete="off" value="<?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : ''; ?>">
                                 </div>
-                            </div>
-                            <div class="col mb-3">
-                                <div class="col">
+                                <div class="col-md-6">
                                     <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-                                    <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" autocomplete="off"
-                                        value="<?php echo !empty($_SESSION['session_data_nascimento']) ? $_SESSION['session_data_nascimento'] : ''; ?>">
+                                    <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" autocomplete="off" value="<?php echo !empty($_SESSION['session_data_nascimento']) ? $_SESSION['session_data_nascimento'] : ''; ?>">
                                 </div>
-                                <div class="col">
+                                <div class="col-md-6">
                                     <label for="telefone" class="form-label">Telefone</label>
                                     <div class="input-group">
-                                        <span class="input-group-text" id="telefone-addon">
-                                            <img src="../../../assets/img/num-img-br.png" alt="Bandeira do Brasil" style="width: 20px; height: 15px;" class="me-2">+55
+                                        <span class="input-group-text">
+                                            <img src="../../../assets/img/num-img-br.png" alt="BR" style="width: 20px; height: 15px;"> +55
                                         </span>
-                                        <input type="text" class="form-control" id="telefone" name="telefone" autocomplete="off"
-                                            aria-describedby="telefone-addon"
-                                            value="<?php echo isset($_SESSION['session_telefone']) ? $_SESSION['session_telefone'] : ''; ?>">
+                                        <input type="text" class="form-control" id="telefone" name="telefone" autocomplete="off" value="<?php echo isset($_SESSION['session_telefone']) ? $_SESSION['session_telefone'] : ''; ?>">
                                     </div>
                                 </div>
-                            </div>
-                            <?php if (empty($_SESSION['session_cpf'])): ?>
-                                <div class="mb-3">
-                                    <label for="cpf" class="form-label">CPF</label>
-                                    <input type="text" class="form-control" id="cpf" name="cpf" autocomplete="off">
-                                </div>
-                            <?php endif; ?>
-                            <div class="row mb-3">
-                                <div class="col-12">
+                                <?php if (empty($_SESSION['session_cpf'])): ?>
+                                    <div class="col-md-6">
+                                        <label for="cpf" class="form-label">CPF</label>
+                                        <input type="text" class="form-control" id="cpf" name="cpf" autocomplete="off">
+                                    </div>
+                                <?php endif; ?>
+                                <div class="col-md-6">
                                     <label for="genero" class="form-label">Gênero</label>
                                     <select class="form-select" id="genero" name="genero">
-                                        <option value="Não Informado" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Não Informado') ? 'selected' : ''; ?>>Não Informado</option>
-                                        <option value="Masculino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
-                                        <option value="Feminino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Feminino') ? 'selected' : ''; ?>>Feminino</option>
-                                        <option value="Outro" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
+                                        <option value="Não Informado">Não Informado</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Feminino">Feminino</option>
+                                        <option value="Outro">Outro</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col">
-                                <label for="estado" class="form-label">Estado</label>
-                                <div class="d-flex" style="margin-bottom: 3%;">
+                                <div class="col-md-6">
+                                    <label for="estado" class="form-label">Estado</label>
                                     <select class="form-select" id="estado" name="estado">
                                         <option value="" disabled selected>Selecione um estado</option>
                                         <option value="AC" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AC') ? 'selected' : ''; ?>>Acre</option>
@@ -415,21 +400,9 @@ if ($sql->rowCount() != 1) {
                                     </select>
                                 </div>
                             </div>
-                            <!-- <div class="col">
-                                <label for="Cidade" class="form-label">Cidade</label>
-                                <div class="d-flex">
-                                    <select class="form-select" id="cidade" name="cidade">
-                                        <option value="" disabled selected>Selecione uma cidade</option>
-                                    </select>
-                                </div>
-                            </div> -->
-                            <div class="mb-3">
-                                <label for="foto_perfil" class="form-label">Foto de Perfil</label>
-                                <input type="file" class="form-control" id="foto_perfil" name="foto_perfil" accept="image/*">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Atualizar Dados</button>
+                            <div class="text-end mt-4">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
                             </div>
                         </form>
                     </div>

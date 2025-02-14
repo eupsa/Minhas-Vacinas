@@ -103,12 +103,6 @@ if ($sql->rowCount() != 1) {
                         </a>
                     </li>
                     <li>
-                        <a href="" onclick="alert('Indisponível')" class="nav-link text-white">
-                            <i class="fas fa-bullhorn"></i>
-                            Campanhas
-                        </a>
-                    </li>
-                    <li>
                         <a href="../../perfil/" class="nav-link text-white">
                             <i class="bi bi-person"></i>
                             Conta

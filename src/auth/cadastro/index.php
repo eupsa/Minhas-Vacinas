@@ -219,65 +219,6 @@ if (isset($_SESSION['session_id'])) {
         </div>
     </section>
 
-    <script>
-        const passwordInput = document.getElementById('senha');
-        const checklist = document.getElementById('passwordChecklist');
-        const length = document.getElementById('length');
-        const uppercase = document.getElementById('uppercase');
-        const number = document.getElementById('number');
-        const special = document.getElementById('special');
-
-        passwordInput.addEventListener('focus', function() {
-            checklist.classList.remove('d-none');
-        });
-
-        passwordInput.addEventListener('blur', function() {
-            if (passwordInput.value === '') {
-                checklist.classList.add('d-none');
-            }
-        });
-
-        passwordInput.addEventListener('input', function() {
-            const value = passwordInput.value;
-
-            // Verificação de comprimento
-            if (value.length >= 8) {
-                length.classList.remove('text-muted');
-                length.classList.add('text-success');
-            } else {
-                length.classList.remove('text-success');
-                length.classList.add('text-muted');
-            }
-
-            // Verificação de letra maiúscula
-            if (/[A-Z]/.test(value)) {
-                uppercase.classList.remove('text-muted');
-                uppercase.classList.add('text-success');
-            } else {
-                uppercase.classList.remove('text-success');
-                uppercase.classList.add('text-muted');
-            }
-
-            // Verificação de número
-            if (/\d/.test(value)) {
-                number.classList.remove('text-muted');
-                number.classList.add('text-success');
-            } else {
-                number.classList.remove('text-success');
-                number.classList.add('text-muted');
-            }
-
-            // Verificação de caractere especial
-            if (/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
-                special.classList.remove('text-muted');
-                special.classList.add('text-success');
-            } else {
-                special.classList.remove('text-success');
-                special.classList.add('text-muted');
-            }
-        });
-    </script>
-
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 3%;">
         <div class="me-5 d-none d-lg-block"></div>
         <div class="container text-center text-md-start mt-5">
@@ -333,6 +274,7 @@ if (isset($_SESSION['session_id'])) {
     <script src="https://accounts.google.com/gsi/client" async></script>
     <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
     <script src="script.js"></script>
+    <script src="index.js"></script>
     <script src="../../../block.js"></script>
 </body>
 

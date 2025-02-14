@@ -20,6 +20,13 @@ if ($imagem && is_uploaded_file($imagem)) {
     $imagemBinaria = null;
 }
 
+if (!empty($proxima_dose) && !compararDatas($dataAplicacao, $proxima_dose)) {
+    $retorna = ['status' => false, 'msg' => "A próxima dose não pode ser anterior à data de aplicação."];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
+}
+
 if ($localAplicacao === 'outro' && empty($outro_local)) {
     $retorna = ['status' => false, 'msg' => "Por favor, informe o nome do local de vacinação"];
     header('Content-Type: application/json');
@@ -89,10 +96,9 @@ if (validarData($dataAplicacao)) {
     exit();
 }
 
-function validarData($dataAplicacao, $proximaDose)
+function validarData($dataAplicacao)
 {
     $dataFormatada = DateTime::createFromFormat('Y-m-d', $dataAplicacao);
-    $proximaDoseFormatada = DateTime::createFromFormat('Y-m-d', $proximaDose);
 
     if (!$dataFormatada || $dataFormatada->format('Y-m-d') !== $dataAplicacao) {
         return false;
@@ -108,7 +114,24 @@ function validarData($dataAplicacao, $proximaDose)
         return false;
     }
 
-    if ($proximaDoseFormatada <= $dataFormatada) {
+    return true;
+}
+
+
+function compararDatas($dataAplicacao, $proximaDose)
+{
+    $dataFormatada = DateTime::createFromFormat('Y-m-d', $dataAplicacao);
+    $proximaDoseFormatada = DateTime::createFromFormat('Y-m-d', $proximaDose);
+
+    if (!$dataFormatada || $dataFormatada->format('Y-m-d') !== $dataAplicacao) {
+        return false;
+    }
+
+    if (!$proximaDoseFormatada || $proximaDoseFormatada->format('Y-m-d') !== $proximaDose) {
+        return false;
+    }
+
+    if ($proximaDoseFormatada < $dataFormatada) {
         return false;
     }
 

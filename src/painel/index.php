@@ -20,7 +20,7 @@ if (!isset($_SESSION['session_id'])) {
         $usuario = $sql->fetch(PDO::FETCH_ASSOC);
         if (!empty($usuario['foto_perfil'])) {
             $_SESSION['session_foto_perfil'] = 'data:image/jpeg;base64,' . base64_encode($usuario['foto_perfil']);
-        }        
+        }
 
         $sql = $pdo->prepare("SELECT * FROM usuario_google WHERE id_usuario = :id_usuario");
         $sql->bindValue(':id_usuario', $_SESSION['session_id']);
@@ -202,12 +202,6 @@ if (!isset($_SESSION['session_id'])) {
                         <a href="vacinas/" class="nav-link text-white">
                             <i class="fas fa-syringe"></i>
                             Vacinas
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" onclick="alert('Indisponível')" class="nav-link text-white">
-                            <i class="fas fa-bullhorn"></i>
-                            Campanhas
                         </a>
                     </li>
                     <li>
