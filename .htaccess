@@ -43,6 +43,9 @@ ErrorDocument 500 /assets/error/500.html
 </RequireAll>
 
 RewriteEngine On
-RewriteCond %{REMOTE_ADDR} !^201.4.49.133$
-RewriteRule ^.*$ /manutencao/ [L,R=302]
+
+# Permitir acesso ao seu IP
+RewriteCond %{REMOTE_ADDR} !=SEU_IP
+RewriteCond %{REQUEST_URI} !^/index.html$
+RewriteRule ^.*$ /index.html [L,R=302]
 
