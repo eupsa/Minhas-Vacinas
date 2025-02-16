@@ -38,6 +38,25 @@ if ($sql->rowCount() == 1) {
     } else {
         $_SESSION['dispositivos'] = [];
     }
+
+    $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip");
+    $sql->bindValue(':ip', $_SESSION['session_ip']);
+    $sql->execute();
+
+    if ($sql->rowCount() != 1) {
+        $sql = $pdo->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario AND ip_cadastro = :ip_cadastro");
+        $sql->bindValue(':id_usuario', $id_usuario);
+        $sql->bindValue(':ip_cadastro', $_SESSION['session_ip']);
+        $sql->execute();
+
+        if ($sql->rowCount() != 1) {
+            $_SESSION = [];
+            session_destroy();
+
+            header("Location: ../../auth/entrar/");
+            exit();
+        }
+    }
 } else {
     $_SESSION = [];
     session_destroy();
@@ -46,25 +65,6 @@ if ($sql->rowCount() == 1) {
     exit();
 }
 
-$sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip");
-$sql->bindValue(':ip', $_SESSION['session_ip']);
-$sql->execute();
-
-if ($sql->rowCount() != 1) {
-    $sql = $pdo->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario AND ip_cadastro = :ip_cadastro");
-    $sql->bindValue(':id_usuario', $id_usuario);
-    $sql->bindValue(':ip_cadastro', $_SESSION['session_ip']);
-    $sql->execute();
-
-    if ($sql->rowCount() != 1) {
-
-        $_SESSION = [];
-        session_destroy();
-
-        header("Location: ../../auth/entrar/");
-        exit();
-    }
-}
 ?>
 
 <!DOCTYPE html>

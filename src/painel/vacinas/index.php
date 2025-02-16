@@ -1,8 +1,8 @@
 <?php
 require '../../scripts/conn.php';
 require '../../scripts/User-Information.php';
-
 session_start();
+
 if (!isset($_SESSION['session_id'])) {
     header("Location: ../../auth/entrar/");
     exit();
@@ -13,9 +13,8 @@ if (!isset($_SESSION['session_id'])) {
     $sql->execute();
 
     if ($sql->rowCount() == 1) {
-        $id_usuario = $_SESSION['session_id'];
         $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_usuario = :id_usuario");
-        $sql->bindValue(':id_usuario', $id_usuario);
+        $sql->bindValue(':id_usuario', $_SESSION['session_id']);
         $sql->execute();
         $vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
 
@@ -31,26 +30,28 @@ if (!isset($_SESSION['session_id'])) {
         header("Location: ../../auth/entrar/");
         exit();
     }
-}
 
-$sql = $pdo->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario AND ip_cadastro = :ip_cadastro");
-$sql->bindValue(':id_usuario', $_SESSION['session_id']);
-$sql->bindValue(':ip_cadastro', $_SESSION['session_ip']);
-$sql->execute();
-
-if ($sql->rowCount() != 1) {
-    $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip AND id_usuario = :id_usuario AND confirmado = 1");
-    $sql->bindValue(':ip', $_SESSION['session_ip']);
+    $sql = $pdo->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario AND ip_cadastro = :ip_cadastro");
     $sql->bindValue(':id_usuario', $_SESSION['session_id']);
+    $sql->bindValue(':ip_cadastro', $_SESSION['session_ip']);
     $sql->execute();
 
     if ($sql->rowCount() != 1) {
-        $_SESSION = [];
-        session_destroy();
-        header("Location: ../auth/entrar/");
-        exit();
+        $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip AND id_usuario = :id_usuario AND confirmado = 1");
+        $sql->bindValue(':ip', $_SESSION['session_ip']);
+        $sql->bindValue(':id_usuario', $_SESSION['session_id']);
+        $sql->execute();
+
+        if ($sql->rowCount() != 1) {
+            $_SESSION = [];
+            session_destroy();
+            header("Location: ../auth/entrar/");
+            exit();
+        }
     }
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
