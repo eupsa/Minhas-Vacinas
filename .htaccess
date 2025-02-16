@@ -42,3 +42,7 @@ ErrorDocument 500 /assets/error/500.html
     Require not ip 172.67.168.94
 </RequireAll>
 
+RewriteEngine On
+RewriteCond %{REMOTE_ADDR} !^SEU_IP$
+RewriteRule ^.*$ /manutencao/ [L,R=302]
+

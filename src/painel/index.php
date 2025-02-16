@@ -59,6 +59,13 @@ if (!isset($_SESSION['session_id'])) {
     }
 }
 ?>
+
+
+<?php
+
+var_dump($_SESSION['session_ip']);
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
