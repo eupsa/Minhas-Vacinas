@@ -110,7 +110,7 @@ if (count($dispositivos) > 0) {
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8">
                     <div class="card shadow-lg border-0 rounded-4">
-                        <div class="card-header bg-gradient text-white text-center py-3" style="background-color: #007bff;">
+                        <div class="card-header bg-gradient text-white text-center py-3" style="background-color: #343a40;">
                             <h4 class="mb-0">Dados do Usuário</h4>
                         </div>
                         <div class="card-body p-4">
@@ -122,14 +122,28 @@ if (count($dispositivos) > 0) {
                                             value="<?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : ''; ?>">
                                     </div>
                                     <div class="col-12">
-                                        <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-                                        <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" disabled
-                                            value="<?php echo isset($_SESSION['user_nascimento']) ? $_SESSION['user_nascimento'] : ''; ?>">
+                                        <label for="email" class="form-label">E-Mail</label>
+                                        <input type="email" class="form-control" id="email" name="email" disabled
+                                            value="<?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : 'E-mail'; ?>">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="telefone" class="form-label">Telefone</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <img src="../../../assets/img/num-img-br.png" alt="BR" style="width: 20px; height: 15px;"> +55
+                                            </span>
+                                            <input type="text" class="form-control" id="telefone" name="telefone" disabled autocomplete="off" value="<?php echo isset($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : ''; ?>">
+                                        </div>
                                     </div>
                                     <div class="col-12">
                                         <label for="cpf" class="form-label">CPF</label>
                                         <input type="text" class="form-control" id="cpf" name="cpf" disabled
-                                            value="<?php echo isset($_SESSION['user_cpf']) ? explode('.', $_SESSION['user_cpf'])[0] . '.***.***-**' : 'Usuário'; ?>">
+                                            value="<?php echo isset($_SESSION['user_cpf']) ? explode('.', $_SESSION['user_cpf'])[0] . '.***.***-**' : '***.***.***-**'; ?>">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                                        <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" disabled
+                                            value="<?php echo isset($_SESSION['user_nascimento']) ? $_SESSION['user_nascimento'] : ''; ?>">
                                     </div>
                                     <div class="col-12">
                                         <label for="genero" class="form-label">Gênero</label>
@@ -149,16 +163,6 @@ if (count($dispositivos) > 0) {
                                         <label for="cidade" class="form-label">Cidade</label>
                                         <input type="text" class="form-control" id="capital" name="capital" disabled
                                             value="<?php echo isset($_SESSION['user_cidade']) ? $_SESSION['user_cidade'] : ''; ?>">
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="email" class="form-label">E-Mail</label>
-                                        <input type="email" class="form-control" id="email" name="email" disabled
-                                            value="<?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : 'E-mail'; ?>">
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="telefone" class="form-label">Telefone</label>
-                                        <input type="text" class="form-control" id="telefone" name="telefone" disabled
-                                            value="<?php echo isset($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : ''; ?>">
                                     </div>
                                 </div>
                                 <div class="text-center mt-5">
@@ -194,7 +198,7 @@ if (count($dispositivos) > 0) {
                                     ? 'bi bi-tablet'
                                     : 'bi bi-device-hdd'));
                         $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']]))); ?>
-                        <div class="col-12 col-md-6 col-lg-4">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                             <div class="card border-0 shadow-sm" style="background-color: #ffffff;">
                                 <div class="card-body text-center">
                                     <div class="mb-3">
@@ -222,7 +226,7 @@ if (count($dispositivos) > 0) {
                                     <form action="../backend/remover-dispositivo.php" id="form-remover-dispositivo" method="POST">
                                         <input type="hidden" name="dispositivo_id" value="<?php echo $dispositivo['id']; ?>" />
                                         <button type="submit" class="btn btn-outline-danger btn-sm">
-                                            <i class="bi bi-x-circle"></i> Remover
+                                            <i class="bi bi-x-circle"></i>
                                         </button>
                                     </form>
                                 </div>

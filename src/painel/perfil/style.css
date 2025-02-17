@@ -172,7 +172,7 @@ body.dark {
 @media (max-width: 767px) {
   #perfil {
     margin-bottom: 15%; /* Ajuste o valor conforme necessário */
-    margin-left: 1%; /* Ajuste o valor conforme necessário */
+    margin-left: 5%; /* Ajuste o valor conforme necessário */
   }
   #dados-acesso {
     margin-top: 10%;
@@ -183,9 +183,61 @@ body.dark {
 @media (min-width: 768px) and (max-width: 1024px) {
   #perfil {
     margin-bottom: 10%z; /* Ajuste o valor conforme necessário */
-    margin-left: 1%; /* Ajuste o valor conforme necessário */
+    margin-left: 20%; /* Ajuste o valor conforme necessário */
   }
   #dados-acesso {
     margin-top: 10%;
+  }
+}
+
+/* Base layout for larger screens */
+@media (min-width: 1200px) {
+  .profile-section .col-lg-3 {
+    flex: 1 1 22%; /* Coluna maior em telas grandes */
+  }
+}
+
+/* Ajustes para tablets e dispositivos menores */
+@media (max-width: 1200px) {
+  .profile-section .col-lg-3 {
+    flex: 1 1 48%; /* Menos largura para telas médias */
+  }
+}
+
+/* Ajustes para telas de smartphones */
+@media (max-width: 768px) {
+  .profile-section .col-md-4 {
+    flex: 1 1 100%; /* Full width para dispositivos móveis */
+  }
+
+  .profile-section .card-body {
+    padding: 20px;
+  }
+
+  .profile-section .card-footer {
+    padding: 10px;
+  }
+
+  .profile-section .card-title {
+    font-size: 1.2rem;
+  }
+}
+
+/* Ajustes para telas de smartphones menores */
+@media (max-width: 576px) {
+  .profile-section .col-sm-6 {
+    flex: 1 1 100%; /* Full width para telas menores */
+  }
+
+  .profile-section .card-body {
+    padding: 15px;
+  }
+
+  .profile-section .card-footer {
+    padding: 8px;
+  }
+
+  .profile-section .card-title {
+    font-size: 1rem;
   }
 }
