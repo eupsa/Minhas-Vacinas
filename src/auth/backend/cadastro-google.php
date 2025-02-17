@@ -62,8 +62,7 @@ if (isset($payload['email'])) {
     }
 
     if ($sql->rowCount() === 1) {
-        $_SESSION['sucesso_email'] = "Cadastro realizado com sucesso. ";
-        header('Location: ../cadastro/');
+        header('Location: ../entrar/');
         exit();
     } else {
         $_SESSION['erro_email'] = "Erro ao realizar o cadastro.";

@@ -34,8 +34,6 @@ try {
     $retorna = ['status' => false, 'msg' => "Erro ao adicionar dispositivo: " . $e->getMessage()];
 }
 
-$latestVersion = 'v0.1';
-
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +67,7 @@ $latestVersion = 'v0.1';
                         <li class="nav-item"><a href="../../ajuda/" class="nav-link">Suporte</a></li>
                     </ul>
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
-                        <?php if (isset($_SESSION['session_id'])): ?>
+                        <?php if (isset($_SESSION['user_id'])): ?>
                             <li class="nav-item">
                                 <a class="btn btn-primary rounded-pill px-4 py-2 text-white" href="../../painel/">
                                     <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
@@ -109,7 +107,7 @@ $latestVersion = 'v0.1';
                     <li class="nav-item"><a href="src/ajuda/" class="nav-link">Suporte</a></li>
                 </ul>
                 <div class="d-flex flex-column align-items-center gap-2 mt-3">
-                    <?php if (isset($_SESSION['session_id'])): ?>
+                    <?php if (isset($_SESSION['user_id'])): ?>
                         <a class="btn btn-primary rounded-pill px-4 py-2 text-white w-100 text-center" href="../../painel/">
                             <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
                         </a>
@@ -138,7 +136,7 @@ $latestVersion = 'v0.1';
                     confirmButtonColor: "#3085d6",
                     confirmButtonText: "Fechar",
                 }).then(() => {
-                    window.location.href = "../entrar/"; // Redireciona para login
+                    window.location.href = "../entrar/";
                 });
             });
         </script>

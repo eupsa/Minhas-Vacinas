@@ -106,7 +106,6 @@ try {
         if (email_cadastro($email, $codigo)) {
             $retorna = ['status' => true, 'msg' => "Sua conta foi criada. Um e-mail foi enviado com um código de verificação. Siga as instruções na página a seguir."];
             session_start();
-            $_SESSION['temp-cad'] = $email;
         } else {
             // $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário: " . $e->getMessage()];
             $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário."];

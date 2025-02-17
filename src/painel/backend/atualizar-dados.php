@@ -4,13 +4,13 @@ require '../../scripts/conn.php';
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $nome = ucwords(trim($dados['nome']));
-$cpf_formatado = isset($dados['cpf']) ? trim($dados['cpf']) : ($_SESSION['session_cpf'] ?? null);
+$cpf_formatado = isset($dados['cpf']) ? trim($dados['cpf']) : ($_SESSION['user_cpf'] ?? null);
 $cpf = preg_replace('/[^0-9]/', '', $cpf_formatado);
 $data_nascimento = trim($dados['data_nascimento']);
 $telefone = trim($dados['telefone']);
 $estado = isset($dados['estado']) ? trim($dados['estado']) : 'N/A';
 $genero = ($dados['genero']);
-$cidade = isset($dados['cidade']) ? trim($dados['cidade']) : $_SESSION['session_cidade'];
+$cidade = isset($dados['cidade']) ? trim($dados['cidade']) : $_SESSION['user_cidade'];
 
 $imagem = $_FILES['foto_perfil']['tmp_name'] ?? null; // Captura o arquivo de imagem enviado
 
@@ -61,24 +61,17 @@ if (!empty($cpf_formatado)) {
 }
 
 try {
-    // Atualizar os dados no banco
     $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, cidade = :cidade, genero = :genero, foto_perfil = :foto_perfil WHERE id_usuario = :id");
     $sql->bindValue(':nome', $nome);
     $sql->bindValue(':cpf', $cpf_formatado);
-    $sql->bindValue(':data_nascimento', $data_nascimento, PDO::PARAM_STR); // Enviar como NULL se vazio
+    $sql->bindValue(':data_nascimento', $data_nascimento, PDO::PARAM_STR);
     $sql->bindValue(':telefone', $telefone);
     $sql->bindValue(':estado', $estado);
     $sql->bindValue(':genero', $genero);
     $sql->bindValue(':cidade', $cidade);
     $sql->bindValue(':foto_perfil', $foto_perfil, PDO::PARAM_LOB);
-    $sql->bindValue(':id', $_SESSION['session_id']);
+    $sql->bindValue(':id', $_SESSION['user_id']);
     $sql->execute();
-
-    $_SESSION['session_nome'] = $nome;
-    $_SESSION['session_data_nascimento'] = $data_nascimento;
-    $_SESSION['session_telefone'] = $telefone;
-    $_SESSION['session_estado'] = $estado;
-    $_SESSION['session_genero'] = $genero;
 
     $retorna = ['status' => true, 'msg' => "Alteração realizada com sucesso. Suas informações estão atualizadas."];
     header('Content-Type: application/json');

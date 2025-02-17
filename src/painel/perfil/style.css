@@ -51,12 +51,6 @@ body {
   position: relative;
 }
 
-@media (min-width: 992px) {
-  .padding-left-10 {
-    padding-left: 10%;
-  }
-}
-
 @media (max-width: 992px) {
   .dropdown,
   .dropdown-center,
@@ -167,5 +161,31 @@ body.dark {
     top: 15px; /* Ajuste a distância do topo conforme necessário */
     left: -30px; /* Ajuste a distância da esquerda conforme necessário */
     z-index: 1050; /* Garantir que o botão fique acima de outros elementos */
+  }
+}
+
+#perfil {
+  margin-left: 10%; /* Ajuste o valor conforme necessário */
+}
+
+/* Ajuste para dispositivos móveis (até 767px) */
+@media (max-width: 767px) {
+  #perfil {
+    margin-bottom: 15%; /* Ajuste o valor conforme necessário */
+    margin-left: 1%; /* Ajuste o valor conforme necessário */
+  }
+  #dados-acesso {
+    margin-top: 10%;
+  }
+}
+
+/* Ajuste para tablets (768px a 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  #perfil {
+    margin-bottom: 10%z; /* Ajuste o valor conforme necessário */
+    margin-left: 1%; /* Ajuste o valor conforme necessário */
+  }
+  #dados-acesso {
+    margin-top: 10%;
   }
 }

@@ -69,7 +69,7 @@ if (validarData($dataAplicacao)) {
             $sql->bindValue(':lote', $lote);
             $sql->bindValue(':obs', $obs);
             $sql->bindValue(':imagem', $imagemBinaria, PDO::PARAM_LOB);
-            $sql->bindValue(':id_usuario', $_SESSION['session_id']);
+            $sql->bindValue(':id_usuario', $_SESSION['user_id']);
             $sql->execute();
 
             if ($sql->rowCount() === 1) {

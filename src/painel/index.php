@@ -1,63 +1,17 @@
 <?php
-require '../scripts/conn.php';
 session_start();
+require_once '../scripts/conn.php';
+require_once '../scripts/User-Auth.php';
 
-if (!isset($_SESSION['session_id'])) {
-    header("Location: ../auth/entrar/");
-    exit();
-} else {
-    $sql = $pdo->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario");
-    $sql->bindValue(':id_usuario', $_SESSION['session_id']);
-    $sql->execute();
+Auth($pdo);
 
-    if ($sql->rowCount() != 1) {
-        $_SESSION = [];
-        session_destroy();
+$sql = $pdo->prepare("SELECT * FROM vacina WHERE id_usuario = :id_usuario ORDER BY id_vac DESC LIMIT 3");
+$sql->bindValue(':id_usuario', $_SESSION['user_id']);
+$sql->execute();
+$vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-        header("Location: ../auth/entrar/");
-        exit();
-    } else {
-        $usuario = $sql->fetch(PDO::FETCH_ASSOC);
-        if (!empty($usuario['foto_perfil'])) {
-            $_SESSION['session_foto_perfil'] = 'data:image/jpeg;base64,' . base64_encode($usuario['foto_perfil']);
-        }
+$_SESSION['vacinas'] = $vacinas ?: [];
 
-        $sql = $pdo->prepare("SELECT * FROM usuario_google WHERE id_usuario = :id_usuario");
-        $sql->bindValue(':id_usuario', $_SESSION['session_id']);
-        $sql->execute();
-
-        if ($sql->rowCount() === 1) {
-            $usuario_google = $sql->fetch(PDO::FETCH_BOTH);
-            $_SESSION['session_fotourl'] = $usuario_google['foto_url'];
-        }
-
-        $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_usuario = :id_usuario ORDER BY id_vac DESC LIMIT 3");
-        $sql->bindValue(':id_usuario', $_SESSION['session_id']);
-        $sql->execute();
-        $vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-        $_SESSION['vacinas'] = $vacinas ?: [];
-
-        $sql = $pdo->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario AND ip_cadastro = :ip_cadastro");
-        $sql->bindValue(':id_usuario', $_SESSION['session_id']);
-        $sql->bindValue(':ip_cadastro', $_SESSION['session_ip']);
-        $sql->execute();
-
-        if ($sql->rowCount() != 1) {
-            $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip AND id_usuario = :id_usuario AND confirmado = 1");
-            $sql->bindValue(':ip', $_SESSION['session_ip']);
-            $sql->bindValue(':id_usuario', $_SESSION['session_id']);
-            $sql->execute();
-
-            if ($sql->rowCount() != 1) {
-                $_SESSION = [];
-                session_destroy();
-                header("Location: ../auth/entrar/");
-                exit();
-            }
-        }
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -185,6 +139,7 @@ if (!isset($_SESSION['session_id'])) {
         </div>
     </section>
 
+    <!-- Sidebar -->
     <section>
         <div>
             <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
@@ -215,26 +170,12 @@ if (!isset($_SESSION['session_id'])) {
                     </li>
                 </ul>
                 <hr>
-                <?php if (isset($_SESSION['session_fotourl'])): ?>
-                    <p class="text-success">
-                        <img src="https://img.icons8.com/?size=512&id=17949&format=png" alt="Ícone Google" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 2px;">
-                        <small>Conectado com Google</small>
-                    </p>
-                <?php endif; ?>
                 <div class="dropdown">
                     <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php if (isset($_SESSION['session_fotourl'])): ?>
-                            <img src="<?php echo $_SESSION['session_fotourl']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
-                                width="40" height="40">
-                        <?php elseif (isset($_SESSION['session_foto_perfil']) && !empty($_SESSION['session_foto_perfil'])): ?>
-                            <img src="<?= $_SESSION['session_foto_perfil'] ?>" alt="Foto do Usuário" class="rounded-circle me-2"
-                                width="40" height="40">
-                        <?php else: ?>
-                            <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
-                                width="40" height="40">
-                        <?php endif; ?>
-                        <span><?php echo isset($_SESSION['session_nome']) ? explode(' ', $_SESSION['session_nome'])[0] : 'Usuário'; ?></span>
+                        <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
+                            width="40" height="40">
+                        <span>Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                         <li><a class="dropdown-item" href="perfil/"><i class="fas fa-user"></i> Minha conta</a></li>
@@ -247,6 +188,7 @@ if (!isset($_SESSION['session_id'])) {
             </div>
     </section>
 
+    <!-- Últimas 3 vacinas -->
     <section class="access-quick">
         <div class="content text-center mb-5" style="margin-top: -10%;">
             <h1>Últimas Vacinas Adicionadas</h1>

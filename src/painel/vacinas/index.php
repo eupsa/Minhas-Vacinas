@@ -1,57 +1,21 @@
 <?php
-require '../../scripts/conn.php';
-require '../../scripts/User-Information.php';
 session_start();
+require_once '../../scripts/User-Auth.php';
+require_once '../../scripts/conn.php';
 
-if (!isset($_SESSION['session_id'])) {
-    header("Location: ../../auth/entrar/");
-    exit();
+Auth($pdo);
+
+$sql = $pdo->prepare("SELECT * FROM vacina WHERE id_usuario = :id_usuario");
+$sql->bindValue(':id_usuario', $_SESSION['user_id']);
+$sql->execute();
+
+$vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+if (count($vacinas) > 0) {
+    $_SESSION['vacinas'] = $vacinas;
 } else {
-    Sessions($pdo);
-    $sql = $pdo->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario");
-    $sql->bindValue(':id_usuario', $_SESSION['session_id']);
-    $sql->execute();
-
-    if ($sql->rowCount() == 1) {
-        $sql = $pdo->prepare("SELECT * FROM vacina WHERE id_usuario = :id_usuario");
-        $sql->bindValue(':id_usuario', $_SESSION['session_id']);
-        $sql->execute();
-        $vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-        if (count($vacinas) > 0) {
-            $_SESSION['vacinas'] = $vacinas;
-        } else {
-            $_SESSION['vacinas'] = [];
-        }
-    } else {
-        $_SESSION = [];
-        session_destroy();
-
-        header("Location: ../../auth/entrar/");
-        exit();
-    }
-
-    $sql = $pdo->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario AND ip_cadastro = :ip_cadastro");
-    $sql->bindValue(':id_usuario', $_SESSION['session_id']);
-    $sql->bindValue(':ip_cadastro', $_SESSION['session_ip']);
-    $sql->execute();
-
-    if ($sql->rowCount() != 1) {
-        $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip AND id_usuario = :id_usuario AND confirmado = 1");
-        $sql->bindValue(':ip', $_SESSION['session_ip']);
-        $sql->bindValue(':id_usuario', $_SESSION['session_id']);
-        $sql->execute();
-
-        if ($sql->rowCount() != 1) {
-            $_SESSION = [];
-            session_destroy();
-            header("Location: ../auth/entrar/");
-            exit();
-        }
-    }
+    $_SESSION['vacinas'] = [];
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -82,14 +46,6 @@ if (!isset($_SESSION['session_id'])) {
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav" style="padding-left: 90%;">
-                    <!-- <ul class="navbar-nav">
-                        <li style="margin-left: 20px; margin-top: 2%;">
-                            <div id="themeToggle" class="theme-toggle d-flex align-items-center" style="cursor: pointer;">
-                                <i class="bi bi-sun" id="sunIcon" style="font-size: 1.2em;"></i>
-                                <i class="bi bi-moon" id="moonIcon" style="font-size: 1.2em; display: none;"></i>
-                            </div>
-                        </li>
-                    </ul> -->
                 </div>
             </div>
         </nav>
@@ -117,7 +73,7 @@ if (!isset($_SESSION['session_id'])) {
                     <li>
                         <a href="../perfil/" class="nav-link text-white">
                             <i class="bi bi-person"></i>
-                            Conta
+                            Seus Dados
                         </a>
                     </li>
                     <li>
@@ -125,29 +81,15 @@ if (!isset($_SESSION['session_id'])) {
                     </li>
                 </ul>
                 <hr>
-                <?php if (isset($_SESSION['session_fotourl'])): ?>
-                    <p class="text-success">
-                        <img src="https://img.icons8.com/?size=512&id=17949&format=png" alt="Ícone Google" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 2px;">
-                        <small>Conectado com Google</small>
-                    </p>
-                <?php endif; ?>
                 <div class="dropdown">
                     <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php if (isset($_SESSION['session_fotourl'])): ?>
-                            <img src="<?php echo $_SESSION['session_fotourl']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
-                                width="40" height="40">
-                        <?php elseif (isset($_SESSION['session_foto_perfil']) && !empty($_SESSION['session_foto_perfil'])): ?>
-                            <img src="data:image/jpeg;base64,<?php echo base64_encode($_SESSION['session_foto_perfil']); ?>" alt="Foto do Usuário" class="rounded-circle me-2"
-                                width="40" height="40">
-                        <?php else: ?>
-                            <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
-                                width="40" height="40">
-                        <?php endif; ?>
-                        <span><?php echo isset($_SESSION['session_nome']) ? explode(' ', $_SESSION['session_nome'])[0] : 'Usuário'; ?></span>
+                        <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
+                            width="40" height="40">
+                        <span>Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="perfil/"><i class="fas fa-user"></i> Minha conta</a></li>
+                        <li><a class="dropdown-item" href="../perfil/"><i class="fas fa-user"></i> Minha conta</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

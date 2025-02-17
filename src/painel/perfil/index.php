@@ -1,65 +1,25 @@
 <?php
-require '../../scripts/conn.php';
-require '../../scripts/User-Information.php';
 session_start();
+require_once '../../scripts/User-Auth.php';
+require_once '../../scripts/conn.php';
 
-if (!isset($_SESSION['session_id'])) {
-    header("Location: ../../auth/entrar/");
-    exit();
-}
+Auth($pdo);
+Gerar_Session($pdo);
 
-$sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip");
-$sql->bindValue(':ip', $_SESSION['session_ip']);
+$sql = $pdo->prepare("SELECT * FROM dispositivos WHERE id_usuario = :id_usuario AND confirmado = 1");
+$sql->bindValue(':id_usuario', $_SESSION['user_id']);
 $sql->execute();
 
-if ($sql->rowCount() != 1) {
-    $_SESSION = [];
-    session_destroy();
+$dispositivos = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-    header("Location: ../../auth/entrar/");
-    exit();
-}
-
-$sql = $pdo->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario");
-$sql->bindValue(':id_usuario', $_SESSION['session_id']);
-$sql->execute();
-
-if ($sql->rowCount() == 1) {
-    Sessions($pdo);
-
-    $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE id_usuario = :id_usuario AND confirmado = 1");
-    $sql->bindValue(':id_usuario', $_SESSION['session_id']);
-    $sql->execute();
-
-    $dispositivos = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-    if (count($dispositivos) > 0) {
-        $_SESSION['dispositivos'] = $dispositivos;
-    } else {
-        $_SESSION['dispositivos'] = [];
-    }
-
-    $sql = $pdo->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario AND ip_cadastro = :ip_cadastro");
-    $sql->bindValue(':id_usuario', $id_usuario);
-    $sql->bindValue(':ip_cadastro', $_SESSION['session_ip']);
-    $sql->execute();
-
-    if ($sql->rowCount() != 1) {
-        $_SESSION = [];
-        session_destroy();
-
-        header("Location: ../../auth/entrar/");
-        exit();
-    }
+if (count($dispositivos) > 0) {
+    $_SESSION['dispositivos'] = $dispositivos;
 } else {
-    $_SESSION = [];
-    session_destroy();
-
-    header("Location: ../../auth/entrar/");
-    exit();
+    $_SESSION['dispositivos'] = [];
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -73,7 +33,7 @@ if ($sql->rowCount() == 1) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <title>Vacinas - Perfil</title>
+    <title>Minhas Vacinas - Seus Dados</title>
 </head>
 
 <body>
@@ -127,38 +87,25 @@ if ($sql->rowCount() == 1) {
                     </li>
                     <li>
                         <a class="nav-link active" aria-expanded="false">
-                            <i class="bi bi-person"></i> Conta
+                            <i class="bi bi-person"></i> Seus Dados
                         </a>
                     </li>
                     <hr>
                 </ul>
                 <hr>
-                <?php if (isset($_SESSION['session_fotourl'])): ?>
-                    <p class="text-success">
-                        <img src="https://img.icons8.com/?size=512&id=17949&format=png" alt="Ícone Google" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 2px;">
-                        <small>Conectado com Google</small>
-                    </p>
-                <?php endif; ?>
                 <div class="dropdown">
                     <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php if (isset($_SESSION['session_fotourl'])): ?>
-                            <img src="<?php echo $_SESSION['session_fotourl']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
-                                width="40" height="40">
-                        <?php elseif (isset($_SESSION['session_foto_perfil']) && !empty($_SESSION['session_foto_perfil'])): ?>
-                            <img src="data:image/jpeg;base64,<?php echo base64_encode($_SESSION['session_foto_perfil']); ?>" alt="Foto do Usuário" class="rounded-circle me-2"
-                                width="40" height="40">
-                        <?php else: ?>
-                            <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
-                                width="40" height="40">
-                        <?php endif; ?>
-                        <span><?php echo isset($_SESSION['session_nome']) ? explode(' ', $_SESSION['session_nome'])[0] : 'Usuário'; ?></span>
+                        <div class="position-relative">
+                            <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2" width="40" height="40">
+                            <i class="fas fa-camera position-absolute bottom-0 end-0 text-white" style="font-size: 18px; opacity: 0; transition: opacity 0.3s;"></i>
+                        </div>
+                        <span>Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
                         <li><a class="dropdown-item" href="../../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                         <hr class="dropdown-divider">
-                        <li><a class="dropdown-item text-danger" href="" data-bs-toggle="modal"
-                                data-bs-target="#excluir-conta"><i class="fas fa-trash-alt"></i> Excluir conta</a></li>
+                        <li><a class="dropdown-item text-danger" href="" data-bs-toggle="modal" data-bs-target="#excluir-conta"><i class="fas fa-trash-alt"></i> Excluir conta</a></li>
                     </ul>
                 </div>
             </div>
@@ -166,85 +113,116 @@ if ($sql->rowCount() == 1) {
     </section>
 
     <!-- Perfil -->
-    <section class="profile-section py-5 padding-left-10">
+    <section class="profile-section py-5" id="perfil">
         <div class="container">
-            <div class="card shadow-lg border-0">
-                <div class="card-header bg-dark text-white text-center py-3">
-                    <h3>Dados do Perfil</h3>
+            <div class="row justify-content-end">
+                <div class="col-12 col-md-6" id="perfil-bottom">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <div class="card-header bg-gradient text-white text-center py-3" style="background-color: #007bff;">
+                            <h4 class="mb-0">Dados Pessoais</h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <form id="form_perfil" action="../../../backend/update_register.php" method="post" enctype="multipart/form-data">
+                                <div class="row g-4">
+                                    <div class="col-12 col-md-6">
+                                        <label for="nome" class="form-label">Nome</label>
+                                        <input type="text" class="form-control" id="nome" name="nome" disabled
+                                            value="<?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : ''; ?>">
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                                        <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" disabled
+                                            value="<?php echo isset($_SESSION['user_nascimento']) ? $_SESSION['user_nascimento'] : ''; ?>">
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label for="cpf" class="form-label">CPF</label>
+                                        <div class="position-relative">
+                                            <input type="text" class="form-control" id="cpf" name="cpf" disabled
+                                                value="<?php echo isset($_SESSION['user_cpf']) ? explode('.', $_SESSION['user_cpf'])[0] . '.***.***-**' : 'Usuário'; ?>">
+                                            <?php if (!empty($_SESSION['user_cpf'])): ?>
+                                                <small class="text-success position-absolute top-50 end-0 translate-middle-y me-3">
+                                                    <i class="fas fa-check-circle me-1"></i>
+                                                </small>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label for="genero" class="form-label">Gênero</label>
+                                        <select class="form-control" id="genero" name="genero" disabled>
+                                            <option value="Não Informado" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Não Informado') ? 'selected' : ''; ?>>Não Informado</option>
+                                            <option value="Masculino" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
+                                            <option value="Feminino" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Feminino') ? 'selected' : ''; ?>>Feminino</option>
+                                            <option value="Outro" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label for="estado" class="form-label">Estado</label>
+                                        <input type="text" class="form-control" id="state" name="state" disabled
+                                            value="<?php echo isset($_SESSION['user_estado']) ? $_SESSION['user_estado'] : ''; ?>">
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label for="cidade" class="form-label">Cidade</label>
+                                        <input type="text" class="form-control" id="capital" name="capital" disabled
+                                            value="<?php echo isset($_SESSION['user_cidade']) ? $_SESSION['user_cidade'] : ''; ?>">
+                                    </div>
+                                </div>
+                                <div class="text-center mt-5">
+                                    <button type="button" class="btn btn-dark rounded w-35 py-2"
+                                        data-bs-toggle="modal" data-bs-target="#updateModal">
+                                        <i class="bi bi-pencil-square"></i> EDITAR INFORMAÇÕES
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <form id="form_perfil" action="../../../backend/update_register.php" method="post" enctype="multipart/form-data">
-                        <div class="row g-3">
-                            <div class="col-12 col-md-6">
-                                <label for="nome" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="nome" name="nome" disabled
-                                    value="<?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : ''; ?>">
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label for="email" class="form-label">E-Mail</label>
-                                <div class="position-relative">
-                                    <input type="email" class="form-control" id="email" name="email" disabled
-                                        value="<?php echo isset($_SESSION['session_email']) ? $_SESSION['session_email'] : ''; ?>">
-                                    <small class="text-success d-flex align-items-center position-absolute top-50 end-0 translate-middle-y me-2">
-                                        <i class="fas fa-check-circle me-2" title="E-mail confirmado com sucesso!"></i>
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-                                <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" disabled
-                                    value="<?php echo isset($_SESSION['session_data_nascimento']) && !empty($_SESSION['session_data_nascimento']) ? $_SESSION['session_data_nascimento'] : ''; ?>">
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label for="telefone" class="form-label">Telefone</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">
-                                        <img src="../../../assets/img/num-img-br.png" alt="Bandeira do Brasil" style="width: 20px; height: 15px;" class="me-2">+55
-                                    </span>
-                                    <input type="text" class="form-control" id="telefone" name="telefone" disabled
-                                        value="<?php echo isset($_SESSION['session_telefone']) ? $_SESSION['session_telefone'] : ''; ?>">
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label for="cpf" class="form-label">CPF</label>
-                                <div class="position-relative">
-                                    <input type="text" class="form-control" id="cpf" name="cpf" disabled
-                                        value="<?php echo isset($_SESSION['session_cpf']) ? $_SESSION['session_cpf'] : ''; ?>">
-                                    <?php if (!empty($_SESSION['session_cpf'])): ?>
-                                        <small class="text-success d-flex align-items-center position-absolute top-50 end-0 translate-middle-y me-2">
-                                            <i class="fas fa-check-circle me-2" title="CPF válido!"></i>
-                                        </small>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label for="genero" class="form-label">Gênero</label>
-                                <select class="form-control" id="genero" name="genero" disabled>
-                                    <option value="Não Informado" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Não Informado') ? 'selected' : ''; ?>>Não Informado</option>
-                                    <option value="Masculino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
-                                    <option value="Feminino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Feminino') ? 'selected' : ''; ?>>Feminino</option>
-                                    <option value="Outro" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
-                                </select>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label for="estado" class="form-label">Estado</label>
-                                <input type="text" class="form-control" id="state" name="state" disabled
-                                    value="<?php echo isset($_SESSION['session_estado']) ? $_SESSION['session_estado'] : ''; ?>">
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <label for="cidade" class="form-label">Cidade</label>
-                                <input type="text" class="form-control" id="capital" name="capital" disabled
-                                    value="<?php echo isset($_SESSION['session_cidade']) ? $_SESSION['session_cidade'] : ''; ?>">
-                            </div>
+
+                <div class="col-12 col-md-6" id="dados-acesso">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <div class="card-header bg-gradient text-white text-center py-3" style="background-color: #007bff;">
+                            <h4 class="mb-0">Dados de Acesso</h4>
                         </div>
-                        <div class="text-center mt-4">
-                            <button type="button" class="btn btn-dark w-100 py-2 rounded-pill d-flex align-items-center justify-content-center gap-2"
-                                data-bs-toggle="modal" data-bs-target="#updateModal" style="background-color: rgb(44, 44, 44); border: none; transition: background-color 0.3s;">
-                                <i class="bi bi-pencil-square"></i>
-                                EDITAR DADOS
-                            </button>
+                        <div class="card-body p-4">
+                            <form id="form_perfil_email" action="../../../backend/update_email.php" method="post">
+                                <div class="row g-4">
+                                    <div class="col-12 col-md-6">
+                                        <label for="email" class="form-label">E-Mail</label>
+                                        <div class="position-relative">
+                                            <input type="email" class="form-control" id="email" name="email" disabled
+                                                value="<?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : 'E-mail'; ?>">
+                                            <small class="text-success position-absolute top-50 end-0 translate-middle-y me-3">
+                                                <i class="fas fa-check-circle me-1"></i>
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <label for="telefone" class="form-label">Telefone</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light text-dark">
+                                                <img src="/assets/img/num-img-br.png" alt="Bandeira do Brasil" style="width: 20px; height: 15px; margin-right: 5px;">
+                                                +55
+                                            </span>
+                                            <input type="text" class="form-control" id="telefone" name="telefone" disabled
+                                                value="<?php echo isset($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : ''; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="row text-center mt-5">
+                                        <div class="col-6 mb-3">
+                                            <button type="button" class="btn btn-dark rounded w-70 py-2" data-bs-toggle="modal" data-bs-target="#alterar-email">
+                                                <i class="bi bi-pencil-square pointer"></i> ALTERAR E-MAIL
+                                            </button>
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <a href="../../auth/esqueceu-senha/" class="btn btn-dark rounded w-70 py-2">
+                                                <i class="bi bi-pencil-square"></i> ALTERAR SENHA
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -258,10 +236,10 @@ if ($sql->rowCount() == 1) {
             <h2 class="text-center mb-5 text-dark">Dispositivos Conectados</h2>
             <div class="row justify-content-center g-4">
                 <?php
-                $session_ip = $_SESSION['session_ip'];
+                $user_ip = $_SESSION['user_ip'];
                 if (count($dispositivos) > 0):
                     foreach ($dispositivos as $dispositivo):
-                        $atual = $dispositivo['ip'] === $session_ip;
+                        $atual = $dispositivo['ip'] === $user_ip;
                         $icone = $dispositivo['tipo_dispositivo'] === 'Desktop' || $atual
                             ? 'bi bi-pc-display'
                             : ($dispositivo['tipo_dispositivo'] === 'Mobile'
@@ -329,11 +307,11 @@ if ($sql->rowCount() == 1) {
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label for="nome" class="form-label">Nome</label>
-                                    <input type="text" class="form-control" id="nome" name="nome" autocomplete="off" value="<?php echo isset($_SESSION['session_nome']) ? $_SESSION['session_nome'] : ''; ?>">
+                                    <input type="text" class="form-control" id="nome" name="nome" autocomplete="off" value="<?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : ''; ?>">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-                                    <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" autocomplete="off" value="<?php echo !empty($_SESSION['session_data_nascimento']) ? $_SESSION['session_data_nascimento'] : ''; ?>">
+                                    <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" autocomplete="off" value="<?php echo !empty($_SESSION['user_nascimento']) ? $_SESSION['user_nascimento'] : ''; ?>">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="telefone" class="form-label">Telefone</label>
@@ -341,10 +319,10 @@ if ($sql->rowCount() == 1) {
                                         <span class="input-group-text">
                                             <img src="../../../assets/img/num-img-br.png" alt="BR" style="width: 20px; height: 15px;"> +55
                                         </span>
-                                        <input type="text" class="form-control" id="telefone" name="telefone" autocomplete="off" value="<?php echo isset($_SESSION['session_telefone']) ? $_SESSION['session_telefone'] : ''; ?>">
+                                        <input type="text" class="form-control" id="telefone" name="telefone" autocomplete="off" value="<?php echo isset($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : ''; ?>">
                                     </div>
                                 </div>
-                                <?php if (empty($_SESSION['session_cpf'])): ?>
+                                <?php if (empty($_SESSION['user_cpf'])): ?>
                                     <div class="col-md-6">
                                         <label for="cpf" class="form-label">CPF</label>
                                         <input type="text" class="form-control" id="cpf" name="cpf" autocomplete="off">
@@ -353,43 +331,43 @@ if ($sql->rowCount() == 1) {
                                 <div class="col-md-6">
                                     <label for="genero" class="form-label">Gênero</label>
                                     <select class="form-select" id="genero" name="genero">
-                                        <option value="Não Informado" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Não Informado') ? 'selected' : ''; ?>>Não Informado</option>
-                                        <option value="Masculino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
-                                        <option value="Feminino" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Feminino') ? 'selected' : ''; ?>>Feminino</option>
-                                        <option value="Outro" <?php echo (isset($_SESSION['session_genero']) && $_SESSION['session_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
+                                        <option value="Não Informado" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Não Informado') ? 'selected' : ''; ?>>Não Informado</option>
+                                        <option value="Masculino" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
+                                        <option value="Feminino" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Feminino') ? 'selected' : ''; ?>>Feminino</option>
+                                        <option value="Outro" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="estado" class="form-label">Estado</label>
                                     <select class="form-select" id="estado" name="estado">
                                         <option value="" disabled selected>Selecione um estado</option>
-                                        <option value="AC" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AC') ? 'selected' : ''; ?>>Acre</option>
-                                        <option value="AL" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AL') ? 'selected' : ''; ?>>Alagoas</option>
-                                        <option value="AP" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AP') ? 'selected' : ''; ?>>Amapá</option>
-                                        <option value="AM" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'AM') ? 'selected' : ''; ?>>Amazonas</option>
-                                        <option value="BA" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'BA') ? 'selected' : ''; ?>>Bahia</option>
-                                        <option value="CE" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'CE') ? 'selected' : ''; ?>>Ceará</option>
-                                        <option value="DF" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'DF') ? 'selected' : ''; ?>>Distrito Federal</option>
-                                        <option value="ES" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'ES') ? 'selected' : ''; ?>>Espírito Santo</option>
-                                        <option value="GO" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'GO') ? 'selected' : ''; ?>>Goiás</option>
-                                        <option value="MA" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'MA') ? 'selected' : ''; ?>>Maranhão</option>
-                                        <option value="MT" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'MT') ? 'selected' : ''; ?>>Mato Grosso</option>
-                                        <option value="MS" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'MS') ? 'selected' : ''; ?>>Mato Grosso do Sul</option>
-                                        <option value="MG" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'MG') ? 'selected' : ''; ?>>Minas Gerais</option>
-                                        <option value="PA" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'PA') ? 'selected' : ''; ?>>Pará</option>
-                                        <option value="PB" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'PB') ? 'selected' : ''; ?>>Paraíba</option>
-                                        <option value="PR" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'PR') ? 'selected' : ''; ?>>Paraná</option>
-                                        <option value="PE" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'PE') ? 'selected' : ''; ?>>Pernambuco</option>
-                                        <option value="PI" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'PI') ? 'selected' : ''; ?>>Piauí</option>
-                                        <option value="RJ" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'RJ') ? 'selected' : ''; ?>>Rio de Janeiro</option>
-                                        <option value="RN" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'RN') ? 'selected' : ''; ?>>Rio Grande do Norte</option>
-                                        <option value="RS" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'RS') ? 'selected' : ''; ?>>Rio Grande do Sul</option>
-                                        <option value="RO" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'RO') ? 'selected' : ''; ?>>Rondônia</option>
-                                        <option value="RR" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'RR') ? 'selected' : ''; ?>>Roraima</option>
-                                        <option value="SC" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'SC') ? 'selected' : ''; ?>>Santa Catarina</option>
-                                        <option value="SP" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'SP') ? 'selected' : ''; ?>>São Paulo</option>
-                                        <option value="SE" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'SE') ? 'selected' : ''; ?>>Sergipe</option>
-                                        <option value="TO" <?php echo (isset($_SESSION['session_estado']) && $_SESSION['session_estado'] == 'TO') ? 'selected' : ''; ?>>Tocantins</option>
+                                        <option value="AC" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'AC') ? 'selected' : ''; ?>>Acre</option>
+                                        <option value="AL" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'AL') ? 'selected' : ''; ?>>Alagoas</option>
+                                        <option value="AP" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'AP') ? 'selected' : ''; ?>>Amapá</option>
+                                        <option value="AM" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'AM') ? 'selected' : ''; ?>>Amazonas</option>
+                                        <option value="BA" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'BA') ? 'selected' : ''; ?>>Bahia</option>
+                                        <option value="CE" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'CE') ? 'selected' : ''; ?>>Ceará</option>
+                                        <option value="DF" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'DF') ? 'selected' : ''; ?>>Distrito Federal</option>
+                                        <option value="ES" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'ES') ? 'selected' : ''; ?>>Espírito Santo</option>
+                                        <option value="GO" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'GO') ? 'selected' : ''; ?>>Goiás</option>
+                                        <option value="MA" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'MA') ? 'selected' : ''; ?>>Maranhão</option>
+                                        <option value="MT" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'MT') ? 'selected' : ''; ?>>Mato Grosso</option>
+                                        <option value="MS" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'MS') ? 'selected' : ''; ?>>Mato Grosso do Sul</option>
+                                        <option value="MG" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'MG') ? 'selected' : ''; ?>>Minas Gerais</option>
+                                        <option value="PA" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'PA') ? 'selected' : ''; ?>>Pará</option>
+                                        <option value="PB" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'PB') ? 'selected' : ''; ?>>Paraíba</option>
+                                        <option value="PR" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'PR') ? 'selected' : ''; ?>>Paraná</option>
+                                        <option value="PE" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'PE') ? 'selected' : ''; ?>>Pernambuco</option>
+                                        <option value="PI" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'PI') ? 'selected' : ''; ?>>Piauí</option>
+                                        <option value="RJ" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'RJ') ? 'selected' : ''; ?>>Rio de Janeiro</option>
+                                        <option value="RN" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'RN') ? 'selected' : ''; ?>>Rio Grande do Norte</option>
+                                        <option value="RS" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'RS') ? 'selected' : ''; ?>>Rio Grande do Sul</option>
+                                        <option value="RO" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'RO') ? 'selected' : ''; ?>>Rondônia</option>
+                                        <option value="RR" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'RR') ? 'selected' : ''; ?>>Roraima</option>
+                                        <option value="SC" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'SC') ? 'selected' : ''; ?>>Santa Catarina</option>
+                                        <option value="SP" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'SP') ? 'selected' : ''; ?>>São Paulo</option>
+                                        <option value="SE" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'SE') ? 'selected' : ''; ?>>Sergipe</option>
+                                        <option value="TO" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'TO') ? 'selected' : ''; ?>>Tocantins</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
@@ -399,14 +377,10 @@ if ($sql->rowCount() == 1) {
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="foto_perfil" class="form-label">Foto de Perfil</label>
-                                    <input type="file" class="form-control" id="foto_perfil" name="foto_perfil" accept="image/*">
-                                </div>
                             </div>
                             <div class="text-end mt-4">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                                <button type="submit" class="btn btn-dark">SALVAR INFORMAÇÕES</button>
                             </div>
                         </form>
                     </div>
@@ -549,11 +523,11 @@ if ($sql->rowCount() == 1) {
                     <div class="modal-body">
                         <ul class="list-group list-group-flush">
                             <?php
-                            $session_ip = $_SESSION['session_ip'];
+                            $user_ip = $_SESSION['user_ip'];
                             $desktop_atual = null;
                             if (count($dispositivos) > 0):
                                 foreach ($dispositivos as $dispositivo):
-                                    if ($dispositivo['tipo_dispositivo'] === 'desktop' && $dispositivo['ip'] === $session_ip) {
+                                    if ($dispositivo['tipo_dispositivo'] === 'desktop' && $dispositivo['ip'] === $user_ip) {
                                         $desktop_atual = $dispositivo['nome_dispositivo'];
                                         $classe_atual = 'bg-warning text-dark'; // Destaque para o desktop atual
                                     } else {

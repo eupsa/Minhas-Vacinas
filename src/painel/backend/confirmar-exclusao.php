@@ -9,7 +9,7 @@ require '../../scripts/conn.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$id_usuario = $_SESSION['session_id'];
+$id_usuario = $_SESSION['user_id'];
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $codigo = strtolower(trim($dados['codigo']));
 
@@ -56,10 +56,12 @@ if (empty($codigo)) {
             $sql->bindValue(':id_usuario', $id_usuario);
             $sql->execute();
 
-
             enviarEmail($email);
             $_SESSION = [];
-            $retorna = ['status' => true, 'msg' => "Conta excluida com sucesso."];
+            $retorna = [
+                'status' => true,
+                'msg' => "A sua conta foi excluída com sucesso. Todos os dados associados a ela foram removidos permanentemente."
+            ];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit();

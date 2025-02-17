@@ -4,7 +4,7 @@ require '../../scripts/conn.php';
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $id_vac = $dados['id_vac'];
-$id_usuario = $_SESSION['session_id'];
+$id_usuario = $_SESSION['user_id'];
 
 if (empty($id_vac)) {
     header('Location: ../vacinas/');

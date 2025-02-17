@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['session_id'])) {
+if (isset($_SESSION['user_id'])) {
     header("Location: ../../painel/");
     exit();
 }
@@ -39,7 +39,7 @@ if (isset($_SESSION['session_id'])) {
                         <li class="nav-item"><a href="/src/ajuda/" class="nav-link">Suporte</a></li>
                     </ul>
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
-                        <?php if (isset($_SESSION['session_id'])): ?>
+                        <?php if (isset($_SESSION['user_id'])): ?>
                             <li class="nav-item">
                                 <a class="btn btn-primary rounded-pill px-4 py-2 text-white" href="../../painel/">
                                     <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
@@ -74,7 +74,7 @@ if (isset($_SESSION['session_id'])) {
                     <li class="nav-item"><a href="/src/ajuda/" class="nav-link">Suporte</a></li>
                 </ul>
                 <div class="d-flex flex-column align-items-center gap-2 mt-3">
-                    <?php if (isset($_SESSION['session_id'])): ?>
+                    <?php if (isset($_SESSION['user_id'])): ?>
                         <a class="btn btn-primary rounded-pill px-4 py-2 text-white w-100 text-center" href="../../painel/">
                             <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
                         </a>

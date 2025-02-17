@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = filter_var(strtolower(trim($dados['email'])), FILTER_SANITIZE_EMAIL);
-$id_usuario = $_SESSION['session_id'];
+$id_usuario = $_SESSION['user_id'];
 
 if (empty($email)) {
     $retorna = ['status' => false, 'msg' => "O campo e-mail não foi preenchido."];

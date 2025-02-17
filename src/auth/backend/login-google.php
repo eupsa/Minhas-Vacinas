@@ -50,10 +50,10 @@ if (isset($payload['email'])) {
         $sql->execute();
 
         if ($sql->rowCount() == 1) {
-            $_SESSION['session_id'] = $usuario['id_usuario'];
-            $_SESSION['session_nome'] = $usuario['nome'];
-            $_SESSION['session_email'] = $usuario['email'];
-            $_SESSION['session_ip'] = $ip;
+            $_SESSION['user_id'] = $usuario['id_usuario'];
+            $_SESSION['user_nome'] = $usuario['nome'];
+            $_SESSION['user_email'] = $usuario['email'];
+            $_SESSION['user_ip'] = $ip;
             header('Location: ../../painel/');
             exit();
         } else {
@@ -79,10 +79,10 @@ if (isset($payload['email'])) {
                     exit();
                 } else {
                     header('Location: ../../painel/');
-                    $_SESSION['session_id'] = $usuario['id_usuario'];
-                    $_SESSION['session_nome'] = $usuario['nome'];
-                    $_SESSION['session_email'] = $usuario['email'];
-                    $_SESSION['session_ip'] = $ip;
+                    $_SESSION['user_id'] = $usuario['id_usuario'];
+                    $_SESSION['user_nome'] = $usuario['nome'];
+                    $_SESSION['user_email'] = $usuario['email'];
+                    $_SESSION['user_ip'] = $ip;
                     exit();
                 }
             } else {

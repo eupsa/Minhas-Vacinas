@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = filter_var(strtolower(trim($dados['email'])), FILTER_SANITIZE_EMAIL);
-$email_atual = $_SESSION['session_email'];
+$email_atual = $_SESSION['user_email'];
 
 if (empty($email)) {
     $retorna = ['status' => false, 'msg' => "O campo e-mail não foi preenchido."];
@@ -54,7 +54,7 @@ try {
     $sql = $pdo->prepare("INSERT INTO mudar_email (email, codigo, id_usuario) VALUES (:email, :codigo, :id_usuario)");
     $sql->bindValue(':email', $email);
     $sql->bindValue(':codigo', $codigo);
-    $sql->bindValue(':id_usuario', $_SESSION['session_id']);
+    $sql->bindValue(':id_usuario', $_SESSION['user_id']);
     $sql->execute();
 
     enviarEmail($email, $codigo);

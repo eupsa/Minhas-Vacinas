@@ -38,7 +38,7 @@ if (empty($codigo)) {
                 $sql->execute();
 
                 enviarEmail($email);
-                $_SESSION['session_email'] = $email;
+                $_SESSION['user_id'] = $email;
                 $retorna = ['status' => true, 'msg' => "E-mail alterado e verificado com sucesso."];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
