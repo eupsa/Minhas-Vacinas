@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once '../../scripts/User-Auth.php';
-require_once '../../scripts/conn.php';
+require_once '../../../scripts/User-Auth.php';
+require_once '../../../scripts/conn.php';
 
 Auth($pdo);
 Gerar_Session($pdo);
@@ -26,13 +26,13 @@ if (count($dispositivos) > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="../../../../assets/img/img-web.png" type="image/x-icon">
+    <link rel="icon" href="../../../../../assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <title>Minhas Vacinas - Seus Dados</title>
+    <title>Minhas Vacinas - Seus Dispositivos</title>
 </head>
 
 <body>
@@ -41,7 +41,7 @@ if (count($dispositivos) > 0) {
             style="background-color: #007bff; z-index: 1100; width: 100%; left: 50%; transform: translateX(-50%);">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
+                    <img src="../../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
                 <button class="navbar-toggler" id="sidebarToggle" type="button" data-bs-toggle="sidebar" data-bs-target="#sidebar" aria-controls="sidebar">
                     <span class="navbar-toggler-icon"></span>
@@ -61,7 +61,7 @@ if (count($dispositivos) > 0) {
     </header>
 
     <!-- Sidebar -->
-    <section>
+    <!-- <section>
         <div>
             <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
                 <div class="d-flex align-items-center justify-content-center" style="height: 10vh;"></div>
@@ -107,10 +107,10 @@ if (count($dispositivos) > 0) {
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Perfil -->
-    <section class="profile-section py-5" id="perfil">
+    <!-- <section class="profile-section py-5" id="perfil" style="margin-top: 5%;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8">
@@ -181,13 +181,13 @@ if (count($dispositivos) > 0) {
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <hr>
 
     <!-- Dispositivos -->
     <section class="profile-section py-5" style="background-color: #f4f4f4;" id="dispositivos">
-        <div class="container">
+        <div class="container" style="margin-top: 3%;">
             <h2 class="text-center mb-5 text-dark">Dispositivos Conectados</h2>
             <div class="row justify-content-center g-4">
                 <?php
