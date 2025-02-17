@@ -17,7 +17,6 @@ if (count($dispositivos) > 0) {
 } else {
     $_SESSION['dispositivos'] = [];
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -44,8 +43,7 @@ if (count($dispositivos) > 0) {
                 <a class="navbar-brand" href="/">
                     <img src="../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
-                <button style="margin-left: 90%;" class="navbar-toggler d-block" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="sidebarToggle">
+                <button class="navbar-toggler" id="sidebarToggle" type="button" data-bs-toggle="sidebar" data-bs-target="#sidebar" aria-controls="sidebar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav" style="padding-left: 90%;">
@@ -65,12 +63,6 @@ if (count($dispositivos) > 0) {
     <!-- Sidebar -->
     <section>
         <div>
-            <!-- Botão de alternância sempre visível -->
-            <button class="navbar-toggler d-block d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="sidebarToggle">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
             <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
                 <div class="d-flex align-items-center justify-content-center" style="height: 10vh;"></div>
                 <hr>
@@ -115,38 +107,31 @@ if (count($dispositivos) > 0) {
     <!-- Perfil -->
     <section class="profile-section py-5" id="perfil">
         <div class="container">
-            <div class="row justify-content-end">
-                <div class="col-12 col-md-6" id="perfil-bottom">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8">
                     <div class="card shadow-lg border-0 rounded-4">
                         <div class="card-header bg-gradient text-white text-center py-3" style="background-color: #007bff;">
-                            <h4 class="mb-0">Dados Pessoais</h4>
+                            <h4 class="mb-0">Dados do Usuário</h4>
                         </div>
                         <div class="card-body p-4">
                             <form id="form_perfil" action="../../../backend/update_register.php" method="post" enctype="multipart/form-data">
                                 <div class="row g-4">
-                                    <div class="col-12 col-md-6">
+                                    <div class="col-12">
                                         <label for="nome" class="form-label">Nome</label>
                                         <input type="text" class="form-control" id="nome" name="nome" disabled
                                             value="<?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : ''; ?>">
                                     </div>
-                                    <div class="col-12 col-md-6">
+                                    <div class="col-12">
                                         <label for="data_nascimento" class="form-label">Data de Nascimento</label>
                                         <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" disabled
                                             value="<?php echo isset($_SESSION['user_nascimento']) ? $_SESSION['user_nascimento'] : ''; ?>">
                                     </div>
-                                    <div class="col-12 col-md-6">
+                                    <div class="col-12">
                                         <label for="cpf" class="form-label">CPF</label>
-                                        <div class="position-relative">
-                                            <input type="text" class="form-control" id="cpf" name="cpf" disabled
-                                                value="<?php echo isset($_SESSION['user_cpf']) ? explode('.', $_SESSION['user_cpf'])[0] . '.***.***-**' : 'Usuário'; ?>">
-                                            <?php if (!empty($_SESSION['user_cpf'])): ?>
-                                                <small class="text-success position-absolute top-50 end-0 translate-middle-y me-3">
-                                                    <i class="fas fa-check-circle me-1"></i>
-                                                </small>
-                                            <?php endif; ?>
-                                        </div>
+                                        <input type="text" class="form-control" id="cpf" name="cpf" disabled
+                                            value="<?php echo isset($_SESSION['user_cpf']) ? explode('.', $_SESSION['user_cpf'])[0] . '.***.***-**' : 'Usuário'; ?>">
                                     </div>
-                                    <div class="col-12 col-md-6">
+                                    <div class="col-12">
                                         <label for="genero" class="form-label">Gênero</label>
                                         <select class="form-control" id="genero" name="genero" disabled>
                                             <option value="Não Informado" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Não Informado') ? 'selected' : ''; ?>>Não Informado</option>
@@ -155,70 +140,31 @@ if (count($dispositivos) > 0) {
                                             <option value="Outro" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
                                         </select>
                                     </div>
-                                    <div class="col-12 col-md-6">
+                                    <div class="col-12">
                                         <label for="estado" class="form-label">Estado</label>
                                         <input type="text" class="form-control" id="state" name="state" disabled
                                             value="<?php echo isset($_SESSION['user_estado']) ? $_SESSION['user_estado'] : ''; ?>">
                                     </div>
-                                    <div class="col-12 col-md-6">
+                                    <div class="col-12">
                                         <label for="cidade" class="form-label">Cidade</label>
                                         <input type="text" class="form-control" id="capital" name="capital" disabled
                                             value="<?php echo isset($_SESSION['user_cidade']) ? $_SESSION['user_cidade'] : ''; ?>">
                                     </div>
+                                    <div class="col-12">
+                                        <label for="email" class="form-label">E-Mail</label>
+                                        <input type="email" class="form-control" id="email" name="email" disabled
+                                            value="<?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : 'E-mail'; ?>">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="telefone" class="form-label">Telefone</label>
+                                        <input type="text" class="form-control" id="telefone" name="telefone" disabled
+                                            value="<?php echo isset($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : ''; ?>">
+                                    </div>
                                 </div>
                                 <div class="text-center mt-5">
-                                    <button type="button" class="btn btn-dark rounded w-35 py-2"
-                                        data-bs-toggle="modal" data-bs-target="#updateModal">
+                                    <button type="button" class="btn btn-dark rounded w-35 py-2" data-bs-toggle="modal" data-bs-target="#updateModal">
                                         <i class="bi bi-pencil-square"></i> EDITAR INFORMAÇÕES
                                     </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6" id="dados-acesso">
-                    <div class="card shadow-lg border-0 rounded-4">
-                        <div class="card-header bg-gradient text-white text-center py-3" style="background-color: #007bff;">
-                            <h4 class="mb-0">Dados de Acesso</h4>
-                        </div>
-                        <div class="card-body p-4">
-                            <form id="form_perfil_email" action="../../../backend/update_email.php" method="post">
-                                <div class="row g-4">
-                                    <div class="col-12 col-md-6">
-                                        <label for="email" class="form-label">E-Mail</label>
-                                        <div class="position-relative">
-                                            <input type="email" class="form-control" id="email" name="email" disabled
-                                                value="<?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : 'E-mail'; ?>">
-                                            <small class="text-success position-absolute top-50 end-0 translate-middle-y me-3">
-                                                <i class="fas fa-check-circle me-1"></i>
-                                            </small>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <label for="telefone" class="form-label">Telefone</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-light text-dark">
-                                                <img src="/assets/img/num-img-br.png" alt="Bandeira do Brasil" style="width: 20px; height: 15px; margin-right: 5px;">
-                                                +55
-                                            </span>
-                                            <input type="text" class="form-control" id="telefone" name="telefone" disabled
-                                                value="<?php echo isset($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : ''; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="row text-center mt-5">
-                                        <div class="col-6 mb-3">
-                                            <button type="button" class="btn btn-dark rounded w-70 py-2" data-bs-toggle="modal" data-bs-target="#alterar-email">
-                                                <i class="bi bi-pencil-square pointer"></i> ALTERAR E-MAIL
-                                            </button>
-                                        </div>
-                                        <div class="col-6 mb-3">
-                                            <a href="../../auth/esqueceu-senha/" class="btn btn-dark rounded w-70 py-2">
-                                                <i class="bi bi-pencil-square"></i> ALTERAR SENHA
-                                            </a>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </form>
                         </div>

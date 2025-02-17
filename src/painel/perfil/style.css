@@ -158,8 +158,8 @@ body.dark {
 @media (max-width: 992px) {
   #sidebarToggle {
     position: absolute;
-    top: 15px; /* Ajuste a distância do topo conforme necessário */
-    left: -30px; /* Ajuste a distância da esquerda conforme necessário */
+    top: 18px; /* Ajuste a distância do topo conforme necessário */
+    right: 0.9rem;
     z-index: 1050; /* Garantir que o botão fique acima de outros elementos */
   }
 }
