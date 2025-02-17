@@ -29,7 +29,7 @@ if (count($vacinas) > 0) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Cadastro de Vacinas</title>
+    <title>Minhas Vacinas - Cadastro de Vacinas</title>
 </head>
 
 <body>
