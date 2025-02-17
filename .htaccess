@@ -45,7 +45,7 @@ ErrorDocument 500 /assets/error/500.html
 RewriteEngine On
 
 # Permitir acesso ao seu IP
-RewriteCond %{REMOTE_ADDR} !=201.29.190.208
+RewriteCond %{REMOTE_ADDR} !=201.4.49.133
 RewriteCond %{REQUEST_URI} !^/index.html$
 RewriteRule ^.*$ /index.html [L,R=302]
 
