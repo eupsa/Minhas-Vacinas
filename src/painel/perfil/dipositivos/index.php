@@ -25,7 +25,7 @@ if (count($dispositivos) > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <link rel="icon" href="../../../../../assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -37,8 +37,7 @@ if (count($dispositivos) > 0) {
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top"
-            style="background-color: #007bff; z-index: 1100; width: 100%; left: 50%; transform: translateX(-50%);">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #007bff; z-index: 1100; width: 100%; left: 50%; transform: translateX(-50%);">
             <div class="container">
                 <a class="navbar-brand" href="/">
                     <img src="../../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
@@ -47,141 +46,13 @@ if (count($dispositivos) > 0) {
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav" style="padding-left: 90%;">
-                    <!-- <ul class="navbar-nav">
-                        <li style="margin-left: 20px; margin-top: 2%;">
-                            <div id="themeToggle" class="theme-toggle d-flex align-items-center" style="cursor: pointer;">
-                                <i class="bi bi-sun" id="sunIcon" style="font-size: 1.2em;"></i>
-                                <i class="bi bi-moon" id="moonIcon" style="font-size: 1.2em; display: none;"></i>
-                            </div>
-                        </li>
-                    </ul> -->
+                    <a href="javascript:history.back()" class="btn btn-light w-100 d-flex align-items-center" style="margin-left: 20px;">
+                        <i class="bi bi-arrow-left" style="margin-right: 8px;"></i> VOLTAR
+                    </a>
                 </div>
             </div>
         </nav>
     </header>
-
-    <!-- Sidebar -->
-    <!-- <section>
-        <div>
-            <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
-                <div class="d-flex align-items-center justify-content-center" style="height: 10vh;"></div>
-                <hr>
-                <ul class="nav nav-pills flex-column mb-auto">
-                    <li class="nav-item">
-                        <a href="../" class="nav-link text-white" aria-current="page">
-                            <i class="bi bi-house-door"></i> Início
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../vacinas/" class="nav-link text-white">
-                            <i class="fas fa-syringe"></i> Vacinas
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link active" aria-expanded="false">
-                            <i class="bi bi-person"></i> Seus Dados
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link text-white" href="dipositivos/" aria-expanded="false">
-                            <i class="bi bi-laptop"></i> Dispositivos
-                        </a>
-                    </li>
-                    <hr>
-                </ul>
-                <hr>
-                <div class="dropdown">
-                    <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="position-relative">
-                            <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2" width="40" height="40">
-                            <i class="fas fa-camera position-absolute bottom-0 end-0 text-white" style="font-size: 18px; opacity: 0; transition: opacity 0.3s;"></i>
-                        </div>
-                        <span>Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="../../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
-                        <hr class="dropdown-divider">
-                        <li><a class="dropdown-item text-danger" href="" data-bs-toggle="modal" data-bs-target="#excluir-conta"><i class="fas fa-trash-alt"></i> Excluir conta</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- Perfil -->
-    <!-- <section class="profile-section py-5" id="perfil" style="margin-top: 5%;">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-8">
-                    <div class="card shadow-lg border-0 rounded-4">
-                        <div class="card-header bg-gradient text-white text-center py-3" style="background-color: #343a40;">
-                            <h4 class="mb-0">Dados do Usuário</h4>
-                        </div>
-                        <div class="card-body p-4">
-                            <form id="form_perfil" action="../../../backend/update_register.php" method="post" enctype="multipart/form-data">
-                                <div class="row g-4">
-                                    <div class="col-12">
-                                        <label for="nome" class="form-label">Nome</label>
-                                        <input type="text" class="form-control" id="nome" name="nome" disabled
-                                            value="<?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : ''; ?>">
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="email" class="form-label">E-Mail</label>
-                                        <input type="email" class="form-control" id="email" name="email" disabled
-                                            value="<?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : 'E-mail'; ?>">
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="telefone" class="form-label">Telefone</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text">
-                                                <img src="../../../assets/img/num-img-br.png" alt="BR" style="width: 20px; height: 15px;"> +55
-                                            </span>
-                                            <input type="text" class="form-control" id="telefone" name="telefone" disabled autocomplete="off" value="<?php echo isset($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : ''; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="cpf" class="form-label">CPF</label>
-                                        <input type="text" class="form-control" id="cpf" name="cpf" disabled
-                                            value="<?php echo isset($_SESSION['user_cpf']) ? explode('.', $_SESSION['user_cpf'])[0] . '.***.***-**' : '***.***.***-**'; ?>">
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-                                        <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" disabled
-                                            value="<?php echo isset($_SESSION['user_nascimento']) ? $_SESSION['user_nascimento'] : ''; ?>">
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="genero" class="form-label">Gênero</label>
-                                        <select class="form-control" id="genero" name="genero" disabled>
-                                            <option value="Não Informado" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Não Informado') ? 'selected' : ''; ?>>Não Informado</option>
-                                            <option value="Masculino" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
-                                            <option value="Feminino" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Feminino') ? 'selected' : ''; ?>>Feminino</option>
-                                            <option value="Outro" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="estado" class="form-label">Estado</label>
-                                        <input type="text" class="form-control" id="state" name="state" disabled
-                                            value="<?php echo isset($_SESSION['user_estado']) ? $_SESSION['user_estado'] : ''; ?>">
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="cidade" class="form-label">Cidade</label>
-                                        <input type="text" class="form-control" id="capital" name="capital" disabled
-                                            value="<?php echo isset($_SESSION['user_cidade']) ? $_SESSION['user_cidade'] : ''; ?>">
-                                    </div>
-                                </div>
-                                <div class="text-center mt-5">
-                                    <button type="button" class="btn btn-dark rounded w-35 py-2" data-bs-toggle="modal" data-bs-target="#updateModal">
-                                        <i class="bi bi-pencil-square"></i> EDITAR INFORMAÇÕES
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
 
     <hr>
 
@@ -189,6 +60,8 @@ if (count($dispositivos) > 0) {
     <section class="profile-section py-5" style="background-color: #f4f4f4;" id="dispositivos">
         <div class="container" style="margin-top: 3%;">
             <h2 class="text-center mb-5 text-dark">Dispositivos Conectados</h2>
+            <p class="text-center mt-4">Aqui estão todos os dispositivos conectados à sua conta do <strong>Minhas Vacinas</strong>. Você pode sair de cada um individualmente.</p>
+            <p class="text-center">Se você não reconhecer algum dispositivo conectado à sua conta, saia do dispositivo e altere a sua senha do <strong>Minhas Vacinas</strong> imediatamente.</p>
             <div class="row justify-content-center g-4">
                 <?php
                 $user_ip = $_SESSION['user_ip'];
@@ -287,12 +160,12 @@ if (count($dispositivos) > 0) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="script.js"></script>
-    <script src="mudar-email.js"></script>
-    <script src="confirmar-email.js"></script>
-    <script src="excluir-conta.js"></script>
-    <script src="confirmar-exclusao.js"></script>
-    <script src="api-ibge.js"></script>
+    <script src="../script.js"></script>
+    <script src="../mudar-email.js"></script>
+    <script src="../confirmar-email.js"></script>
+    <script src="../excluir-conta.js"></script>
+    <script src="../confirmar-exclusao.js"></script>
+    <script src="../api-ibge.js"></script>
 </body>
 
 </html>
