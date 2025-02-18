@@ -230,9 +230,11 @@ if (count($dispositivos) > 0) {
                                 <div class="card-footer bg-light text-center">
                                     <form action="../backend/remover-dispositivo.php" id="form-remover-dispositivo" method="POST">
                                         <input type="hidden" name="dispositivo_id" value="<?php echo $dispositivo['id']; ?>" />
-                                        <button type="submit" class="btn btn-outline-danger btn-sm">
-                                            <i class="bi bi-x-circle"></i>
-                                        </button>
+                                        <?php if (!$atual): ?>
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                <i class="bi bi-x-circle"></i>
+                                            </button>
+                                        <?php endif; ?>
                                     </form>
                                 </div>
                             </div>
