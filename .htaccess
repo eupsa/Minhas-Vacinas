@@ -48,13 +48,10 @@ RewriteRule .* - [F,L]
     ExpiresByType application/x-javascript "access plus 1 month"
 </IfModule>
 
-
+ #Bloquear IPS
 <RequireAll>
     Require all granted
-    # Require not ip 189.70.247.238
-    # Require not ip 201.29.190.208
-    Require not ip 104.21.62.154
-    Require not ip 172.67.168.94
+    Require not ip 000.000.000
 </RequireAll>
 
 # RewriteEngine On

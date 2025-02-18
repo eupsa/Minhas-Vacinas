@@ -101,7 +101,7 @@ if (isset($_SESSION['user_id'])) {
                             <div class="d-flex justify-content-center align-items-center">
                                 <div id="g_id_onload"
                                     data-client_id="14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com"
-                                    data-login_uri="https://www.minhasvacinas.online/src/auth/backend/cadastro-google.php"
+                                    data-login_uri="https://www.minhasvacinas.online/src/auth/backend/login-google.php"
                                     data-auto_prompt="true"
                                     data-itp_support="true">
                                 </div>
