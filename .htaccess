@@ -16,9 +16,17 @@ ErrorDocument 404 /assets/error/404.html
 ErrorDocument 500 /assets/error/500.html
 
 # Bloquear acesso a arquivos sensíveis
-<FilesMatch "^\.(env|htaccess|git|gitignore|htpasswd|config\.php)$">
+<FilesMatch "^\.(env|htaccess|git|gitignore|htpasswd|config\.php|conn\.php)$">
     Require all denied
 </FilesMatch>
+
+# Bloquear acesso à pasta .git
+RewriteRule ^\.git - [F,L]
+
+# Bloquear acesso direto à pasta assets, exceto para imagens
+RewriteCond %{REQUEST_URI} ^/assets/ [NC]
+RewriteCond %{REQUEST_URI} !\.(jpg|jpeg|png|gif|webp|svg|ico)$ [NC]
+RewriteRule .* - [F,L]
 
 # Habilitar Cache de Navegador
 <IfModule mod_expires.c>
