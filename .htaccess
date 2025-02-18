@@ -21,7 +21,7 @@ ErrorDocument 500 /assets/error/500.html
 </FilesMatch>
 
 # Bloquear acesso à pasta .git
-RewriteRule ^\.git - [F,L]
+RewriteRule ^\.git(/|$) - [F,L]
 
 # Bloquear acesso direto à pasta assets, exceto para imagens
 RewriteCond %{REQUEST_URI} ^/assets/ [NC]
