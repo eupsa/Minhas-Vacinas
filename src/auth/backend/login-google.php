@@ -140,7 +140,7 @@ function enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
-        $mail->Subject = 'Novo acesso a sua conta';
+        $mail->Subject = 'Sua conta Minhas Vacinas foi acessada a partir de um novo endereço IP';
         $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img');
         $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;
