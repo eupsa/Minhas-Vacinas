@@ -113,7 +113,7 @@ if (count($dispositivos) > 0) {
     <section class="profile-section py-5" id="perfil">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12 col-md-8">
+                <div class="col-12 col-md-8" style="margin-right: 6%;">
                     <div class="card shadow-lg border-0 rounded-4">
                         <div class="card-header bg-gradient text-white text-center py-3" style="background-color: #343a40;">
                             <h4 class="mb-0">Dados do Usuário</h4>
