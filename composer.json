@@ -1,4 +1,7 @@
 {
+  "name": "psilvagg/minhas-vacinas",
+  "description": "Sistema para gestão digital de vacinas.",
+  "license": "proprietary",
   "require": {
     "phpmailer/phpmailer": "^6.0",
     "google/apiclient": "^2.18"

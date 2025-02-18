@@ -23,6 +23,13 @@ ErrorDocument 500 /assets/error/500.html
 # Bloquear acesso à pasta .git
 RewriteRule ^\.git(/|$) - [F,L]
 
+# Bloquear a pasta vendor
+RewriteRule ^vendor/ - [F,L]
+
+# Bloquear listagem de diretórios
+Options -Indexes
+
+
 # Bloquear acesso direto à pasta assets, exceto para imagens
 RewriteCond %{REQUEST_URI} ^/assets/ [NC]
 RewriteCond %{REQUEST_URI} !\.(jpg|jpeg|png|gif|webp|svg|ico)$ [NC]
