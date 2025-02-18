@@ -1,13 +1,13 @@
-# Ativar RewriteEngine
-RewriteEngine On
+# # Ativar RewriteEngine
+# RewriteEngine On
 
-# Redirecionar para HTTPS se estiver em HTTP
-RewriteCond %{HTTPS} off
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+# # Redirecionar para HTTPS se estiver em HTTP
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
-# Redirecionar apenas 'minhasvacinas.online' para 'www.minhasvacinas.online'
-RewriteCond %{HTTP_HOST} ^minhasvacinas\.online$ [NC]
-RewriteRule ^ https://www.minhasvacinas.online%{REQUEST_URI} [R=301,L]
+# # Redirecionar apenas 'minhasvacinas.online' para 'www.minhasvacinas.online'
+# RewriteCond %{HTTP_HOST} ^minhasvacinas\.online$ [NC]
+# RewriteRule ^ https://www.minhasvacinas.online%{REQUEST_URI} [R=301,L]
 
 # Páginas de erro personalizadas
 ErrorDocument 401 /assets/error/401.html
