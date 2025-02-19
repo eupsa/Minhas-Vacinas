@@ -36,7 +36,7 @@ if (form_login) {
           confirmButtonText: "Fechar",
         }).then(() => {
           form_login.reset();
-          window.location.href = "inicio/";
+          window.location.href = "painel/";
         });
       } else {
         Swal.fire({

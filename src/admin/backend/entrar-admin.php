@@ -24,9 +24,13 @@ if (empty($email) || empty($senha)) {
 
     $usuario = $sql->fetch(PDO::FETCH_BOTH);
     if (password_verify($senha, $usuario['senha'])) {
-        $retorna = ['status' => false, 'msg' => "OKK"];
+        $retorna = ['status' => true, 'msg' => "Bem-vindo à nossa plataforma, " . htmlspecialchars(explode(' ', $usuario['nome_admin'])[0]) . "!"];
         header('Content-Type: application/json');
         echo json_encode($retorna);
+
+        $_SESSION['user_id'] = $usuario['id_admin'];
+        $_SESSION['user_nome'] = $usuario['nome_admin'];
+        $_SESSION['user_email'] = $usuario['email_admin'];
         exit();
     }
 
