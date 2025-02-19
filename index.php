@@ -53,7 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-$latestVersion = 'v0.1';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
