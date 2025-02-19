@@ -130,9 +130,9 @@ if (isset($_SESSION['user_id'])) {
                             }
                             ?>
                             <form action="../backend/cadastro.php" class="needs-validation" id="formcad" method="post" novalidate>
-                                <div class="mb-4">
-                                    <label for="nome" class="form-label text-dark font-weight-semibold">Nome<span class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control rounded-pill" id="nome" name="nome" autocomplete="off" required>
+                                <div class="form-floating" style="margin-bottom: 5%;">
+                                    <input type="text" name="text" class="form-control" id="floatingInput" placeholder="">
+                                    <label for="floatingInput">Nome</label>
                                 </div>
                                 <div class="mb-4">
                                     <label for="email" class="form-label text-dark font-weight-semibold">E-mail<span class="required-asterisk">*</span></label>
