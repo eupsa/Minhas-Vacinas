@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 require '../../scripts/conn.php';
 require '../../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require '../../../vendor/phpmailer/phpmailer/src/Exception.php';
@@ -203,7 +201,7 @@ function registrar_dispositivo($pdo, $id_usuario)
     $tipo_dispositivo = strtoupper($tipo_dispositivo);
     $nome_dispositivo = $tipo_dispositivo . " - " . $sistema_operacional . " | " . $navegador;
 
-        $sql = $pdo->prepare("INSERT INTO dispositivos (id_usuario, nome_dispositivo, tipo_dispositivo, ip, navegador, cidade, estado, pais)
+    $sql = $pdo->prepare("INSERT INTO dispositivos (id_usuario, nome_dispositivo, tipo_dispositivo, ip, navegador, cidade, estado, pais)
     VALUES
     (:id_usuario, :nome_dispositivo, :tipo_dispositivo, :ip, :navegador, :cidade, :estado, :pais)");
 

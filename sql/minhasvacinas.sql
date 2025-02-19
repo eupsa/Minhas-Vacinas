@@ -33,6 +33,16 @@ CREATE TABLE
     FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE
 );
 
+
+CREATE TABLE 
+	IF NOT EXISTS admin (
+    id_admin INT AUTO_INCREMENT PRIMARY KEY,
+    nome_admin VARCHAR (100) NOT NULL,
+    email_admin VARCHAR(255) UNIQUE NOT NULL,
+    senha VARCHAR(128), 
+    data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS confirmar_cadastro (
     id INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL,
