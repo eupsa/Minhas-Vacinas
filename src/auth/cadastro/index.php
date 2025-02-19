@@ -94,12 +94,12 @@ if (isset($_SESSION['user_id'])) {
     </header>
 
     <section class="form-log custom-section">
-        <div class="container mt-5">
+        <div class="container mt-5 rounded">
             <h4 class="mb-4 text-center" style="margin-top: 10%;">Faça seu cadastro</h4>
             <div class="row justify-content-center">
-                <div class="col-12 col-md-8 col-lg-6">
-                    <div class="card shadow-lg border-0 rounded-lg">
-                        <div class="card-body p-5" style="background-color: #f8f9fa;">
+                <div class="col-12 col-md-8 col-lg-6"> 
+                    <div class="card shadow-lg border-0 rounded-lg shadow-lg p-3 mb-5 bg-white">
+                        <div class="card-body p-5">
                             <div class="d-flex justify-content-center align-items-center">
                                 <div id="g_id_onload"
                                     data-client_id="14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com"
@@ -130,35 +130,35 @@ if (isset($_SESSION['user_id'])) {
                             }
                             ?>
                             <form action="../backend/cadastro.php" class="needs-validation" id="formcad" method="post" novalidate>
-                                <div class="form-floating" style="margin-bottom: 5%;">
-                                    <input type="text" name="text" class="form-control" id="floatingInput" placeholder="">
-                                    <label for="floatingInput">Nome</label>
+                                <div class="mb-3">
+                                    <label for="nome" class="form-label">Nome<span class="required-asterisk">*</span></label>
+                                    <input type="text" class="form-control" id="nome" name="nome" autocomplete="off" required>
                                 </div>
-                                <div class="mb-4">
+                                <div class="mb-3">
                                     <label for="email" class="form-label text-dark font-weight-semibold">E-mail<span class="required-asterisk">*</span></label>
-                                    <input type="email" class="form-control rounded-pill" id="email" name="email" required autocomplete="off">
+                                    <input type="email" class="form-control" name="email" required autocomplete="off">
                                 </div>
-                                <div class="mb-4">
+                                <div class="mb-3">
                                     <label for="senha" class="form-label text-dark font-weight-semibold">Senha<span class="required-asterisk">*</span></label>
                                     <div class="input-group">
-                                        <input type="password" class="form-control rounded-pill" id="senha" name="senha" required>
-                                        <button class="btn btn-outline-secondary rounded-pill" type="button" id="togglePassword">
+                                        <input type="password" class="form-control" id="senha" name="senha" required>
+                                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                             <i class="bi bi-eye"></i>
                                         </button>
                                     </div>
                                 </div>
-                                <div class="mb-4">
+                                <div class="mb-3">
                                     <label for="confSenha" class="form-label text-dark font-weight-semibold">Confirme sua senha<span class="required-asterisk">*</span></label>
                                     <div class="input-group">
-                                        <input type="password" class="form-control rounded-pill" id="confSenha" name="confSenha" required>
-                                        <button class="btn btn-outline-secondary rounded-pill" type="button" id="ConftogglePassword">
+                                        <input type="password" class="form-control" id="confSenha" name="confSenha" required>
+                                        <button class="btn btn-outline-secondary" type="button" id="ConftogglePassword">
                                             <i class="bi bi-eye"></i>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="mb-4">
                                     <label for="estado" class="form-label">Selecione um estado<span class="required-asterisk">*</span></label>
-                                    <select class="form-select rounded-pill" id="estado" name="estado" required>
+                                    <select class="form-select" id="estado" name="estado" required>
                                         <option value="" selected disabled>Selecione um estado</option>
                                         <option value="AC">Acre</option>
                                         <option value="AL">Alagoas</option>
@@ -206,13 +206,13 @@ if (isset($_SESSION['user_id'])) {
                         <hr class="custom-hr">
                         <p class="mb-1 text-dark">Já tem uma conta?</p>
                         <a href="../entrar/" class="text-primary" style="text-decoration: none;">
-                            <i class="bi bi-door-open"></i> Entre na sua conta
+                            <i class="bi bi-door-open"></i> ENTRAR
                         </a>
                     </div>
                     <div class="text-center mt-4">
-                        <p class="mb-1 text-dark">Ainda não confirmou o cadastro?</p>
+                        <p class="mb-1 text-dark">Precisa confirmar o cadastro?</p>
                         <a href="../confirmar-cadastro/" class="text-primary" style="text-decoration: none;">
-                            <i class="bi bi-check-circle"></i> Confirmar cadastro
+                            <i class="bi bi-check-circle"></i> CONFIRME O CADASTRO
                         </a>
                     </div>
                 </div>
