@@ -50,7 +50,7 @@ RewriteRule .* - [F,L]
  #Bloquear IPS
 <RequireAll>
     Require all granted
-    Require not ip 000.000.000
+    Require not ip 201.4.49.133
 </RequireAll>
 
 # RewriteEngine On
