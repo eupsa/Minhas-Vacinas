@@ -9,6 +9,14 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 RewriteCond %{HTTP_HOST} ^minhasvacinas\.online$ [NC]
 RewriteRule ^ https://www.minhasvacinas.online%{REQUEST_URI} [R=301,L]
 
+# Redirecionar apenas 'minhasvacinas.site' para 'www.minhasvacinas.site'
+RewriteCond %{HTTP_HOST} ^minhasvacinas\.site$ [NC]
+RewriteRule ^ https://www.minhasvacinas.site%{REQUEST_URI} [R=301,L]
+
+# Redirecionar apenas 'vacinaae.com' para 'www.vacinaae.com'
+RewriteCond %{HTTP_HOST} ^vacinaae\.com$ [NC]
+RewriteRule ^ https://www.vacinaae.com%{REQUEST_URI} [R=301,L]
+
 # Páginas de erro personalizadas
 ErrorDocument 401 /assets/error/401.html
 ErrorDocument 403 /assets/error/403.html
@@ -50,7 +58,7 @@ RewriteRule .* - [F,L]
  #Bloquear IPS
 <RequireAll>
     Require all granted
-    Require not ip 201.4.49.133
+    # Require not ip 201.4.49.133
 </RequireAll>
 
 # RewriteEngine On
