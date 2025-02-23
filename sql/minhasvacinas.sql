@@ -153,6 +153,12 @@ CREATE TABLE IF NOT EXISTS dispositivos (
     FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE
 );
 
+INSERT INTO dispositivos (id_usuario, nome_dispositivo, tipo_dispositivo, ip, cidade, estado, pais, navegador, confirmado, data_cadastro) 
+VALUES 
+(1, 'Desktop de Pedro', 'Desktop', '192.168.0.10', 'São Paulo', 'São Paulo', 'Brasil', 'Google Chrome', 1, '2025-02-23 09:30:00'),
+(1, 'Smartphone de Pedro', 'Mobile', '10.0.0.12', 'São Paulo', 'São Paulo', 'Brasil', 'Mozilla Firefox', 1, '2025-02-23 10:15:00'),
+(1, 'Tablet de Pedro', 'Tablet', '192.168.0.13', 'São Paulo', 'São Paulo', 'Brasil', 'Safari', 0, '2025-02-23 11:00:00');
+
 CREATE TABLE IF NOT EXISTS novidades (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE
