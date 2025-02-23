@@ -42,30 +42,53 @@ if (count($dispositivos) > 0) {
                 <a class="navbar-brand" href="/">
                     <img src="../../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
                 </a>
-                <button class="navbar-toggler" id="sidebarToggle" type="button" data-bs-toggle="sidebar" data-bs-target="#sidebar" aria-controls="sidebar">
+                <!-- O botão de toggler estará visível no mobile -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav" style="padding-left: 90%;">
-                    <a href="javascript:history.back()" class="btn btn-light w-100 d-flex align-items-center" style="margin-left: 20px;">
-                        <i class="bi bi-arrow-left" style="margin-right: 8px;"></i> VOLTAR
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <a href="javascript:history.back()" class="btn btn-light d-flex align-items-center px-4 py-2" style="font-size: 1rem; background-color: #ffffff; border-radius: 25px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: background-color 0.3s ease;">
+                        <i class="bi bi-arrow-left" style="margin-right: 8px; font-size: 1.2rem;"></i> VOLTAR
                     </a>
                 </div>
             </div>
         </nav>
     </header>
 
-    <hr>
+    <style>
+        .btn {
+            transition: 0.5s;
+        }
 
-    <!-- Dispositivos -->
-    <section class="profile-section py-5" style="background-color: #f4f4f4;" id="dispositivos">
-        <div class="container" style="margin-top: 3%;">
-            <h2 class="text-center mb-5 text-dark">Dispositivos Conectados</h2>
-            <p class="text-center mt-4">Aqui estão todos os dispositivos conectados à sua conta do <strong>Minhas Vacinas</strong>. Você pode sair de cada um individualmente.</p>
-            <p class="text-center">Se você não reconhecer algum dispositivo conectado à sua conta, saia do dispositivo e altere a sua senha do <strong>Minhas Vacinas</strong> imediatamente.</p>
+        .btn:hover {
+            background-color: #f0f0f0;
+            color: rgb(0, 0, 0);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transition: 0.5s;
+        }
+
+        .navbar {
+            padding: 10px 0;
+        }
+
+        @media (max-width: 767px) {
+            .navbar-nav {
+                display: flex;
+                justify-content: flex-end;
+                width: 100%;
+            }
+        }
+    </style>
+
+
+    <section class="profile-section py-5" id="dispositivos">
+        <div class="container">
+            <h2 class="text-center mb-4 text-dark">Dispositivos Conectados</h2>
+            <p class="text-center text-muted mb-4">Gerencie os dispositivos conectados à sua conta do <strong>Minhas Vacinas</strong>. Caso reconheça alguma atividade suspeita, altere sua senha imediatamente.</p>
             <div class="row justify-content-center g-4">
                 <?php
                 $user_ip = $_SESSION['user_ip'];
-                if (count($dispositivos) > 0):
+                if (!empty($dispositivos)):
                     foreach ($dispositivos as $dispositivo):
                         $atual = $dispositivo['ip'] === $user_ip;
                         $icone = $dispositivo['tipo_dispositivo'] === 'Desktop' || $atual
@@ -77,34 +100,28 @@ if (count($dispositivos) > 0) {
                                     : 'bi bi-device-hdd'));
                         $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']]))); ?>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <div class="card border-0 shadow-sm" style="background-color: #ffffff;">
-                                <div class="card-body text-center">
+                            <div class="card border-0 shadow-lg rounded-4" style="background-color: #f9f9f9; max-width: 320px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                                <div class="card-body text-center p-4">
                                     <div class="mb-3">
-                                        <i class="<?php echo $icone; ?>" style="font-size: 2.5rem; color: #007bff;"></i>
+                                        <i class="<?php echo $icone; ?> text-primary" style="font-size: 2.5rem;"></i>
                                     </div>
-                                    <h5 class="card-title text-dark">
-                                        <?php echo $dispositivo['nome_dispositivo']; ?>
+                                    <h6 class="card-title text-dark fw-bold text-wrap" style="font-size: 1.1rem;">
+                                        <?php echo htmlspecialchars($dispositivo['nome_dispositivo']); ?>
                                         <?php if ($atual): ?>
                                             <span class="badge bg-success ms-2">Atual</span>
                                         <?php endif; ?>
-                                    </h5>
-                                    <p class="text-muted mb-2">
-                                        <strong>Último login:</strong> <?php echo date("d/m/Y H:i", strtotime($dispositivo['data_cadastro'])); ?>
-                                    </p>
-                                    <p class="text-muted mb-2">
-                                        <strong>IP:</strong> <?php echo $dispositivo['ip']; ?>
-                                    </p>
+                                    </h6>
+                                    <p class="text-muted small mb-1"><strong>Último login:</strong> <?php echo date("d/m/Y H:i", strtotime($dispositivo['data_cadastro'])); ?></p>
+                                    <p class="text-muted small mb-1"><strong>IP:</strong> <?php echo htmlspecialchars($dispositivo['ip']); ?></p>
                                     <?php if (!empty($local)): ?>
-                                        <p class="text-muted mb-2">
-                                            <strong>Local:</strong> <?php echo $local; ?>
-                                        </p>
+                                        <p class="text-muted small mb-1"><strong>Local:</strong> <?php echo htmlspecialchars($local); ?></p>
                                     <?php endif; ?>
                                 </div>
-                                <div class="card-footer bg-light text-center">
-                                    <form action="../backend/remover-dispositivo.php" id="form-remover-dispositivo" method="POST">
+                                <div class="card-footer bg-white text-center border-0 p-3">
+                                    <form action="../../backend/remover-dispositivo.php" method="POST" class="d-inline">
                                         <input type="hidden" name="dispositivo_id" value="<?php echo $dispositivo['id']; ?>" />
-                                        <button type="submit" class="btn btn-outline-danger btn-sm">
-                                            <i class="bi bi-x-circle"></i>
+                                        <button type="submit" class="btn btn-outline-danger btn-sm px-4 py-2 rounded-pill">
+                                            <i class="bi bi-x-circle"></i> Remover
                                         </button>
                                     </form>
                                 </div>
@@ -119,6 +136,53 @@ if (count($dispositivos) > 0) {
             </div>
         </div>
     </section>
+
+    <style>
+        /* Estilos para um design mais bonito e responsivo */
+        @media (max-width: 767px) {
+            .card {
+                max-width: 100%;
+                margin: 0 auto;
+                transition: 0.5s;
+            }
+        }
+
+        .card {
+            transition: 0.5s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            transition: 0.5s;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .btn-outline-danger {
+            border-radius: 30px;
+            font-size: 0.9rem;
+            padding: 0.5rem 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-outline-danger:hover {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        .card-title {
+            white-space: normal;
+            word-wrap: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+
+
+
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 7%;">
         <div class="me-5 d-none d-lg-block"></div>
@@ -160,12 +224,6 @@ if (count($dispositivos) > 0) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../script.js"></script>
-    <script src="../mudar-email.js"></script>
-    <script src="../confirmar-email.js"></script>
-    <script src="../excluir-conta.js"></script>
-    <script src="../confirmar-exclusao.js"></script>
-    <script src="../api-ibge.js"></script>
-</body>
+    <script src="remover-dispositivo.js"></script>
 
 </html>

@@ -178,73 +178,43 @@ if (count($dispositivos) > 0) {
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <hr>
 
-    <!-- Dispositivos -->
-    <section class="profile-section py-5" style="background-color: #f4f4f4;" id="dispositivos">
-        <div class="container">
-            <h2 class="text-center mb-5 text-dark">Dispositivos Conectados</h2>
-            <div class="row justify-content-center g-4">
-                <?php
-                $user_ip = $_SESSION['user_ip'];
-                if (count($dispositivos) > 0):
-                    foreach ($dispositivos as $dispositivo):
-                        $atual = $dispositivo['ip'] === $user_ip;
-                        $icone = $dispositivo['tipo_dispositivo'] === 'Desktop' || $atual
-                            ? 'bi bi-pc-display'
-                            : ($dispositivo['tipo_dispositivo'] === 'Mobile'
-                                ? 'bi bi-phone'
-                                : ($dispositivo['tipo_dispositivo'] === 'Tablet'
-                                    ? 'bi bi-tablet'
-                                    : 'bi bi-device-hdd'));
-                        $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']]))); ?>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <div class="card border-0 shadow-sm" style="background-color: #ffffff;">
-                                <div class="card-body text-center">
-                                    <div class="mb-3">
-                                        <i class="<?php echo $icone; ?>" style="font-size: 2.5rem; color: #007bff;"></i>
-                                    </div>
-                                    <h5 class="card-title text-dark">
-                                        <?php echo $dispositivo['nome_dispositivo']; ?>
-                                        <?php if ($atual): ?>
-                                            <span class="badge bg-success ms-2">Atual</span>
-                                        <?php endif; ?>
-                                    </h5>
-                                    <p class="text-muted mb-2">
-                                        <strong>Último login:</strong> <?php echo date("d/m/Y H:i", strtotime($dispositivo['data_cadastro'])); ?>
-                                    </p>
-                                    <p class="text-muted mb-2">
-                                        <strong>IP:</strong> <?php echo $dispositivo['ip']; ?>
-                                    </p>
-                                    <?php if (!empty($local)): ?>
-                                        <p class="text-muted mb-2">
-                                            <strong>Local:</strong> <?php echo $local; ?>
-                                        </p>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="card-footer bg-light text-center">
-                                    <form action="../backend/remover-dispositivo.php" id="form-remover-dispositivo" method="POST">
-                                        <input type="hidden" name="dispositivo_id" value="<?php echo $dispositivo['id']; ?>" />
-                                        <?php if (!$atual): ?>
-                                            <button type="submit" class="btn btn-outline-danger btn-sm">
-                                                <i class="bi bi-x-circle"></i>
-                                            </button>
-                                        <?php endif; ?>
-                                    </form>
-                                </div>
-                            </div>
+                    <div class="card shadow-lg border-0 rounded-4" style="margin-top: 5%;">
+                        <div class="card-header bg-gradient text-white text-center py-3" style="background-color: #007bff;">
+                            <h4 class="mb-0">Preferências do usuário</h4>
                         </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <div class="col-12 text-center">
-                        <p class="text-muted fs-5">Nenhum dispositivo encontrado</p>
+                        <div class="card-body p-4">
+                            <form id="form_perfil" action="" method="post">
+                                <div class="col-12">
+                                    <label class="form-label">
+                                        <span style="color: #495057; font-weight: 500;">
+                                            Essas preferências foram configuradas automaticamente para otimizar a sua experiência. <span style="color: #007bff;">Essas configurações são fixas e não podem ser alteradas.</span>
+                                        </span>
+                                    </label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="option1" name="option1" disabled checked>
+                                        <label class="form-check-label" for="option1">
+                                            Receber alertas e atualizações via e-mail
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="option2" name="option2" disabled checked>
+                                        <label class="form-check-label" for="option2">
+                                            Concordar com os Termos e Condições de Uso
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="option3" name="option3" disabled checked>
+                                        <label class="form-check-label" for="option3">
+                                            Permitir compartilhamento de dados com o Minhas Vacinas.
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                <?php endif; ?>
+                </div>
             </div>
         </div>
     </section>
@@ -336,8 +306,10 @@ if (count($dispositivos) > 0) {
                                 </div>
                             </div>
                             <div class="text-end mt-4">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-dark">SALVAR INFORMAÇÕES</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-save"></i> SALVAR
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -464,79 +436,6 @@ if (count($dispositivos) > 0) {
             </div>
         </div>
 
-    </section>
-
-    <!-- Modal Dispositivos -->
-    <section>
-        <div class="modal fade" id="dispositivosModal" tabindex="-1" aria-labelledby="dispositivosModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-                <div class="modal-content rounded-4 shadow-lg">
-                    <div class="modal-header bg-gradient p-3">
-                        <h5 class="modal-title text-white" id="dispositivosModalLabel">
-                            <i class="bi bi-laptop"></i> Dispositivos Logados
-                        </h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <ul class="list-group list-group-flush">
-                            <?php
-                            $user_ip = $_SESSION['user_ip'];
-                            $desktop_atual = null;
-                            if (count($dispositivos) > 0):
-                                foreach ($dispositivos as $dispositivo):
-                                    if ($dispositivo['tipo_dispositivo'] === 'desktop' && $dispositivo['ip'] === $user_ip) {
-                                        $desktop_atual = $dispositivo['nome_dispositivo'];
-                                        $classe_atual = 'bg-warning text-dark'; // Destaque para o desktop atual
-                                    } else {
-                                        $classe_atual = '';
-                                    }
-                                    switch ($dispositivo['tipo_dispositivo']) {
-                                        case 'celular':
-                                            $icone = 'bi-phone';
-                                            break;
-                                        case 'tablet':
-                                            $icone = 'bi-tablet';
-                                            break;
-                                        case 'desktop':
-                                            $icone = 'bi-pc-display';
-                                            break;
-                                        default:
-                                            $icone = 'bi-device-hdd';
-                                    }
-
-                                    $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']])));
-                            ?>
-                                    <li class="list-group-item d-flex flex-column flex-md-row align-items-start py-3 mb-3 shadow-sm rounded-3 <?php echo $classe_atual; ?>">
-                                        <i class="bi <?php echo $icone; ?> me-3 text-primary" style="font-size: 1.5rem;"></i>
-                                        <div class="flex-grow-1">
-                                            <strong class="d-block mb-2 fs-5"><?php echo $dispositivo['nome_dispositivo']; ?></strong>
-                                            <small class="text-muted d-block mb-1 fs-7">Último login: <?php echo date("d/m/Y H:i", strtotime($dispositivo['data_cadastro'])); ?></small>
-                                            <p class="text-muted mb-0 fs-7"><strong>IP:</strong> <?php echo $dispositivo['ip']; ?></p>
-                                            <?php if (!empty($local)): ?>
-                                                <p class="text-muted mb-0 fs-7"><strong>Local:</strong> <?php echo $local; ?></p>
-                                            <?php endif; ?>
-                                        </div>
-                                        <form action="../backend/remover-dispositivo.php" method="POST" id="form-remover-dispositivo" class="d-inline">
-                                            <input type="hidden" name="dispositivo_id" value="<?php echo $dispositivo['id']; ?>" />
-                                            <button type="submit" class="btn btn-sm btn-outline-danger ms-2" aria-label="Sair">
-                                                <i class="bi bi-x-circle"></i>
-                                            </button>
-                                        </form>
-                                    </li>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <div class="text-center">
-                                    <p class="text-muted fs-5">Nenhum dispositivo encontrado</p>
-                                </div>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-between">
-                        <button class="btn btn-secondary btn-sm w-100 w-sm-auto" data-bs-dismiss="modal">Fechar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 7%;">

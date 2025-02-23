@@ -73,7 +73,7 @@ if ($senha !== $confsenha) {
 }
 
 if (!in_array($estado, $estados)) {
-    $retorna = ['status' => false, 'msg' => "A sigla do estado é inválida. Por favor atualiza a página."];
+    $retorna = ['status' => false, 'msg' => "A sigla do estado é inválida. Por favor, atualize a página."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();

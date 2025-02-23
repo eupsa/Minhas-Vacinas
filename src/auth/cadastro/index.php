@@ -97,7 +97,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="container mt-5 rounded">
             <h4 class="mb-4 text-center" style="margin-top: 10%;">Faça seu cadastro</h4>
             <div class="row justify-content-center">
-                <div class="col-12 col-md-8 col-lg-6"> 
+                <div class="col-12 col-md-8 col-lg-6">
                     <div class="card shadow-lg border-0 rounded-lg shadow-lg p-3 mb-5 bg-white">
                         <div class="card-body p-5">
                             <div class="d-flex justify-content-center align-items-center">
@@ -157,9 +157,9 @@ if (isset($_SESSION['user_id'])) {
                                     </div>
                                 </div>
                                 <div class="mb-4">
-                                    <label for="estado" class="form-label">Selecione um estado<span class="required-asterisk">*</span></label>
-                                    <select class="form-select" id="estado" name="estado" required>
-                                        <option value="" selected disabled>Selecione um estado</option>
+                                    <label for="estado" class="form-label">Estado<span class="required-asterisk">*</span></label>
+                                    <input class="form-control" list="datalistOptions" id="exampleDataList" name="estado" placeholder="Selecione seu estado...">
+                                    <datalist id="datalistOptions" name="estado">
                                         <option value="AC">Acre</option>
                                         <option value="AL">Alagoas</option>
                                         <option value="AP">Amapá</option>
@@ -187,7 +187,7 @@ if (isset($_SESSION['user_id'])) {
                                         <option value="SP">São Paulo</option>
                                         <option value="SE">Sergipe</option>
                                         <option value="TO">Tocantins</option>
-                                    </select>
+                                    </datalist>
                                 </div>
                                 <div class="form-check mt-4 mb-4">
                                     <input type="checkbox" class="form-check-input" id="termsCheckbox" style="margin-top: 5px;" required>

@@ -81,7 +81,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                             </p>
                             <h5 class="card-title text-dark">Gerenciar Dispositivos</h5>
                             <p class="card-text">Veja os dispositivos conectados à sua conta e remova-os caso necessário.</p>
-                            <a href="perfil/#dispositivos" class="btn btn-success btn-sm mt-auto rounded-pill">Gerenciar</a>
+                            <a href="perfil/dipositivos/" class="btn btn-success btn-sm mt-auto rounded-pill">Gerenciar</a>
                         </div>
                     </div>
                 </div>
@@ -163,6 +163,11 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                         <a href="perfil/" class="nav-link text-white">
                             <i class="bi bi-person"></i>
                             Conta
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link text-white" href="perfil/dipositivos/" aria-expanded="false">
+                            <i class="bi bi-laptop"></i> Dispositivos
                         </a>
                     </li>
                     <li>

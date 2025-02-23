@@ -77,6 +77,11 @@ if (count($vacinas) > 0) {
                         </a>
                     </li>
                     <li>
+                        <a class="nav-link text-white" href="../perfil/dipositivos/" aria-expanded="false">
+                            <i class="bi bi-laptop"></i> Dispositivos
+                        </a>
+                    </li>
+                    <li>
                         <hr>
                     </li>
                 </ul>
