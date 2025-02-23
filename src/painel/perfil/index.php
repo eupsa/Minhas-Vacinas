@@ -100,9 +100,9 @@ if (count($dispositivos) > 0) {
                         <span>Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="../../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
-                        <hr class="dropdown-divider">
                         <li><a class="dropdown-item text-danger" href="" data-bs-toggle="modal" data-bs-target="#excluir-conta"><i class="fas fa-trash-alt"></i> Excluir conta</a></li>
+                        <hr class="dropdown-divider">
+                        <li><a class="dropdown-item" href="../../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                     </ul>
                 </div>
             </div>
@@ -302,6 +302,12 @@ if (count($dispositivos) > 0) {
                                     <div class="d-flex">
                                         <select class="form-select" id="cidade" name="cidade">
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="imagem" class="form-label">Foto de Perfil</label>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control" id="imagem" name="imagem">
                                     </div>
                                 </div>
                             </div>
