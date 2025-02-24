@@ -116,7 +116,9 @@ if (count($dispositivos) > 0) {
                 <div class="col-12 col-md-8" style="margin-right: 6%;">
                     <div class="card shadow-lg border-0 rounded-4">
                         <div class="card-header bg-gradient text-white text-center py-3" style="background-color: #343a40;">
-                            <h4 class="mb-0">Dados do Usuário</h4>
+                            <h4 class="mb-0">
+                                <i class="bi bi-person-circle me-2"></i> Dados do Usuário
+                            </h4>
                         </div>
                         <div class="card-body p-4">
                             <form id="form_perfil" action="../../../backend/update_register.php" method="post" enctype="multipart/form-data">
@@ -182,29 +184,66 @@ if (count($dispositivos) > 0) {
 
                     <div class="card shadow-lg border-0 rounded-4" style="margin-top: 5%;">
                         <div class="card-header bg-gradient text-white text-center py-3" style="background-color: #007bff;">
-                            <h4 class="mb-0">Preferências do usuário</h4>
+                            <h4 class="mb-0">
+                                <i class="bi bi-shield-lock me-2"></i> Segurança da Conta
+                            </h4>
                         </div>
                         <div class="card-body p-4">
                             <form id="form_perfil" action="" method="post">
                                 <div class="col-12">
                                     <label class="form-label">
                                         <span style="color: #495057; font-weight: 500;">
-                                            Essas preferências foram configuradas automaticamente para otimizar a sua experiência. <span style="color: #007bff;">Essas configurações são fixas e não podem ser alteradas.</span>
+                                            A segurança da sua conta é nossa prioridade. <span style="color: #007bff;">Mantenha suas informações de login e senha protegidas.</span> Qualquer alteração nas configurações de segurança será comunicada diretamente a você.
                                         </span>
                                     </label>
-                                    <div class="form-check">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="option1" name="option1" disabled checked>
+                                        <label class="form-check-label" for="option1">
+                                            Confirmação de novo acesso
+                                            <i class="fa fa-question-circle" title="Essa opção ativa a confirmação do novo acesso ao sistema de um dispositivo com endreço IP anormal." style="color: #007bff; cursor: pointer;"></i>
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="option2" name="option2">
+                                        <label class="form-check-label" for="option2">
+                                            Ativar Verificação em Duas Etapas
+                                            <i class="fa fa-info-circle" style="color: #007bff; cursor: pointer;" title="Ao ativar, sua conta ganhará uma camada extra de segurança, exigindo um código adicional ao fazer login."></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <div class="card shadow-lg border-0 rounded-4" style="margin-top: 5%;">
+                        <div class="card-header bg-gradient text-white text-center py-3" style="background-color: #007bff;">
+                            <h4 class="mb-0">
+                                <i class="bi bi-gear-fill me-2"></i> Preferências do Usuário
+                            </h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <form id="form_perfil" action="" method="post">
+                                <div class="col-12">
+                                    <label class="form-label">
+                                        <span style="color: #495057; font-weight: 500;">
+                                            Essas preferências foram configuradas automaticamente para otimizar a sua experiência.
+                                            <span style="color: #007bff;">Essas configurações são fixas e não podem ser alteradas.</span>
+                                        </span>
+                                    </label>
+                                    <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="option1" name="option1" disabled checked>
                                         <label class="form-check-label" for="option1">
                                             Receber alertas e atualizações via e-mail
                                         </label>
                                     </div>
-                                    <div class="form-check">
+                                    <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="option2" name="option2" disabled checked>
                                         <label class="form-check-label" for="option2">
                                             Concordar com os Termos e Condições de Uso
                                         </label>
                                     </div>
-                                    <div class="form-check">
+                                    <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="option3" name="option3" disabled checked>
                                         <label class="form-check-label" for="option3">
                                             Permitir compartilhamento de dados com o Minhas Vacinas.

@@ -20,9 +20,13 @@ CREATE TABLE IF NOT EXISTS usuario (
     telefone VARCHAR(15),
     cidade VARCHAR(100) DEFAULT 'Não informado',
     ip_cadastro VARCHAR(45),
-    foto_perfil LONGBLOB,
+    foto_perfil VARCHAR (200),
+    secretkey_2FA VARCHAR (100),
     data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- ALTER TABLE usuario
+-- ADD column secretkey_2FA VARCHAR (100);
 
 CREATE TABLE 
 	IF NOT EXISTS usuario_google (
