@@ -5,6 +5,7 @@ require '../../../vendor/phpmailer/phpmailer/src/Exception.php';
 require '../../../vendor/phpmailer/phpmailer/src/SMTP.php';
 require '../../../vendor/autoload.php';
 require '../../scripts/conn.php';
+require_once '../../scripts/Config.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -77,13 +78,13 @@ function enviarEmail($email)
         $mail->isSMTP();
         $mail->Host = 'smtp.zoho.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'nao.responder@minhasvacinas.online';
-        $mail->Password = 'JE1+ip-PWMZvy-4x'; // Use uma senha de app
+        $mail->Username = EMAIL;
+        $mail->Password = EMAIL_PASSWORD;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
         // Configurações do remetente e destinatário
-        $mail->setFrom('nao.responder@minhasvacinas.online', 'Minhas Vacinas');
+        $mail->setFrom(EMAIL, 'Minhas Vacinas');
         $mail->addAddress($email);
 
         // Configurações de HTML e charset

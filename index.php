@@ -1,6 +1,7 @@
 <?php
 session_start();
-require 'src/scripts/conn.php';
+require_once 'src/scripts/conn.php';
+require_once 'src/scripts/Config.php';
 
 $ip = $_SERVER['REMOTE_ADDR'];
 $token = 'c4444d8bf12e24';

@@ -132,11 +132,11 @@ function enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
         $mail->isSMTP();
         $mail->Host = 'smtp.zoho.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'nao.responder@minhasvacinas.online';
-        $mail->Password = 'JE1+ip-PWMZvy-4x';
+        $mail->Username = EMAIL;
+        $mail->Password = EMAIL_PASSWORD;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom('nao.responder@minhasvacinas.online', 'Minhas Vacinas');
+        $mail->setFrom(EMAIL, 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';

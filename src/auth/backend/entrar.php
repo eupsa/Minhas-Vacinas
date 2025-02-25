@@ -1,10 +1,11 @@
 <?php
+session_start();
 require '../../scripts/conn.php';
 require '../../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require '../../../vendor/phpmailer/phpmailer/src/Exception.php';
 require '../../../vendor/phpmailer/phpmailer/src/SMTP.php';
 require '../../../vendor/autoload.php';
-session_start();
+require_once '../../scripts/Config.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -156,16 +157,16 @@ function enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
     $email_body = str_replace('{{id}}', $id_usuario, $email_body);
     $email_body = str_replace('{{ip}}', $ip, $email_body);
     $mail = new PHPMailer(true);
-    
+
     try {
         $mail->isSMTP();
         $mail->Host = 'smtp.zoho.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'nao.responder@minhasvacinas.online';
-        $mail->Password = 'JE1+ip-PWMZvy-4x';
+        $mail->Username = EMAIL;
+        $mail->Password = EMAIL_PASSWORD;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom('nao.responder@minhasvacinas.online', 'Minhas Vacinas');
+        $mail->setFrom(EMAIL, 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';

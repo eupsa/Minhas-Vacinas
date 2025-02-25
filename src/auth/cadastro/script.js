@@ -75,7 +75,7 @@ if (formcad) {
 
       if (resposta["status"]) {
         Swal.fire({
-          text: "Cadastro realizado com sucesso!",
+          text: "Sua conta foi criada. Um e-mail foi enviado com um código de verificação. Siga as instruções na página a seguir.",
           icon: "success",
           confirmButtonColor: "#3085d6",
           confirmButtonText: "OK",
