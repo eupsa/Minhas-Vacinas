@@ -144,7 +144,7 @@ if (isset($_SESSION['user_id'])) {
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                     <div>
                                         <a href="../esqueceu-senha/" class="text-dark font-weight-medium">
-                                            <i class="bi bi-question-circle me-1"></i> Esqueceu a senha?
+                                            <i class="bi bi-question-circle me-1"></i>ESQUECEU A SENHA?
                                         </a>
                                     </div>
                                 </div>

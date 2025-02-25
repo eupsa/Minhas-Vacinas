@@ -106,12 +106,12 @@
                             </div>
                         </div>
                         <div class="mt-2 text-end">
-                            <a href="../entrar/" class="text-muted">
-                                <i class="bi bi-arrow-left-circle me-1"></i> Voltar para login?
+                            <a href="../entrar/" class="text-dark">
+                                <i class="bi bi-arrow-left-circle me-1"></i>VOLTAR PARA LOGIN?
                             </a>
                         </div>
                         <button class="btn btn-dark w-100 py-2 rounded-pill mt-3" type="submit">
-                            <i class="bi bi-key-fill me-2"></i> REDEFINIR SENHA
+                            <i class="bi bi-key-fill me-2"></i>REDEFINIR SENHA
                         </button>
                     </form>
                     <hr class="custom-hr">

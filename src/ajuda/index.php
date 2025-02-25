@@ -103,16 +103,16 @@ session_start();
                             <form id="form_suporte" class="needs-validation" novalidate action="backend/suporte.php" method="post">
                                 <div class="mb-4">
                                     <label for="suporte_nome" class="form-label">Nome<span class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control rounded-pill" id="suporte_nome" name="suporte_nome" required>
+                                    <input type="text" class="form-control" id="suporte_nome" autocomplete="off" name="suporte_nome" required>
                                 </div>
                                 <div class="mb-4">
                                     <label for="suporte_email" class="form-label">E-mail<span class="required-asterisk">*</span></label>
-                                    <input type="email" class="form-control rounded-pill" id="suporte_email" name="suporte_email" required>
+                                    <input type="email" class="form-control" id="suporte_email" autocomplete="off" name="suporte_email" required>
                                 </div>
                                 <div class="mb-4">
                                     <label for="motivo_contato" class="form-label">Motivo do Contato<span class="required-asterisk">*</span></label>
-                                    <select class="form-select rounded-pill" id="motivo_contato" name="motivo_contato" required>
-                                        <option value="" disabled selected>Selecione o motivo</option>
+                                    <select class="form-select" name="motivo_contato" multiple aria-label="Multiple select example">
+                                        <option value="" disabled selected>Selecione o motivo...</option>
                                         <option value="Problema Técnico">Problema técnico</option>
                                         <option value="Dúvida">Dúvida</option>
                                         <option value="Sugestão">Sugestão</option>

@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
+    <link rel="icon" href="assets/img/img-web.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -450,7 +450,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <h6 class="text-uppercase fw-bold mb-4">Receba novidades</h6>
                     <p>Inscreva-se para receber novidades sobre campanhas de vacinação, novidade e futuras atualizações.</p>
                     <form action="" method="POST">
-                        <label for="">Seu-email</label>
+                        <label for="">Seu e-mail</label>
                         <input type="email" name="email" class="form-control mb-2" style="background-color: #181a1b; color: #f8f9fa;" required>
                         <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
                         <?php if (isset($_GET['status'])): ?>
