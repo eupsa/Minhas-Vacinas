@@ -42,8 +42,8 @@ CREATE TABLE
     data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO admin (nome_admin, email_admin, senha)
-value ('Pedro', 'pedruuu291@gmail.com', '$2y$10$FR.2G3bWnF9BFQYQa7eOIO47VRDYqgLsPwmCi/bGx9olyfPiyXLxi');
+-- INSERT INTO admin (nome_admin, email_admin, senha)
+-- value ('Pedro', 'pedruuu291@gmail.com', '$2y$10$FR.2G3bWnF9BFQYQa7eOIO47VRDYqgLsPwmCi/bGx9olyfPiyXLxi');
 
 CREATE TABLE IF NOT EXISTS confirmar_cadastro (
     id INT PRIMARY KEY AUTO_INCREMENT,
