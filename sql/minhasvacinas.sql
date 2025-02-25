@@ -21,12 +21,8 @@ CREATE TABLE IF NOT EXISTS usuario (
     cidade VARCHAR(100) DEFAULT 'Não informado',
     ip_cadastro VARCHAR(45),
     foto_perfil VARCHAR (200),
-    secretkey_2FA VARCHAR (100),
     data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
--- ALTER TABLE usuario
--- ADD column secretkey_2FA VARCHAR (100);
 
 CREATE TABLE 
 	IF NOT EXISTS usuario_google (
@@ -36,7 +32,6 @@ CREATE TABLE
     foto_url VARCHAR(255),
     FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE
 );
-
 
 CREATE TABLE 
 	IF NOT EXISTS admin (
@@ -157,12 +152,6 @@ CREATE TABLE IF NOT EXISTS dispositivos (
     FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE
 );
 
-INSERT INTO dispositivos (id_usuario, nome_dispositivo, tipo_dispositivo, ip, cidade, estado, pais, navegador, confirmado, data_cadastro) 
-VALUES 
-(1, 'Desktop de Pedro', 'Desktop', '192.168.0.10', 'São Paulo', 'São Paulo', 'Brasil', 'Google Chrome', 1, '2025-02-23 09:30:00'),
-(1, 'Smartphone de Pedro', 'Mobile', '10.0.0.12', 'São Paulo', 'São Paulo', 'Brasil', 'Mozilla Firefox', 1, '2025-02-23 10:15:00'),
-(1, 'Tablet de Pedro', 'Tablet', '192.168.0.13', 'São Paulo', 'São Paulo', 'Brasil', 'Safari', 0, '2025-02-23 11:00:00');
-
 CREATE TABLE IF NOT EXISTS novidades (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE
@@ -175,6 +164,15 @@ CREATE TABLE IF NOT EXISTS suporte (
     motivo_contato VARCHAR(50) NOT NULL,
     mensagem TEXT,
     data_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE
+	IF NOT EXISTS 2FA (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(255) NOT NULL,
+    chave_secreta VARCHAR (100) NOT NULL,
+    adicao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
 );
 
 DELIMITER $$

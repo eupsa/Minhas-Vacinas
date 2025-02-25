@@ -42,7 +42,6 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     if (!$lembrarLogin) {
                         $id_usuario = $usuario['id_usuario'];
                         $ip = get_real_ip();
-                        // $ip = '189.70.247.238';
 
                         $sql = $pdo->prepare("SELECT * FROM usuario WHERE ip_cadastro = :ip_cadastro AND id_usuario = :id_usuario");
                         $sql->bindValue(':ip_cadastro', $ip);
