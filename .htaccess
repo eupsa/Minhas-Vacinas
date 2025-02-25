@@ -1,19 +1,18 @@
 # Ativar RewriteEngine
 RewriteEngine On
 
-# Redirecionar para HTTPS se estiver em HTTP
+# Redirecionar para HTTPS apenas se não estiver no Cloudflare
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
-# Redirecionar apenas 'minhasvacinas.online' para 'www.minhasvacinas.online'
+# Redirecionar domínio sem WWW para WWW (apenas no HTTPS)
 RewriteCond %{HTTP_HOST} ^minhasvacinas\.online$ [NC]
 RewriteRule ^ https://www.minhasvacinas.online%{REQUEST_URI} [R=301,L]
 
-# Redirecionar apenas 'minhasvacinas.site' para 'www.minhasvacinas.site'
 RewriteCond %{HTTP_HOST} ^minhasvacinas\.site$ [NC]
 RewriteRule ^ https://www.minhasvacinas.site%{REQUEST_URI} [R=301,L]
 
-# Redirecionar apenas 'vacinaae.com' para 'www.vacinaae.com'
 RewriteCond %{HTTP_HOST} ^vacinaae\.com$ [NC]
 RewriteRule ^ https://www.vacinaae.com%{REQUEST_URI} [R=301,L]
 
@@ -55,15 +54,8 @@ RewriteRule .* - [F,L]
     ExpiresByType application/x-javascript "access plus 1 month"
 </IfModule>
 
- #Bloquear IPS
+# Bloquear IPS
 <RequireAll>
     Require all granted
     # Require not ip 201.4.49.133
 </RequireAll>
-
-# RewriteEngine On
-# # # Permitir acesso ao seu IP
-# # RewriteCond %{REMOTE_ADDR} !=201.4.49.133
-# # RewriteCond %{REQUEST_URI} !^/index.html$
-# # RewriteRule ^.*$ /index.html [L,R=302]
-
