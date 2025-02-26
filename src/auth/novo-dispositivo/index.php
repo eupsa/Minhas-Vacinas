@@ -1,5 +1,5 @@
 <?php
-require '../../scripts/conn.php';
+require_once '../../scripts/Conexao.php';
 $id_usuario = isset($_GET['id']) ? $_GET['id'] : '';
 $ip = isset($_GET['ip']) ? $_GET['ip'] : '';
 $erro = '';

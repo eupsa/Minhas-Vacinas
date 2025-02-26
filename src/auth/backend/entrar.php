@@ -39,10 +39,27 @@ if (empty($email) || empty($senha)) {
             $id_usuario = $usuario['id_usuario'];
             $ip = ObterIP();
 
-            $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE id_usuario = :id AND ip = :ip AND confirmado = 1");
+            $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE id_usuario = :id AND ip = :ip");
             $sql->bindValue(':id', $id_usuario);
             $sql->bindValue(':ip', $ip);
             $sql->execute();
+
+            $dispositivo = $sql->fetch(PDO::FETCH_BOTH);
+            $confirmado = $dispositivo['confirmado'];
+
+            if ($confirmado != 1) {
+                $id_usuario = $dispostivo['id_usuario'];
+                $ip = $dispostivo['ip'];
+                $cidade = $dispostivo['cidade'];
+                $estado = $dispostivo['estado'];
+                $pais = $dispostivo['pais'];
+
+                enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
+                $retorna = ['status' => true, 'msg' => "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções."];
+                header('Content-Type: application/json');
+                echo json_encode($retorna);
+                exit();
+            }
 
             if ($sql->rowCount() == 1) {
                 $email = $usuario['email'];
