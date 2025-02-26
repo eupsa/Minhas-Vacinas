@@ -51,7 +51,10 @@ if (empty($email) || empty($senha)) {
                 $sql->execute();
 
                 if ($sql->rowCount() == 1) {
-                    $retorna = ['status' => '2FA', 'msg' => "2FA"];
+                    $key = $sql->fetch(PDO::FETCH_BOTH);
+                    $_SESSION['email-temp'] = $email;
+                    $_SESSION['key-temp'] = $key['chave_secreta'];
+                    $retorna = ['status' => '2FA', 'msg' => 'Autenticação de dois fatores necessária.'];
                     header('Content-Type: application/json');
                     echo json_encode($retorna);
                     exit();
@@ -99,7 +102,6 @@ if (empty($email) || empty($senha)) {
         exit();
     }
 }
-
 
 function EmailLogin($id_usuario, $email, $ip, $cidade, $estado, $pais)
 {

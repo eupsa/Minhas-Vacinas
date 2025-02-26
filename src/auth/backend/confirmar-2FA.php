@@ -7,10 +7,22 @@ $g = new \Sonata\GoogleAuthenticator\GoogleAuthenticator();
 
 $email = $_SESSION['email-temp'];
 $key = $_SESSION['key-temp'];
+$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+$codigo = strtolower(trim($dados['codigo']));
 
-$sql = $pdo->prepare("SELECT secretkey_2FA FROM usuario WHERE email = :email");
-$sql->bindValue(':email', $_SESSION['user_email']);
-$sql->execute();
+if (empty($codigo)) {
+    $retorna = ['status' => false, 'msg' => "Código não encontrado."];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
+} else {
+    $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE id_usuario = :id AND ip = :ip AND confirmado = 1");
+    $sql->bindValue(':id', $id_usuario);
+    $sql->execute();
+}
+
+
+
 
 if ($sql->rowCount() === 1) {
     $usuario = $sql->fetch(PDO::FETCH_BOTH);

@@ -1,9 +1,9 @@
-const form_conf_cad = document.querySelector("#form-conf-cad");
+const form_2FA = document.querySelector("#form-2FA");
 
-form_conf_cad.addEventListener("submit", async (e) => {
+form_2FA.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const dadosForm = new FormData(form_conf_cad);
+  const dadosForm = new FormData(form_2FA);
 
   const codigo = dadosForm.get("codigo");
   const loadingSpinner = document.getElementById("loadingSpinner");
@@ -22,7 +22,7 @@ form_conf_cad.addEventListener("submit", async (e) => {
   submitButton.disabled = true;
   loadingSpinner.style.display = "inline-block";
 
-  const dados = await fetch("../backend/confirmar-cadastro.php", {
+  const dados = await fetch("../backend/confirmar-2FA.php", {
     method: "POST",
     body: dadosForm,
   });
@@ -38,8 +38,7 @@ form_conf_cad.addEventListener("submit", async (e) => {
       confirmButtonColor: "#3085d6",
       confirmButtonText: "Fechar",
     }).then(() => {
-      window.location.href = "../entrar/";
-      formcad.reset();
+      window.location.href = "../painel/";
     });
   } else {
     submitButton.disabled = false;

@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const togglePassword = document.querySelector("#togglePassword");
   const password = document.querySelector("#senha");
 
+  // Função para alternar visibilidade da senha
   const toggleVisibility = (field, toggleBtn) => {
     const type =
       field.getAttribute("type") === "password" ? "text" : "password";
@@ -10,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleBtn.querySelector("i").classList.toggle("bi-eye-slash");
   };
 
+  // Evento de clique para alternar a visibilidade da senha
   if (togglePassword) {
     togglePassword.addEventListener("click", () => {
       toggleVisibility(password, togglePassword);
@@ -18,17 +20,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const form_login = document.querySelector("#form_login");
 
+  // Verifica se o formulário de login existe
   if (form_login) {
     form_login.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const dadosForm = new FormData(form_login);
-
       const email = dadosForm.get("email");
       const senha = dadosForm.get("senha");
+
       const loadingSpinner = document.getElementById("loadingSpinner");
       const submitButton = document.getElementById("submitBtn");
 
+      // Validação dos campos
       if (!email || !senha) {
         Swal.fire({
           text: "Preencha todos os campos.",
@@ -39,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      // Desabilita o botão e exibe o carregamento
       submitButton.disabled = true;
       loadingSpinner.style.display = "inline-block";
 
@@ -50,30 +55,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const dados = await resposta.json();
 
+        // Reabilita o botão e oculta o carregamento
         submitButton.disabled = false;
         loadingSpinner.style.display = "none";
 
-        if (dados.status) {
+        // Trata o status da resposta
+        if (dados.status === true) {
           Swal.fire({
             text: dados.msg,
             icon: "success",
             confirmButtonColor: "#3085d6",
             confirmButtonText: "Fechar",
           }).then(() => {
-            form_login.reset();
             window.location.href = "../../painel/";
           });
-          if (resposta["status"] == "2FA") {
-            Swal.fire({
-              text: resposta["msg"], // Exibe a mensagem de erro ou sucesso
-              icon: "warning", // Ajuste para o ícone correto
-              confirmButtonColor: "#3085d6",
-              confirmButtonText: "Fechar",
-            }).then(() => {
-              // Redirecionando após o fechamento do alerta
-              window.location.href = "../dois-fatores/"; // Verifique se o caminho relativo está correto
-            });
-          }
+        } else if (dados.status === "2FA") {
+          window.location.href = "../dois-fatores/";
         } else {
           Swal.fire({
             text: dados.msg,
@@ -91,10 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
           confirmButtonColor: "#3085d6",
           confirmButtonText: "Fechar",
         });
-
-        console.error("Erro:", error);
       }
     });
-    console.error("Erro:", error);
   }
 });

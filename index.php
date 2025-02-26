@@ -121,8 +121,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
                         <li class="nav-item"><a class="nav-link" href="#nossa-missao">Sobre</a></li>
-                        <li class="nav-item"><a href="ajuda/" class="nav-link">Suporte</a></li>
-                        <li class="nav-item"><a href="FAQ/" class="nav-link">FAQ</a></li>
+                        <li class="nav-item"><a href="src/ajuda/" class="nav-link">Suporte</a></li>
+                        <li class="nav-item"><a href="src/FAQ/" class="nav-link">FAQ</a></li>
                     </ul>
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
                         <?php if (isset($_SESSION['user_id'])): ?>
@@ -131,19 +131,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <i class="bi bi-person text-dark"></i>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="painel/"><i class="bi bi-house-door text-dark me-2"></i>Painel</a></li>
-                                    <li><a class="dropdown-item" href="painel/vacinas/"><i class="bi bi-heart-pulse-fill text-dark me-2"></i>Vacinas</a></li>
-                                    <li><a class="dropdown-item" href="painel/perfil/"><i class="bi bi-person-circle text-dark me-2"></i>Perfil</a></li>
+                                    <li><a class="dropdown-item" href="src/painel/"><i class="bi bi-house-door text-dark me-2"></i>Painel</a></li>
+                                    <li><a class="dropdown-item" href="src/painel/vacinas/"><i class="bi bi-heart-pulse-fill text-dark me-2"></i>Vacinas</a></li>
+                                    <li><a class="dropdown-item" href="src/painel/perfil/"><i class="bi bi-person-circle text-dark me-2"></i>Perfil</a></li>
                                 </ul>
                             </li>
                         <?php else: ?>
                             <li class="nav-item me-3">
-                                <a class="btn btn-light text-primary rounded-pill px-4 py-2" href="auth/cadastro/">
+                                <a class="btn btn-light text-primary rounded-pill px-4 py-2" href="src/auth/cadastro/">
                                     <i class="bi bi-person-plus"></i> CADASTRE-SE
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white" href="auth/entrar/">
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white" href="src/auth/entrar/">
                                     <i class="bi bi-box-arrow-in-right"></i> ENTRAR
                                 </a>
                             </li>
@@ -171,12 +171,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="ajuda/" class="nav-link text-dark" style="font-weight: 500;">
+                        <a href="src/ajuda/" class="nav-link text-dark" style="font-weight: 500;">
                             <i class="bi bi-question-circle text-dark me-2"></i>Suporte
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="FAQ/" class="nav-link text-dark" style="font-weight: 500;">
+                        <a href="src/FAQ/" class="nav-link text-dark" style="font-weight: 500;">
                             <i class="bi bi-file-earmark-text text-dark me-2"></i>FAQ
                         </a>
                     </li>
@@ -187,15 +187,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <i class="bi bi-person text-dark"></i>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="painel/"><i class="bi bi-house-door text-dark me-2"></i>Painel</a></li>
-                            <li><a class="dropdown-item" href="painel/vacinas/"><i class="bi bi-heart-pulse-fill text-dark me-2"></i>Vacinas</a></li>
-                            <li><a class="dropdown-item" href="painel/perfil/"><i class="bi bi-person-circle text-dark me-2"></i>Perfil</a></li>
+                            <li><a class="dropdown-item" href="src/painel/"><i class="bi bi-house-door text-dark me-2"></i>Painel</a></li>
+                            <li><a class="dropdown-item" href="src/painel/vacinas/"><i class="bi bi-heart-pulse-fill text-dark me-2"></i>Vacinas</a></li>
+                            <li><a class="dropdown-item" href="src/painel/perfil/"><i class="bi bi-person-circle text-dark me-2"></i>Perfil</a></li>
                         </ul>
                     <?php else: ?>
-                        <a class="btn btn-secondary text-white rounded-pill px-4 py-2 w-100 text-center" href="auth/cadastro/">
+                        <a class="btn btn-secondary text-white rounded-pill px-4 py-2 w-100 text-center" href="src/auth/cadastro/">
                             <i class="bi bi-person-plus"></i> CADASTRE-SE
                         </a>
-                        <a class="btn btn-primary rounded-pill px-4 py-2 text-white w-100 text-center" href="auth/entrar/">
+                        <a class="btn btn-primary rounded-pill px-4 py-2 text-white w-100 text-center" href="src/auth/entrar/">
                             <i class="bi bi-box-arrow-in-right"></i> ENTRAR
                         </a>
                     <?php endif; ?>
