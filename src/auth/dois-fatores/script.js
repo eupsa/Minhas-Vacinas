@@ -38,7 +38,7 @@ form_2FA.addEventListener("submit", async (e) => {
       confirmButtonColor: "#3085d6",
       confirmButtonText: "Fechar",
     }).then(() => {
-      window.location.href = "../painel/";
+      window.location.href = "../../painel/";
     });
   } else {
     submitButton.disabled = false;

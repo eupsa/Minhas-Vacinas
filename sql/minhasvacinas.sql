@@ -175,6 +175,8 @@ CREATE TABLE
     FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
 );
 
+SELECT chave_secreta FROM 2FA WHERE email = 'pedruuu291@gmail.com';
+
 DELIMITER $$
 
 CREATE TRIGGER after_usuario_insert
