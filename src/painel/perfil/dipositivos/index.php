@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../../../scripts/User-Auth.php';
-require_once '../../../scripts/conn.php';
+require_once '../../../scripts/Conexao.php';
 
 Auth($pdo);
 Gerar_Session($pdo);
@@ -79,7 +79,6 @@ if (count($dispositivos) > 0) {
             }
         }
     </style>
-
 
     <section class="profile-section py-5" id="dispositivos">
         <div class="container">

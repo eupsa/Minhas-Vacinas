@@ -1,13 +1,10 @@
 <?php
-require 'conn.php';
-require '../../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require '../../../vendor/phpmailer/phpmailer/src/Exception.php';
-require '../../../vendor/phpmailer/phpmailer/src/SMTP.php';
-require '../../../vendor/autoload.php';
+require_once '../../../vendor/autoload.php';
+require_once 'Conexao.php';
 
-function registrar_dispositivo($pdo, $id_usuario)
+function RegistrarDispostivos($pdo, $id_usuario)
 {
-    $ip = get_real_ip();
+    $ip = ObterIP();
     $token = 'c4444d8bf12e24';
     $response = file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}");
     $data = json_decode($response, true);
@@ -16,19 +13,9 @@ function registrar_dispositivo($pdo, $id_usuario)
     $estado = isset($data['region']) ? $data['region'] : 'Desconhecido';
     $pais = isset($data['country']) ? $data['country'] : 'Desconhecido';
 
-    // $user_agent = $_SERVER['HTTP_USER_AGENT'];
-
-    // $browser_info = get_browser_info($user_agent);
-    // $navegador = $browser_info['browser'];
-    // $sistema_operacional = $browser_info['os'];
-
-    // $nome_dispositivo = gethostname();
-
-    // $tipo_dispositivo = (strpos($user_agent, 'Mobile') !== false) ? 'Mobile' : 'Desktop';
-
     $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
-    $browser_info = get_browser_info($user_agent);
+    $browser_info = NavegadorInfo($user_agent);
     $navegador = $browser_info['browser'];
     $sistema_operacional = $browser_info['os'];
     $tipo_dispositivo = (strpos($user_agent, 'Mobile') !== false) ? 'Mobile' : 'Desktop';
@@ -54,26 +41,26 @@ function registrar_dispositivo($pdo, $id_usuario)
     return $ip;
 }
 
-function get_real_ip()
+function ObterIP()
 {
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
     } elseif (!empty($_SERVER['REMOTE_ADDR'])) {
         $ip = $_SERVER['REMOTE_ADDR'];
     } else {
-        $ip = generate_random_ip();
+        $ip = GerarIp();
     }
 
     return $ip;
 }
 
-function generate_random_ip()
+function GerarIp()
 {
     return long2ip(rand(0, 255) << 24 | rand(0, 255) << 16 | rand(0, 255) << 8 | rand(0, 255));
 }
 
 
-function get_browser_info($user_agent)
+function NavegadorInfo($user_agent)
 {
     if (strpos($user_agent, 'Windows NT') !== false) {
         $os = 'Windows';

@@ -1,11 +1,12 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 session_start();
-require '../../scripts/conn.php';
-require '../../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require '../../../vendor/phpmailer/phpmailer/src/Exception.php';
-require '../../../vendor/phpmailer/phpmailer/src/SMTP.php';
-require '../../../vendor/autoload.php';
-require_once '../../scripts/Config.php';
+require_once '../../../vendor/autoload.php';
+require_once '../../scripts/Conexao.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '../../../../');
+$dotenv->load();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -14,137 +15,93 @@ $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = strtolower(trim($dados['email']));
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 $senha = $dados['senha'];
-$lembrarLogin = isset($_POST['lembrarLogin']) ? true : false;
 
-
-if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    if (empty($email) || empty($senha)) {
-        $retorna = ['status' => false, 'msg' => "Todos os campos devem ser preenchidos."];
-        header('Content-Type: application/json');
-        echo json_encode($retorna);
-        exit();
-    } else {
-        try {
-            $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
-            $sql->bindValue(':email', $email);
-            $sql->execute();
-
-            if ($sql->rowCount() == 1) {
-                $usuario = $sql->fetch(PDO::FETCH_BOTH);
-                $email_conf = $usuario['email_conf'];
-
-                if ($email_conf != 1) {
-                    $retorna = ['status' => false, 'msg' => "É necessário confirmar seu cadastro para acessar o sistema."];
-                    header('Content-Type: application/json');
-                    echo json_encode($retorna);
-                    exit();
-                }
-                if (password_verify($senha, $usuario['senha'])) {
-                    if (!$lembrarLogin) {
-                        $id_usuario = $usuario['id_usuario'];
-                        $ip = get_real_ip();
-
-                        $sql = $pdo->prepare("SELECT * FROM usuario WHERE ip_cadastro = :ip_cadastro AND id_usuario = :id_usuario");
-                        $sql->bindValue(':ip_cadastro', $ip);
-                        $sql->bindValue(':id_usuario', $id_usuario);
-                        $sql->execute();
-
-                        if ($sql->rowCount() == 1) {
-                            $retorna = ['status' => true, 'msg' => "Bem-vindo à nossa plataforma, " . htmlspecialchars(explode(' ', $usuario['nome'])[0]) . "!"];
-                            header('Content-Type: application/json');
-                            echo json_encode($retorna);
-                            $_SESSION['user_id'] = $usuario['id_usuario'];
-                            $_SESSION['user_nome'] = $usuario['nome'];
-                            $_SESSION['user_email'] = $usuario['email'];
-                            $_SESSION['user_ip'] = $ip;
-                            exit();
-                        } else {
-                            $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip AND id_usuario = :id_usuario");
-                            $sql->bindValue(':ip', $ip);
-                            $sql->bindValue(':id_usuario', $id_usuario);
-                            $sql->execute();
-
-                            if ($sql->rowCount() == 1) {
-                                $dispostivo = $sql->fetch(PDO::FETCH_BOTH);
-                                $dispositivo_confirmado = $dispostivo['confirmado'];
-
-                                if ($dispositivo_confirmado != 1) {
-                                    $id_usuario = $dispostivo['id_usuario'];
-                                    $ip = $dispostivo['ip'];
-                                    $cidade = $dispostivo['cidade'];
-                                    $estado = $dispostivo['estado'];
-                                    $pais = $dispostivo['pais'];
-
-                                    enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
-                                    $retorna = ['status' => true, 'msg' => "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções."];
-                                    header('Content-Type: application/json');
-                                    echo json_encode($retorna);
-                                    exit();
-                                } else {
-                                    $retorna = ['status' => true, 'msg' => "Bem-vindo à nossa plataforma, " . htmlspecialchars(explode(' ', $usuario['nome'])[0]) . "!"];
-                                    header('Content-Type: application/json');
-                                    echo json_encode($retorna);
-                                    $_SESSION['user_id'] = $usuario['id_usuario'];
-                                    $_SESSION['user_nome'] = $usuario['nome'];
-                                    $_SESSION['user_email'] = $usuario['email'];
-                                    $_SESSION['user_ip'] = $ip;
-                                    exit();
-                                }
-                            } else {
-                                registrar_dispositivo($pdo, $id_usuario);
-                                $token = 'c4444d8bf12e24';
-                                $response = file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}");
-                                $data = json_decode($response, true);
-
-                                $cidade = $data['city'];
-                                $estado = $data['region'];
-                                $pais = $data['country'];
-                                $email = $usuario['email'];
-
-                                enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
-                                $retorna = ['status' => true, 'msg' => "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções."];
-                                header('Content-Type: application/json');
-                                echo json_encode($retorna);
-                                exit();
-                            }
-                        }
-                    } else {
-                        $retorna = ['status' => true, 'msg' => "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções."];
-                        header('Content-Type: application/json');
-                        echo json_encode($retorna);
-                        //Modificar aqui quando encontrar a solução do Checkbox para login
-                        $_SESSION['user_id'] = $usuario['id_usuario'];
-                        $_SESSION['user_nome'] = $usuario['nome'];
-                        $_SESSION['user_email'] = $usuario['email'];
-                        exit();
-                    }
-                } else {
-                    $retorna = ['status' => false, 'msg' => "E-mail ou senha incorretos."];
-                    header('Content-Type: application/json');
-                    echo json_encode($retorna);
-                    exit();
-                }
-            } else {
-                $retorna = ['status' => false, 'msg' => "O e-mail não existe em nosso sistema."];
-                header('Content-Type: application/json');
-                echo json_encode($retorna);
-                exit();
-            }
-        } catch (PDOException $e) {
-            $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário: " . $e->getMessage()];
-            header('Content-Type: application/json');
-            echo json_encode($retorna);
-            exit();
-        }
-    }
-} else {
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $retorna = ['status' => false, 'msg' => "E-mail fornecido é inválido."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
 }
 
-function enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
+if (empty($email) || empty($senha)) {
+    $retorna = ['status' => false, 'msg' => "Todos os campos devem ser preenchidos."];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
+} else {
+    $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email AND email_conf = 1");
+    $sql->bindValue(':email', $email);
+    $sql->execute();
+
+    if ($sql->rowCount() === 1) {
+        $usuario = $sql->fetch(PDO::FETCH_BOTH);
+        if (password_verify($senha, $usuario['senha'])) {
+            $id_usuario = $usuario['id_usuario'];
+            $ip = ObterIP();
+
+            $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE id_usuario = :id AND ip = :ip AND confirmado = 1");
+            $sql->bindValue(':id', $id_usuario);
+            $sql->bindValue(':ip', $ip);
+            $sql->execute();
+
+            if ($sql->rowCount() == 1) {
+                $email = $usuario['email'];
+                $sql = $pdo->prepare("SELECT chave_secreta FROM 2FA WHERE email = :email");
+                $sql->bindValue(':email', $email);
+                $sql->execute();
+
+                if ($sql->rowCount() == 1) {
+                    $retorna = ['status' => '2FA', 'msg' => "2FA"];
+                    header('Content-Type: application/json');
+                    echo json_encode($retorna);
+                    exit();
+                }
+
+                $retorna = ['status' => true, 'msg' => "Bem-vindo à nossa plataforma, " . htmlspecialchars(explode(' ', $usuario['nome'])[0]) . "!"];
+                header('Content-Type: application/json');
+                echo json_encode($retorna);
+                $_SESSION['user_id'] = $usuario['id_usuario'];
+                $_SESSION['user_nome'] = $usuario['nome'];
+                $_SESSION['user_email'] = $usuario['email'];
+                $_SESSION['user_ip'] = $ip;
+                exit();
+            } else {
+                RegistrarDispositivo($pdo, $id_usuario);
+                $token = $_ENV['IPINFO_TOKEN'];
+                $response = file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}");
+                $data = json_decode($response, true);
+
+                if (!isset($data['city']) || !isset($data['region']) || !isset($data['country'])) {
+                    $cidade = 'Desconhecida';
+                    $estado = 'Desconhecido';
+                    $pais = 'Desconhecido';
+                } else {
+                    $cidade = $data['city'];
+                    $estado = $data['region'];
+                    $pais = $data['country'];
+                }
+                EmailLogin($id_usuario, $email, $ip, $cidade, $estado, $pais);
+                $retorna = ['status' => true, 'msg' => "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções."];
+                header('Content-Type: application/json');
+                echo json_encode($retorna);
+                exit();
+            }
+        } else {
+            $retorna = ['status' => false, 'msg' => "E-mail ou senha incorretos."];
+            header('Content-Type: application/json');
+            echo json_encode($retorna);
+            exit();
+        }
+    } else {
+        $retorna = ['status' => false, 'msg' => "Usuário não cadastrado ou cadastro não confimado."];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit();
+    }
+}
+
+
+function EmailLogin($id_usuario, $email, $ip, $cidade, $estado, $pais)
 {
     date_default_timezone_set('America/Sao_Paulo');
     $data_local = date('d/m/Y H:i:s');
@@ -162,11 +119,11 @@ function enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
         $mail->isSMTP();
         $mail->Host = 'smtp.zoho.com';
         $mail->SMTPAuth = true;
-        $mail->Username = EMAIL;
-        $mail->Password = EMAIL_PASSWORD;
+        $mail->Username = $_ENV['EMAIL'];
+        $mail->Password = $_ENV['EMAIL_PASS'];;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom(EMAIL, 'Minhas Vacinas');
+        $mail->setFrom($_ENV['EMAIL'], 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
@@ -181,9 +138,9 @@ function enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
     }
 }
 
-function registrar_dispositivo($pdo, $id_usuario)
+function RegistrarDispositivo($pdo, $id_usuario)
 {
-    $ip = get_real_ip();
+    $ip = ObterIP();
     $token = 'c4444d8bf12e24';
     $response = file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}");
     $data = json_decode($response, true);
@@ -194,7 +151,7 @@ function registrar_dispositivo($pdo, $id_usuario)
 
     $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
-    $browser_info = get_browser_info($user_agent);
+    $browser_info = NavegadorINFO($user_agent);
     $navegador = $browser_info['browser'];
     $sistema_operacional = $browser_info['os'];
     $tipo_dispositivo = (strpos($user_agent, 'Mobile') !== false) ? 'Mobile' : 'Desktop';
@@ -218,7 +175,7 @@ function registrar_dispositivo($pdo, $id_usuario)
     return $ip;
 }
 
-function get_real_ip()
+function ObterIP()
 {
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
@@ -231,7 +188,7 @@ function get_real_ip()
     return $ip;
 }
 
-function get_browser_info($user_agent)
+function NavegadorINFO($user_agent)
 {
     if (strpos($user_agent, 'Windows NT') !== false) {
         $os = 'Windows';

@@ -1,5 +1,5 @@
 <?php
-require '../../scripts/conn.php';
+require '../../scripts/Conexao.php';
 
 $token = $_GET['token'];
 

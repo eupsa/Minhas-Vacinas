@@ -1,5 +1,5 @@
 <?php
-require '../../scripts/conn.php';
+require_once '../../scripts/Conexao.php';
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $dispositivo_id = $dados['dispositivo_id'];;

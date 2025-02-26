@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../../scripts/User-Auth.php';
-require_once '../../scripts/conn.php';
+require_once '../../scripts/Conexao.php';
 
 Auth($pdo);
 Gerar_Session($pdo);
@@ -9,6 +9,16 @@ Gerar_Session($pdo);
 $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE id_usuario = :id_usuario AND confirmado = 1");
 $sql->bindValue(':id_usuario', $_SESSION['user_id']);
 $sql->execute();
+
+$sql = $pdo->prepare("SELECT email FROM 2FA WHERE email = :email");
+$sql->bindValue(':email', $_SESSION['user_email']);
+$sql->execute();
+
+if ($sql->rowCount() === 1) {
+    $DF = true;
+} else {
+    $DF = false;
+}
 
 $dispositivos = $sql->fetchAll(PDO::FETCH_ASSOC);
 
@@ -181,7 +191,6 @@ if (count($dispositivos) > 0) {
                         </div>
                     </div>
 
-
                     <div class="card shadow-lg border-0 rounded-4" style="margin-top: 5%;">
                         <div class="card-header bg-gradient text-white text-center py-3" style="background-color: #007bff;">
                             <h4 class="mb-0">
@@ -204,17 +213,30 @@ if (count($dispositivos) > 0) {
                                         </label>
                                     </div>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="option2" name="option2">
-                                        <label class="form-check-label" for="option2">
-                                            Ativar Verificação em Duas Etapas
-                                            <i class="fa fa-info-circle" style="color: #007bff; cursor: pointer;" title="Ao ativar, sua conta ganhará uma camada extra de segurança, exigindo um código adicional ao fazer login."></i>
-                                        </label>
+                                        <?php if ($DF == true): ?>
+                                            <input class="form-check-input" type="checkbox" id="option2" name="option2" disabled checked>
+                                            <label class="form-check-label" for="option2">
+                                                Ativar Verificação em Duas Etapas
+                                                <i class="fa fa-info-circle" style="color: #007bff; cursor: pointer;" title="Ao ativar, sua conta ganhará uma camada extra de segurança, exigindo um código adicional ao fazer login."></i>
+                                            </label>
+                                        <?php else: ?>
+                                            <input class="form-check-input" type="checkbox" id="option2" name="option2">
+                                            <label class="form-check-label" for="option2">
+                                                Ativar Verificação em Duas Etapas
+                                                <i class="fa fa-info-circle" style="color: #007bff; cursor: pointer;" title="Ao ativar, sua conta ganhará uma camada extra de segurança, exigindo um código adicional ao fazer login."></i>
+                                            </label>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
 
+                    <script>
+                        document.getElementById("option2").addEventListener("click", function() {
+                            window.location.href = "2FA/";
+                        });
+                    </script>
 
                     <div class="card shadow-lg border-0 rounded-4" style="margin-top: 5%;">
                         <div class="card-header bg-gradient text-white text-center py-3" style="background-color: #007bff;">

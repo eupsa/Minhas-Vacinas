@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../../../scripts/User-Auth.php';
-require_once '../../../scripts/conn.php';
+require_once '../../../scripts/Conexao.php';
 
 Auth($pdo);
 
@@ -213,7 +213,6 @@ if (count($vacinas) > 0) {
             }
         });
     </script>
-
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

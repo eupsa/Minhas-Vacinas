@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const email = dadosForm.get("email");
       const senha = dadosForm.get("senha");
-      const termosAceitos = dadosForm.get("lembrarLogin");
       const loadingSpinner = document.getElementById("loadingSpinner");
       const submitButton = document.getElementById("submitBtn");
 
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
           body: dadosForm,
         });
 
-        const dados = await resposta.json(); 
+        const dados = await resposta.json();
 
         submitButton.disabled = false;
         loadingSpinner.style.display = "none";
@@ -64,6 +63,17 @@ document.addEventListener("DOMContentLoaded", () => {
             form_login.reset();
             window.location.href = "../../painel/";
           });
+          if (resposta["status"] == "2FA") {
+            Swal.fire({
+              text: resposta["msg"], // Exibe a mensagem de erro ou sucesso
+              icon: "warning", // Ajuste para o ícone correto
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: "Fechar",
+            }).then(() => {
+              // Redirecionando após o fechamento do alerta
+              window.location.href = "../dois-fatores/"; // Verifique se o caminho relativo está correto
+            });
+          }
         } else {
           Swal.fire({
             text: dados.msg,
@@ -75,7 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (error) {
         submitButton.disabled = false;
         loadingSpinner.style.display = "none";
-
         Swal.fire({
           text: "Erro ao fazer login. Tente novamente.",
           icon: "error",

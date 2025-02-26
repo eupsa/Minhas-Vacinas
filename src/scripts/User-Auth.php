@@ -31,23 +31,16 @@ function Auth($pdo)
             exit();
         }
 
-        $sql = $pdo->prepare("SELECT * FROM usuario WHERE ip_cadastro = :ip_cadastro AND id_usuario = :id_usuario");
-        $sql->bindValue(':ip_cadastro', $_SESSION['user_ip']);
+        $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip AND id_usuario = :id_usuario AND confirmado = 1");
+        $sql->bindValue(':ip', $_SESSION['user_ip']);
         $sql->bindValue(':id_usuario', $_SESSION['user_id']);
         $sql->execute();
 
         if ($sql->rowCount() != 1) {
-            $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip AND id_usuario = :id_usuario AND confirmado = 1");
-            $sql->bindValue(':ip', $_SESSION['user_ip']);
-            $sql->bindValue(':id_usuario', $_SESSION['user_id']);
-            $sql->execute();
-
-            if ($sql->rowCount() != 1) {
-                $_SESSION = [];
-                session_destroy();
-                header("Location: /src/auth/entrar/");
-                exit();
-            }
+            $_SESSION = [];
+            session_destroy();
+            header("Location: /src/auth/entrar/");
+            exit();
         }
     } else {
         $_SESSION = [];

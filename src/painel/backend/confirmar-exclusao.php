@@ -1,10 +1,7 @@
 <?php
 session_start();
-require '../../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require '../../../vendor/phpmailer/phpmailer/src/Exception.php';
-require '../../../vendor/phpmailer/phpmailer/src/SMTP.php';
-require '../../../vendor/autoload.php';
-require '../../scripts/conn.php';
+require_once '../../../vendor/autoload.php';
+require_once '../../scripts/Conexao.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../../scripts/User-Auth.php';
-require_once '../../scripts/conn.php';
+require_once '../../scripts/Conexao.php';
 
 Auth($pdo);
 

@@ -5,7 +5,8 @@ require_once '../../scripts/conn.php';
 
 $g = new \Sonata\GoogleAuthenticator\GoogleAuthenticator();
 
-$token = '697409';
+$email = $_SESSION['email-temp'];
+$key = $_SESSION['key-temp'];
 
 $sql = $pdo->prepare("SELECT secretkey_2FA FROM usuario WHERE email = :email");
 $sql->bindValue(':email', $_SESSION['user_email']);
