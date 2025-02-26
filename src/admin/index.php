@@ -19,7 +19,7 @@
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-100 m-auto text-center">
         <form action="backend/entrar-admin.php" method="POST" id="login-adm" style="margin-top: 50%;">
-            <img class=" mb-4" src="https://www.minhasvacinas.online/assets/img/logo-head.png" alt="" width="100" height="90">
+            <img class=" mb-4" src="/assets/img/logo-head.png" alt="" width="100" height="90">
             <h1 class="h3 mb-3 fw-normal">Faça login</h1>
             <div class="form-floating" style="margin-bottom: 5%;">
                 <input type="text" name="email" class="form-control" id="floatingInput" placeholder="email@example.com">

@@ -40,26 +40,22 @@ if ($sql->rowCount() != 1) {
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
                         <li class="nav-item"><a class="nav-link" href="/#nossa-missao">Sobre</a></li>
-                        <li class="nav-item"><a href="/src/ajuda/" class="nav-link">Suporte</a></li>
+                        <li class="nav-item"><a href="../../ajuda/" class="nav-link">Suporte</a></li>
+                        <li class="nav-item"><a href="../../FAQ/" class="nav-link">FAQ</a></li>
                     </ul>
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
                         <?php if (isset($_SESSION['user_id'])): ?>
-                            <li class="nav-item">
-                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white" href="../../painel/">
-                                    <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle btn btn-primary rounded-pill px-4 py-2 text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person text-dark"></i>
                                 </a>
-                            </li>
-                            <li class="nav-item ms-2">
-                                <a class="btn btn-danger rounded-pill px-4 py-2 text-white" href="../../scripts/sair.php">
-                                    <i class="bi bi-box-arrow-left"></i> Sair
-                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="../painel/"><i class="bi bi-house-door text-dark me-2"></i>Painel</a></li>
+                                    <li><a class="dropdown-item" href="../painel/vacinas/"><i class="bi bi-heart-pulse-fill text-dark me-2"></i>Vacinas</a></li>
+                                    <li><a class="dropdown-item" href="../painel/perfil/"><i class="bi bi-person-circle text-dark me-2"></i>Perfil</a></li>
+                                </ul>
                             </li>
                         <?php else: ?>
-                            <li class="nav-item me-3">
-                                <a class="btn btn-light text-primary rounded-pill px-4 py-2" href="../cadastro/">
-                                    <i class="bi bi-person-plus"></i> CADASTRE-SE
-                                </a>
-                            </li>
                             <li class="nav-item">
                                 <a class="btn btn-primary rounded-pill px-4 py-2 text-white" href="../entrar/">
                                     <i class="bi bi-box-arrow-in-right"></i> ENTRAR
@@ -71,29 +67,45 @@ if ($sql->rowCount() != 1) {
             </div>
         </nav>
 
-        <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="width: 75%; background: rgba(255, 255, 255, 0.8);">
+        <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="width: 75%; background: rgba(255, 255, 255, 0.95);">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body d-flex flex-column justify-content-between" style="height: 100%;">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/#nossa-missao">Sobre</a></li>
-                    <li class="nav-item"><a href="/src/ajuda/" class="nav-link">Suporte</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/" style="font-weight: 500;">
+                            <i class="bi bi-house-door text-dark me-2"></i>Início
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/#nossa-missao" style="font-weight: 500;">
+                            <i class="bi bi-info-circle text-dark me-2"></i>Sobre
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../ajuda/" class="nav-link text-dark" style="font-weight: 500;">
+                            <i class="bi bi-question-circle text-dark me-2"></i>Suporte
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../FAQ/" class="nav-link text-dark" style="font-weight: 500;">
+                            <i class="bi bi-file-earmark-text text-dark me-2"></i>FAQ
+                        </a>
+                    </li>
                 </ul>
-                <div class="d-flex flex-column align-items-center gap-2 mt-3">
+                <div class="d-flex flex-column align-items-center gap-3 mt-4">
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <a class="btn btn-primary rounded-pill px-4 py-2 text-white w-100 text-center" href="../../painel/">
-                            <i class="bi bi-arrow-return-left"></i> Voltar à sua conta
+                        <a class="nav-link dropdown-toggle btn btn-outline-primary rounded-pill px-4 py-2 w-100 text-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person text-dark"></i>
                         </a>
-                        <a class="btn btn-danger rounded-pill px-4 py-2 text-white w-100 text-center" href="../../scripts/sair.php">
-                            <i class="bi bi-box-arrow-left"></i> Sair
-                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="../painel/"><i class="bi bi-house-door text-dark me-2"></i>Painel</a></li>
+                            <li><a class="dropdown-item" href="../painel/vacinas/"><i class="bi bi-heart-pulse-fill text-dark me-2"></i>Vacinas</a></li>
+                            <li><a class="dropdown-item" href="../painel/perfil/"><i class="bi bi-person-circle text-dark me-2"></i>Perfil</a></li>
+                        </ul>
                     <?php else: ?>
-                        <a class="btn btn-light text-primary rounded-pill px-4 py-2 w-100 text-center" href="../cadastro/">
-                            <i class="bi bi-person-plus"></i> CADASTRE-SE
-                        </a>
                         <a class="btn btn-primary rounded-pill px-4 py-2 text-white w-100 text-center" href="../entrar/">
                             <i class="bi bi-box-arrow-in-right"></i> ENTRAR
                         </a>
