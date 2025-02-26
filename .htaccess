@@ -30,6 +30,8 @@ ErrorDocument 500 /assets/error/500.html
 # Bloquear acesso à pasta .git
 RewriteRule ^\.git(/|$) - [F,L]
 
+RewriteRule ^(admin|ajuda|auth|FAQ|painel)/(.*)$ src/$1/$2 [L]
+
 # Bloquear a pasta vendor
 RewriteRule ^vendor/ - [F,L]
 
