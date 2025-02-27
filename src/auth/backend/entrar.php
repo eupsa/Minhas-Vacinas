@@ -45,16 +45,16 @@ if (empty($email) || empty($senha)) {
             $sql->execute();
 
             $dispositivo = $sql->fetch(PDO::FETCH_BOTH);
-            $confirmado = $dispositivo['confirmado'];
+            $dispositivo_confirmado = $dispositivo['confirmado'];
 
-            if ($confirmado != 1) {
-                $id_usuario = $dispostivo['id_usuario'];
-                $ip = $dispostivo['ip'];
-                $cidade = $dispostivo['cidade'];
-                $estado = $dispostivo['estado'];
-                $pais = $dispostivo['pais'];
+            if ($dispositivo_confirmado != 1) {
+                $id_usuario = $dispositivo['id_usuario'];
+                $ip = $dispositivo['ip'] ?? ObterIP();
+                $cidade = $dispositivo['cidade'] ?? 'Desconhecido';
+                $estado = $dispositivo['estado'] ?? 'Desconhecido';
+                $pais = $dispositivo['pais'] ?? 'Desconhecido';
 
-                enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
+                EmailLogin($id_usuario, $email, $ip, $cidade, $estado, $pais);
                 $retorna = ['status' => true, 'msg' => "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções."];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
