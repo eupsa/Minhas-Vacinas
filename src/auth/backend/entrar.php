@@ -47,7 +47,7 @@ if (empty($email) || empty($senha)) {
             $dispositivo = $sql->fetch(PDO::FETCH_BOTH);
             $dispositivo_confirmado = $dispositivo['confirmado'];
 
-            if ($dispositivo_confirmado != 1) {
+            if ($dispositivo_confirmado === 0) {
                 $id_usuario = $dispositivo['id_usuario'];
                 $ip = $dispositivo['ip'] ?? ObterIP();
                 $cidade = $dispositivo['cidade'] ?? 'Desconhecido';
