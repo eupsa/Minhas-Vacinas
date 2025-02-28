@@ -58,26 +58,18 @@ $arquivoNew = explode('.', $arquivo['name']);
 if (!in_array($arquivoNew[sizeof($arquivoNew) - 1], ['jpg', 'png', 'jpeg'])) {
     die('Extensão inválida');
 } else {
-    // Gera um nome único para o arquivo
     $name = bin2hex(random_bytes(50)) . '.' . strtolower(end($arquivoNew));
-
-    // Caminho de upload absoluto
     $upload_dir = '/var/www/Assets-MV/user-img/';
 
-    // Verifica se o diretório existe
     if (!is_dir($upload_dir)) {
         die('Diretório de upload não encontrado.');
     }
 
-    // Tenta mover o arquivo para o diretório de upload
     if (!move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name)) {
         die('Erro ao mover o arquivo para o diretório de upload. Caminho: ' . $upload_dir . $name);
     }
 
-    // Define o caminho completo para o arquivo
-    $path = 'https://usercontent.minhasvacinas.online/upload/' . $name;
-
-    // Aqui você pode armazenar o caminho da imagem no banco ou retornar uma resposta
+    $path = 'https://usercontent.minhasvacinas.online/user-img/' . $name;
 }
 
 
