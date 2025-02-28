@@ -75,7 +75,11 @@ if (!in_array($extensao, ['jpg', 'png', 'jpeg'])) {
     // Move o arquivo para o diretório
     if (!move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name)) {
         // Retorna erro no upload
-        $retorna = ['status' => false, 'msg' => 'Ocorreu um erro ao enviar a imagem.'];
+        $retorna = [
+            'status' => false,
+            'msg' => 'Ocorreu um erro ao enviar a imagem.',
+            'erroDetalhado' => $ultimoErro // Aqui estamos incluindo o erro detalhado
+        ];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();
