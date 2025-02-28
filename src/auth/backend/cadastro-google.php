@@ -1,8 +1,8 @@
 <?php
 session_start();
-require '../../scripts/conn.php';
-require '../../../vendor/autoload.php';
-require '../../scripts/registrar-dispositivos.php';
+require_once '../../scripts/Conexao.php';
+require_once '../../../vendor/autoload.php';
+require_once '../../scripts/Registrar-Dispositivos.php';
 
 use Google\Client as GoogleClient;
 

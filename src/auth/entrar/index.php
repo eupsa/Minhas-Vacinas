@@ -113,7 +113,9 @@ if (isset($_SESSION['user_id'])) {
 
     <section class="form-log custom-section">
         <div class="container mt-5 rounded-pill">
-            <h4 class="mb-4 text-center" style="margin-top: 10%;">Entre na sua conta</h4>
+            <h4 class="mb-4 text-center" style="margin-top: 10%;">
+                Entre na sua conta <i class="bi bi-box-arrow-in-right me-2"></i>
+            </h4>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 col-lg-6">
                     <div class="card shadow-lg border-0 rounded-lg">
@@ -150,12 +152,12 @@ if (isset($_SESSION['user_id'])) {
                             <form action="../backend/entrar.php" class="needs-validation" id="form_login" method="post" novalidate>
                                 <div class="mb-4">
                                     <label for="email" class="form-label text-dark font-weight-semibold">E-mail<span class="required-asterisk">*</span></label>
-                                    <input type="email" class="form-control" id="email" name="email" required autocomplete="off" value="pedruuu291@gmail.com">
+                                    <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
                                 </div>
                                 <div class=" mb-4">
                                     <label for="senha" class="form-label text-dark font-weight-semibold">Senha<span class="required-asterisk">*</span></label>
                                     <div class="input-group">
-                                        <input type="password" class="form-control" id="senha" name="senha" required value="Chicote1@">
+                                        <input type="password" class="form-control" id="senha" name="senha" required>
                                         <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                             <i class="bi bi-eye"></i>
                                         </button>
@@ -169,7 +171,7 @@ if (isset($_SESSION['user_id'])) {
                                     </div>
                                 </div>
                                 <button class="btn btn-dark w-100 py-2 rounded-pill text-uppercase font-weight-bold" type="submit" id="submitBtn">
-                                    <i class="fas fa-door-open"></i> ENTRAR
+                                    <i class="bi bi-box-arrow-in-right"></i> ENTRAR
                                     <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status" aria-hidden="true" style="display: none;"></span>
                                 </button>
                             </form>

@@ -112,7 +112,9 @@ if (isset($_SESSION['user_id'])) {
 
     <section class="pt-5 pb-5">
         <div class="container mt-5">
-            <h4 class="mb-4 text-center" style="margin-top: 10%;">Confirme seu cadastro</h4>
+            <h4 class="mb-4 text-center" style="margin-top: 10%;">
+                Confirme seu cadastro <i class="bi bi-check-circle me-2"></i>
+            </h4>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 col-lg-6">
                     <div class="card shadow-lg border-0">
@@ -121,9 +123,17 @@ if (isset($_SESSION['user_id'])) {
                                 <p class="text-muted text-center mb-4">
                                     <i class="fas fa-envelope"></i> Um código de 6 dígitos foi enviado para o seu e-mail. Verifique sua caixa de entrada para confirmar seu cadastro.
                                 </p>
-                                <div class="mb-3">
+                                <div class="mb-3 text-center">
                                     <label for="codigo" class="form-label text-dark">Código</label>
-                                    <input type="text" class="form-control rounded-pill" id="codigo" name="codigo" required autocomplete="off">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
+                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
+                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
+                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
+                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
+                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
+                                    </div>
+                                    <input type="hidden" name="codigo" id="codigo-hidden">
                                 </div>
                                 <button class="btn btn-dark w-100 py-2 rounded-pill d-flex align-items-center justify-content-center" type="submit" id="submitBtn">
                                     <i class="bi bi-check-circle me-2"></i> CONFIRMAR CADASTRO
@@ -131,18 +141,6 @@ if (isset($_SESSION['user_id'])) {
                                 </button>
                             </form>
                         </div>
-                    </div>
-                    <div class="text-center mt-3">
-                        <a href="" data-bs-toggle="modal" data-bs-target="#emailModal" class="text-primary" style="text-decoration: none;">
-                            <i class="bi bi-arrow-clockwise me-2"></i>Reenviar e-mail de confirmação
-                        </a>
-                    </div>
-                    <hr class="custom-hr">
-                    <div class="text-center mt-3">
-                        <p class="mb-1 text-dark">Ainda não tem uma conta?</p>
-                        <a href="../cadastro/" class="text-primary" style="text-decoration: none;">
-                            <i class="bi bi-person-plus me-2"></i>Faça seu registro aqui
-                        </a>
                     </div>
                 </div>
             </div>
@@ -179,7 +177,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </section>
 
-    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 2%;">
+    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 7%;">
         <div class="me-5 d-none d-lg-block"></div>
         <div class="container text-center text-md-start mt-5">
             <div class="row mt-3">
@@ -233,7 +231,6 @@ if (isset($_SESSION['user_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
     <script src="reenviar-emai.js"></script>
-    <script src="../../../block.js"></script>
 </body>
 
 </html>

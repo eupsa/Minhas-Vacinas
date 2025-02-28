@@ -1,10 +1,9 @@
 <?php
-require '../../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require '../../../vendor/phpmailer/phpmailer/src/Exception.php';
-require '../../../vendor/phpmailer/phpmailer/src/SMTP.php';
 require '../../../vendor/autoload.php';
-require '../../scripts/conn.php';
-require_once '../../scripts/Config.php';
+require '../../scripts/Conexao.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '../../../../');
+$dotenv->load();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -78,13 +77,13 @@ function email_cadastro($email, $codigo)
     $mail = new PHPMailer();
     try {
         $mail->isSMTP();
-        $mail->Host = 'smtp.zoho.com';
+        $mail->Host = $_ENV['HOST_SMTP'];
         $mail->SMTPAuth = true;
-        $mail->Username = EMAIL;
-        $mail->Password = EMAIL_PASSWORD;
+        $mail->Username = $_ENV['EMAIL'];
+        $mail->Password = $_ENV['EMAIL_PASSWORD'];
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom(EMAIL, 'Minhas Vacinas');
+        $mail->setFrom($_ENV['EMAIL'], 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';

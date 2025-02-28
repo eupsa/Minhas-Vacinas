@@ -1,53 +1,61 @@
-const form_2FA = document.querySelector("#form-2FA");
+document.addEventListener("DOMContentLoaded", function () {
+  const inputs = document.querySelectorAll("input[name='codigo[]']");
 
-form_2FA.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const dadosForm = new FormData(form_2FA);
-
-  const codigo = dadosForm.get("codigo");
-  const loadingSpinner = document.getElementById("loadingSpinner");
-  const submitButton = document.getElementById("submitBtn");
-
-  if (!codigo) {
-    Swal.fire({
-      text: "O código não foi inserido.",
-      icon: "error",
-      confirmButtonColor: "#3085d6",
-      confirmButtonText: "Fechar",
+  inputs.forEach((input, index) => {
+    input.addEventListener("input", function () {
+      if (this.value.length === 1 && index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      }
     });
-    return;
-  }
 
-  submitButton.disabled = true;
-  loadingSpinner.style.display = "inline-block";
-
-  const dados = await fetch("../backend/confirmar-2FA.php", {
-    method: "POST",
-    body: dadosForm,
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Backspace" && index > 0 && this.value === "") {
+        inputs[index - 1].focus();
+      }
+    });
   });
 
-  const resposta = await dados.json();
+  document.querySelector("#form-2FA").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const codigoConcatenado = Array.from(inputs)
+      .map((input) => input.value)
+      .join("");
 
-  if (resposta["status"]) {
-    submitButton.disabled = false;
-    loadingSpinner.style.display = "none";
-    Swal.fire({
-      text: resposta["msg"],
-      icon: "success",
-      confirmButtonColor: "#3085d6",
-      confirmButtonText: "Fechar",
-    }).then(() => {
-      window.location.href = "../../painel/";
-    });
-  } else {
-    submitButton.disabled = false;
-    loadingSpinner.style.display = "none";
-    Swal.fire({
-      text: resposta["msg"],
-      icon: "error",
-      confirmButtonColor: "#3085d6",
-      confirmButtonText: "Fechar",
-    });
-  }
+    if (codigoConcatenado.length !== 6) {
+      Swal.fire({
+        text: "Por favor, insira todos os 6 dígitos.",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Fechar",
+      });
+      return;
+    }
+
+    const dadosForm = new FormData(this);
+    dadosForm.append("codigo", codigoConcatenado);
+
+    document.getElementById("submitBtn").disabled = true;
+    document.getElementById("loadingSpinner").style.display = "inline-block";
+
+    fetch("../backend/confirmar-2FA.php", {
+      method: "POST",
+      body: dadosForm,
+    })
+      .then((response) => response.json())
+      .then((resposta) => {
+        document.getElementById("submitBtn").disabled = false;
+        document.getElementById("loadingSpinner").style.display = "none";
+
+        Swal.fire({
+          text: resposta.msg,
+          icon: resposta.status ? "success" : "error",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Fechar",
+        }).then(() => {
+          if (resposta.status) {
+            window.location.href = "../../painel/";
+          }
+        });
+      });
+  });
 });

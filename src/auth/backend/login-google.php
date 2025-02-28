@@ -1,10 +1,10 @@
 <?php
 session_start();
-require '../../scripts/conn.php';
+require '../../scripts/Conexao.php';
 require '../../../vendor/autoload.php';
-require '../../../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require '../../../vendor/phpmailer/phpmailer/src/Exception.php';
-require '../../../vendor/phpmailer/phpmailer/src/SMTP.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '../../../../');
+$dotenv->load();
 
 use Google\Client as GoogleClient;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -132,11 +132,11 @@ function enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
         $mail->isSMTP();
         $mail->Host = 'smtp.zoho.com';
         $mail->SMTPAuth = true;
-        $mail->Username = EMAIL;
-        $mail->Password = EMAIL_PASSWORD;
+        $mail->Username = $_ENV['EMAIL'];
+        $mail->Password = $_ENV['EMAIL_PASSWORD'];
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom(EMAIL, 'Minhas Vacinas');
+        $mail->setFrom($_ENV['EMAIL'], 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';

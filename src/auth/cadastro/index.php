@@ -116,7 +116,9 @@ if (isset($_SESSION['user_id'])) {
 
     <section class="form-log custom-section">
         <div class="container mt-5 rounded">
-            <h4 class="mb-4 text-center" style="margin-top: 10%;">Faça seu cadastro</h4>
+            <h4 class="mb-4 text-center" style="margin-top: 10%;">
+                Faça seu cadastro <i class="bi bi-person-plus me-2"></i>
+            </h4>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 col-lg-6">
                     <div class="card shadow-lg border-0 rounded-lg shadow-lg p-3 mb-5 bg-white">
@@ -153,11 +155,11 @@ if (isset($_SESSION['user_id'])) {
                             <form action="../backend/cadastro.php" class="needs-validation" id="formcad" method="post" novalidate>
                                 <div class="mb-3">
                                     <label for="nome" class="form-label">Nome<span class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control" id="nome" name="nome" autocomplete="off" required>
+                                    <input type="text" class="form-control" id="nome" name="nome" autocomplete="new-password" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label text-dark font-weight-semibold">E-mail<span class="required-asterisk">*</span></label>
-                                    <input type="email" class="form-control" name="email" required autocomplete="off">
+                                    <input type="email" class="form-control" name="email" required autocomplete="new-password">
                                 </div>
                                 <div class="mb-3">
                                     <label for="senha" class="form-label text-dark font-weight-semibold">Senha<span class="required-asterisk">*</span></label>

@@ -112,8 +112,8 @@ if (isset($_SESSION['user_id'])) {
 
     <section class="pt-5 pb-5">
         <div class="container mt-5">
-            <h4 class="mb-4 text-center" style="margin-top: 10%;">Verificação 2FA
-                <i class="fas fa-shield-alt me-2"></i>
+            <h4 class="mb-4 text-center" style="margin-top: 10%;">
+                Verificação 2FA <i class="fas fa-shield-alt me-2"></i>
             </h4>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 col-lg-6">
@@ -123,9 +123,16 @@ if (isset($_SESSION['user_id'])) {
                                 <p class="text-muted text-center mb-4">
                                     <i class="fas fa-check-circle"></i> Um código de 6 dígitos foi gerado no seu aplicativo autenticador. Verifique o código e entre na sua conta.
                                 </p>
-                                <div class="mb-3">
+                                <div class="mb-3 text-center">
                                     <label for="codigo" class="form-label text-dark">Código</label>
-                                    <input type="text" class="form-control" id="codigo" name="codigo" required autocomplete="off">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <input type="text" class="form-control text-center" style="height: 60px; font-size: 24px;" maxlength="1" id="digit1" name="codigo[]" required>
+                                        <input type="text" class="form-control text-center" style="height: 60px; font-size: 24px;" maxlength="1" id="digit2" name="codigo[]" required>
+                                        <input type="text" class="form-control text-center" style="height: 60px; font-size: 24px;" maxlength="1" id="digit3" name="codigo[]" required>
+                                        <input type="text" class="form-control text-center" style="height: 60px; font-size: 24px;" maxlength="1" id="digit4" name="codigo[]" required>
+                                        <input type="text" class="form-control text-center" style="height: 60px; font-size: 24px;" maxlength="1" id="digit5" name="codigo[]" required>
+                                        <input type="text" class="form-control text-center" style="height: 60px; font-size: 24px;" maxlength="1" id="digit6" name="codigo[]" required>
+                                    </div>
                                 </div>
                                 <button class="btn btn-dark w-100 py-2 rounded-pill d-flex align-items-center justify-content-center" type="submit" id="submitBtn">
                                     <i class="bi bi-check-circle me-2"></i> CONFIRMAR CÓDIGO
@@ -133,11 +140,6 @@ if (isset($_SESSION['user_id'])) {
                                 </button>
                             </form>
                         </div>
-                    </div>
-                    <div class="text-center mt-3">
-                        <a href="../../ajuda/" class="text-primary" style="text-decoration: none;">
-                            <i class="bi bi-question-circle me-2"></i>Perdeu acesso ao autenticador?
-                        </a>
                     </div>
                 </div>
             </div>

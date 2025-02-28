@@ -1,15 +1,15 @@
 <?php
-require '../../scripts/Conexao.php';
+// require '../../scripts/Conexao.php';
 
-$token = $_GET['token'];
+// $token = $_GET['token'];
 
-$sql = $pdo->prepare("SELECT * FROM esqueceu_senha WHERE token = :token");
-$sql->bindValue(':token', $token);
-$sql->execute();
+// $sql = $pdo->prepare("SELECT * FROM esqueceu_senha WHERE token = :token");
+// $sql->bindValue(':token', $token);
+// $sql->execute();
 
-if ($sql->rowCount() != 1) {
-    header('Location: ../esqueceu-senha/');
-}
+// if ($sql->rowCount() != 1) {
+//     header('Location: ../esqueceu-senha/');
+// }
 
 ?>
 <!DOCTYPE html>
@@ -133,8 +133,8 @@ if ($sql->rowCount() != 1) {
                         <div class="mb-4">
                             <label for="senha" class="form-label text-dark">Crie sua Senha <span class="required-asterisk">*</span></label>
                             <div class="input-group">
-                                <input type="password" class="form-control rounded-pill" id="senha" name="senha" required oninput="validatePassword()" autocomplete="new-password">
-                                <button class="btn btn-outline-secondary rounded-pill" type="button" id="togglePassword">
+                                <input type="password" class="form-control" id="senha" name="senha" required oninput="validatePassword()" autocomplete="new-password">
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>
@@ -146,8 +146,8 @@ if ($sql->rowCount() != 1) {
                         <div class="mb-4">
                             <label for="confSenha" class="form-label text-dark">Confirme sua senha <span class="required-asterisk">*</span></label>
                             <div class="input-group">
-                                <input type="password" class="form-control rounded-pill" id="confSenha" name="confSenha" required oninput="checkPasswordMatch()" autocomplete="new-password">
-                                <button class="btn btn-outline-secondary rounded-pill" type="button" id="ConftogglePassword">
+                                <input type="password" class="form-control" id="confSenha" name="confSenha" required oninput="checkPasswordMatch()" autocomplete="new-password">
+                                <button class="btn btn-outline-secondary" type="button" id="ConftogglePassword">
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>

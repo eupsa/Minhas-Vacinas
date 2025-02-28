@@ -1,6 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 session_start();
 require_once '../../../vendor/autoload.php';
 require_once '../../scripts/Conexao.php';
@@ -49,7 +47,7 @@ if (empty($email) || empty($senha)) {
 
             if ($dispositivo_confirmado === 0) {
                 $id_usuario = $dispositivo['id_usuario'];
-                $ip = $dispositivo['ip'] ?? ObterIP();
+                $ip = $dispositivo['ip'];
                 $cidade = $dispositivo['cidade'] ?? 'Desconhecido';
                 $estado = $dispositivo['estado'] ?? 'Desconhecido';
                 $pais = $dispositivo['pais'] ?? 'Desconhecido';

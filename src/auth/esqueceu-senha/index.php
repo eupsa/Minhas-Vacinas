@@ -102,28 +102,29 @@
     </header>
 
     <section class="form-log">
-        <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 30px;" style="background-color: #f8f9fa;">
+        <div class="container d-flex justify-content-center align-items-center full-height" style="margin-top: 30px;">
             <div class="row w-100">
-                <h4 class="mb-4 text-center"> Redefina sua senha</h4>
+                <h4 class="mb-4 text-center">
+                    Redefina sua senha <i class="bi bi-shield-lock me-2"></i>
+                </h4>
                 <div class="col-12 col-md-8 col-lg-6 mx-auto">
                     <form action="../backend/esqueceu-senha.php" class="needs-validation bg-light p-5 rounded shadow-lg" id="form_recovery" method="post" novalidate>
-                        </h4>
                         <div id="passwordHelpBlock" class="form-text mb-3">
-                            <i class="bi bi-info-circle me-2"></i> Após o envio do formulário, você receberá um e-mail com instruções para redefinir sua senha.
+                            <i class="bi bi-info-circle me-2"></i>Digite seu e-mail e enviaremos um link para redefinir sua senha.
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label text-dark font-weight-semibold">E-mail</label>
                             <div class="input-group">
-                                <input type="email" class="form-control rounded-pill" id="email" name="email" required" autocomplete="off">
+                                <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
                             </div>
                         </div>
                         <div class="mt-2 text-end">
                             <a href="../entrar/" class="text-dark">
-                                <i class="bi bi-arrow-left-circle me-1"></i>VOLTAR PARA LOGIN?
+                                <i class="bi bi-arrow-left-circle me-1"></i>VOLTAR PARA ENTRAR
                             </a>
                         </div>
-                        <button class="btn btn-dark w-100 py-2 rounded-pill mt-3" type="submit">
-                            <i class="bi bi-key-fill me-2"></i>REDEFINIR SENHA
+                        <button class="btn btn-dark w-100 py-2 mt-3" type="submit">
+                            <i class="bi bi-key-fill me-2"></i>ENVIAR E-MAIL
                         </button>
                     </form>
                     <hr class="custom-hr">
@@ -131,6 +132,7 @@
             </div>
         </div>
     </section>
+
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: -5%;">
         <div class="me-5 d-none d-lg-block"></div>

@@ -1,8 +1,10 @@
 <?php
 require_once '../../../vendor/autoload.php';
-require_once '../../scripts/conn.php';
-require_once '../../scripts/registrar-dispositivos.php';
-require_once '../../scripts/Config.php';
+require_once '../../scripts/Conexao.php';
+require_once '../../scripts/Registrar-Dispositivos.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '../../../../');
+$dotenv->load();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -131,11 +133,11 @@ function email_cadastro($email, $codigo)
         $mail->isSMTP();
         $mail->Host = 'smtp.zoho.com';
         $mail->SMTPAuth = true;
-        $mail->Username = EMAIL;
-        $mail->Password = EMAIL_PASSWORD;
+        $mail->Username = $_ENV['EMAIL'];
+        $mail->Password = $_ENV['EMAIL_PASSWORD'];
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom(EMAIL, 'Minhas Vacinas');
+        $mail->setFrom($_ENV['EMAIL_PASSWORD'], 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
