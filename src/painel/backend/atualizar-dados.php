@@ -63,18 +63,6 @@ if (isset($_FILES['foto-perfil']) && $_FILES['foto-perfil']['error'] === UPLOAD_
         echo json_encode($retorna);
         exit();
     } else {
-        // Obtém as dimensões da imagem
-        list($width, $height) = getimagesize($arquivo['tmp_name']);
-
-        // Verifica se a largura e altura são 40x40
-        if ($width != 40 || $height != 40) {
-            $retorna = ['status' => false, 'msg' => "A imagem deve ter 40px de largura e 40px de altura."];
-            header('Content-Type: application/json');
-            echo json_encode($retorna);
-            exit();
-        }
-
-        // Se as dimensões forem 40x40, prossegue com o upload
         $name = bin2hex(random_bytes(50)) . '.' . strtolower(end($arquivoNew));
 
         $upload_dir = '/var/www/Assets-MV/user-img/';
