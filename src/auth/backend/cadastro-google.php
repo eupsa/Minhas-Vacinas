@@ -53,7 +53,7 @@ if (isset($payload['email'])) {
     $sql->execute();
 
     if ($sql->rowCount() === 1) {
-        $ip = registrar_dispositivo($pdo, $id_usuario);
+        $ip = RegistrarDispositivo($pdo, $id_usuario);
 
         $sql = $pdo->prepare("UPDATE usuario SET ip_cadastro = :ip_cadastro WHERE id_usuario = :id_usuario");
         $sql->bindValue(':ip_cadastro', $ip);

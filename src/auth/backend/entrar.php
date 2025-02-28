@@ -134,10 +134,10 @@ function EmailLogin($id_usuario, $email, $ip, $cidade, $estado, $pais)
 
     try {
         $mail->isSMTP();
-        $mail->Host = 'smtp.zoho.com';
+        $mail->Host = $_ENV['HOST_SMTP'];
         $mail->SMTPAuth = true;
         $mail->Username = $_ENV['EMAIL'];
-        $mail->Password = $_ENV['EMAIL_PASS'];;
+        $mail->Password = $_ENV['EMAIL_PASSWORD'];
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
         $mail->setFrom($_ENV['EMAIL'], 'Minhas Vacinas');

@@ -93,7 +93,7 @@ try {
 
     if ($sql->rowCount() === 1) {
         $id_usuario = $pdo->lastInsertId();
-        $ip = registrar_dispositivo($pdo, $id_usuario);
+        $ip = RegistrarDispostivos($pdo, $id_usuario);
 
         $sql = $pdo->prepare("UPDATE usuario SET ip_cadastro = :ip_cadastro WHERE id_usuario = :id_usuario");
         $sql->bindValue(':ip_cadastro', $ip);
@@ -131,13 +131,13 @@ function email_cadastro($email, $codigo)
     $mail = new PHPMailer();
     try {
         $mail->isSMTP();
-        $mail->Host = 'smtp.zoho.com';
+        $mail->Host = $_ENV['HOST_SMTP'];
         $mail->SMTPAuth = true;
         $mail->Username = $_ENV['EMAIL'];
         $mail->Password = $_ENV['EMAIL_PASSWORD'];
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom($_ENV['EMAIL_PASSWORD'], 'Minhas Vacinas');
+        $mail->setFrom($_ENV['EMAIL'], 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';

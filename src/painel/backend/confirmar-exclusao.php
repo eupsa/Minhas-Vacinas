@@ -3,6 +3,9 @@ session_start();
 require_once '../../../vendor/autoload.php';
 require_once '../../scripts/Conexao.php';
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '../../../../');
+$dotenv->load();
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -83,13 +86,13 @@ function enviarEmail($email)
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
-        $mail->Host = 'smtp.zoho.com';
+        $mail->Host = $_ENV['HOST_SMTP'];
         $mail->SMTPAuth = true;
-        $mail->Username = 'nao.responder@minhasvacinas.online';
-        $mail->Password = 'JE1+ip-PWMZvy-4x';
+        $mail->Username = $_ENV['EMAIL'];
+        $mail->Password = $_ENV['EMAIL_PASSWORD'];
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom('nao.responder@minhasvacinas.online', 'Minhas Vacinas');
+        $mail->setFrom($_ENV['EMAIL'], 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';

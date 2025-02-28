@@ -52,7 +52,6 @@ if (!empty($cpf_formatado)) {
     }
 }
 
-
 if (isset($_FILES['foto-perfil']) && $_FILES['foto-perfil']['error'] === UPLOAD_ERR_OK) {
     $arquivo = $_FILES['foto-perfil'];
     $arquivoNew = explode('.', $arquivo['name']);

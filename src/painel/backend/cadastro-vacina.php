@@ -12,14 +12,6 @@ $lote = trim($dados['lote']);
 $obs = trim($dados['obs']);
 $localAplicacao = trim($dados['localAplicacao']);
 
-$imagem = $_FILES['imagem']['tmp_name'] ?? null;
-
-if ($imagem && is_uploaded_file($imagem)) {
-    $imagemBinaria = file_get_contents($imagem);
-} else {
-    $imagemBinaria = null;
-}
-
 if (!empty($proxima_dose) && !compararDatas($dataAplicacao, $proxima_dose)) {
     $retorna = ['status' => false, 'msg' => "A próxima dose não pode ser anterior à data de aplicação."];
     header('Content-Type: application/json');
