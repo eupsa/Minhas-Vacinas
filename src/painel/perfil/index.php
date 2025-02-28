@@ -27,7 +27,6 @@ if (count($dispositivos) > 0) {
 } else {
     $_SESSION['dispositivos'] = [];
 }
-
 ?>
 
 <!DOCTYPE html>
