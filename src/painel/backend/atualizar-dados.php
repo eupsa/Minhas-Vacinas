@@ -56,45 +56,22 @@ if (!empty($cpf_formatado)) {
 $arquivo = $_FILES['foto-perfil'];
 $arquivoNew = explode('.', $arquivo['name']);
 
-// Verifica se o arquivo tem uma extensão válida
-$extensao = strtolower(end($arquivoNew));
-if (!in_array($extensao, ['jpg', 'png', 'jpeg'])) {
-    die('Extensão inválida');
+if (!in_array($arquivoNew[sizeof($arquivoNew) - 1], ['jpg', 'png', 'jpeg'])) {
+    die('Nao pode');
 } else {
-    // Gera um nome único para o arquivo
-    $name = bin2hex(random_bytes(50)) . '.' . $extensao;
+    $name = bin2hex(random_bytes(50)) . '.' . explode('.', $arquivo['name'])[1];
+    $upload_dir = '../../../upload/';
+    // move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name);
 
-    // Define o diretório de upload
-    $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/upload/';
-
-    // Verifica se o diretório de upload existe
-    if (!is_dir($upload_dir)) {
-        die('Diretório de upload não existe');
-    }
-
-    // Move o arquivo para o diretório
     if (!move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name)) {
-        // Retorna erro no upload
-        $retorna = [
-            'status' => false,
-            'msg' => 'Ocorreu um erro ao enviar a imagem.',
-            'erroDetalhado' => $ultimoErro // Aqui estamos incluindo o erro detalhado
-        ];
+        $retorna = ['status' => false, 'msg' => 'Ocorreu um erro ao enviar a imagem.'];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();
     }
 
-    // Define o caminho público da imagem
-    $path = 'https://usercontent.minhasvacinas.online/upload/' . $name;
-
-    // Retorna a resposta de sucesso
-    $retorna = ['status' => true, 'msg' => 'Imagem enviada com sucesso!', 'path' => $path];
-    header('Content-Type: application/json');
-    echo json_encode($retorna);
-    exit();
+    $path = 'https://usercontent.minhasvacinas.online/' . $name;
 }
-
 
 try {
     $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, cidade = :cidade, genero = :genero, foto_perfil = :foto_perfil WHERE id_usuario = :id");
