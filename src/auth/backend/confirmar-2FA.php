@@ -37,6 +37,11 @@ if ($sql->rowCount() == 1) {
         echo json_encode($retorna);
         exit();
     }
+    
+    $retorna = ['status' => false, 'msg' => "Código 2FA expirado ou incorreto."];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
 }
 
 function ObterIP()

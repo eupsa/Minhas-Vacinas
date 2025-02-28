@@ -56,14 +56,30 @@ $arquivo = $_FILES['foto-perfil'];
 $arquivoNew = explode('.', $arquivo['name']);
 
 if (!in_array($arquivoNew[sizeof($arquivoNew) - 1], ['jpg', 'png', 'jpeg'])) {
-    die('Nao pode');
+    die('Extensão inválida');
 } else {
-    $name = bin2hex(random_bytes(50)) . '.' . explode('.', $arquivo['name'])[1];
-    $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/upload/';
-    move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name);
+    // Gera um nome único para o arquivo
+    $name = bin2hex(random_bytes(50)) . '.' . strtolower(end($arquivoNew));
 
-    $path = 'https://usercontent.minhasvacinas.online/' . $name;
+    // Caminho de upload absoluto
+    $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/upload/';
+
+    // Verifica se o diretório existe
+    if (!is_dir($upload_dir)) {
+        die('Diretório de upload não encontrado.');
+    }
+
+    // Tenta mover o arquivo para o diretório de upload
+    if (!move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name)) {
+        die('Erro ao mover o arquivo para o diretório de upload.');
+    }
+
+    // Define o caminho completo para o arquivo
+    $path = 'https://usercontent.minhasvacinas.online/upload/' . $name;
+
+    // Aqui você pode armazenar o caminho da imagem no banco ou retornar uma resposta
 }
+
 
 try {
     $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, cidade = :cidade, genero = :genero, foto_perfil = :foto_perfil WHERE id_usuario = :id");
