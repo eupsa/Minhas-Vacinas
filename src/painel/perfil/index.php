@@ -365,7 +365,7 @@ if (count($dispositivos) > 0) {
                                         </select>
                                     </div>
                                 </div>
-                                <img src="<?php echo $_SESSION['user_foto'] ?>" style="width: 100px; height: 100px; object-fit: cover;">
+                                <img src="<?php echo $_SESSION['user_foto'] ?>" class="rounded-pill" style="width: 40; height: 100px; object-fit: cover;">
                                 <div class="col-md-6">
                                     <label for="foto-perfil" class="form-label">Foto de Perfil</label>
                                     <div class="input-group">

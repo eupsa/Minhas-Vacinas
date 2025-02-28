@@ -68,27 +68,24 @@ if (isset($_FILES['foto-perfil']) && $_FILES['foto-perfil']['error'] === UPLOAD_
         $upload_dir = '/var/www/Assets-MV/user-img/';
 
         if (!is_dir($upload_dir)) {
-            $retorna = ['status' => false, 'msg' => "Caminho não encontrado."];
+            $retorna = ['status' => false, 'msg' => "Diretório não encontrado."];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit();
         }
 
-        // Move o arquivo para o diretório
         if (!move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name)) {
-            $retorna = ['status' => false, 'msg' => "Erro ao mover o arquivo."];
+            $retorna = ['status' => false, 'msg' => "Erro ao mover arquivo."];
             header('Content-Type: application/json');
             echo json_encode($retorna);
             exit();
         }
 
-        // Caminho da imagem
         $path = 'https://usercontent.minhasvacinas.online/user-img/' . $name;
     }
 } else {
     $path = $_SESSION['user_foto'] ?? null;
 }
-
 
 
 
