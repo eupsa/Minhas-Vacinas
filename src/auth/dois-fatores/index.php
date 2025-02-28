@@ -112,14 +112,14 @@ if (isset($_SESSION['user_id'])) {
 
     <section class="pt-5 pb-5">
         <div class="container mt-5">
-            <h4 class="mb-4 text-center" style="margin-top: 15%;">Verificação 2FA
+            <h4 class="mb-4 text-center" style="margin-top: 10%;">Verificação 2FA
                 <i class="fas fa-shield-alt me-2"></i>
             </h4>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 col-lg-6">
                     <div class="card shadow-lg border-0">
                         <div class="card-body p-5" style="background-color: #f8f9fa;">
-                            <form action="../backend/confirmar-cadastro.php" class="needs-validation" id="form-conf-cad" method="post" novalidate>
+                            <form action="../backend/confirmar-2FA.php" class="needs-validation" id="form-2FA" method="post" novalidate>
                                 <p class="text-muted text-center mb-4">
                                     <i class="fas fa-check-circle"></i> Um código de 6 dígitos foi gerado no seu aplicativo autenticador. Verifique o código e entre na sua conta.
                                 </p>

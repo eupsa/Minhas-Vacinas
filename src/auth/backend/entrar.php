@@ -39,10 +39,27 @@ if (empty($email) || empty($senha)) {
             $id_usuario = $usuario['id_usuario'];
             $ip = ObterIP();
 
-            $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE id_usuario = :id AND ip = :ip AND confirmado = 1");
+            $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE id_usuario = :id AND ip = :ip");
             $sql->bindValue(':id', $id_usuario);
             $sql->bindValue(':ip', $ip);
             $sql->execute();
+
+            $dispositivo = $sql->fetch(PDO::FETCH_BOTH);
+            $dispositivo_confirmado = $dispositivo['confirmado'];
+
+            if ($dispositivo_confirmado === 0) {
+                $id_usuario = $dispositivo['id_usuario'];
+                $ip = $dispositivo['ip'] ?? ObterIP();
+                $cidade = $dispositivo['cidade'] ?? 'Desconhecido';
+                $estado = $dispositivo['estado'] ?? 'Desconhecido';
+                $pais = $dispositivo['pais'] ?? 'Desconhecido';
+
+                EmailLogin($id_usuario, $email, $ip, $cidade, $estado, $pais);
+                $retorna = ['status' => true, 'msg' => "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções."];
+                header('Content-Type: application/json');
+                echo json_encode($retorna);
+                exit();
+            }
 
             if ($sql->rowCount() == 1) {
                 $email = $usuario['email'];
@@ -51,7 +68,10 @@ if (empty($email) || empty($senha)) {
                 $sql->execute();
 
                 if ($sql->rowCount() == 1) {
-                    $retorna = ['status' => '2FA', 'msg' => "2FA"];
+                    $key = $sql->fetch(PDO::FETCH_BOTH);
+                    $_SESSION['email-temp'] = $email;
+                    $_SESSION['key-temp'] = $key['chave_secreta'];
+                    $retorna = ['status' => '2FA', 'msg' => 'Autenticação de dois fatores necessária.'];
                     header('Content-Type: application/json');
                     echo json_encode($retorna);
                     exit();
@@ -99,7 +119,6 @@ if (empty($email) || empty($senha)) {
         exit();
     }
 }
-
 
 function EmailLogin($id_usuario, $email, $ip, $cidade, $estado, $pais)
 {

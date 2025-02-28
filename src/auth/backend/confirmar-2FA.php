@@ -1,31 +1,53 @@
 <?php
 session_start();
 require_once '../../../vendor/autoload.php';
-require_once '../../scripts/conn.php';
+require_once '../../scripts/Conexao.php';
 
 $g = new \Sonata\GoogleAuthenticator\GoogleAuthenticator();
 
-$email = $_SESSION['email-temp'];
-$key = $_SESSION['key-temp'];
+$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+$codigo = strtolower(trim($dados['codigo']));
 
-$sql = $pdo->prepare("SELECT secretkey_2FA FROM usuario WHERE email = :email");
-$sql->bindValue(':email', $_SESSION['user_email']);
+if (empty($codigo)) {
+    $retorna = ['status' => false, 'msg' => "Código não encontrado."];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
+}
+
+$sql = $pdo->prepare("SELECT chave_secreta FROM 2FA WHERE email = :email");
+$sql->bindValue(':email', $_SESSION['email-temp']);
 $sql->execute();
 
-if ($sql->rowCount() === 1) {
-    $usuario = $sql->fetch(PDO::FETCH_BOTH);
+if ($sql->rowCount() == 1) {
+    $user = $sql->fetch(PDO::FETCH_BOTH);
+    $secret = $user['chave_secreta'];
+    if ($g->checkCode($secret, $codigo)) {
+        $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
+        $sql->bindValue(':email', $_SESSION['email-temp']);
+        $sql->execute();
 
-    if ($usuario && isset($usuario['secretkey_2FA'])) {
-        $secret = $usuario['secretkey_2FA'];
-
-        if ($g->checkCode($secret, $token)) {
-            echo 'deu bom';
-        } else {
-            echo 'token ruim';
-        }
-    } else {
-        echo 'Erro: Usuário ou secretkey_2FA inválidos';
+        $usuario = $sql->fetch(PDO::FETCH_BOTH);
+        $_SESSION['user_id'] = $usuario['id_usuario'];
+        $_SESSION['user_nome'] = $usuario['nome'];
+        $_SESSION['user_email'] = $usuario['email'];
+        $_SESSION['user_ip'] = ObterIP();
+        $retorna = ['status' => true, 'msg' => "Bem-vindo à nossa plataforma, " . htmlspecialchars(explode(' ', $usuario['nome'])[0]) . "!"];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit();
     }
-} else {
-    echo 'Usuário não encontrado';
+}
+
+function ObterIP()
+{
+    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } elseif (!empty($_SERVER['REMOTE_ADDR'])) {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    } else {
+        $ip = '192.168.1';
+    }
+
+    return $ip;
 }

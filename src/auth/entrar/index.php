@@ -150,12 +150,12 @@ if (isset($_SESSION['user_id'])) {
                             <form action="../backend/entrar.php" class="needs-validation" id="form_login" method="post" novalidate>
                                 <div class="mb-4">
                                     <label for="email" class="form-label text-dark font-weight-semibold">E-mail<span class="required-asterisk">*</span></label>
-                                    <input type="email" class="form-control" id="email" name="email" required autocomplete="off">
+                                    <input type="email" class="form-control" id="email" name="email" required autocomplete="off" value="pedruuu291@gmail.com">
                                 </div>
                                 <div class=" mb-4">
                                     <label for="senha" class="form-label text-dark font-weight-semibold">Senha<span class="required-asterisk">*</span></label>
                                     <div class="input-group">
-                                        <input type="password" class="form-control" id="senha" name="senha" required>
+                                        <input type="password" class="form-control" id="senha" name="senha" required value="Chicote1@">
                                         <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                             <i class="bi bi-eye"></i>
                                         </button>
@@ -247,7 +247,6 @@ if (isset($_SESSION['user_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://accounts.google.com/gsi/client" async></script>
     <script src="script.js"></script>
-    <script src="../../../block.js"></script>
 </body>
 
 </html>
