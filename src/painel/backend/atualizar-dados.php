@@ -71,7 +71,7 @@ if (!in_array($arquivoNew[sizeof($arquivoNew) - 1], ['jpg', 'png', 'jpeg'])) {
 
     // Tenta mover o arquivo para o diretório de upload
     if (!move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name)) {
-        die('Erro ao mover o arquivo para o diretório de upload.');
+        die('Erro ao mover o arquivo para o diretório de upload. Caminho: ' . $upload_dir . $name);
     }
 
     // Define o caminho completo para o arquivo
