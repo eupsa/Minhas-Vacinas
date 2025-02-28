@@ -52,7 +52,6 @@ if (!empty($cpf_formatado)) {
     }
 }
 
-
 $arquivo = $_FILES['foto-perfil'];
 $arquivoNew = explode('.', $arquivo['name']);
 
@@ -60,7 +59,7 @@ if (!in_array($arquivoNew[sizeof($arquivoNew) - 1], ['jpg', 'png', 'jpeg'])) {
     die('Nao pode');
 } else {
     $name = bin2hex(random_bytes(50)) . '.' . explode('.', $arquivo['name'])[1];
-    $upload_dir = '../../../upload/';
+    $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/upload/';
     move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name);
 
     $path = 'https://usercontent.minhasvacinas.online/' . $name;
