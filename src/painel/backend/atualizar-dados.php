@@ -62,7 +62,7 @@ if (!in_array($arquivoNew[sizeof($arquivoNew) - 1], ['jpg', 'png', 'jpeg'])) {
     $name = bin2hex(random_bytes(50)) . '.' . strtolower(end($arquivoNew));
 
     // Caminho de upload absoluto
-    $upload_dir = '/upload/';
+    $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/upload/';
 
     // Verifica se o diretório existe
     if (!is_dir($upload_dir)) {
