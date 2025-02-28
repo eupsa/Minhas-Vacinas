@@ -59,7 +59,9 @@ if (!in_array($arquivoNew[sizeof($arquivoNew) - 1], ['jpg', 'png', 'jpeg'])) {
     die('Extensão inválida');
 } else {
     $name = bin2hex(random_bytes(50)) . '.' . strtolower(end($arquivoNew));
+    
     $upload_dir = '/var/www/Assets-MV/user-img/';
+    // $upload_dir_windows = 'C:\Users\pedro\OneDrive\Documentos\GitHub\Assets-MV/user-img';
 
     if (!is_dir($upload_dir)) {
         die('Diretório de upload não encontrado.');
