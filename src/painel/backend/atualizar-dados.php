@@ -61,14 +61,7 @@ if (!in_array($arquivoNew[sizeof($arquivoNew) - 1], ['jpg', 'png', 'jpeg'])) {
 } else {
     $name = bin2hex(random_bytes(50)) . '.' . explode('.', $arquivo['name'])[1];
     $upload_dir = '../../../upload/';
-    // move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name);
-
-    if (!move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name)) {
-        $retorna = ['status' => false, 'msg' => 'Ocorreu um erro ao enviar a imagem.'];
-        header('Content-Type: application/json');
-        echo json_encode($retorna);
-        exit();
-    }
+    move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name);
 
     $path = 'https://usercontent.minhasvacinas.online/' . $name;
 }
