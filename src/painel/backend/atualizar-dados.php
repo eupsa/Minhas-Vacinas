@@ -12,12 +12,11 @@ $estado = isset($dados['estado']) ? trim($dados['estado']) : 'N/A';
 $genero = ($dados['genero']);
 $cidade = isset($dados['cidade']) ? trim($dados['cidade']) : $_SESSION['user_cidade'];
 
-$imagem = $_FILES['foto_perfil']['tmp_name'] ?? null; // Captura o arquivo de imagem enviado
-
-if ($imagem && is_uploaded_file($imagem)) {
-    $foto_perfil = file_get_contents($imagem); // Converte a imagem para binário
-} else {
-    $foto_perfil = null; // Se não for enviado um arquivo, o campo será nulo
+if (empty($nome) && empty($cpf) && empty($data_nascimento) && empty($telefone) && empty($estado) && empty($genero)) {
+    $retorna = ['status' => false, 'msg' => 'Preencha todos os campos.'];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
 }
 
 if (!empty($cpf)) {
@@ -27,13 +26,6 @@ if (!empty($cpf)) {
         echo json_encode($retorna);
         exit();
     }
-}
-
-if (empty($nome) && empty($cpf) && empty($data_nascimento) && empty($telefone) && empty($estado) && empty($genero)) {
-    $retorna = ['status' => false, 'msg' => 'Preencha todos os campos.'];
-    header('Content-Type: application/json');
-    echo json_encode($retorna);
-    exit();
 }
 
 if (!empty($data_nascimento)) {
@@ -60,6 +52,27 @@ if (!empty($cpf_formatado)) {
     }
 }
 
+
+$arquivo = $_FILES['foto-perfil'];
+$arquivoNew = explode('.', $arquivo['name']);
+
+if (!in_array($arquivoNew[sizeof($arquivoNew) - 1], ['jpg', 'png', 'jpeg'])) {
+    die('Nao pode');
+} else {
+    $name = bin2hex(random_bytes(50)) . '.' . explode('.', $arquivo['name'])[1];
+    $upload_dir = '../../../upload/';
+    // move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name);
+
+    if (!move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name)) {
+        $retorna = ['status' => false, 'msg' => 'Ocorreu um erro ao enviar a imagem.'];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit();
+    }
+
+    $path = 'https://usercontent.minhasvacinas.online/' . $name;
+}
+
 try {
     $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, cidade = :cidade, genero = :genero, foto_perfil = :foto_perfil WHERE id_usuario = :id");
     $sql->bindValue(':nome', $nome);
@@ -69,7 +82,7 @@ try {
     $sql->bindValue(':estado', $estado);
     $sql->bindValue(':genero', $genero);
     $sql->bindValue(':cidade', $cidade);
-    $sql->bindValue(':foto_perfil', $foto_perfil, PDO::PARAM_LOB);
+    $sql->bindValue(':foto_perfil', $path);
     $sql->bindValue(':id', $_SESSION['user_id']);
     $sql->execute();
 

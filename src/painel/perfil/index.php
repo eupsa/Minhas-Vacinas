@@ -366,9 +366,9 @@ if (count($dispositivos) > 0) {
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="imagem" class="form-label">Foto de Perfil</label>
+                                    <label for="foto-perfil" class="form-label">Foto de Perfil</label>
                                     <div class="input-group">
-                                        <input type="file" class="form-control" id="imagem" name="imagem">
+                                        <input type="file" class="form-control" id="foto-perfil" name="foto-perfil">
                                     </div>
                                 </div>
                             </div>
