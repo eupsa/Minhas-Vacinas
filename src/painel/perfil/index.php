@@ -103,10 +103,13 @@ if (count($dispositivos) > 0) {
                 <div class="dropdown">
                     <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="position-relative">
-                            <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2" width="40" height="40">
-                            <i class="fas fa-camera position-absolute bottom-0 end-0 text-white" style="font-size: 18px; opacity: 0; transition: opacity 0.3s;"></i>
-                        </div>
+                        <?php if (isset($_SESSION['user_foto'])): ?>
+                            <img src="<?php echo $_SESSION['user_foto']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
+                                width="40" height="40">
+                        <?php else: ?>
+                            <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
+                                width="40" height="40">
+                        <?php endif; ?>
                         <span>Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
@@ -365,13 +368,31 @@ if (count($dispositivos) > 0) {
                                         </select>
                                     </div>
                                 </div>
-                                <img src="<?php echo $_SESSION['user_foto'] ?>" class="rounded-pill" style="width: 40; height: 100px; object-fit: cover;">
                                 <div class="col-md-6">
                                     <label for="foto-perfil" class="form-label">Foto de Perfil</label>
                                     <div class="input-group">
-                                        <input type="file" class="form-control" id="foto-perfil" name="foto-perfil" value="<?php echo $_SESSION['user_foto']; ?>">
+                                        <input type="file" class="form-control" id="foto-perfil" name="foto-perfil" onchange="previewImage(event)">
+                                    </div>
+                                    <div id="imagePreview" style="margin-top: 10px;">
+                                        <img id="preview" src="" alt="Prévia da Imagem" style="max-width: 250px; display: none;" />
                                     </div>
                                 </div>
+                                <script>
+                                    function previewImage(event) {
+                                        const file = event.target.files[0];
+                                        const reader = new FileReader();
+
+                                        reader.onload = function() {
+                                            const preview = document.getElementById('preview');
+                                            preview.src = reader.result;
+                                            preview.style.display = 'block';
+                                        }
+
+                                        if (file) {
+                                            reader.readAsDataURL(file);
+                                        }
+                                    }
+                                </script>
                             </div>
                             <div class="text-end mt-4">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>

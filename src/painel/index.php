@@ -178,8 +178,13 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                 <div class="dropdown">
                     <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
-                            width="40" height="40">
+                        <?php if (isset($_SESSION['user_foto'])): ?>
+                            <img src="<?php echo $_SESSION['user_foto']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
+                                width="40" height="40">
+                        <?php else: ?>
+                            <img src="/assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
+                                width="40" height="40">
+                        <?php endif; ?>
                         <span>Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">

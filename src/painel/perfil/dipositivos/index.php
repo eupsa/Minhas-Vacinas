@@ -97,9 +97,10 @@ if (count($dispositivos) > 0) {
                                 : ($dispositivo['tipo_dispositivo'] === 'Tablet'
                                     ? 'bi bi-tablet'
                                     : 'bi bi-device-hdd'));
-                        $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']]))); ?>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <div class="card border-0 shadow-lg rounded-4" style="background-color: #f9f9f9; max-width: 320px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                        $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']])));
+                ?>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+                            <div class="card border-0 shadow-lg rounded-4 w-100" style="background-color: #f9f9f9; transition: transform 0.3s ease, box-shadow 0.3s ease;">
                                 <div class="card-body text-center p-4">
                                     <div class="mb-3">
                                         <i class="<?php echo $icone; ?> text-primary" style="font-size: 2.5rem;"></i>
@@ -140,24 +141,28 @@ if (count($dispositivos) > 0) {
         /* Estilos para um design mais bonito e responsivo */
         @media (max-width: 767px) {
             .card {
-                max-width: 100%;
+                width: 100%;
+                /* Cards ocuparão toda a largura da coluna */
                 margin: 0 auto;
-                transition: 0.5s;
             }
         }
 
         .card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
             transition: 0.5s;
         }
 
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-            transition: 0.5s;
         }
 
         .card-body {
             padding: 1.5rem;
+            flex-grow: 1;
+            /* Garante que a área do corpo ocupe o espaço disponível */
         }
 
         .btn-outline-danger {
@@ -179,8 +184,6 @@ if (count($dispositivos) > 0) {
             text-overflow: ellipsis;
         }
     </style>
-
-
 
 
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 7%;">
