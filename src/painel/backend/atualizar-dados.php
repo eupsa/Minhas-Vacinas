@@ -58,25 +58,49 @@ if (isset($_FILES['foto-perfil']) && $_FILES['foto-perfil']['error'] === UPLOAD_
     $arquivoNew = explode('.', $arquivo['name']);
 
     if (!in_array(strtolower(end($arquivoNew)), ['jpg', 'png', 'jpeg'])) {
-        die('Extensão inválida');
+        $retorna = ['status' => false, 'msg' => "Extensão inválida. Tente novamente com um arquivo .jpg, .png ou .jpeg."];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit();
     } else {
+        // Obtém as dimensões da imagem
+        list($width, $height) = getimagesize($arquivo['tmp_name']);
+
+        // Verifica se a largura e altura são 40x40
+        if ($width != 40 || $height != 40) {
+            $retorna = ['status' => false, 'msg' => "A imagem deve ter 40px de largura e 40px de altura."];
+            header('Content-Type: application/json');
+            echo json_encode($retorna);
+            exit();
+        }
+
+        // Se as dimensões forem 40x40, prossegue com o upload
         $name = bin2hex(random_bytes(50)) . '.' . strtolower(end($arquivoNew));
 
         $upload_dir = '/var/www/Assets-MV/user-img/';
 
         if (!is_dir($upload_dir)) {
-            die('Diretório de upload não encontrado.');
+            $retorna = ['status' => false, 'msg' => "Caminho não encontrado."];
+            header('Content-Type: application/json');
+            echo json_encode($retorna);
+            exit();
         }
 
+        // Move o arquivo para o diretório
         if (!move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name)) {
-            die('Erro ao mover o arquivo para o diretório de upload.');
+            $retorna = ['status' => false, 'msg' => "Erro ao mover o arquivo."];
+            header('Content-Type: application/json');
+            echo json_encode($retorna);
+            exit();
         }
 
+        // Caminho da imagem
         $path = 'https://usercontent.minhasvacinas.online/user-img/' . $name;
     }
 } else {
     $path = $_SESSION['user_foto'] ?? null;
 }
+
 
 
 
