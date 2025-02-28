@@ -14,6 +14,7 @@ function Gerar_Session($pdo)
     $_SESSION['user_cpf'] = $usuario['cpf'];
     $_SESSION['user_telefone'] = $usuario['telefone'];
     $_SESSION['user_cidade'] = $usuario['cidade'];
+    $_SESSION['user_foto'] = $usuario['foto_perfil'];
 }
 
 function Auth($pdo)

@@ -3,17 +3,17 @@ session_start();
 require_once '../../scripts/Conexao.php';
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-$nome = isset($dados['nome']) ? ucwords(trim($dados['nome'])) : null;
+$nome = ucwords(trim($dados['nome']));
 $cpf_formatado = isset($dados['cpf']) ? trim($dados['cpf']) : ($_SESSION['user_cpf'] ?? null);
 $cpf = preg_replace('/[^0-9]/', '', $cpf_formatado);
-$data_nascimento = isset($dados['data_nascimento']) ? trim($dados['data_nascimento']) : null;
-$telefone = isset($dados['telefone']) ? trim($dados['telefone']) : null;
+$data_nascimento = trim($dados['data_nascimento']);
+$telefone = trim($dados['telefone']);
 $estado = isset($dados['estado']) ? trim($dados['estado']) : 'N/A';
-$genero = isset($dados['genero']) ? $dados['genero'] : null;
+$genero = ($dados['genero']);
 $cidade = isset($dados['cidade']) ? trim($dados['cidade']) : $_SESSION['user_cidade'];
 
 if (empty($nome) && empty($cpf) && empty($data_nascimento) && empty($telefone) && empty($estado) && empty($genero)) {
-    $retorna = ['status' => false, 'msg' => 'Preencha ao menos um campo para atualização.'];
+    $retorna = ['status' => false, 'msg' => 'Preencha todos os campos.'];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
@@ -35,12 +35,13 @@ if (!empty($data_nascimento)) {
         echo json_encode($retorna);
         exit();
     }
+} else {
+    $data_nascimento = null;
 }
 
 if (!empty($cpf_formatado)) {
-    $sql = $pdo->prepare("SELECT * FROM usuario WHERE cpf = :cpf AND id_usuario != :id");
+    $sql = $pdo->prepare("SELECT * FROM usuario WHERE cpf = :cpf");
     $sql->bindValue(':cpf', $cpf_formatado);
-    $sql->bindValue(':id', $_SESSION['user_id']);
     $sql->execute();
 
     if ($sql->rowCount() > 0) {
@@ -51,7 +52,7 @@ if (!empty($cpf_formatado)) {
     }
 }
 
-$path = null;
+
 if (isset($_FILES['foto-perfil']) && $_FILES['foto-perfil']['error'] === UPLOAD_ERR_OK) {
     $arquivo = $_FILES['foto-perfil'];
     $arquivoNew = explode('.', $arquivo['name']);
@@ -60,6 +61,7 @@ if (isset($_FILES['foto-perfil']) && $_FILES['foto-perfil']['error'] === UPLOAD_
         die('Extensão inválida');
     } else {
         $name = bin2hex(random_bytes(50)) . '.' . strtolower(end($arquivoNew));
+
         $upload_dir = '/var/www/Assets-MV/user-img/';
 
         if (!is_dir($upload_dir)) {
@@ -72,51 +74,24 @@ if (isset($_FILES['foto-perfil']) && $_FILES['foto-perfil']['error'] === UPLOAD_
 
         $path = 'https://usercontent.minhasvacinas.online/user-img/' . $name;
     }
+} else {
+    $path = $_SESSION['user_foto'] ?? null;
 }
 
+
+
 try {
-    $sql = "UPDATE usuario SET ";
-    $params = [];
-
-    if ($nome) {
-        $sql .= "nome = :nome, ";
-        $params[':nome'] = $nome;
-    }
-    if ($cpf_formatado) {
-        $sql .= "cpf = :cpf, ";
-        $params[':cpf'] = $cpf_formatado;
-    }
-    if ($data_nascimento) {
-        $sql .= "data_nascimento = :data_nascimento, ";
-        $params[':data_nascimento'] = $data_nascimento;
-    }
-    if ($telefone) {
-        $sql .= "telefone = :telefone, ";
-        $params[':telefone'] = $telefone;
-    }
-    if ($estado) {
-        $sql .= "estado = :estado, ";
-        $params[':estado'] = $estado;
-    }
-    if ($genero) {
-        $sql .= "genero = :genero, ";
-        $params[':genero'] = $genero;
-    }
-    if ($cidade) {
-        $sql .= "cidade = :cidade, ";
-        $params[':cidade'] = $cidade;
-    }
-    if ($path) {
-        $sql .= "foto_perfil = :foto_perfil, ";
-        $params[':foto_perfil'] = $path;
-    }
-
-    // Remove a última vírgula e adiciona a cláusula WHERE
-    $sql = rtrim($sql, ', ') . " WHERE id_usuario = :id";
-    $params[':id'] = $_SESSION['user_id'];
-
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute($params);
+    $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, cidade = :cidade, genero = :genero, foto_perfil = :foto_perfil WHERE id_usuario = :id");
+    $sql->bindValue(':nome', $nome);
+    $sql->bindValue(':cpf', $cpf_formatado);
+    $sql->bindValue(':data_nascimento', $data_nascimento, PDO::PARAM_STR);
+    $sql->bindValue(':telefone', $telefone);
+    $sql->bindValue(':estado', $estado);
+    $sql->bindValue(':genero', $genero);
+    $sql->bindValue(':cidade', $cidade);
+    $sql->bindValue(':foto_perfil', $path);
+    $sql->bindValue(':id', $_SESSION['user_id']);
+    $sql->execute();
 
     $retorna = ['status' => true, 'msg' => "Alteração realizada com sucesso. Suas informações estão atualizadas."];
     header('Content-Type: application/json');
@@ -154,6 +129,7 @@ function validaCPF($cpf)
 
     return true;
 }
+
 
 function validarData($data_nascimento)
 {
