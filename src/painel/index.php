@@ -207,7 +207,11 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                     <?php foreach ($vacinas as $vacina): ?>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="card shadow-lg" style="width: 100%; height: 100%; border-radius: 20px; background-color: rgba(255, 255, 255, 0.95); transition: all 0.3s ease;">
-                                <img src="../../../../assets/img/vac-card.jpg" class="card-img-top" alt="Vacina" style="object-fit: cover; height: 250px; width: 100%; border-radius: 20px 20px 0 0;">
+                                <?php if (isset($vacina['path_card'])): ?>
+                                    <img src="<?php echo $vacina['path_card']; ?>" class="card-img-top" alt="Vacina" style="object-fit: cover; height: 250px; width: 100%; border-radius: 20px 20px 0 0;">
+                                <?php else: ?>
+                                    <img src="../../../../assets/img/vac-card.jpg" class="card-img-top" alt="Vacina" style="object-fit: cover; height: 250px; width: 100%; border-radius: 20px 20px 0 0;">
+                                <?php endif; ?>
                                 <div class="card-body">
                                     <h5 class="card-title text-center text-dark" style="font-weight: bold;"><?= htmlspecialchars($vacina['nome_vac']) ?></h5>
                                     <div class="d-flex flex-column mt-3">

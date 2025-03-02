@@ -129,8 +129,8 @@ if (count($vacinas) > 0) {
                 <?php if (count($vacinas) > 0): ?>
                     <?php foreach ($vacinas as $vacina): ?>
                         <div class="card shadow-lg" style="width: 350px; border-radius: 20px; background-color: rgba(255, 255, 255, 0.95); transition: all 0.3s ease; padding: 20px; display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
-                            <?php if (!empty($vacina['imagem'])): ?>
-                                <img src="data:image/jpeg;base64,<?php echo base64_encode($vacina['imagem']); ?>" class="card-img-top" alt="Vacina" style="object-fit: cover; height: 250px; width: 100%; border-radius: 20px 20px 0 0;">
+                            <?php if (isset($vacina['path_card'])): ?>
+                                <img src="<?php echo $vacina['path_card']; ?>" class="card-img-top" alt="Vacina" style="object-fit: cover; height: 250px; width: 100%; border-radius: 20px 20px 0 0;">
                             <?php else: ?>
                                 <img src="../../../../assets/img/vac-card.jpg" class="card-img-top" alt="Vacina" style="object-fit: cover; height: 250px; width: 100%; border-radius: 20px 20px 0 0;">
                             <?php endif; ?>
