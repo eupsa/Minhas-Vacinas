@@ -4,6 +4,10 @@ if (isset($_SESSION['user_id'])) {
     header("Location: ../../painel/");
     exit();
 }
+if (isset($_SESSION['email-temp'])) {
+    header("Location: ../entrar/");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
