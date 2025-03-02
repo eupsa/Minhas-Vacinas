@@ -125,12 +125,12 @@ if (isset($_SESSION['user_id'])) {
                                 </p>
                                 <div class="mb-3 text-center">
                                     <div class="d-flex justify-content-center gap-2">
-                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
-                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
-                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
-                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
-                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
-                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
+                                        <input type="number" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
+                                        <input type="number" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
+                                        <input type="number" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
+                                        <input type="number" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
+                                        <input type="number" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
+                                        <input type="number" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
                                     </div>
                                     <input type="hidden" name="codigo" id="codigo-hidden">
                                 </div>
