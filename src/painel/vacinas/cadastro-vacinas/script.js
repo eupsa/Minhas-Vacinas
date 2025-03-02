@@ -8,17 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document
-  .getElementById("localAplicacao")
-  .addEventListener("change", function () {
-    var outroLocalDiv = document.getElementById("outroLocalDiv");
-    if (this.value === "outro") {
-      outroLocalDiv.style.display = "block";
-    } else {
-      outroLocalDiv.style.display = "none";
-    }
-  });
-
 const form_vacina = document.querySelector("#form_vacina");
 
 if (form_vacina) {
@@ -32,7 +21,6 @@ if (form_vacina) {
     const tipo = dadosForm.get("tipo");
     const dose = dadosForm.get("dose");
     const lote = dadosForm.get("lote");
-    const imagem_card = dadosForm.get("imagem");
     const obs = dadosForm.get("obs");
     const localAplicacao = dadosForm.get("localAplicacao");
 

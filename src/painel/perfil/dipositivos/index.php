@@ -97,8 +97,7 @@ if (count($dispositivos) > 0) {
                                 : ($dispositivo['tipo_dispositivo'] === 'Tablet'
                                     ? 'bi bi-tablet'
                                     : 'bi bi-device-hdd'));
-                        $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']])));
-                ?>
+                        $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']]))); ?>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
                             <div class="card border-0 shadow-lg rounded-4 w-100" style="background-color: #f9f9f9; transition: transform 0.3s ease, box-shadow 0.3s ease;">
                                 <div class="card-body text-center p-4">
@@ -118,7 +117,7 @@ if (count($dispositivos) > 0) {
                                     <?php endif; ?>
                                 </div>
                                 <div class="card-footer bg-white text-center border-0 p-3">
-                                    <form action="../../backend/remover-dispositivo.php" method="POST" class="d-inline">
+                                    <form action="../../backend/remover-dispositivo.php" method="POST" id="form-remover-dispositivo">
                                         <input type="hidden" name="dispositivo_id" value="<?php echo $dispositivo['id']; ?>" />
                                         <button type="submit" class="btn btn-outline-danger btn-sm px-4 py-2 rounded-pill">
                                             <i class="bi bi-x-circle"></i> Remover

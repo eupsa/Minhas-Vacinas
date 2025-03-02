@@ -3,14 +3,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   excluirForms.forEach((form) => {
     form.addEventListener("submit", (event) => {
-      event.preventDefault(); 
-      const confirmacao = confirm(
-        "Tem certeza de que deseja excluir esta vacina? Esta ação não pode ser desfeita."
-      );
+      event.preventDefault();
 
-      if (confirmacao) {
-        form.submit(); 
-      }
+      Swal.fire({
+        title: "Tem certeza?",
+        text: "Esta ação não pode ser desfeita!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sim, excluir!",
+        cancelButtonText: "Cancelar"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          form.submit();
+        }
+      });
     });
   });
 });
