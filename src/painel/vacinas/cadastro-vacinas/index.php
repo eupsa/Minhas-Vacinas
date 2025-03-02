@@ -129,18 +129,18 @@ if (count($vacinas) > 0) {
                         <input type="date" class="form-control" id="dataAplicacao" name="dataAplicacao" autocomplete="off">
                     </div>
                     <div class="col-12 col-md-8 mb-4">
-                        <label for="proxima_dose" class="form-label">Próxima Dose<span class="required-asterisk">*</span></label>
+                        <label for="proxima_dose" class="form-label">Próxima Dose</label>
                         <input type="date" class="form-control" id="proxima_dose" name="proxima_dose" autocomplete="off">
                     </div>
                     <div class="col-12 col-md-8 mb-4">
                         <label for="localAplicacao" class="form-label">Local de Aplicação<span class="required-asterisk">*</span></label>
-                        <input type="text" class="form-control" id="localAplicacao" name="localAplicacao" autocomplete="off" value="Na PQP">
+                        <input type="text" class="form-control" id="localAplicacao" name="localAplicacao" autocomplete="off">
                     </div>
                     <div class="col-12 col-md-8 mb-4">
                         <label for="tipo" class="form-label">Tipo da Vacina<span class="required-asterisk">*</span></label>
                         <select class="form-select" id="tipo" name="tipo">
                             <option value="" disabled>Selecione o tipo</option>
-                            <option value="Imunização" selected>Imunização</option>
+                            <option value="Imunização">Imunização</option>
                             <option value="Vacina de Vírus Vivo Atenuado">Vacina de Vírus Vivo Atenuado</option>
                             <option value="Vacina de Vírus Inativado">Vacina de Vírus Inativado</option>
                             <option value="Vacina Subunitária">Vacina Subunitária</option>
@@ -152,8 +152,8 @@ if (count($vacinas) > 0) {
                     <div class="col-12 col-md-8 mb-4">
                         <label for="dose" class="form-label">Dose<span class="required-asterisk">*</span></label>
                         <select class="form-select" id="dose" name="dose">
-                            <option value="" disabled >Selecione a dose</option>
-                            <option value="1ª Dose" selected>1ª Dose</option>
+                            <option value="" disabled selected>Selecione a dose</option>
+                            <option value="1ª Dose">1ª Dose</option>
                             <option value="2ª Dose">2ª Dose</option>
                             <option value="Reforço">Reforço</option>
                             <option value="Dose Única">Dose Única</option>
