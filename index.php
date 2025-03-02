@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'src/scripts/Conexao.php';
-require 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -57,7 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: /?status=sucesso#nossa-missao");
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -70,8 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="manifest" href="manifest.json">
     <!-- SEO - Configurações básicas -->
     <meta name="description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações.">
     <meta name="author" content="Minhas Vacinas Inc">
@@ -388,51 +385,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </section>
 
-    <!-- <button id="scrollToTopBtn" class="scroll-to-top">
-        <span>&#8593;</span>
-    </button> -->
-
-    <div id="cookieNotice" class="cookie-notice">
-        <p>Usamos cookies para melhorar sua experiência. <a href="docs/Politica-de-Privacidade.php">Saiba mais</a></p>
-        <button id="acceptCookies">Aceitar</button>
-    </div>
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js').then((registration) => {
-                    console.log('Service Worker registrado com sucesso:', registration);
-                }).catch((error) => {
-                    console.log('Erro ao registrar o Service Worker:', error);
-                });
-            });
-        }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
-
-    <script type="module">
-        import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0.3/dist/web.js'
-
-        Typebot.initBubble({
-            typebot: "my-typebot-32hb9a8",
-            theme: {
-                button: {
-                    backgroundColor: "#0042DA",
-                    size: "medium"
-                },
-                chatWindow: {
-                    backgroundColor: "#fff"
-                },
-            },
-        });
-    </script>
-
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px;" id="footer">
         <div class="container text-center text-md-start mt-5">
             <div class="row mt-3" style="padding-bottom: 5%;">
@@ -492,6 +444,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             © 2025 Minhas Vacinas. Todos os direitos reservados.
         </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/91ecee0302e40ff40c579362/script.js"></script>
 </body>
 
 
