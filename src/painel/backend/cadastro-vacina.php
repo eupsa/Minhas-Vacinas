@@ -54,7 +54,7 @@ if (isset($_FILES['vac-card-img']) && $_FILES['vac-card-img']['error'] === UPLOA
     } else {
         $name = bin2hex(random_bytes(50)) . '.' . strtolower(end($arquivoNew));
 
-        $upload_dir = '/var/www/Assets-MV/user-img/';
+        $upload_dir = '/var/www/Assets-MV/vac-img/';
 
         if (!is_dir($upload_dir)) {
             $retorna = ['status' => false, 'msg' => "Diretório não encontrado."];
@@ -70,7 +70,7 @@ if (isset($_FILES['vac-card-img']) && $_FILES['vac-card-img']['error'] === UPLOA
             exit();
         }
 
-        $path = 'https://usercontent.minhasvacinas.online/user-img/' . $name;
+        $path = 'https://usercontent.minhasvacinas.online/vac-img/' . $name;
     }
 } else {
     $path = $_SESSION['user_foto'] ?? null;
