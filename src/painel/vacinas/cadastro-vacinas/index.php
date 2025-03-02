@@ -109,7 +109,7 @@ if (count($vacinas) > 0) {
     <section>
         <div class="content">
             <h2 class="fw-light mb-5 text-center">Cadastro de Vacinas</h2>
-            <form action="../../backend/cadastro-vacina.php" method="post" id="form_vacina">
+            <form action="../../backend/cadastro-vacina.php" method="post" id="form_vacina" enctype="multipart/form-data">
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8 mb-4">
                         <label for="vacina" class="form-label">Vacina<span class="required-asterisk">*</span></label>
@@ -134,17 +134,13 @@ if (count($vacinas) > 0) {
                     </div>
                     <div class="col-12 col-md-8 mb-4">
                         <label for="localAplicacao" class="form-label">Local de Aplicação<span class="required-asterisk">*</span></label>
-                        <input type="text" class="form-control" id="localAplicacao" name="localAplicacao" autocomplete="off">
-                    </div>
-                    <div class="col-12 col-md-8 mb-4" id="outroLocalDiv" style="display: none;">
-                        <label for="outro_local" class="form-label">Local de Aplicação<span class="required-asterisk">*</span></label>
-                        <input type="text" class="form-control" id="outro_local" name="outro_local" autocomplete="off">
+                        <input type="text" class="form-control" id="localAplicacao" name="localAplicacao" autocomplete="off" value="Na PQP">
                     </div>
                     <div class="col-12 col-md-8 mb-4">
                         <label for="tipo" class="form-label">Tipo da Vacina<span class="required-asterisk">*</span></label>
                         <select class="form-select" id="tipo" name="tipo">
-                            <option value="" disabled selected>Selecione o tipo</option>
-                            <option value="Imunização">Imunização</option>
+                            <option value="" disabled>Selecione o tipo</option>
+                            <option value="Imunização" selected>Imunização</option>
                             <option value="Vacina de Vírus Vivo Atenuado">Vacina de Vírus Vivo Atenuado</option>
                             <option value="Vacina de Vírus Inativado">Vacina de Vírus Inativado</option>
                             <option value="Vacina Subunitária">Vacina Subunitária</option>
@@ -156,8 +152,8 @@ if (count($vacinas) > 0) {
                     <div class="col-12 col-md-8 mb-4">
                         <label for="dose" class="form-label">Dose<span class="required-asterisk">*</span></label>
                         <select class="form-select" id="dose" name="dose">
-                            <option value="" disabled selected>Selecione a dose</option>
-                            <option value="1ª Dose">1ª Dose</option>
+                            <option value="" disabled >Selecione a dose</option>
+                            <option value="1ª Dose" selected>1ª Dose</option>
                             <option value="2ª Dose">2ª Dose</option>
                             <option value="Reforço">Reforço</option>
                             <option value="Dose Única">Dose Única</option>
@@ -167,7 +163,7 @@ if (count($vacinas) > 0) {
                     </div>
                     <div class="col-12 col-md-8 mb-4">
                         <label for="imagem" class="form-label">Imagem da Vacina</label>
-                        <input type="file" class="form-control" id="imagem" name="imagem" accept="image/*" onchange="previewImage(event)">
+                        <input type="file" class="form-control" id="vac-card-img" name="vac-card-img" accept="image/*" onchange="previewImage(event)">
                         <div id="imagePreview" style="margin-top: 10px;">
                             <img id="preview" src="" alt="Prévia da Imagem" style="max-width: 150px; display: none;" />
                         </div>

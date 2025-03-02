@@ -42,6 +42,40 @@ if (empty($nomeVac) || empty($dataAplicacao) || empty($tipo) || empty($dose) || 
     exit();
 }
 
+if (isset($_FILES['vac-card-img']) && $_FILES['vac-card-img']['error'] === UPLOAD_ERR_OK) {
+    $arquivo = $_FILES['vac-card-img'];
+    $arquivoNew = explode('.', $arquivo['name']);
+
+    if (!in_array(strtolower(end($arquivoNew)), ['jpg', 'png', 'jpeg'])) {
+        $retorna = ['status' => false, 'msg' => "Extensão inválida. Tente novamente com um arquivo .jpg, .png ou .jpeg."];
+        header('Content-Type: application/json');
+        echo json_encode($retorna);
+        exit();
+    } else {
+        $name = bin2hex(random_bytes(50)) . '.' . strtolower(end($arquivoNew));
+
+        $upload_dir = '/var/www/Assets-MV/vac-img/';
+
+        if (!is_dir($upload_dir)) {
+            $retorna = ['status' => false, 'msg' => "Diretório não encontrado."];
+            header('Content-Type: application/json');
+            echo json_encode($retorna);
+            exit();
+        }
+
+        if (!move_uploaded_file($arquivo['tmp_name'], $upload_dir . $name)) {
+            $retorna = ['status' => false, 'msg' => "Erro ao mover arquivo."];
+            header('Content-Type: application/json');
+            echo json_encode($retorna);
+            exit();
+        }
+
+        $path = 'https://usercontent.minhasvacinas.online/vac-img/' . $name;
+    }
+} else {
+    $path = $_SESSION['user_foto'] ?? null;
+}
+
 if (validarData($dataAplicacao)) {
     if (empty($nomeVac) || empty($dataAplicacao) || empty($tipo) || empty($dose) || empty($localAplicacao)) {
         $retorna = ['status' => false, 'msg' => "Preencha todos os campos obrigatórios"];

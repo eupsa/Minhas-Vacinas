@@ -124,7 +124,6 @@ if (isset($_SESSION['user_id'])) {
                                     <i class="fas fa-envelope"></i> Um código de 6 dígitos foi enviado para o seu e-mail. Verifique sua caixa de entrada para confirmar seu cadastro.
                                 </p>
                                 <div class="mb-3 text-center">
-                                    <label for="codigo" class="form-label text-dark">Código</label>
                                     <div class="d-flex justify-content-center gap-2">
                                         <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
                                         <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>

@@ -1,155 +1,279 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<h1 class="privacy-policy-h1">Privacy Policy
+<br><span>Last Updated On 02-Mar-2025</span>
+<br><span>Effective Date 02-Mar-2025</span>
+</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Política de Privacidade</title>
-    <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
+<p class="privacy-policy-p">
+    This Privacy Policy describes the policies of
 
-<style>
-    body {
-        background-color: #f2f2f2;
-        font-family: Arial, sans-serif;
-        margin-top: 3%;
-    }
+    Minhas Vacinas,
+    Salvador, BA,
+    Bahia
+    41280-000,
+    Brazil,
+    email: pedro@minhasvacinas.online,
+    phone: 71983442945
 
-    h1,
-    h2 {
-        text-align: center;
-        color: #343a40;
-    }
+    on the collection,
+    use and disclosure of your information that we collect
+    when you use our website ( https://www.minhasvacinas.online/ ).
+    (the “Service”). By accessing or using
+    the
+    Service, you are consenting to the collection, use and
+    disclosure of your information in accordance with this
+    Privacy Policy. If you do not consent to the same,
+    please do not access or use the Service.
+</p>
 
-    section {
-        background-color: #ffffff;
-        padding: 30px;
-        margin-bottom: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    }
+<p class="privacy-policy-p">
+    We may modify this Privacy Policy at any time without
+    any prior notice to you and will post the revised
+    Privacy Policy on the Service. The revised Policy will
+    be effective 180 days from when the
+    revised Policy is posted in the Service and your
+    continued access or use of the Service after such time
+    will constitute your acceptance of the revised Privacy
+    Policy. We therefore recommend that you periodically
+    review this page.
+</p>
 
-    p,
-    ul {
-        margin: 10px 0;
-    }
+<ol class="privacy-policy-ol">
+        <li>
+        <h2 class="privacy-policy-h2">
+            Information We Collect:
+        </h2>
 
-    ul {
-        padding-left: 20px;
-    }
+        
+        <p class="privacy-policy-p">
+            We will collect and process the following
+            personal information about you:
+        </p>
+        <ol class="privacy-policy-ol">
 
-    a {
-        color: #007bff;
-        text-decoration: none;
-    }
+                        <li>Name</li>
+            
+                        <li>Email</li>
+            
+                        <li>Mobile</li>
+            
+            
+                        <li>Date of Birth</li>
+            
+            
+            
+                        
+                                    <li>Gênero</li>
+                                                <li>CPF</li>
+                        
+        </ol>
+        
 
-    a:hover {
-        text-decoration: underline;
-    }
-</style>
+        
 
-<body>
-    <div class="container my-5">
-        <h1 class="mb-4">Política de Privacidade</h1>
+    </li>
 
-        <section>
-            <h2>1. Introdução</h2>
-            <p>Esta Política de Privacidade descreve como coletamos, usamos e protegemos suas informações pessoais ao acessar o site <strong>minhasvacinas.online</strong>. O objetivo do site é oferecer serviços relacionados à gestão de informações de vacinação. Ao utilizar o site, você concorda com os termos desta Política.</p>
-        </section>
+    
+        <li>
+        <h2 class="privacy-policy-h2">
+            How We Collect Your Information:
+        </h2>
+        <p class="privacy-policy-p">
+            We collect/receive information about you in the
+            following manner:
+        </p>
+        <ol class="privacy-policy-ol">
 
-        <section>
-            <h2>2. Informações que coletamos</h2>
-            <p>Coletamos informações para fornecer e melhorar nossos serviços. Elas podem ser divididas nas seguintes categorias:</p>
-            <h3 class="text-center">2.1 Informações Fornecidas pelo Usuário</h3>
-            <ul>
-                <li><strong>Dados Pessoais:</strong> Nome completo, endereço de e-mail, CPF e data de nascimento, fornecidos durante o cadastro.</li>
-                <li><strong>Dados de Vacinação:</strong> Nome da vacina, dose, lote, local de aplicação e observações relacionadas às vacinas registradas.</li>
-                <li><strong>Comunicações:</strong> Informações compartilhadas ao entrar em contato conosco, como dúvidas ou feedbacks.</li>
-            </ul>
-            <h3 class="text-center">2.2 Informações Coletadas Automaticamente</h3>
-            <ul>
-                <li><strong>Dados Técnicos:</strong> Endereço IP, tipo de navegador, sistema operacional e páginas acessadas durante a navegação.</li>
-                <li><strong>Cookies:</strong> Utilizamos cookies para autenticar usuários, melhorar a experiência do usuário e analisar o tráfego no site.</li>
-                <li><strong>Dados de Uso:</strong> Informações sobre como você interage com o site, incluindo tempo de navegação e recursos mais acessados.</li>
-            </ul>
-        </section>
+                        <li>When a user fills up the registration form or otherwise submits personal information</li>
+            <li>Interacts with the website</li>
+            
+                        <li>From public sources</li>
+            
+        </ol>
+    </li>
 
-        <section>
-            <h2>3. Uso das Informações</h2>
-            <p>Utilizamos suas informações para:</p>
-            <ul>
-                <li>Gerenciar o histórico de vacinação do usuário.</li>
-                <li>Enviar comunicações relacionadas ao serviço, como notificações de vacinas ou atualizações no sistema.</li>
-                <li>Melhorar o funcionamento do site e personalizar a experiência do usuário.</li>
-                <li>Atender solicitações de suporte ou dúvidas enviadas pelos usuários.</li>
-            </ul>
-        </section>
+    
 
-        <section>
-            <h2>4. Compartilhamento de Informações</h2>
-            <p>Não compartilhamos suas informações pessoais com terceiros, exceto:</p>
-            <ul>
-                <li>Quando exigido por lei ou por ordem judicial.</li>
-                <li>Para proteger os direitos, a segurança e a integridade do site.</li>
-                <li>Com provedores de serviços contratados para operar e melhorar o site, sujeitos a acordos de confidencialidade.</li>
-            </ul>
-        </section>
+        <li>
+        <h2 class="privacy-policy-h2">
+            How We Use Your Information:
+        </h2>
+        <p class="privacy-policy-p">
+            We will use the information that we collect
+            about you for the following purposes:
+        </p>
+        <ol class="privacy-policy-ol">
 
-        <section>
-            <h2>5. Proteção das Informações</h2>
-            <p>Adotamos medidas técnicas e organizacionais para proteger suas informações contra acesso não autorizado, perda, uso indevido ou alteração. Essas medidas incluem:</p>
-            <ul>
-                <li>Criptografia de dados sensíveis durante a transmissão e armazenamento.</li>
-                <li>Acesso restrito às informações apenas para pessoas autorizadas.</li>
-                <li>Monitoramento constante e auditorias regulares para identificar vulnerabilidades.</li>
-            </ul>
-        </section>
+            
+            
+            
+            
+                        <li>Enforce T&C</li>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        </ol>
+        <p class="privacy-policy-p">
+            If we want to use your information for any other
+            purpose, we will ask you for consent and will
+            use your information only on receiving your
+            consent and then, only for the purpose(s) for
+            which grant consent unless we are required to do
+            otherwise by law.
+        </p>
+    </li>
+    
+    
+    <li>
+        <h2 class="privacy-policy-h2">
+            How We Share Your Information:
+        </h2>
 
-        <section>
-            <h2>6. Direitos dos Usuários</h2>
-            <p>Você tem direito a:</p>
-            <ul>
-                <li>Acessar, corrigir ou excluir suas informações pessoais.</li>
-                <li>Retirar o consentimento para o uso de suas informações.</li>
-                <li>Solicitar informações sobre como seus dados estão sendo usados.</li>
-            </ul>
-            <p>Para exercer seus direitos, entre em contato pelo e-mail: <a href="">contato@minhasvacinas.online</a>.</p>
-        </section>
 
-        <section>
-            <h2>7. Cookies</h2>
-            <p>Utilizamos cookies para:</p>
-            <ul>
-                <li>Autenticar usuários e manter sessões ativas.</li>
-                <li>Analisar o tráfego no site.</li>
-                <li>Fornecer funcionalidades adicionais, como salvar preferências do usuário.</li>
-            </ul>
-            <p>Você pode gerenciar ou desativar cookies diretamente nas configurações do seu navegador.</p>
-        </section>
+                <p class="privacy-policy-p">
+            We will not transfer your personal information
+            to any third party without seeking your consent,
+            except in limited circumstances as described
+            below:
+        </p>
+        <ol class="privacy-policy-ol">
+                        <li>Ad service</li>
+            
+            
+            
+            
+                        <li>Analytics</li>
+            
+            
+                        <li>Data collection & process</li>
+                    </ol>
+        
+        <p class="privacy-policy-p">
+            We require such third party’s to use the
+            personal information we transfer to them only
+            for the purpose for which it was transferred and
+            not to retain it for longer than is required for
+            fulfilling the said purpose.
+        </p>
+        <p class="privacy-policy-p">
+            We may also disclose your personal information
+            for the following: (1) to comply with applicable
+            law, regulation, court order or other legal
+            process; (2) to enforce your agreements with us,
+            including this Privacy Policy; or (3) to respond
+            to claims that your use of the Service violates
+            any third-party rights. If the Service or our
+            company is merged or acquired with another
+            company, your information will be one of the
+            assets that is transferred to the new owner.
+        </p>
+    </li>
+    
 
-        <section>
-            <h2>8. Alterações na Política de Privacidade</h2>
-            <p>Reservamo-nos o direito de atualizar esta Política de Privacidade a qualquer momento. Notificaremos os usuários sobre alterações significativas por meio do site ou por e-mail.</p>
-        </section>
+        <li>
+        <h2 class="privacy-policy-h2">
+            Retention Of Your Information:
+        </h2>
+        <p class="privacy-policy-p">
+            We will retain your personal information with us
+            for
+                        90 days to 2 years after users terminate their accounts
+                        or for as
+            long as we need it to fulfill the purposes for
+            which it was collected as detailed in this
+            Privacy Policy. We may need to retain certain
+            information for longer periods such as
+            record-keeping / reporting in accordance with
+            applicable law or for other legitimate reasons
+            like enforcement of legal rights, fraud
+            prevention, etc. Residual anonymous information
+            and aggregate information, neither of which
+            identifies you (directly or indirectly), may be
+            stored indefinitely.
+        </p>
+    </li>
+    
+    <li>
+        <h2 class="privacy-policy-h2">
+            Your Rights:
+        </h2>
+        <p class="privacy-policy-p">
+            Depending on the law that applies, you may have
+            a right to access and rectify or erase your
+            personal data or receive a copy of your personal
+            data, restrict or object to the active
+            processing of your data, ask us to share (port)
+            your personal information to another entity,
+            withdraw any consent you provided to us to
+            process your data, a right to lodge a complaint
+            with a statutory authority and such other rights
+            as may be relevant under applicable laws. To
+            exercise these rights, you can write to us at
+            pedro@minhasvacinas.online.
+            We will respond to your
+            request in accordance with applicable law.
+        </p>
 
-        <section>
-            <h2>9. Login com Google</h2>
-            <p>Nosso site oferece a opção de login com Google para maior praticidade e segurança. Ao optar por este método, você autoriza o acesso às informações básicas da sua conta Google, como nome, e-mail e foto de perfil. Essas informações serão usadas exclusivamente para fins de autenticação e não serão compartilhadas com terceiros.</p>
-            <p>Se desejar desconectar sua conta Google do nosso site, entre em contato pelo e-mail: <a href="">contato@minhasvacinas.online</a>.</p>
-        </section>
+        
+        <p class="privacy-policy-p">
+            Do note that if you do not allow us to collect
+            or process the required personal information or
+            withdraw the consent to process the same for the
+            required purposes, you may not be able to access
+            or use the services for which your information
+            was sought.
+        </p>
+    </li>
+        <li>
+        <h2 class="privacy-policy-h2">
+            Cookies Etc.
+        </h2>
+        <p class="privacy-policy-p">
 
-        <section>
-            <h2>10. Contato</h2>
-            <p>Se você tiver dúvidas ou preocupações sobre esta Política de Privacidade, entre em contato conosco pelo e-mail: <a href="">contato@minhasvacinas.online</a>.</p>
-        </section>
-    </div>
+            
+            To learn more about how we use these
+            and your choices in relation to these tracking
+            technologies, please refer to our
+            <a href="https://www.minhasvacinas.online/">Cookie Policy.</a>
+        </p>
+    </li>
+    
+    <li>
+        <h2 class="privacy-policy-h2">
+            Security:
+        </h2>
+        <p class="privacy-policy-p">
+            The security of your information is important to
+            us and we will use reasonable security measures
+            to prevent the loss, misuse or unauthorized
+            alteration of your information under our
+            control. However, given the inherent risks, we
+            cannot guarantee absolute security and
+            consequently, we cannot ensure or warrant the
+            security of any information you transmit to us
+            and you do so at your own risk.
+        </p>
+    </li>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+    
+    <li>
+        <h2 class="privacy-policy-h2">
+            Grievance / Data Protection Officer:
+        </h2>
+        <p class="privacy-policy-p">
+            If you have any queries or concerns about the
+            processing of your information that is available
+            with us, you may email our Grievance Officer at
+            Minhas Vacinas,
+            Salvador, BA,
+            email: pedro@minhasvacinas.online.
+            We will address your concerns in accordance with applicable law.
+        </p>
+    </li>
+</ol>

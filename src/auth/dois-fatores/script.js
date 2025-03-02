@@ -13,6 +13,18 @@ document.addEventListener("DOMContentLoaded", function () {
         inputs[index - 1].focus();
       }
     });
+
+    input.addEventListener("paste", function (event) {
+      event.preventDefault();
+      const pasteData = (event.clipboardData || window.clipboardData).getData("text").trim();
+      
+      if (pasteData.length === inputs.length && /^\d+$/.test(pasteData)) {
+        inputs.forEach((input, i) => {
+          input.value = pasteData[i] || "";
+        });
+        inputs[inputs.length - 1].focus();
+      }
+    });
   });
 
   document.querySelector("#form-2FA").addEventListener("submit", function (e) {

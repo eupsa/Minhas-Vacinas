@@ -124,7 +124,6 @@ if (isset($_SESSION['user_id'])) {
                                     <i class="fas fa-check-circle"></i> Um código de 6 dígitos foi gerado no seu aplicativo autenticador. Verifique o código e entre na sua conta.
                                 </p>
                                 <div class="mb-3 text-center">
-                                    <label for="codigo" class="form-label text-dark">Código</label>
                                     <div class="d-flex justify-content-center gap-2">
                                         <input type="text" class="form-control text-center" style="height: 60px; font-size: 24px;" maxlength="1" id="digit1" name="codigo[]" required autocomplete="off">
                                         <input type="text" class="form-control text-center" style="height: 60px; font-size: 24px;" maxlength="1" id="digit2" name="codigo[]" required autocomplete="off">

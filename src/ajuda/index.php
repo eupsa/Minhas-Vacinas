@@ -29,8 +29,8 @@ session_start();
                 <div class="collapse navbar-collapse d-none d-lg-flex" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#nossa-missao">Sobre</a></li>
-                        <li class="nav-item"><a href="ajuda/" class="nav-link">Suporte</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/#nossa-missao">Sobre</a></li>
+                        <li class="nav-item"><a class="nav-link">Suporte</a></li>
                         <li class="nav-item"><a href="FAQ/" class="nav-link">FAQ</a></li>
                     </ul>
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
