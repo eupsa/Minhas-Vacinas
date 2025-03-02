@@ -65,6 +65,7 @@ if (isset($_FILES['foto-perfil']) && $_FILES['foto-perfil']['error'] === UPLOAD_
         $name = bin2hex(random_bytes(50)) . '.' . strtolower(end($arquivoNew));
 
         $upload_dir = '/var/www/Assets-MV/user-img/';
+        $upload_dir_windows = 'C:\Users\pedro\Documents\GitHub\Assets-MV\vac-img';
 
         if (!is_dir($upload_dir)) {
             $retorna = ['status' => false, 'msg' => "Diretório não encontrado."];

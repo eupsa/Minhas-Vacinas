@@ -55,7 +55,6 @@ CREATE TABLE IF NOT EXISTS confirmar_cadastro (
 
 CREATE TABLE IF NOT EXISTS vacina (
     id_vac INT PRIMARY KEY AUTO_INCREMENT,
-    imagem LONGBLOB,
     nome_vac VARCHAR(255) NOT NULL,
     data_aplicacao DATE NOT NULL,
     proxima_dose DATE,
@@ -68,6 +67,7 @@ CREATE TABLE IF NOT EXISTS vacina (
     dose VARCHAR(50) NOT NULL,
     lote VARCHAR(50),
     obs VARCHAR(200),
+    path_card VARCHAR (200),
     data_adicao DATETIME DEFAULT CURRENT_TIMESTAMP,
     id_usuario INT,
     FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario) ON DELETE CASCADE

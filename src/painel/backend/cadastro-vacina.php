@@ -54,7 +54,9 @@ if (isset($_FILES['vac-card-img']) && $_FILES['vac-card-img']['error'] === UPLOA
     } else {
         $name = bin2hex(random_bytes(50)) . '.' . strtolower(end($arquivoNew));
 
-        $upload_dir = '/var/www/Assets-MV/vac-img/';
+         $upload_dir = '/var/www/Assets-MV/vac-img/';
+         $upload_dir_windows = 'C:\Users\pedro\Documents\GitHub\Assets-MV\vac-img/';
+
 
         if (!is_dir($upload_dir)) {
             $retorna = ['status' => false, 'msg' => "Diretório não encontrado."];
@@ -84,8 +86,8 @@ if (validarData($dataAplicacao)) {
         exit();
     } else {
         try {
-            $sql = $pdo->prepare("INSERT INTO vacina (nome_vac, data_aplicacao, proxima_dose, local_aplicacao, tipo, dose, lote, obs, imagem, id_usuario) 
-                                  VALUES (:nome_vac, :data_aplicacao, :proxima_dose, :local_aplicacao, :tipo, :dose, :lote, :obs, :imagem, :id_usuario)");
+            $sql = $pdo->prepare("INSERT INTO vacina (nome_vac, data_aplicacao, proxima_dose, local_aplicacao, tipo, dose, lote, obs, path_card, id_usuario) 
+                                  VALUES (:nome_vac, :data_aplicacao, :proxima_dose, :local_aplicacao, :tipo, :dose, :lote, :obs, :path_card, :id_usuario)");
             $sql->bindValue(':nome_vac', $nomeVac);
             $sql->bindValue(':data_aplicacao', $dataAplicacao);
             $sql->bindValue(':proxima_dose', $proxima_dose);
@@ -94,7 +96,7 @@ if (validarData($dataAplicacao)) {
             $sql->bindValue(':dose', $dose);
             $sql->bindValue(':lote', $lote);
             $sql->bindValue(':obs', $obs);
-            $sql->bindValue(':imagem', $imagemBinaria, PDO::PARAM_LOB);
+            $sql->bindValue(':path_card', $path);
             $sql->bindValue(':id_usuario', $_SESSION['user_id']);
             $sql->execute();
 

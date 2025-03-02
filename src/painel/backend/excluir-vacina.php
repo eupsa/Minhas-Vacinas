@@ -17,6 +17,15 @@ if (empty($id_vac)) {
         $sql->execute();
 
         if ($sql->rowCount() === 1) {
+            $vacina = $sql->fetch(PDO::FETCH_BOTH);
+
+            if (isset($vacina['path_card'])) {
+                $path = explode('/',  $vacina['path_card'][4]);
+
+                $dir = '/var/www/Assets-MV/vac-img/' . $path .
+                unlink($dir);
+            }
+
             $sql = $pdo->prepare("DELETE FROM vacina WHERE id_vac = :id_vac AND id_usuario = :id_usuario");
             $sql->bindValue(':id_vac', $id_vac);
             $sql->bindValue(':id_usuario', $id_usuario);
