@@ -23,6 +23,7 @@ if (empty($id_vac)) {
                 $path = explode('/',  $vacina['path_card'][4]);
 
                 $dir = '/var/www/Assets-MV/vac-img/' . $path .
+                var_dump($dir);
                 unlink($dir);
             }
 
