@@ -22,8 +22,8 @@ if (empty($id_vac)) {
             if (isset($vacina['path_card'])) {
                 $path = explode('/',  $vacina['path_card'][4]);
 
-                $dir = '/var/www/Assets-MV/vac-img/' . $path .
-                var_dump($dir);
+                $dir = '/var/www/Assets-MV/vac-img/' . $path . '';
+                echo $dir;
                 unlink($dir);
             }
 
