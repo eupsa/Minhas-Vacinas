@@ -140,8 +140,15 @@ if (isset($_SESSION['user_id'])) {
                                 </button>
                             </form>
                         </div>
+
                     </div>
                 </div>
+            </div>
+            <div class="text-center mt-4">
+                <p class="mb-1 text-dark">Precisa confirmar o cadastro?</p>
+                <a href="../confirmar-cadastro/" class="text-primary" style="text-decoration: none;">
+                    <i class="bi bi-check-circle"></i> Confirme o cadastro
+                </a>
             </div>
         </div>
     </section>
@@ -176,7 +183,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </section>
 
-    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 7%;">
+    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 5%;">
         <div class="me-5 d-none d-lg-block"></div>
         <div class="container text-center text-md-start mt-5">
             <div class="row mt-3">

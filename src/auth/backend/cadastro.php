@@ -10,7 +10,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-$nome = ucwords(trim($dados['nome']));
+$nome = ucwords($dados['nome']);
 $email = filter_var(strtolower(trim($dados['email'])), FILTER_SANITIZE_EMAIL);
 $estado = trim($dados['estado']);
 $senha = $dados['senha'];
