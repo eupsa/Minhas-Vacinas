@@ -145,16 +145,16 @@ if (isset($_SESSION['user_id'])) {
                 </div>
             </div>
             <div class="text-center mt-4">
-                <p class="mb-1 text-dark">Precisa confirmar o cadastro?</p>
-                <a href="../confirmar-cadastro/" class="text-primary" style="text-decoration: none;">
-                    <i class="bi bi-check-circle"></i> Confirme o cadastro
+                <p class="mb-1 text-dark">O código não chegou?</p>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#reenviar-email" class="text-primary text-decoration-none">
+                    <i class="bi bi-check-circle"></i> Reenviar código
                 </a>
             </div>
         </div>
     </section>
 
     <section>
-        <div class="modal fade" id="emailModal" tabindex="-1" aria-labelledby="emailModalLabel" aria-hidden="true" style="z-index: 1900;">
+        <div class="modal fade" id="reenviar-email" tabindex="-1" aria-labelledby="reenviar-email" aria-hidden="true" style="z-index: 1900;">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
