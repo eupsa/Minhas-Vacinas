@@ -43,13 +43,11 @@ CREATE TABLE
     data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- INSERT INTO admin (nome_admin, email_admin, senha)
--- value ('Pedro', 'pedruuu291@gmail.com', '$2y$10$FR.2G3bWnF9BFQYQa7eOIO47VRDYqgLsPwmCi/bGx9olyfPiyXLxi');
-
 CREATE TABLE IF NOT EXISTS confirmar_cadastro (
     id INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL,
     codigo VARCHAR(6) UNIQUE NOT NULL,
+    
     FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
 );
 
@@ -178,7 +176,7 @@ CREATE TABLE
 
 DELIMITER $$
 
-CREATE TRIGGER after_usuario_insert
+CREATE TRIGGER Cadastro_Novidades
 AFTER INSERT ON usuario
 FOR EACH ROW
 BEGIN
@@ -187,4 +185,27 @@ END$$
 
 DELIMITER ;
 
--- SELECT @@global.time_zone, @@session.time_zone;
+DELIMITER $$
+
+CREATE EVENT IF NOT EXISTS LimparTabelas
+ON SCHEDULE EVERY 1 DAY
+DO
+BEGIN
+    TRUNCATE TABLE minhasvacinas.esqueceu_senha;
+    TRUNCATE TABLE minhasvacinas.confirmar_cadastro;
+    TRUNCATE TABLE minhasvacinas.excluir_conta;
+    TRUNCATE TABLE minhasvacinas.mudar_email;
+END $$
+
+-- CREATE EVENT IF NOT EXISTS definir_fuso_horario
+-- ON SCHEDULE EVERY 1 HOUR
+-- DO
+-- BEGIN
+--     SET time_zone = 'America/Sao_Paulo';
+-- END $$
+
+DELIMITER ;
+
+SHOW EVENTS;
+
+SELECT * FROM .triggers;

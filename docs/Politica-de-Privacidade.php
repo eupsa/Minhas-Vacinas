@@ -11,7 +11,7 @@
     Bahia
     41280-000,
     Brazil,
-    email: pedro@minhasvacinas.online,
+    email: contato@minhasvacinas.online,
     phone: 71983442945
 
     on the collection,
@@ -215,7 +215,7 @@
             with a statutory authority and such other rights
             as may be relevant under applicable laws. To
             exercise these rights, you can write to us at
-            pedro@minhasvacinas.online.
+            contato@minhasvacinas.online.
             We will respond to your
             request in accordance with applicable law.
         </p>
@@ -272,7 +272,7 @@
             with us, you may email our Grievance Officer at
             Minhas Vacinas,
             Salvador, BA,
-            email: pedro@minhasvacinas.online.
+            email: contato@minhasvacinas.online.
             We will address your concerns in accordance with applicable law.
         </p>
     </li>
