@@ -42,7 +42,7 @@ if (isset($payload['email'])) {
 
         $usuario = $sql->fetch(PDO::FETCH_ASSOC);
         $id_usuario = $usuario['id_usuario'];
-        $ip = get_real_ip();
+        $ip = ObterIP();
 
         $sql = $pdo->prepare("SELECT * FROM usuario WHERE ip_cadastro = :ip_cadastro AND id_usuario = :id_usuario");
         $sql->bindValue(':ip_cadastro', $ip);
@@ -73,7 +73,7 @@ if (isset($payload['email'])) {
                     $estado = $dispostivo['estado'];
                     $pais = $dispostivo['pais'];
 
-                    enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
+                    EnviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
                     $_SESSION['sucesso-email'] = "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções.";
                     header('Location: ../entrar/');
                     exit();
@@ -86,8 +86,8 @@ if (isset($payload['email'])) {
                     exit();
                 }
             } else {
-                registrar_dispositivo($pdo, $id_usuario);
-                $token = 'c4444d8bf12e24';
+                RegistrarDispositivos($pdo, $id_usuario);
+                $token = $_ENV['IPINFO_TOKEN'];
                 $response = file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}");
                 $data = json_decode($response, true);
 
@@ -96,14 +96,14 @@ if (isset($payload['email'])) {
                 $pais = $data['country'];
                 $email = $usuario['email'];
 
-                enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
+                EnviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
                 $_SESSION['sucesso-email'] = "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções.";
                 header('Location: ../entrar/');
                 exit();
             }
         }
     } else {
-        $_SESSION['erro_email'] = "Usuário não cadastrado.";
+        $_SESSION['erro_email'] = "Usuário não cadastrado ou não conectado com google.";
         header('Location: ../entrar/');
         exit();
     }
@@ -114,7 +114,7 @@ if (isset($payload['email'])) {
 }
 
 
-function enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
+function EnviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
 {
     date_default_timezone_set('America/Sao_Paulo');
     $data_local = date('d/m/Y H:i:s');
@@ -130,7 +130,7 @@ function enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
 
     try {
         $mail->isSMTP();
-        $mail->Host = 'smtp.zoho.com';
+        $mail->Host = $_ENV['HOST_SMTP'];
         $mail->SMTPAuth = true;
         $mail->Username = $_ENV['EMAIL'];
         $mail->Password = $_ENV['EMAIL_PASSWORD'];
@@ -151,9 +151,9 @@ function enviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
     }
 }
 
-function registrar_dispositivo($pdo, $id_usuario)
+function RegistrarDispositivos($pdo, $id_usuario)
 {
-    $ip = get_real_ip();
+    $ip = ObterIP();
     $token = 'c4444d8bf12e24';
     $response = file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}");
     $data = json_decode($response, true);
@@ -164,13 +164,13 @@ function registrar_dispositivo($pdo, $id_usuario)
 
     $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
-    $browser_info = get_browser_info($user_agent);
+    $browser_info = NavegadorInfo($user_agent);
     $navegador = $browser_info['browser'];
     $sistema_operacional = $browser_info['os'];
-
-    $nome_dispositivo = gethostname();
-
     $tipo_dispositivo = (strpos($user_agent, 'Mobile') !== false) ? 'Mobile' : 'Desktop';
+    $tipo_dispositivo = strtoupper($tipo_dispositivo);
+    $nome_dispositivo = $tipo_dispositivo . " - " . $sistema_operacional . " | " . $navegador;
+
     $sql = $pdo->prepare("INSERT INTO dispositivos (id_usuario, nome_dispositivo, tipo_dispositivo, ip, navegador, cidade, estado, pais)
     VALUES
     (:id_usuario, :nome_dispositivo, :tipo_dispositivo, :ip, :navegador, :cidade, :estado, :pais)");
@@ -189,7 +189,7 @@ function registrar_dispositivo($pdo, $id_usuario)
     return $ip;
 }
 
-function get_real_ip()
+function ObterIP()
 {
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
@@ -202,7 +202,7 @@ function get_real_ip()
     return $ip;
 }
 
-function get_browser_info($user_agent)
+function NavegadorInfo($user_agent)
 {
     if (strpos($user_agent, 'Windows NT') !== false) {
         $os = 'Windows';

@@ -1,9 +1,15 @@
 <?php
+require_once '../../../vendor/autoload.php';
+
 session_start();
 if (isset($_SESSION['user_id'])) {
     header("Location: ../../painel/");
     exit();
 }
+
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '../../../../');
+$dotenv->load();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -122,8 +128,8 @@ if (isset($_SESSION['user_id'])) {
                         <div class="card-body p-5">
                             <div class="d-flex justify-content-center align-items-center">
                                 <div id="g_id_onload"
-                                    data-client_id="14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com"
-                                    data-login_uri="https://www.minhasvacinas.online/src/auth/backend/login-google.php"
+                                    data-client_id="<?= $_ENV['GOOGLE_ID_CLIENT'] ?>"
+                                    data-login_uri="<?= $_ENV['GOOGLE_REDIRECT_LOGIN_DEV'] ?>"
                                     data-auto_prompt="true"
                                     data-itp_support="true">
                                 </div>

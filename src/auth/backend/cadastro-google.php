@@ -28,7 +28,7 @@ if (isset($payload['email'])) {
     $email = $payload['email'];
     $nome = ucwords(trim($payload['name']));
     $foto_url = $payload['picture'];
-    $ip = get_real_ip();
+    $ip = ObterIP();
 
     $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
     $sql->bindValue(':email', $email);
@@ -53,7 +53,7 @@ if (isset($payload['email'])) {
     $sql->execute();
 
     if ($sql->rowCount() === 1) {
-        $ip = RegistrarDispositivo($pdo, $id_usuario);
+        $ip = RegistrarDispostivos($pdo, $id_usuario);
 
         $sql = $pdo->prepare("UPDATE usuario SET ip_cadastro = :ip_cadastro WHERE id_usuario = :id_usuario");
         $sql->bindValue(':ip_cadastro', $ip);
