@@ -40,19 +40,19 @@ session_start();
                                     <i class="bi bi-person text-dark"></i>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="painel/"><i class="bi bi-house-door text-dark me-2"></i>Painel</a></li>
-                                    <li><a class="dropdown-item" href="painel/vacinas/"><i class="bi bi-heart-pulse-fill text-dark me-2"></i>Vacinas</a></li>
-                                    <li><a class="dropdown-item" href="painel/perfil/"><i class="bi bi-person-circle text-dark me-2"></i>Perfil</a></li>
+                                    <li><a class="dropdown-item" href="../painel/"><i class="bi bi-house-door text-dark me-2"></i>Painel</a></li>
+                                    <li><a class="dropdown-item" href="../painel/vacinas/"><i class="bi bi-heart-pulse-fill text-dark me-2"></i>Vacinas</a></li>
+                                    <li><a class="dropdown-item" href="../painel/perfil/"><i class="bi bi-person-circle text-dark me-2"></i>Perfil</a></li>
                                 </ul>
                             </li>
                         <?php else: ?>
                             <li class="nav-item me-3">
-                                <a class="btn btn-light text-primary rounded-pill px-4 py-2" href="auth/cadastro/">
+                                <a class="btn btn-light text-primary rounded-pill px-4 py-2" href="../auth/cadastro/">
                                     <i class="bi bi-person-plus"></i> CADASTRE-SE
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white" href="auth/entrar/">
+                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white" href="../auth/entrar/">
                                     <i class="bi bi-box-arrow-in-right"></i> ENTRAR
                                 </a>
                             </li>
@@ -80,12 +80,12 @@ session_start();
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="ajuda/" class="nav-link text-dark" style="font-weight: 500;">
+                        <a href="" class="nav-link text-dark" style="font-weight: 500;">
                             <i class="bi bi-question-circle text-dark me-2"></i>Suporte
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="FAQ/" class="nav-link text-dark" style="font-weight: 500;">
+                        <a href="../FAQ/" class="nav-link text-dark" style="font-weight: 500;">
                             <i class="bi bi-file-earmark-text text-dark me-2"></i>FAQ
                         </a>
                     </li>
@@ -96,15 +96,15 @@ session_start();
                             <i class="bi bi-person text-dark"></i>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="painel/"><i class="bi bi-house-door text-dark me-2"></i>Painel</a></li>
-                            <li><a class="dropdown-item" href="painel/vacinas/"><i class="bi bi-heart-pulse-fill text-dark me-2"></i>Vacinas</a></li>
-                            <li><a class="dropdown-item" href="painel/perfil/"><i class="bi bi-person-circle text-dark me-2"></i>Perfil</a></li>
+                            <li><a class="dropdown-item" href="../painel/"><i class="bi bi-house-door text-dark me-2"></i>Painel</a></li>
+                            <li><a class="dropdown-item" href="../painel/vacinas/"><i class="bi bi-heart-pulse-fill text-dark me-2"></i>Vacinas</a></li>
+                            <li><a class="dropdown-item" href="../painel/perfil/"><i class="bi bi-person-circle text-dark me-2"></i>Perfil</a></li>
                         </ul>
                     <?php else: ?>
-                        <a class="btn btn-secondary text-white rounded-pill px-4 py-2 w-100 text-center" href="auth/cadastro/">
+                        <a class="btn btn-secondary text-white rounded-pill px-4 py-2 w-100 text-center" href="../auth/cadastro/">
                             <i class="bi bi-person-plus"></i> CADASTRE-SE
                         </a>
-                        <a class="btn btn-primary rounded-pill px-4 py-2 text-white w-100 text-center" href="auth/entrar/">
+                        <a class="btn btn-primary rounded-pill px-4 py-2 text-white w-100 text-center" href="../auth/entrar/">
                             <i class="bi bi-box-arrow-in-right"></i> ENTRAR
                         </a>
                     <?php endif; ?>
@@ -115,7 +115,9 @@ session_start();
 
     <section class="pt-5 pb-5">
         <div class="container mt-5">
-            <h4 class="mb-4 text-center">Entre em contato</h4>
+            <h4 class="mb-4 text-center">
+                Entre em contato <i class="bi bi-chat-dots me-2"></i>
+            </h4>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 col-lg-6">
                     <div class="card shadow-lg border-0">
@@ -132,7 +134,6 @@ session_start();
                                 <div class="mb-4">
                                     <label for="motivo_contato" class="form-label">Motivo do Contato<span class="required-asterisk">*</span></label>
                                     <select class="form-select" name="motivo_contato" multiple aria-label="Multiple select example">
-                                        <option value="" disabled selected>Selecione o motivo...</option>
                                         <option value="Problema Técnico">Problema técnico</option>
                                         <option value="Dúvida">Dúvida</option>
                                         <option value="Sugestão">Sugestão</option>
@@ -144,8 +145,8 @@ session_start();
                                     <label for="mensagem" class="form-label">Mensagem<span class="required-asterisk">*</span></label>
                                     <textarea class="form-control rounded" id="mensagem" name="mensagem" rows="4" placeholder="Escreva sua mensagem aqui..." required></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary w-100 py-2 rounded-pill">
-                                    <i class="bi bi-send"></i> Enviar
+                                <button type="submit" class="btn btn-primary w-100 py-2">
+                                    <i class="bi bi-send"></i> ENVIAR
                                 </button>
                             </form>
                             <div id="resposta-container"></div>

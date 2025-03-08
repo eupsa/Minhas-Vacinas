@@ -151,10 +151,10 @@ if ($sql->rowCount() != 1) {
                                     <i class="bi bi-eye"></i>
                                 </button>
                             </div>
-                            <div id="passwordMatch" class="form-text mt-2 text-muted"></div>
+                            <div id="passwordMatch" class="form-text mt-2 text-danger"></div>
                         </div>
                         <input type="hidden" name="token" value="<?php echo !empty($_GET['token']) ? $_GET['token'] : null; ?>">
-                        <button class="btn btn-dark w-100 py-2 rounded-pill" type="submit" id="submitBtn" disabled>
+                        <button class="btn btn-dark w-100 py-2" type="submit" id="submitBtn" disabled>
                             <i class="bi bi-check-circle me-2"></i> CRIAR SENHA
                         </button>
                     </form>

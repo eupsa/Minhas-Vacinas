@@ -125,16 +125,16 @@ if (isset($_SESSION['user_id'])) {
                                 </p>
                                 <div class="mb-3 text-center">
                                     <div class="d-flex justify-content-center gap-2">
-                                        <input type="number" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
-                                        <input type="number" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
-                                        <input type="number" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
-                                        <input type="number" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
-                                        <input type="number" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
-                                        <input type="number" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" required>
+                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                                        <input type="text" class="form-control text-center codigo-input" style="height: 60px; font-size: 24px;" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
                                     </div>
                                     <input type="hidden" name="codigo" id="codigo-hidden">
                                 </div>
-                                <button class="btn btn-dark w-100 py-2 rounded-pill d-flex align-items-center justify-content-center" type="submit" id="submitBtn">
+                                <button class="btn btn-dark w-100 py-2 d-flex align-items-center justify-content-center" type="submit" id="submitBtn">
                                     <i class="bi bi-check-circle me-2"></i> CONFIRMAR CADASTRO
                                     <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status" aria-hidden="true" style="display: none; margin-left: 10px; border-width: 3px;"></span>
                                 </button>
@@ -156,24 +156,24 @@ if (isset($_SESSION['user_id'])) {
     <section>
         <div class="modal fade" id="reenviar-email" tabindex="-1" aria-labelledby="reenviar-email" aria-hidden="true" style="z-index: 1900;">
             <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="emailModalLabel">Reenviar e-mail de confirmação</h5>
+                <div class="modal-content shadow-lg rounded-3" style="border: none; background-color: #ffffff;">
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title" id="emailModalLabel" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 600; color: #333;">Reenviar e-mail de confirmação</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="font-family: 'Arial', sans-serif;">
                         <p class="text-muted">Um novo código de 6 dígitos será enviado para o seu e-mail. Verifique sua caixa de entrada, a lixeira e o spam.</p>
                         <div id="alerta" class="alert" style="display: none;"></div>
                         <form action="../backend/reenviar-email.php" id="form-reenviar-email" method="post" novalidate>
                             <div class="mb-3">
-                                <label for="email" class="form-label">E-mail</label>
-                                <input type="email" class="form-control" id="email" name="email" autocomplete="off">
+                                <label for="email" class="form-label" style="font-weight: 500; color: #555;">E-mail</label>
+                                <input type="email" class="form-control" id="email" name="email" autocomplete="off" style="border-radius: 8px; padding: 10px; font-size: 14px;">
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                <button type="submit" class="btn btn-primary" id="reenviarBtn">
+                            <div class="modal-footer border-0" style="display: flex; justify-content: flex-end;">
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" style="border-radius: 8px; padding: 8px 16px; font-size: 14px;">Fechar</button>
+                                <button type="submit" class="btn btn-primary btn-sm d-flex align-items-center" id="reenviarBtn" style="border-radius: 8px; padding: 8px 16px; font-size: 14px;">
                                     <span id="reenviarText">Reenviar</span>
-                                    <span class="spinner-border spinner-border-sm" id="loadingSpinner" style="display:none;" role="status" aria-hidden="true"></span>
+                                    <span class="spinner-border spinner-border-sm ms-2" id="loadingSpinner" style="display:none;" role="status" aria-hidden="true"></span>
                                 </button>
                             </div>
                         </form>

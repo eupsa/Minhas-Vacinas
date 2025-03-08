@@ -28,8 +28,6 @@ $dotenv->load();
     <title>Minhas Vacinas - Cadastro</title>
 </head>
 
-
-
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #007bff; z-index: 1081; width: 100%; left: 50%; transform: translateX(-50%);">
@@ -223,7 +221,7 @@ $dotenv->load();
                                         Eu li e aceito os <a href="/docs/Termos-de-Servico.php" class="text-primary" target="_blank" style="text-decoration: none;">Termos de Serviço</a> e a <a href="/docs/Politica-de-Privacidade.php" class="text-primary" target="_blank" style="text-decoration: none;">Política de Privacidade</a>.
                                     </label>
                                 </div>
-                                <button class="btn btn-dark w-100 py-2 rounded-pill text-uppercase font-weight-bold" type="submit">
+                                <button class="btn btn-dark w-100 py-2 text-uppercase font-weight-bold" type="submit">
                                     <i class="bi bi-person-plus"></i> CADASTRAR
                                     <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status" aria-hidden="true" style="display: none;"></span>
                                 </button>

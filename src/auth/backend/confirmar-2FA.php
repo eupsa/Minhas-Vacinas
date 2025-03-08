@@ -8,8 +8,8 @@ $g = new \Sonata\GoogleAuthenticator\GoogleAuthenticator();
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $codigo = strtolower(trim($dados['codigo']));
 
-if (empty($codigo)) {
-    $retorna = ['status' => false, 'msg' => "Código não encontrado."];
+if (empty($codigo) || empty($_SESSION['email-temp'])) {
+    $retorna = ['status' => false, 'msg' => "Código ou e-mail temporário não encontrado."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
@@ -37,7 +37,7 @@ if ($sql->rowCount() == 1) {
         echo json_encode($retorna);
         exit();
     }
-    
+
     $retorna = ['status' => false, 'msg' => "Código 2FA expirado ou incorreto."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
