@@ -150,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </nav>
 
-        <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="width: 75%; background: rgba(255, 255, 255, 0.95);">
+        <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="width: 75%; background: rgba(53, 53, 53, 0.7); color: white;">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -158,23 +158,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="offcanvas-body d-flex flex-column justify-content-between" style="height: 100%;">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="/" style="font-weight: 500;">
-                            <i class="bi bi-house-door text-dark me-2"></i>Início
+                        <a class="nav-link text-white" href="/" style="font-weight: 500;">
+                            <i class="bi bi-house-door text-white me-2"></i>Início
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="#nossa-missao" style="font-weight: 500;">
-                            <i class="bi bi-info-circle text-dark me-2"></i>Sobre
+                        <a class="nav-link text-white" href="#nossa-missao" style="font-weight: 500;">
+                            <i class="bi bi-info-circle text-white me-2"></i>Sobre
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="src/ajuda/" class="nav-link text-dark" style="font-weight: 500;">
-                            <i class="bi bi-question-circle text-dark me-2"></i>Suporte
+                        <a href="src/ajuda/" class="nav-link text-white" style="font-weight: 500;">
+                            <i class="bi bi-question-circle text-white me-2"></i>Suporte
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="src/FAQ/" class="nav-link text-dark" style="font-weight: 500;">
-                            <i class="bi bi-file-earmark-text text-dark me-2"></i>FAQ
+                        <a href="src/FAQ/" class="nav-link text-white" style="font-weight: 500;">
+                            <i class="bi bi-file-earmark-text text-white me-2"></i>FAQ
                         </a>
                     </li>
                 </ul>
@@ -441,13 +441,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </footer>
 
+    <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/91ecee0302e40ff40c579362/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
     <script src="script.js"></script>
-    <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/91ecee0302e40ff40c579362/script.js"></script>
 </body>
 
 

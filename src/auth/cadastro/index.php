@@ -128,21 +128,26 @@ $dotenv->load();
                         <div class="card-body p-5">
                             <div class="d-flex justify-content-center align-items-center">
                                 <div id="g_id_onload"
-                                    data-client_id="<?= $_ENV['GOOGLE_ID_CLIENT'] ?>"
-                                    data-login_uri="<?= $_ENV['GOOGLE_REDIRECT_REGISTER_DEV'] ?>"
-                                    data-auto_prompt="true"
-                                    data-itp_support="true">
+                                    data-client_id="14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com"
+                                    data-context="signup"
+                                    data-ux_mode="redirect"
+                                    data-login_uri="www.minhasvacinas.online\src\auth\backend\cadastro-google.php"
+                                    data-nonce=""
+                                    data-auto_prompt="false">
                                 </div>
-                                <div class="g_id_signin custom-google-btn"
-                                    data-type="standard"
-                                    data-size="medium"
-                                    data-theme="filled_black"
-                                    data-text="signup_with"
+                                <div class="g_id_signin"
+                                    data-type="icon"
                                     data-shape="circle"
-                                    data-logo_alignment="left"
-                                    style="transform: scale(1.1);">
+                                    data-theme="outline"
+                                    data-text="signup_with"
+                                    data-size="large">
                                 </div>
                             </div><br>
+                            <div class="text-center mb-4">
+                                <p class="text-muted">Cadastre-se com <i class="bi bi-google"></i></p>
+                                <hr class="my-4">
+                                <p class="text-muted">Ou preencha seus dados abaixo</p>
+                            </div>
                             <?php
                             if (isset($_SESSION['erro_email'])) {
                                 echo "<div class='alert alert-danger' role='alert'>" . $_SESSION['erro_email'] . "</div>";
@@ -246,6 +251,7 @@ $dotenv->load();
         </div>
     </section>
 
+
     <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 3%;">
         <div class="me-5 d-none d-lg-block"></div>
         <div class="container text-center text-md-start mt-5">
@@ -299,6 +305,7 @@ $dotenv->load();
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <script src="https://accounts.google.com/gsi/client" async></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="script.js"></script>
 </body>
 
