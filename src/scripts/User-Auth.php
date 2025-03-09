@@ -15,14 +15,6 @@ function Gerar_Session($pdo)
     $_SESSION['user_telefone'] = $usuario['telefone'];
     $_SESSION['user_cidade'] = $usuario['cidade'];
     $_SESSION['user_foto'] = $usuario['foto_perfil'];
-
-    $sql = $pdo->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario");
-    $sql->bindValue(':id_usuario', $_SESSION['user_id']);
-    $sql->execute();
-
-    if ($sql->rowCount() == 1) {
-        $_SESSION['user_google_foto'] = $usuario['foto_url'];
-    }
 }
 
 function Auth($pdo)
@@ -56,14 +48,5 @@ function Auth($pdo)
         session_destroy();
         header("Location: /src/auth/entrar/");
         exit();
-    }
-
-    $sql = $pdo->prepare("SELECT * FROM usuario_google WHERE id_usuario = :id_usuario");
-    $sql->bindValue(':id_usuario', $_SESSION['user_id']);
-    $sql->execute();
-
-    if ($sql->rowCount() === 1) {
-        $usuario_google = $sql->fetch(PDO::FETCH_BOTH);
-        $_SESSION['user_foto'] = $usuario_google['foto_url'];
     }
 }

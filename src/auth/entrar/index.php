@@ -126,23 +126,25 @@ $dotenv->load();
                 <div class="col-12 col-md-8 col-lg-6">
                     <div class="card shadow-lg border-0 rounded-lg">
                         <div class="card-body p-5">
-                            <div class="d-flex justify-content-center align-items-center">
+                            <div class="d-flex justify-content-center align-items-center mb-4">
+                                <p class="text-muted mb-0 me-3">Entre com:</p>
                                 <div id="g_id_onload"
                                     data-client_id="<?= $_ENV['GOOGLE_ID_CLIENT'] ?>"
-                                    data-login_uri="<?= $_ENV['GOOGLE_REDIRECT_LOGIN_DEV'] ?>"
-                                    data-auto_prompt="true"
-                                    data-itp_support="true">
+                                    data-context="signup"
+                                    data-ux_mode="redirect"
+                                    data-login_uri="<?= $_ENV['GOOGLE_REDIRECT_LOGIN'] ?>"
+                                    data-nonce=""
+                                    data-auto_prompt="false">
                                 </div>
-                                <div class="g_id_signin custom-google-btn"
-                                    data-type="standard"
-                                    data-size="medium"
-                                    data-theme="filled_black"
-                                    data-text="continue"
+                                <div class="g_id_signin"
+                                    data-type="icon"
                                     data-shape="circle"
-                                    data-logo_alignment="left"
-                                    style="transform: scale(1.1);">
+                                    data-theme="outline"
+                                    data-size="large">
                                 </div>
-                            </div><br>
+                            </div>
+                            <hr class="my-3 mx-4" style="border-top: 2px solid #353535;" />
+                            <p class="text-muted text-center mb-0">Ou preencha seus dados abaixo</p>
                             <?php
                             if (isset($_SESSION['erro_email'])) {
                                 echo "<div class='alert alert-danger' role='alert'>" . $_SESSION['erro_email'] . "</div>";

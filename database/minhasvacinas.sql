@@ -13,7 +13,7 @@ CREATE TABLE
         'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 
         'RR', 'SC', 'SP', 'SE', 'TO', 'N/A'
     ) DEFAULT 'N/A',
-    senha VARCHAR(128),
+    senha VARCHAR(255),
     email_conf TINYINT(1) DEFAULT 0,
     data_nascimento DATE,
     genero ENUM ('Não Informado', 'Masculino', 'Feminino', 'Outro') DEFAULT 'Não Informado',

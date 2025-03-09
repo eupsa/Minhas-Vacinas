@@ -126,12 +126,13 @@ $dotenv->load();
                 <div class="col-12 col-md-8 col-lg-6">
                     <div class="card shadow-lg border-0 rounded-lg shadow-lg p-3 mb-5 bg-white">
                         <div class="card-body p-5">
-                            <div class="d-flex justify-content-center align-items-center">
+                            <div class="d-flex justify-content-center align-items-center mb-4">
+                                <p class="text-muted mb-0 me-3">Cadastre-se com:</p>
                                 <div id="g_id_onload"
-                                    data-client_id="14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com"
+                                    data-client_id="<?= $_ENV['GOOGLE_ID_CLIENT'] ?>"
                                     data-context="signup"
                                     data-ux_mode="redirect"
-                                    data-login_uri="www.minhasvacinas.online\src\auth\backend\cadastro-google.php"
+                                    data-login_uri="<?= $_ENV['GOOGLE_REDIRECT_REGISTER'] ?>"
                                     data-nonce=""
                                     data-auto_prompt="false">
                                 </div>
@@ -139,15 +140,11 @@ $dotenv->load();
                                     data-type="icon"
                                     data-shape="circle"
                                     data-theme="outline"
-                                    data-text="signup_with"
                                     data-size="large">
                                 </div>
-                            </div><br>
-                            <div class="text-center mb-4">
-                                <p class="text-muted">Cadastre-se com <i class="bi bi-google"></i></p>
-                                <hr class="my-4">
-                                <p class="text-muted">Ou preencha seus dados abaixo</p>
                             </div>
+                            <hr class="my-3 mx-4" style="border-top: 2px solid #353535;" />
+                            <p class="text-muted text-center mb-0">Ou preencha seus dados abaixo</p>
                             <?php
                             if (isset($_SESSION['erro_email'])) {
                                 echo "<div class='alert alert-danger' role='alert'>" . $_SESSION['erro_email'] . "</div>";
