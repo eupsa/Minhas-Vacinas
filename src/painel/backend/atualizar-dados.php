@@ -57,7 +57,7 @@ if (isset($_FILES['foto-perfil']) && $_FILES['foto-perfil']['error'] === UPLOAD_
     $arquivoNew = explode('.', $arquivo['name']);
 
     if (!in_array(strtolower(end($arquivoNew)), ['jpg', 'png', 'jpeg'])) {
-        $retorna = ['status' => false, 'msg' => "Extensão inválida. Tente novamente com um arquivo .jpg, .png ou .jpeg."];
+        $retorna = ['status' => false, 'msg' => "O formato do arquivo é inválido. Por favor, envie arquivos nos formatos .jpg, .jpeg ou .png."];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();
