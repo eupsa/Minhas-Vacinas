@@ -2,7 +2,18 @@
 
 Minhas Vacinas é uma plataforma desenvolvida para promover a conscientização sobre a vacinação, permitindo que os usuários gerenciem seu histórico de vacinas e acessem informações atualizadas sobre imunização.
 
+## Demonstração
+
+Confira a demonstração do projeto:
+
+## Demonstração
+
+Confira a demonstração do projeto:
+
+[www.minhasvacinas.online](https://www.minhasvacinas.online)
+
 ## Tecnologias Utilizadas
+
 - **Backend:** PHP 8.3+, Node.js
 - **Frontend:** [Bootstrap](https://getbootstrap.com/) e [SweetAlert](https://sweetalert2.github.io/)
 - **Banco de Dados:** MySQL
@@ -10,6 +21,7 @@ Minhas Vacinas é uma plataforma desenvolvida para promover a conscientização 
 - **Outras Tecnologias:** [PHPMailer](https://packagist.org/packages/phpmailer/phpmailer), [Pdf-Puppeteer](https://www.npmjs.com/package/pdf-puppeteer)
 
 ## Funcionalidades
+
 - Cadastro e login de usuários (com autenticação de dois fatores)
 - Recuperação e redefinição de senha
 - Painel do usuário com gerenciamento de perfil e vacinas
@@ -17,14 +29,15 @@ Minhas Vacinas é uma plataforma desenvolvida para promover a conscientização 
 - Armazenamento seguro das informações de vacinação
 
 ## Requisitos para Execução
+
 Antes de rodar o projeto, certifique-se de ter os seguintes requisitos:
 
-### Backend:
 1. PHP 8.3+
 2. Composer e Node.js
 3. MySQL
 
 ## Instalação e Execução
+
 ```sh
 # Clone o repositório
 git clone https://github.com/psilvagg/Minhas-Vacinas
@@ -46,32 +59,22 @@ php -S localhost:80
 ```
 
 ## Contribuição
+
 Contribuições são bem-vindas! Para contribuir:
+
 1. Faça um fork do repositório
 2. Crie uma branch (`feature/nova-funcionalidade`)
 3. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
 4. Envie um pull request
 
-
 # Licença
-MIT License
 
-Copyright (c) 2025 Pedro S.
+[MIT](https://github.com/psilvagg/Minhas-Vacinas/blob/main/LICENSE)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+# Contribuidores
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+![Contributors](https://img.shields.io/github/contributors/psilvagg/Minhas-Vacinas?style=flat-square)
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+## Feedback
+
+Se você tiver algum comentário, entre em contato conosco pelo e-mail [pedruuu291@gmail.com](mailto:pedruuu291@gmail.com).
