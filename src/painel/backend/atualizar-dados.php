@@ -87,8 +87,6 @@ if (isset($_FILES['foto-perfil']) && $_FILES['foto-perfil']['error'] === UPLOAD_
     $path = $_SESSION['user_foto'] ?? null;
 }
 
-
-
 try {
     $sql = $pdo->prepare("UPDATE usuario SET nome = :nome, cpf = :cpf, data_nascimento = :data_nascimento, telefone = :telefone, estado = :estado, cidade = :cidade, genero = :genero, foto_perfil = :foto_perfil WHERE id_usuario = :id");
     $sql->bindValue(':nome', $nome);

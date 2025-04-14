@@ -47,7 +47,6 @@ CREATE TABLE IF NOT EXISTS confirmar_cadastro (
     id INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL,
     codigo VARCHAR(6) UNIQUE NOT NULL,
-    
     FOREIGN KEY (email) REFERENCES usuario (email) ON DELETE CASCADE
 );
 
