@@ -161,13 +161,13 @@ if (count($vacinas) > 0) {
                             <option value="Dose Adicional">Dose Adicional</option>
                         </select>
                     </div>
-                    <div class="col-12 col-md-8 mb-4">
+                    <!-- <div class="col-12 col-md-8 mb-4">
                         <label for="imagem" class="form-label">Imagem da Vacina</label>
                         <input type="file" class="form-control" id="vac-card-img" name="vac-card-img" accept="image/*" onchange="previewImage(event)">
                         <div id="imagePreview" style="margin-top: 10px;">
                             <img id="preview" src="" alt="Prévia da Imagem" style="max-width: 150px; display: none;" />
                         </div>
-                    </div>
+                    </div> -->
                     <script>
                         function previewImage(event) {
                             const file = event.target.files[0];
