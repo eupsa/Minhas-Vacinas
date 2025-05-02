@@ -107,7 +107,7 @@ if (count($dispositivos) > 0) {
                             <img src="<?php echo $_SESSION['user_foto']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
                                 width="40" height="40">
                         <?php else: ?>
-                            <img src="https://usercontent.minhasvacinas.online/user-img/default.svg" alt="Foto do Usuário" class="rounded-circle me-2"
+                            <img src="../../../assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
                                 width="40" height="40">
                         <?php endif; ?>
                         <span>Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></span>
@@ -368,7 +368,7 @@ if (count($dispositivos) > 0) {
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <label for="foto-perfil" class="form-label">Foto de Perfil</label>
                                     <div class="input-group">
                                         <input type="file" class="form-control" id="foto-perfil" name="foto-perfil" onchange="previewImage(event)">
@@ -376,7 +376,7 @@ if (count($dispositivos) > 0) {
                                     <div id="imagePreview" style="margin-top: 10px;">
                                         <img id="preview" src="" alt="Prévia da Imagem" style="max-width: 250px; display: none;" />
                                     </div>
-                                </div>
+                                </div> -->
                                 <script>
                                     function previewImage(event) {
                                         const file = event.target.files[0];

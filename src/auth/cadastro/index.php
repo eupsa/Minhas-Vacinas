@@ -127,20 +127,19 @@ $dotenv->load();
                     <div class="card shadow-lg border-0 rounded-lg shadow-lg p-3 mb-5 bg-white">
                         <div class="card-body p-5">
                             <div class="d-flex justify-content-center align-items-center mb-4">
-                                <p class="text-muted mb-0 me-3">Cadastre-se com:</p>
                                 <div id="g_id_onload"
                                     data-client_id="<?= $_ENV['GOOGLE_ID_CLIENT'] ?>"
                                     data-context="signup"
                                     data-ux_mode="redirect"
                                     data-login_uri="<?= $_ENV['GOOGLE_REDIRECT_REGISTER_DEV'] ?>"
-                                    data-nonce=""
                                     data-auto_prompt="false">
                                 </div>
                                 <div class="g_id_signin"
-                                    data-type="icon"
+                                    data-type="standard"
                                     data-shape="circle"
                                     data-theme="outline"
-                                    data-size="large">
+                                    data-size="medium"
+                                    data-text="signup_with">
                                 </div>
                             </div>
                             <hr class="my-3 mx-4" style="border-top: 2px solid #353535;" />

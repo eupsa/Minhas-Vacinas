@@ -127,7 +127,6 @@ $dotenv->load();
                     <div class="card shadow-lg border-0 rounded-lg">
                         <div class="card-body p-5">
                             <div class="d-flex justify-content-center align-items-center mb-4">
-                                <p class="text-muted mb-0 me-3">Entre com:</p>
                                 <div id="g_id_onload"
                                     data-client_id="<?= $_ENV['GOOGLE_ID_CLIENT'] ?>"
                                     data-context="signup"
@@ -137,10 +136,11 @@ $dotenv->load();
                                     data-auto_prompt="false">
                                 </div>
                                 <div class="g_id_signin"
-                                    data-type="icon"
+                                    data-type="standard"
                                     data-shape="circle"
                                     data-theme="outline"
-                                    data-size="large">
+                                    data-size="large"
+                                    data-text="signin_with">
                                 </div>
                             </div>
                             <hr class="my-3 mx-4" style="border-top: 2px solid #353535;" />

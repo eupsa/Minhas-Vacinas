@@ -182,7 +182,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                             <img src="<?php echo $_SESSION['user_foto']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
                                 width="40" height="40">
                         <?php else: ?>
-                            <img src="https://usercontent.minhasvacinas.online/user-img/default.svg" alt="Foto do Usuário" class="rounded-circle me-2"
+                            <img src="../../assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
                                 width="40" height="40">
                         <?php endif; ?>
                         <span>Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></span>

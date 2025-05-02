@@ -1,7 +1,7 @@
 {
   "name": "Minhas Vacinas",
   "short_name": "Minhas Vacinas",
-  "description": "Aplicativo para gestão de vacinas",
+  "description": "Sistema Web para gestão de vacinas",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#007bff",
