@@ -131,7 +131,7 @@ $dotenv->load();
                                     data-client_id="<?= $_ENV['GOOGLE_ID_CLIENT'] ?>"
                                     data-context="signup"
                                     data-ux_mode="redirect"
-                                    data-login_uri="<?= $_ENV['GOOGLE_REDIRECT_LOGIN_DEV'] ?>"
+                                    data-login_uri="<?= $_ENV['GOOGLE_REDIRECT_LOGIN'] ?>"
                                     data-nonce=""
                                     data-auto_prompt="false">
                                 </div>
