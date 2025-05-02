@@ -2,7 +2,7 @@
 session_start();
 require_once '../../scripts/Conexao.php';
 require_once '../../../vendor/autoload.php';
-require_once '../../scripts/registrar-dispositivos.php';
+require_once '../../scripts/Registrar-Dispositivos.php';
 
 use Google\Client as GoogleClient;
 
