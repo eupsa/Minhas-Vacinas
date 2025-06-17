@@ -11,245 +11,356 @@ $sql->execute();
 $vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
 
 $_SESSION['vacinas'] = $vacinas ?: [];
-
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="icon" href="../../../assets/img/img-web.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="manifest" href="/manifest.json">
-    <script src="test.js"></script>
-    <title>Vacinas - Painel</title>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#007bff',
+                        dark: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <title>Minhas Vacinas - Dashboard</title>
 </head>
 
-
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #007bff; z-index: 1081; width: 100%; left: 50%; transform: translateX(-50%);">
-            <div class="container">
-                <a class="navbar-brand" href="/">
-                    <img src="/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
+<body class="bg-dark-900 text-white min-h-screen">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-primary shadow-lg">
+        <nav class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <a href="/" class="flex items-center">
+                    <img src="/assets/img/logo-head.png" alt="Logo Vacinas" class="h-12">
                 </a>
-                <button class="navbar-toggler" id="sidebarToggle" type="button" data-bs-toggle="sidebar" data-bs-target="#sidebar" aria-controls="sidebar">
-                    <span class="navbar-toggler-icon"></span>
+                <button id="sidebarToggle" class="lg:hidden text-white hover:text-gray-200 transition-colors">
+                    <i class="bi bi-list text-2xl"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav" style="padding-left: 90%;">
-                    <!-- <ul class="navbar-nav">
-                        <li style="margin-left: 20px; margin-top: 2%;">
-                            <div id="themeToggle" class="theme-toggle d-flex align-items-center" style="cursor: pointer;">
-                                <i class="bi bi-sun" id="sunIcon" style="font-size: 1.2em;"></i>
-                                <i class="bi bi-moon" id="moonIcon" style="font-size: 1.2em; display: none;"></i>
-                            </div>
-                        </li>
-                    </ul> -->
-                </div>
             </div>
         </nav>
     </header>
 
-    <section class="access-quick">
-        <div class="content text-center mb-5">
-            <h1 class="text-dark font-weight-bold">Atualizações Recentes e Novidades</h1>
-            <div class="row justify-content-center">
-                <div class="col-12 col-sm-6 col-md-3 mb-4">
-                    <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
-                        <div class="card-body d-flex flex-column text-center">
-                            <p class="text-success text-center">
-                                <i class="fas fa-info-circle" style="color: #198754;"></i> Atualização disponível!
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-16 h-full w-64 bg-dark-800 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-40 border-r border-dark-700">
+        <div class="p-6">
+            <div class="flex flex-col space-y-4">
+                <!-- Navigation Links -->
+                <nav class="space-y-2">
+                    <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary text-white font-medium">
+                        <i class="bi bi-house-door text-lg"></i>
+                        <span>Início</span>
+                    </a>
+                    <a href="vacinas/" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
+                        <i class="bi bi-heart-pulse text-lg"></i>
+                        <span>Vacinas</span>
+                    </a>
+                    <a href="perfil/" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
+                        <i class="bi bi-person text-lg"></i>
+                        <span>Perfil</span>
+                    </a>
+                    <a href="perfil/dispositivos/" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
+                        <i class="bi bi-laptop text-lg"></i>
+                        <span>Dispositivos</span>
+                    </a>
+                </nav>
+
+                <!-- User Profile -->
+                <div class="mt-auto pt-6 border-t border-dark-700">
+                    <div class="flex items-center space-x-3 p-4 rounded-lg bg-dark-700">
+                        <?php if (isset($_SESSION['user_foto'])): ?>
+                            <img src="<?php echo $_SESSION['user_foto']; ?>" alt="Foto do Usuário" class="w-10 h-10 rounded-full">
+                        <?php else: ?>
+                            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                                <i class="bi bi-person text-white"></i>
+                            </div>
+                        <?php endif; ?>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-white truncate">
+                                Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?>
                             </p>
-                            <h5 class="card-title">Gerenciamento de Vacinas</h5>
-                            <p class="card-text">Agora você pode cadastrar e excluir vacinas do seu histórico com facilidade.</p>
-                            <a href="vacinas/cadastro-vacinas/" class="btn btn-success btn-sm mt-auto rounded-pill">Gerenciar</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-3 mb-4">
-                    <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
-                        <div class="card-body d-flex flex-column text-center">
-                            <p class="text-success text-center">
-                                <i class="fas fa-info-circle" style="color: #198754;"></i> Atualização disponível!
-                            </p>
-                            <h5 class="card-title text-dark">Gerenciar Dispositivos</h5>
-                            <p class="card-text">Veja os dispositivos conectados à sua conta e remova-os caso necessário.</p>
-                            <a href="perfil/dipositivos/" class="btn btn-success btn-sm mt-auto rounded-pill">Gerenciar</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-3 mb-4">
-                    <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
-                        <div class="card-body d-flex flex-column text-center">
-                            <p class="text-success text-center">
-                                <i class="fas fa-info-circle" style="color: #198754;"></i> Atualização disponível!
-                            </p>
-                            <h5 class="card-title text-dark">Login com Google</h5>
-                            <p class="card-text">Agora você pode acessar sua conta de forma rápida e segura utilizando sua conta do Google.</p>
-                            <a href="" class="btn btn btn-sm mt-auto rounded-pill disabled">Disponível apenas para novos usuários</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-12 col-sm-6 col-md-3 mb-4">
-                    <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
-                        <div class="card-body d-flex flex-column text-center">
-                            <p class="text-warning text-center">
-                                <i class="fas fa-spinner fa-spin" style="color: #ffc107;"></i> Em desenvolvimento!
-                            </p>
-                            <h5 class="card-title">Cadastro de Dependentes</h5>
-                            <p class="card-text">Com essa funcionalidade você poderá adicionar seus dependentes e gerenciar suas vacinas.</p>
-                            <a href="" class="btn btn-warning btn-sm mt-auto rounded-pill disabled">Indisponível</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-3 mb-4">
-                    <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
-                        <div class="card-body d-flex flex-column text-center">
-                            <p class="text-warning text-center">
-                                <i class="fas fa-spinner fa-spin" style="color: #ffc107;"></i> Em desenvolvimento!
-                            </p>
-                            <h5 class="card-title">Blog MV!</h5>
-                            <p class="card-text">Em breve, você poderá acessar o Blog MV! Para ficar por dentro de todas as novidades, dicas e atualizações sobre vacinação e saúde.</p>
-                            <a href="" class="btn btn-warning btn-sm mt-auto rounded-pill disabled">Indisponível</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-3 mb-4">
-                    <div class="card shadow-sm rounded-lg border-0 bg-light h-100">
-                        <div class="card-body d-flex flex-column text-center">
-                            <p class="text-warning text-center">
-                                <i class="fas fa-spinner fa-spin" style="color: #ffc107;"></i> Em desenvolvimento!
-                            </p>
-                            <h5 class="card-title">App Mobile para iOS e Android</h5>
-                            <p class="card-text">Em breve, você poderá acessar o Minhas Vacinas diretamente no seu celular! Acompanhe seu histórico de vacinas, receba alertas e muito mais, de forma prática e segura.</p>
-                            <a href="#" class="btn btn-warning btn-sm mt-auto rounded-pill disabled">Indisponível</a>
+                            <a href="../scripts/sair.php" class="text-xs text-gray-400 hover:text-white transition-colors">
+                                <i class="bi bi-box-arrow-right mr-1"></i>Sair
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </aside>
 
-    <!-- Sidebar -->
-    <section>
-        <div>
-            <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
-                <div class="d-flex align-items-center justify-content-center" style="height: 10vh;" id="sidebar">
+    <!-- Main Content -->
+    <main class="lg:ml-64 pt-20 min-h-screen">
+        <div class="container mx-auto px-6 py-8">
+            <!-- Welcome Section -->
+            <div class="mb-12">
+                <h1 class="text-4xl font-bold text-white mb-4">
+                    Bem-vindo ao seu painel, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?>! 👋
+                </h1>
+                <p class="text-gray-400 text-lg">Gerencie suas vacinas e mantenha seu histórico sempre atualizado.</p>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="bg-gradient-to-r from-primary to-blue-600 rounded-xl p-6 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-blue-100 text-sm font-medium">Total de Vacinas</p>
+                            <p class="text-3xl font-bold"><?= count($vacinas) ?></p>
+                        </div>
+                        <div class="bg-white bg-opacity-20 rounded-lg p-3">
+                            <i class="bi bi-heart-pulse text-2xl"></i>
+                        </div>
+                    </div>
                 </div>
-                <hr>
-                <ul class="nav nav-pills flex-column mb-auto">
-                    <li class="nav-item">
-                        <a href="" onclick="Location.reload()" class="nav-link active" aria-current="page">
-                            <i class="bi bi-house-door"></i>
-                            Início
-                        </a>
-                    </li>
-                    <li>
-                        <a href="vacinas/" class="nav-link text-white">
-                            <i class="fas fa-syringe"></i>
-                            Vacinas
-                        </a>
-                    </li>
-                    <li>
-                        <a href="perfil/" class="nav-link text-white">
-                            <i class="bi bi-person"></i>
-                            Conta
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link text-white" href="perfil/dipositivos/" aria-expanded="false">
-                            <i class="bi bi-laptop"></i> Dispositivos
-                        </a>
-                    </li>
-                    <li>
-                        <hr>
-                    </li>
-                </ul>
-                <hr>
-                <div class="dropdown">
-                    <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php if (isset($_SESSION['user_foto'])): ?>
-                            <img src="<?php echo $_SESSION['user_foto']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
-                                width="40" height="40">
-                        <?php else: ?>
-                            <img src="../../assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
-                                width="40" height="40">
-                        <?php endif; ?>
-                        <span>Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="perfil/"><i class="fas fa-user"></i> Minha conta</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
-                    </ul>
+
+                <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-green-100 text-sm font-medium">Perfil Completo</p>
+                            <p class="text-3xl font-bold">100%</p>
+                        </div>
+                        <div class="bg-white bg-opacity-20 rounded-lg p-3">
+                            <i class="bi bi-person-check text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl p-6 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-purple-100 text-sm font-medium">Conta Segura</p>
+                            <p class="text-3xl font-bold">
+                                <i class="bi bi-shield-check"></i>
+                            </p>
+                        </div>
+                        <div class="bg-white bg-opacity-20 rounded-lg p-3">
+                            <i class="bi bi-lock text-2xl"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
-    </section>
 
-    <!-- Últimas 3 vacinas -->
-    <section class="access-quick">
-        <div class="content text-center mb-5" style="margin-top: -10%;">
-            <h1>Últimas Vacinas Adicionadas</h1>
-            <div class="row justify-content-center">
+            <!-- Updates Section -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-white mb-6">Atualizações e Novidades</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Available Updates -->
+                    <div class="bg-dark-800 rounded-xl p-6 border border-dark-700 hover:border-primary transition-colors">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-green-500 bg-opacity-20 rounded-lg p-2 mr-3">
+                                <i class="bi bi-check-circle text-green-400 text-xl"></i>
+                            </div>
+                            <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">Disponível</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Gerenciamento de Vacinas</h3>
+                        <p class="text-gray-400 mb-4">Cadastre e gerencie suas vacinas com facilidade.</p>
+                        <a href="vacinas/cadastro-vacinas/" class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors">
+                            <i class="bi bi-plus-circle mr-2"></i>
+                            Gerenciar
+                        </a>
+                    </div>
+
+                    <div class="bg-dark-800 rounded-xl p-6 border border-dark-700 hover:border-primary transition-colors">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-green-500 bg-opacity-20 rounded-lg p-2 mr-3">
+                                <i class="bi bi-check-circle text-green-400 text-xl"></i>
+                            </div>
+                            <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">Disponível</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Gerenciar Dispositivos</h3>
+                        <p class="text-gray-400 mb-4">Veja e remova dispositivos conectados à sua conta.</p>
+                        <a href="perfil/dispositivos/" class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors">
+                            <i class="bi bi-laptop mr-2"></i>
+                            Gerenciar
+                        </a>
+                    </div>
+
+                    <div class="bg-dark-800 rounded-xl p-6 border border-dark-700 hover:border-primary transition-colors">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-green-500 bg-opacity-20 rounded-lg p-2 mr-3">
+                                <i class="bi bi-check-circle text-green-400 text-xl"></i>
+                            </div>
+                            <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">Disponível</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Login com Google</h3>
+                        <p class="text-gray-400 mb-4">Acesse sua conta de forma rápida e segura.</p>
+                        <button class="inline-flex items-center px-4 py-2 bg-gray-600 text-gray-400 rounded-lg cursor-not-allowed">
+                            <i class="bi bi-google mr-2"></i>
+                            Apenas novos usuários
+                        </button>
+                    </div>
+
+                    <!-- In Development -->
+                    <div class="bg-dark-800 rounded-xl p-6 border border-dark-700 hover:border-yellow-500 transition-colors">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-yellow-500 bg-opacity-20 rounded-lg p-2 mr-3">
+                                <i class="bi bi-hourglass-split text-yellow-400 text-xl animate-spin"></i>
+                            </div>
+                            <span class="bg-yellow-500 text-white text-xs px-2 py-1 rounded-full">Em desenvolvimento</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Cadastro de Dependentes</h3>
+                        <p class="text-gray-400 mb-4">Adicione dependentes e gerencie suas vacinas.</p>
+                        <button class="inline-flex items-center px-4 py-2 bg-gray-600 text-gray-400 rounded-lg cursor-not-allowed">
+                            <i class="bi bi-people mr-2"></i>
+                            Indisponível
+                        </button>
+                    </div>
+
+                    <div class="bg-dark-800 rounded-xl p-6 border border-dark-700 hover:border-yellow-500 transition-colors">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-yellow-500 bg-opacity-20 rounded-lg p-2 mr-3">
+                                <i class="bi bi-hourglass-split text-yellow-400 text-xl animate-spin"></i>
+                            </div>
+                            <span class="bg-yellow-500 text-white text-xs px-2 py-1 rounded-full">Em desenvolvimento</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Blog MV!</h3>
+                        <p class="text-gray-400 mb-4">Novidades, dicas e atualizações sobre vacinação.</p>
+                        <button class="inline-flex items-center px-4 py-2 bg-gray-600 text-gray-400 rounded-lg cursor-not-allowed">
+                            <i class="bi bi-journal-text mr-2"></i>
+                            Indisponível
+                        </button>
+                    </div>
+
+                    <div class="bg-dark-800 rounded-xl p-6 border border-dark-700 hover:border-yellow-500 transition-colors">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-yellow-500 bg-opacity-20 rounded-lg p-2 mr-3">
+                                <i class="bi bi-hourglass-split text-yellow-400 text-xl animate-spin"></i>
+                            </div>
+                            <span class="bg-yellow-500 text-white text-xs px-2 py-1 rounded-full">Em desenvolvimento</span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">App Mobile</h3>
+                        <p class="text-gray-400 mb-4">Aplicativo para iOS e Android em breve.</p>
+                        <button class="inline-flex items-center px-4 py-2 bg-gray-600 text-gray-400 rounded-lg cursor-not-allowed">
+                            <i class="bi bi-phone mr-2"></i>
+                            Indisponível
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Vaccines -->
+            <section>
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-white">Últimas Vacinas Adicionadas</h2>
+                    <a href="vacinas/" class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors">
+                        <i class="bi bi-eye mr-2"></i>
+                        Ver todas
+                    </a>
+                </div>
+
                 <?php if (count($vacinas) > 0): ?>
-                    <?php foreach ($vacinas as $vacina): ?>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <div class="card shadow-lg" style="width: 100%; height: 100%; border-radius: 20px; background-color: rgba(255, 255, 255, 0.95); transition: all 0.3s ease;">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <?php foreach ($vacinas as $vacina): ?>
+                            <div class="bg-dark-800 rounded-xl overflow-hidden border border-dark-700 hover:border-primary transition-colors group">
                                 <?php if (isset($vacina['path_card'])): ?>
-                                    <img src="<?php echo $vacina['path_card']; ?>" class="card-img-top" alt="Vacina" style="object-fit: cover; height: 250px; width: 100%; border-radius: 20px 20px 0 0;">
+                                    <img src="<?php echo $vacina['path_card']; ?>" alt="Vacina" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
                                 <?php else: ?>
-                                    <img src="../../../../assets/img/vac-card.jpg" class="card-img-top" alt="Vacina" style="object-fit: cover; height: 250px; width: 100%; border-radius: 20px 20px 0 0;">
+                                    <div class="w-full h-48 bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center">
+                                        <i class="bi bi-heart-pulse text-white text-4xl"></i>
+                                    </div>
                                 <?php endif; ?>
-                                <div class="card-body">
-                                    <h5 class="card-title text-center text-dark" style="font-weight: bold;"><?= htmlspecialchars($vacina['nome_vac']) ?></h5>
-                                    <div class="d-flex flex-column mt-3">
-                                        <p class="card-text"><i class="fas fa-syringe text-success"></i> <strong>Dose:</strong> <?= !empty($vacina['dose']) ? htmlspecialchars($vacina['dose']) : 'Não informado' ?></p>
-                                        <p class="card-text"><i class="fas fa-calendar-day text-info"></i> <strong>Data de Aplicação:</strong> <?= !empty($vacina['data_aplicacao']) ? htmlspecialchars($vacina['data_aplicacao']) : 'Não informada' ?></p>
-                                        <p class="card-text"><i class="fas fa-map-marker-alt text-warning"></i> <strong>Local:</strong> <?= !empty($vacina['local_aplicacao']) ? htmlspecialchars($vacina['local_aplicacao']) : 'Não informado' ?></p>
-                                        <p class="card-text"><i class="fas fa-cogs text-secondary"></i> <strong>Lote:</strong> <?= !empty($vacina['lote']) ? htmlspecialchars($vacina['lote']) : 'Não informado' ?></p>
-                                        <p class="card-text"><i class="fas fa-sticky-note text-dark"></i> <strong>Observações:</strong> <?= !empty($vacina['obs']) ? htmlspecialchars($vacina['obs']) : 'Sem observações' ?></p>
+
+                                <div class="p-6">
+                                    <h3 class="text-lg font-semibold text-white mb-4"><?= htmlspecialchars($vacina['nome_vac']) ?></h3>
+
+                                    <div class="space-y-2 text-sm">
+                                        <?php if (!empty($vacina['dose'])): ?>
+                                            <div class="flex items-center text-gray-300">
+                                                <i class="bi bi-heart-pulse text-primary mr-2"></i>
+                                                <span class="font-medium">Dose:</span>
+                                                <span class="ml-1"><?= htmlspecialchars($vacina['dose']) ?></span>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <?php if (!empty($vacina['data_aplicacao'])): ?>
+                                            <div class="flex items-center text-gray-300">
+                                                <i class="bi bi-calendar-event text-primary mr-2"></i>
+                                                <span class="font-medium">Data:</span>
+                                                <span class="ml-1"><?= date('d/m/Y', strtotime($vacina['data_aplicacao'])) ?></span>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <?php if (!empty($vacina['local_aplicacao'])): ?>
+                                            <div class="flex items-center text-gray-300">
+                                                <i class="bi bi-geo-alt text-primary mr-2"></i>
+                                                <span class="font-medium">Local:</span>
+                                                <span class="ml-1"><?= htmlspecialchars($vacina['local_aplicacao']) ?></span>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </div>
                 <?php else: ?>
-                    <div class="alert alert-info w-50" role="alert">
-                        <i class="fas fa-info-circle"></i> Nenhuma vacina registrada ainda. Adicione uma nova vacina ao seu histórico.
+                    <div class="bg-dark-800 rounded-xl p-12 text-center border border-dark-700">
+                        <div class="bg-primary bg-opacity-20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                            <i class="bi bi-heart-pulse text-primary text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-white mb-2">Nenhuma vacina registrada</h3>
+                        <p class="text-gray-400 mb-6">Comece adicionando sua primeira vacina ao histórico.</p>
+                        <a href="vacinas/cadastro-vacinas/" class="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors">
+                            <i class="bi bi-plus-circle mr-2"></i>
+                            Adicionar Vacina
+                        </a>
                     </div>
                 <?php endif; ?>
-            </div>
+            </section>
         </div>
-    </section>
+    </main>
 
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden hidden"></div>
+
+    <script src="backend-error-handler.js"></script>
     <script>
+        // Sidebar Toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebarOverlay.classList.toggle('hidden');
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+            sidebarOverlay.classList.add('hidden');
+        });
+
+        // Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js').then((registration) => {
-                    console.log('Service Worker registrado com sucesso:', registration);
-                }).catch((error) => {
-                    console.log('Erro ao registrar o Service Worker:', error);
-                });
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => console.log('Service Worker registrado:', registration))
+                    .catch(error => console.log('Erro ao registrar Service Worker:', error));
             });
         }
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> -->
-    <script src="assets/js/script.js"></script>
 </body>
 
 </html>

@@ -7,7 +7,6 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 $token = $_ENV['IPINFO_TOKEN'];
-
 $ip = $_SERVER['REMOTE_ADDR'];
 
 $response = file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}");
@@ -54,403 +53,594 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         header("Location: /?status=sucesso#nossa-missao");
     } catch (PDOException $e) {
-        header("Location: /?status=sucesso#nossa-missao");
+        header("Location: /?status=erro#nossa-missao");
     }
 }
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- SEO - Configurações básicas -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#007bff',
+                        'primary-dark': '#0056b3',
+                        dark: '#0f172a',
+                        'dark-light': '#1e293b',
+                        'dark-lighter': '#334155'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
+                        },
+                        slideUp: {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(40px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
+                        },
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0px)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            }
+                        },
+                        glow: {
+                            '0%': {
+                                boxShadow: '0 0 20px rgba(0, 123, 255, 0.5)'
+                            },
+                            '100%': {
+                                boxShadow: '0 0 30px rgba(0, 123, 255, 0.8)'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- SEO Meta Tags -->
     <meta name="description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações.">
     <meta name="author" content="Minhas Vacinas Inc">
     <meta name="keywords" content="Minhas Vacinas Inc">
     <meta name="robots" content="index, follow">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="theme-color" content="#0056b3">
-    <meta name="format-detection" content="telephone=no">
-    <!-- SEO - Versão alternativa do site para outros idiomas -->
-    <link rel="alternate" href="" hreflang="pt-br">
-    <!-- SEO - URL canônica para evitar conteúdo duplicado -->
+    <meta name="theme-color" content="#007bff">
     <link rel="canonical" href="https://www.minhasvacinas.online/">
-    <!-- Open Graph (Facebook, LinkedIn e outras redes sociais) -->
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:locale" content="pt_BR">
     <meta property="og:url" content="https://www.minhasvacinas.online/">
     <meta property="og:title" content="Minhas Vacinas">
-    <meta property="og:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações.">
+    <meta property="og:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação.">
     <meta property="og:image" content="https://www.minhasvacinas.online/assets/img/banner-200x200.png">
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Minhas Vacinas">
-    <meta name="twitter:description" content="Minhas Vacinas - A plataforma para gestão e controle do histórico de vacinação. Organize suas vacinas, receba alertas e informações sobre imunizações.">
-    <meta name="twitter:image" content="https://www.minhasvacinas.online/assets/img/banner-200x200.png">
-    <!-- Informações de contato do negócio -->
-    <meta property="business:contact_data:country_name" content="Brasil">
-    <meta property="business:contact_data:region" content="BA">
-    <meta property="business:contact_data:website" content="https://www.minhasvacinas.online/">
-    <meta property="business:contact_data:email" content="contato@minhasvacinas.online">
-    <!-- Geolocalização -->
-    <meta name="geo.placename" content="Bahia">
-    <meta name="geo.region" content="BR">
-    <title>Minhas Vacinas</title>
+
+    <title>Minhas Vacinas - Proteção Digital para Sua Família</title>
 </head>
 
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #007bff; z-index: 1081; width: 100%; left: 50%; transform: translateX(-50%);">
-            <div class="container">
-                <a class="navbar-brand" href="/">
-                    <img src="/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
-                </a>
-                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse d-none d-lg-flex" id="navbarNav">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#nossa-missao">Sobre</a></li>
-                        <li class="nav-item"><a href="src/ajuda/" class="nav-link">Suporte</a></li>
-                        <li class="nav-item"><a href="src/FAQ/" class="nav-link">FAQ</a></li>
-                    </ul>
-                    <ul class="navbar-nav ms-auto d-flex align-items-center">
-                        <?php if (isset($_SESSION['user_id'])): ?>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle btn btn-primary rounded-pill px-4 py-2 text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-person text-dark"></i>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="src/painel/"><i class="bi bi-house-door text-dark me-2"></i>Painel</a></li>
-                                    <li><a class="dropdown-item" href="src/painel/vacinas/"><i class="bi bi-heart-pulse-fill text-dark me-2"></i>Vacinas</a></li>
-                                    <li><a class="dropdown-item" href="src/painel/perfil/"><i class="bi bi-person-circle text-dark me-2"></i>Perfil</a></li>
-                                </ul>
-                            </li>
-                        <?php else: ?>
-                            <li class="nav-item me-3">
-                                <a class="btn btn-light text-primary rounded-pill px-4 py-2" href="src/auth/cadastro/">
-                                    <i class="bi bi-person-plus"></i> CADASTRE-SE
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white" href="src/auth/entrar/">
-                                    <i class="bi bi-box-arrow-in-right"></i> ENTRAR
-                                </a>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
+<body class="bg-dark text-white overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-dark/95 backdrop-blur-md border-b border-primary/20 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="/" class="flex items-center space-x-2">
+                        <img src="/assets/img/logo-head.png" alt="Logo Vacinas" class="h-10 w-auto">
+                        <span class="text-xl font-bold text-primary">Minhas Vacinas</span>
+                    </a>
                 </div>
-            </div>
-        </nav>
 
-        <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="width: 75%; background: rgba(53, 53, 53, 0.7); color: white;">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body d-flex flex-column justify-content-between" style="height: 100%;">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="/" style="font-weight: 500;">
-                            <i class="bi bi-house-door text-white me-2"></i>Início
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#nossa-missao" style="font-weight: 500;">
-                            <i class="bi bi-info-circle text-white me-2"></i>Sobre
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="src/ajuda/" class="nav-link text-white" style="font-weight: 500;">
-                            <i class="bi bi-question-circle text-white me-2"></i>Suporte
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="src/FAQ/" class="nav-link text-white" style="font-weight: 500;">
-                            <i class="bi bi-file-earmark-text text-white me-2"></i>FAQ
-                        </a>
-                    </li>
-                </ul>
-                <div class="d-flex flex-column align-items-center gap-3 mt-4">
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="/" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">Início</a>
+                        <a href="#nossa-missao" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">Sobre</a>
+                        <a href="src/ajuda/" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">Suporte</a>
+                        <a href="src/FAQ/" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">FAQ</a>
+                    </div>
+                </div>
+
+                <!-- Auth Buttons -->
+                <div class="hidden md:flex items-center space-x-4">
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <a class="nav-link dropdown-toggle btn btn-outline-primary rounded-pill px-4 py-2 w-100 text-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person text-dark"></i>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="src/painel/"><i class="bi bi-house-door text-dark me-2"></i>Painel</a></li>
-                            <li><a class="dropdown-item" href="src/painel/vacinas/"><i class="bi bi-heart-pulse-fill text-dark me-2"></i>Vacinas</a></li>
-                            <li><a class="dropdown-item" href="src/painel/perfil/"><i class="bi bi-person-circle text-dark me-2"></i>Perfil</a></li>
-                        </ul>
+                        <div class="relative" x-data="{ open: false }">
+                            <button @click="open = !open" class="flex items-center space-x-2 bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-full transition-all duration-200 transform hover:scale-105">
+                                <i class="fas fa-user"></i>
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </button>
+                            <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-dark-light rounded-lg shadow-xl border border-primary/20 py-2">
+                                <a href="src/painel/" class="block px-4 py-2 text-sm text-white hover:bg-primary/20 transition-colors">
+                                    <i class="fas fa-home mr-2"></i>Painel
+                                </a>
+                                <a href="src/painel/vacinas/" class="block px-4 py-2 text-sm text-white hover:bg-primary/20 transition-colors">
+                                    <i class="fas fa-syringe mr-2"></i>Vacinas
+                                </a>
+                                <a href="src/painel/perfil/" class="block px-4 py-2 text-sm text-white hover:bg-primary/20 transition-colors">
+                                    <i class="fas fa-user-circle mr-2"></i>Perfil
+                                </a>
+                            </div>
+                        </div>
                     <?php else: ?>
-                        <a class="btn btn-secondary text-white rounded-pill px-4 py-2 w-100 text-center" href="src/auth/cadastro/">
-                            <i class="bi bi-person-plus"></i> CADASTRE-SE
+                        <a href="src/auth/cadastro/" class="bg-transparent border border-primary text-primary hover:bg-primary hover:text-white px-6 py-2 rounded-full transition-all duration-200 transform hover:scale-105">
+                            <i class="fas fa-user-plus mr-2"></i>CADASTRE-SE
                         </a>
-                        <a class="btn btn-primary rounded-pill px-4 py-2 text-white w-100 text-center" href="src/auth/entrar/">
-                            <i class="bi bi-box-arrow-in-right"></i> ENTRAR
+                        <a href="src/auth/entrar/" class="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-full transition-all duration-200 transform hover:scale-105 animate-glow">
+                            <i class="fas fa-sign-in-alt mr-2"></i>ENTRAR
                         </a>
                     <?php endif; ?>
                 </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white hover:text-primary focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
-    </header>
 
-    <section class="carrosel">
-        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="/assets/img/familia-segura.jpg" class="d-block w-100" alt="Logo Vacinas" style="margin-top: 4%;">
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-dark-light border-t border-primary/20">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="/" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Início</a>
+                <a href="#nossa-missao" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Sobre</a>
+                <a href="src/ajuda/" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Suporte</a>
+                <a href="src/FAQ/" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">FAQ</a>
+
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <div class="border-t border-primary/20 pt-4 mt-4">
+                        <a href="src/painel/" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">
+                            <i class="fas fa-home mr-2"></i>Painel
+                        </a>
+                        <a href="src/painel/vacinas/" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">
+                            <i class="fas fa-syringe mr-2"></i>Vacinas
+                        </a>
+                        <a href="src/painel/perfil/" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">
+                            <i class="fas fa-user-circle mr-2"></i>Perfil
+                        </a>
+                    </div>
+                <?php else: ?>
+                    <div class="border-t border-primary/20 pt-4 mt-4 space-y-2">
+                        <a href="src/auth/cadastro/" class="bg-transparent border border-primary text-primary hover:bg-primary hover:text-white block text-center px-4 py-2 rounded-full transition-all duration-200">
+                            <i class="fas fa-user-plus mr-2"></i>CADASTRE-SE
+                        </a>
+                        <a href="src/auth/entrar/" class="bg-primary hover:bg-primary-dark text-white block text-center px-4 py-2 rounded-full transition-all duration-200">
+                            <i class="fas fa-sign-in-alt mr-2"></i>ENTRAR
+                        </a>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background with gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-br from-dark via-dark-light to-dark-lighter"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primary/10"></div>
+
+        <!-- Animated background elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary/20 rounded-full blur-3xl animate-float"></div>
+            <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-primary/20 rounded-full blur-3xl animate-float" style="animation-delay: 1s;"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="animate-fade-in">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-primary to-white bg-clip-text text-transparent">
+                    Minhas Vacinas
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+                    Proteção e Saúde Digital para Toda a Família
+                </p>
+                <p class="text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
+                    Mantenha o controle de todas as vacinas da sua família de forma simples, segura e inteligente.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="src/auth/cadastro/" class="bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 animate-glow">
+                        <i class="fas fa-rocket mr-2"></i>Começar Agora
+                    </a>
+                    <a href="#recursos" class="bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-play mr-2"></i>Conhecer Recursos
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-primary text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Features Cards Section -->
+    <section id="recursos" class="py-20 bg-gradient-to-b from-dark to-dark-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
+                    Recursos Inovadores
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Tecnologia de ponta para cuidar da saúde da sua família
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="group bg-dark-light/50 backdrop-blur-sm rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/20">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary to-blue-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-mobile-alt text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white group-hover:text-primary transition-colors">Gestão Eficiente</h3>
+                    <p class="text-gray-400 group-hover:text-gray-300 transition-colors">Organize e acompanhe as vacinas da sua família de forma intuitiva e eficiente.</p>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="group bg-dark-light/50 backdrop-blur-sm rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/20">
+                    <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-pink-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-bell text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white group-hover:text-red-400 transition-colors">Lembretes Inteligentes</h3>
+                    <p class="text-gray-400 group-hover:text-gray-300 transition-colors">Nunca perca uma vacina com notificações personalizadas no seu dispositivo.</p>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="group bg-dark-light/50 backdrop-blur-sm rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/20">
+                    <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-shield-alt text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white group-hover:text-green-400 transition-colors">Segurança Total</h3>
+                    <p class="text-gray-400 group-hover:text-gray-300 transition-colors">Seus dados protegidos com criptografia de ponta e armazenamento seguro.</p>
+                </div>
+
+                <!-- Feature Card 4 -->
+                <div class="group bg-dark-light/50 backdrop-blur-sm rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/20">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-chart-line text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-white group-hover:text-purple-400 transition-colors">Relatórios Detalhados</h3>
+                    <p class="text-gray-400 group-hover:text-gray-300 transition-colors">Acompanhe o status com gráficos interativos e alertas de vencimento.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-5" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef);">
-        <div class="container text-center">
-            <h1 class="display-5 fw-bold mb-4 text-dark">Minhas Vacinas: Proteção e Saúde para Toda a Família!</h1>
-            <p class="lead mb-4 text-dark">Com o Minhas Vacinas, você mantém o controle de todas as vacinas da sua família de forma simples e segura.</p>
-            <div class="d-flex flex-wrap justify-content-center gap-4">
-                <div class="card p-2 border-0 shadow-lg animate__animated animate__fadeIn" style="max-width: 22%; min-width: 18rem; border-radius: 12px; background-color: #ffffff; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); transition: transform 0.3s;">
-                    <img src="/assets/img/iphone-mao.jpg" class="card-img-top rounded-top" alt="Gestão de Vacinas">
-                    <div class="card-body text-center">
-                        <h5 class="fw-semibold text-dark">Gestão Eficiente de Vacinas</h5>
-                        <p class="small text-muted">Organize e acompanhe as vacinas da sua família de forma eficiente.</p>
+    <!-- Advanced Features Section -->
+    <section class="py-20 bg-gradient-to-b from-dark-light to-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+                    Recursos Avançados
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Tecnologia que garante proteção e praticidade
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Advanced Feature 1 -->
+                <div class="bg-gradient-to-br from-dark-light to-dark-lighter rounded-2xl p-8 border border-primary/20 hover:border-primary/50 transition-all duration-300 group">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-lock text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Histórico Digital Seguro</h3>
+                    <p class="text-gray-400 leading-relaxed">Acesse um registro digital criptografado de todas as vacinas da sua família, disponível 24/7.</p>
+                </div>
+
+                <!-- Advanced Feature 2 -->
+                <div class="bg-gradient-to-br from-dark-light to-dark-lighter rounded-2xl p-8 border border-primary/20 hover:border-primary/50 transition-all duration-300 group">
+                    <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-bell-slash text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Alertas Automáticos</h3>
+                    <p class="text-gray-400 leading-relaxed">Sistema inteligente de notificações que nunca deixa você perder uma vacina importante.</p>
+                </div>
+
+                <!-- Advanced Feature 3 -->
+                <div class="bg-gradient-to-br from-dark-light to-dark-lighter rounded-2xl p-8 border border-primary/20 hover:border-primary/50 transition-all duration-300 group">
+                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-file-medical text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Cartão Digital</h3>
+                    <p class="text-gray-400 leading-relaxed">Tenha seu cartão de vacinação sempre no bolso, acessível offline quando necessário.</p>
+                </div>
+
+                <!-- Advanced Feature 4 -->
+                <div class="bg-gradient-to-br from-dark-light to-dark-lighter rounded-2xl p-8 border border-primary/20 hover:border-primary/50 transition-all duration-300 group">
+                    <div class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-bullhorn text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Campanhas de Imunização</h3>
+                    <p class="text-gray-400 leading-relaxed">Fique sempre informado sobre campanhas de vacinação e proteja sua família.</p>
+                </div>
+
+                <!-- Advanced Feature 5 -->
+                <div class="bg-gradient-to-br from-dark-light to-dark-lighter rounded-2xl p-8 border border-primary/20 hover:border-primary/50 transition-all duration-300 group">
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-cloud text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Armazenamento em Nuvem</h3>
+                    <p class="text-gray-400 leading-relaxed">Dados seguros na nuvem com backup automático e sincronização entre dispositivos.</p>
+                </div>
+
+                <!-- Advanced Feature 6 -->
+                <div class="bg-gradient-to-br from-dark-light to-dark-lighter rounded-2xl p-8 border border-primary/20 hover:border-primary/50 transition-all duration-300 group">
+                    <div class="w-20 h-20 bg-gradient-to-br from-teal-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-user-check text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">Cadastro Simplificado</h3>
+                    <p class="text-gray-400 leading-relaxed">Interface intuitiva que permite cadastro rápido e acesso a todos os recursos em minutos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="nossa-missao" class="py-20 bg-gradient-to-br from-primary/20 via-dark to-primary/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">Nossa Missão</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-primary to-blue-400 mx-auto mb-8"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <p class="text-xl text-gray-300 leading-relaxed">
+                        Nossa missão é promover a saúde e o bem-estar da comunidade através da conscientização sobre a importância da vacinação.
+                    </p>
+                    <p class="text-lg text-gray-400 leading-relaxed">
+                        Buscamos garantir que todos tenham acesso a informações atualizadas e precisas, facilitando o gerenciamento do histórico de vacinas e incentivando a proteção de todos.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-dark-light/50 rounded-xl p-6 border border-primary/20">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">Compromisso com a Educação</h3>
+                            <p class="text-gray-400">Educamos sobre as vacinas e suas contribuições para a saúde pública, empoderando decisões informadas.</p>
+                        </div>
+                        <div class="bg-dark-light/50 rounded-xl p-6 border border-primary/20">
+                            <h3 class="text-xl font-semibold mb-3 text-primary">Acesso a Informações</h3>
+                            <p class="text-gray-400">Oferecemos uma plataforma acessível com dados confiáveis sobre vacinação e campanhas.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="card p-2 border-0 shadow-lg animate__animated animate__fadeIn" style="max-width: 22%; min-width: 18rem; border-radius: 12px; background-color: #ffffff; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); transition: transform 0.3s;">
-                    <img src="/assets/img/iphone-calendario.jpg" class="card-img-top rounded-top" alt="Lembretes Personalizados">
-                    <div class="card-body text-center">
-                        <h5 class="fw-semibold text-dark">Lembretes Personalizados</h5>
-                        <p class="small text-muted">Nunca perca uma vacina com notificações no seu celular.</p>
-                    </div>
-                </div>
-                <div class="card p-2 border-0 shadow-lg animate__animated animate__fadeIn" style="max-width: 22%; min-width: 18rem; border-radius: 12px; background-color: #ffffff; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); transition: transform 0.3s;">
-                    <img src="/assets/img/vacina.jpg" class="card-img-top rounded-top" alt="Imunizações">
-                    <div class="card-body text-center">
-                        <h5 class="fw-semibold text-dark">Informações Atualizadas</h5>
-                        <p class="small text-muted">Fique por dentro das últimas novidades sobre vacinas e campanhas.</p>
-                    </div>
-                </div>
-                <div class="card p-2 border-0 shadow-lg animate__animated animate__fadeIn" style="max-width: 22%; min-width: 18rem; border-radius: 12px; background-color: #ffffff; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); transition: transform 0.3s;">
-                    <img src="/assets/img/37226.jpg" class="card-img-top rounded-top" alt="Proteja Sua Família">
-                    <div class="card-body text-center">
-                        <h5 class="fw-semibold text-dark">Proteja Sua Família</h5>
-                        <p class="small text-muted">Mantenha o histórico de vacinação de todos sempre atualizado e seguro.</p>
+
+                <div class="relative">
+                    <div class="bg-gradient-to-br from-primary/20 to-blue-400/20 rounded-2xl p-8 backdrop-blur-sm border border-primary/30">
+                        <div class="text-center space-y-6">
+                            <div class="w-24 h-24 bg-gradient-to-br from-primary to-blue-400 rounded-full flex items-center justify-center mx-auto">
+                                <i class="fas fa-heart text-3xl text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Protegendo Famílias</h3>
+                            <p class="text-gray-300">Mais de 10.000 famílias já confiam em nossa plataforma para manter seus históricos de vacinação seguros e organizados.</p>
+                            <div class="flex justify-center space-x-8 text-center">
+                                <div>
+                                    <div class="text-3xl font-bold text-primary">10K+</div>
+                                    <div class="text-sm text-gray-400">Famílias</div>
+                                </div>
+                                <div>
+                                    <div class="text-3xl font-bold text-primary">50K+</div>
+                                    <div class="text-sm text-gray-400">Vacinas</div>
+                                </div>
+                                <div>
+                                    <div class="text-3xl font-bold text-primary">99.9%</div>
+                                    <div class="text-sm text-gray-400">Uptime</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-5" style="background: linear-gradient(135deg, #212529, #343a40);">
-        <div class="container text-center">
-            <h2 class="mb-5 text-light animate__animated animate__fadeInDown">Recursos que Garantem a Sua Tradição de Cuidados</h2>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4 d-flex">
-                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp p-4 w-100 h-100 d-flex flex-column" style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
-                        <div class="icon-container bg-info text-white">
-                            <i class="bi bi-shield-lock" style="font-size: 3rem;"></i>
-                        </div>
-                        <h4 class="mt-3 text-dark">Histórico Digital</h4>
-                        <p class="text-muted flex-grow-1">Acesse um registro digital e seguro de todas as vacinas da sua família.</p>
+    <!-- Newsletter Section -->
+    <section class="py-20 bg-gradient-to-r from-dark via-dark-light to-dark">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="bg-gradient-to-br from-dark-light to-dark-lighter rounded-3xl p-12 border border-primary/20 shadow-2xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">Fique Por Dentro</h2>
+                <p class="text-xl text-gray-300 mb-8">Receba novidades sobre campanhas de vacinação e atualizações da plataforma</p>
+
+                <form action="" method="POST" class="max-w-md mx-auto" id="newsletter-form">
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Seu melhor e-mail"
+                            required
+                            class="flex-1 px-6 py-4 bg-dark border border-primary/30 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200">
+                        <button
+                            type="submit"
+                            class="bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full font-semibold transition-all duration-200 transform hover:scale-105 whitespace-nowrap">
+                            <i class="fas fa-paper-plane mr-2"></i>Inscrever-se
+                        </button>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-4 d-flex">
-                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp p-4 w-100 h-100 d-flex flex-column" style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
-                        <div class="icon-container bg-danger text-white">
-                            <i class="bi bi-bell" style="font-size: 3rem;"></i>
-                        </div>
-                        <h4 class="mt-3 text-dark">Alertas Automáticos</h4>
-                        <p class="text-muted flex-grow-1">Receba notificações inteligentes para nunca perder uma vacina importante.</p>
+                </form>
+
+                <?php if (isset($_GET['status'])): ?>
+                    <div id="status-message" class="mt-6 p-4 rounded-lg <?php echo $_GET['status'] === 'sucesso' ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'; ?>">
+                        <i class="fas <?php echo $_GET['status'] === 'sucesso' ? 'fa-check-circle' : 'fa-exclamation-triangle'; ?> mr-2"></i>
+                        <?php echo $_GET['status'] === 'sucesso' ? 'Inscrição realizada com sucesso!' : 'Erro ao processar inscrição. Tente novamente.'; ?>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-4 d-flex">
-                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp p-4 w-100 h-100 d-flex flex-column" style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
-                        <div class="icon-container bg-success text-white">
-                            <i class="bi bi-card-checklist" style="font-size: 3rem;"></i>
-                        </div>
-                        <h4 class="mt-3 text-dark">Relatório de Vacinas</h4>
-                        <p class="text-muted flex-grow-1">Acompanhe o status de cada vacina, com gráficos e alertas de vencimento.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 d-flex">
-                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp p-4 w-100 h-100 d-flex flex-column" style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
-                        <div class="icon-container bg-warning text-white">
-                            <i class="bi bi-heart-pulse" style="font-size: 3rem;"></i>
-                        </div>
-                        <h4 class="mt-3 text-dark">Campanhas de Imunização</h4>
-                        <p class="text-muted flex-grow-1">Fique atento às campanhas de vacinação e proteja a sua família.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 d-flex">
-                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp p-4 w-100 h-100 d-flex flex-column" style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
-                        <div class="icon-container bg-primary text-white">
-                            <i class="bi bi-file-earmark-pdf" style="font-size: 3rem;"></i>
-                        </div>
-                        <h4 class="mt-3 text-dark">Cartão de Vacinação Digital</h4>
-                        <p class="text-muted flex-grow-1">Leve seu cartão digital para qualquer lugar, facilmente acessível no celular.</p>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 d-flex">
-                    <div class="feature-block shadow-lg animate__animated animate__fadeInUp p-4 w-100 h-100 d-flex flex-column" style="background-color: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
-                        <div class="icon-container bg-dark text-white">
-                            <i class="bi bi-person-check" style="font-size: 3rem;"></i>
-                        </div>
-                        <h4 class="mt-3 text-dark">Cadastro Fácil e Rápido</h4>
-                        <p class="text-muted flex-grow-1">Cadastre-se e tenha acesso a todos os recursos em poucos minutos.</p>
-                    </div>
-                </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>
 
-    <section class="bg-dark text-white py-5">
-        <div class="container text-center">
-            <h2 class="mb-5 animate__animated animate__fadeInDown">Recursos Essenciais e Proteção</h2>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                <div class="col">
-                    <div class="resource-block shadow-lg animate__animated animate__fadeInUp">
-                        <dotlottie-player
-                            src="https://lottie.host/241a629f-5fb6-43f9-b6fe-8a45d8b3de5b/gQf9kyQpqN.lottie"
-                            background="transparent"
-                            speed="1"
-                            style="width: 80px; height: 80px; margin: 0 auto;"
-                            loop autoplay>
-                        </dotlottie-player>
-                        <h4 class="mt-3">Segurança de Dados</h4>
-                        <p class="text-white">Protegemos suas informações com sistemas de segurança avançados para garantir que seus dados permaneçam seguros.</p>
+    <!-- Footer -->
+    <footer class="bg-dark-lighter border-t border-primary/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <img src="/assets/img/logo-head.png" alt="Logo" class="h-8 w-auto">
+                        <span class="text-xl font-bold text-primary">Minhas Vacinas</span>
+                    </div>
+                    <p class="text-gray-400">Protegendo você e sua família com informações e controle digital de vacinas.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
                     </div>
                 </div>
 
-                <div class="col">
-                    <div class="resource-block shadow-lg animate__animated animate__fadeInUp">
-                        <dotlottie-player
-                            src="https://lottie.host/30f70f44-49b1-4f1f-b679-3d722eba500c/AqWeHVKtjF.lottie"
-                            background="transparent"
-                            speed="1"
-                            style="width: 80px; height: 80px; margin: 0 auto;"
-                            loop autoplay>
-                        </dotlottie-player>
-                        <h4 class="mt-3">Criptografia de Dados</h4>
-                        <p class="text-white">Utilizamos criptografia de ponta para garantir que seus dados sensíveis permaneçam confidenciais e protegidos.</p>
+                <!-- Services -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Serviços</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/src/auth/cadastro/" class="text-gray-400 hover:text-primary transition-colors">Cadastro</a></li>
+                        <li><a href="/src/ajuda/" class="text-gray-400 hover:text-primary transition-colors">Suporte</a></li>
+                        <li><a href="/src/painel/" class="text-gray-400 hover:text-primary transition-colors">Histórico</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Links Úteis</h3>
+                    <ul class="space-y-2">
+                        <li><a href="docs/Politica-de-Privacidade.php" class="text-gray-400 hover:text-primary transition-colors">Política de Privacidade</a></li>
+                        <li><a href="docs/Termos-de-Servico.php" class="text-gray-400 hover:text-primary transition-colors">Termos de Serviço</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Contato</h3>
+                    <div class="space-y-2">
+                        <p class="text-gray-400">
+                            <i class="fas fa-envelope mr-2 text-primary"></i>
+                            contato@minhasvacinas.online
+                        </p>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="resource-block shadow-lg animate__animated animate__fadeInUp">
-                        <dotlottie-player
-                            src="https://lottie.host/3187dfa0-5b8a-42c3-83c1-de7a49a03c74/yfecr5ccaw.lottie"
-                            background="transparent"
-                            speed="1"
-                            style="width: 80px; height: 80px; margin: 0 auto;"
-                            loop autoplay>
-                        </dotlottie-player>
-                        <h4 class="mt-3">Armazenamento Seguro em Nuvem</h4>
-                        <p class="text-white">Seus dados são armazenados em servidores seguros na nuvem, garantindo fácil acesso e proteção contínua.</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-success text-white py-5" id="nossa-missao">
-        <div class="container text-center">
-            <h2 class="mb-4">A Nossa Missão</h2>
-            <p class="lead">Minhas Vacinas, nossa missão é promover a saúde e o bem-estar da comunidade através da
-                conscientização sobre a importância da vacinação. Buscamos garantir que todos tenham acesso a
-                informações atualizadas e precisas, facilitando o gerenciamento do histórico de vacinas e incentivando a
-                proteção de todos.</p>
-            <div class="row mt-4">
-                <div class="col-md-6">
-                    <h5>Compromisso com a Educação</h5>
-                    <p>Educamos sobre as vacinas e suas contribuições para a saúde pública, empoderando as pessoas a
-                        tomarem decisões informadas.</p>
-                </div>
-                <div class="col-md-6">
-                    <h5>Acesso a Informações</h5>
-                    <p>Oferecemos uma plataforma acessível onde os usuários podem encontrar dados confiáveis sobre
-                        vacinação e campanhas.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px;" id="footer">
-        <div class="container text-center text-md-start mt-5">
-            <div class="row mt-3" style="padding-bottom: 5%;">
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">
-                        <i class="bi bi-gem me-2"></i>Minhas Vacinas
-                    </h6>
-                    <p>
-                        <i class="bi bi-info-circle me-1"></i> Protegendo você e sua família com informações e
-                        controle digital de vacinas.
-                    </p>
-                </div>
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Serviços</h6>
-                    <p>
-                        <a href="/src/auth/cadastro/" style="text-decoration: none; color: #adb5bd;"
-                            class="text-reset">Cadastro</a>
-                    </p>
-                    <p>
-                        <a href="/src/ajuda/" style="text-decoration: none; color: #adb5bd;"
-                            class="text-reset">Suporte</a>
-                    </p>
-                    <p>
-                        <a href="/src/painel/" style="text-decoration: none; color: #adb5bd;"
-                            class="text-reset">Histórico</a>
-                    </p>
-                </div>
-                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Links Úteis</h6>
-                    <p>
-                        <a href="docs/Politica-de-Privacidade.php" style="text-decoration: none; color: #adb5bd;"
-                            class="text-reset">Política de Privacidade</a>
-                    </p>
-                    <p>
-                        <a href="docs/Termos-de-Servico.php" style="text-decoration: none; color: #adb5bd;"
-                            class="text-reset">Termos de Serviço</a>
-                    </p>
-                </div>
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Receba novidades</h6>
-                    <p>Inscreva-se para receber novidades sobre campanhas de vacinação, novidade e futuras atualizações.</p>
-                    <form action="" method="POST">
-                        <label for="">Seu e-mail</label>
-                        <input type="email" name="email" class="form-control mb-2" style="background-color: #181a1b; color: #f8f9fa;" required>
-                        <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
-                        <?php if (isset($_GET['status'])): ?>
-                            <p style="color: <?php echo $_GET['status'] === 'sucesso' ? 'green' : 'red'; ?>; margin-top: 10px;">
-                                <?php echo $_GET['status'] === 'sucesso' ? 'Sucesso!' : 'Erro! Tente novamente.'; ?>
-                            </p>
-                        <?php endif; ?>
-                    </form>
                 </div>
             </div>
         </div>
 
-        <div class="text-center p-4" style="background-color: #181a1b; color: #adb5bd;">
-            © 2025 Minhas Vacinas. Todos os direitos reservados.
+        <div class="border-t border-primary/20 bg-dark py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <p class="text-center text-gray-400">
+                    © 2025 Minhas Vacinas. Todos os direitos reservados.
+                </p>
+            </div>
         </div>
     </footer>
 
-    <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/91ecee0302e40ff40c579362/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
-</body>
+    <!-- Scripts -->
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
 
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-dark/98');
+                navbar.classList.remove('bg-dark/95');
+            } else {
+                navbar.classList.add('bg-dark/95');
+                navbar.classList.remove('bg-dark/98');
+            }
+        });
 
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Newsletter form handling
+        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+            const button = this.querySelector('button[type="submit"]');
+            const originalText = button.innerHTML;
+
+            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Enviando...';
+            button.disabled = true;
+
+            // Reset after form submission
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }, 2000);
+        });
+
+        // Auto-hide status message
+        const statusMessage = document.getElementById('status-message');
+        if (statusMessage) {
+            setTimeout(() => {
+                statusMessage.style.opacity = '0';
+                statusMessage.style.transform = 'translateY(-10px)';
+                setTimeout(() => {
+                    statusMessage.remove();
+                }, 300);
+            }, 5000);
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 
 </html>

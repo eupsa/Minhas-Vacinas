@@ -2,7 +2,7 @@
 require '../../../vendor/phpmailer/phpmailer/src/Exception.php';
 require '../../../vendor/phpmailer/phpmailer/src/SMTP.php';
 require '../../../vendor/autoload.php';
-require '../../scripts/conn.php';
+require '../../scripts/Conexao.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

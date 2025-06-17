@@ -11,83 +11,89 @@ $sql->bindValue(':id_usuario', $_SESSION['user_id']);
 $sql->execute();
 
 $dispositivos = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-if (count($dispositivos) > 0) {
-    $_SESSION['dispositivos'] = $dispositivos;
-} else {
-    $_SESSION['dispositivos'] = [];
-}
+$_SESSION['dispositivos'] = $dispositivos ?: [];
 ?>
-
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-br" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style.css">
     <link rel="icon" href="../../../../../assets/img/img-web.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <title>Minhas Vacinas - Seus Dispositivos</title>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#007bff',
+                        dark: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <title>Minhas Vacinas - Dispositivos</title>
 </head>
 
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #007bff; z-index: 1100; width: 100%; left: 50%; transform: translateX(-50%);">
-            <div class="container">
-                <a class="navbar-brand" href="/">
-                    <img src="../../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
+<body class="bg-dark-900 text-white min-h-screen">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-primary shadow-lg">
+        <nav class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <a href="/" class="flex items-center">
+                    <img src="../../../../assets/img/logo-head.png" alt="Logo Vacinas" class="h-12">
                 </a>
-                <!-- O botão de toggler estará visível no mobile -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    <a href="javascript:history.back()" class="btn btn-light d-flex align-items-center px-4 py-2" style="font-size: 1rem; background-color: #ffffff; border-radius: 25px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: background-color 0.3s ease;">
-                        <i class="bi bi-arrow-left" style="margin-right: 8px; font-size: 1.2rem;"></i> VOLTAR
+                <div class="flex items-center space-x-4">
+                    <a href="../" class="hidden md:flex items-center px-4 py-2 bg-white bg-opacity-20 text-white rounded-lg hover:bg-opacity-30 transition-colors">
+                        <i class="bi bi-arrow-left mr-2"></i>
+                        Voltar ao Perfil
                     </a>
+                    <button id="mobileMenuToggle" class="md:hidden text-white hover:text-gray-200 transition-colors">
+                        <i class="bi bi-list text-2xl"></i>
+                    </button>
                 </div>
             </div>
         </nav>
     </header>
 
-    <style>
-        .btn {
-            transition: 0.5s;
-        }
+    <!-- Main Content -->
+    <main class="pt-20 min-h-screen">
+        <div class="container mx-auto px-6 py-8">
+            <!-- Header Section -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-white mb-2">Dispositivos Conectados</h1>
+                <p class="text-gray-400">Gerencie os dispositivos conectados à sua conta do <strong>Minhas Vacinas</strong>. Caso reconheça alguma atividade suspeita, altere sua senha imediatamente.</p>
+            </div>
 
-        .btn:hover {
-            background-color: #f0f0f0;
-            color: rgb(0, 0, 0);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-            transition: 0.5s;
-        }
+            <!-- Security Alert -->
+            <div class="bg-yellow-900 bg-opacity-20 border border-yellow-500 border-opacity-30 rounded-xl p-6 mb-8">
+                <div class="flex items-start">
+                    <i class="bi bi-shield-exclamation text-yellow-400 text-2xl mr-4 mt-1"></i>
+                    <div>
+                        <h3 class="text-yellow-400 font-semibold mb-2">Dica de Segurança</h3>
+                        <p class="text-gray-300">Se você não reconhece algum dispositivo listado abaixo, remova-o imediatamente e altere sua senha. Mantenha sua conta sempre segura!</p>
+                    </div>
+                </div>
+            </div>
 
-        .navbar {
-            padding: 10px 0;
-        }
-
-        @media (max-width: 767px) {
-            .navbar-nav {
-                display: flex;
-                justify-content: flex-end;
-                width: 100%;
-            }
-        }
-    </style>
-
-    <section class="profile-section py-5" id="dispositivos">
-        <div class="container">
-            <h2 class="text-center mb-4 text-dark">Dispositivos Conectados</h2>
-            <p class="text-center text-muted mb-4">Gerencie os dispositivos conectados à sua conta do <strong>Minhas Vacinas</strong>. Caso reconheça alguma atividade suspeita, altere sua senha imediatamente.</p>
-            <div class="row justify-content-center g-4">
-                <?php
-                $user_ip = $_SESSION['user_ip'];
-                if (!empty($dispositivos)):
+            <!-- Devices Grid -->
+            <?php if (!empty($dispositivos)): ?>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <?php
+                    $user_ip = $_SESSION['user_ip'];
                     foreach ($dispositivos as $dispositivo):
                         $atual = $dispositivo['ip'] === $user_ip;
                         $icone = $dispositivo['tipo_dispositivo'] === 'Desktop' || $atual
@@ -97,134 +103,167 @@ if (count($dispositivos) > 0) {
                                 : ($dispositivo['tipo_dispositivo'] === 'Tablet'
                                     ? 'bi bi-tablet'
                                     : 'bi bi-device-hdd'));
-                        $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']]))); ?>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
-                            <div class="card border-0 shadow-lg rounded-4 w-100" style="background-color: #f9f9f9; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-                                <div class="card-body text-center p-4">
-                                    <div class="mb-3">
-                                        <i class="<?php echo $icone; ?> text-primary" style="font-size: 2.5rem;"></i>
+                        $local = trim(implode(', ', array_filter([$dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']])));
+                    ?>
+                        <div class="bg-dark-800 rounded-xl p-6 border border-dark-700 hover:border-primary transition-all duration-300 group">
+                            <!-- Device Icon and Status -->
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="bg-primary bg-opacity-20 rounded-lg p-3">
+                                    <i class="<?php echo $icone; ?> text-primary text-2xl"></i>
+                                </div>
+                                <?php if ($atual): ?>
+                                    <span class="bg-green-500 text-white text-xs px-3 py-1 rounded-full font-medium">
+                                        <i class="bi bi-circle-fill mr-1"></i>Atual
+                                    </span>
+                                <?php endif; ?>
+                            </div>
+
+                            <!-- Device Info -->
+                            <div class="space-y-3 mb-6">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-white mb-1"><?php echo htmlspecialchars($dispositivo['nome_dispositivo']); ?></h3>
+                                    <p class="text-sm text-gray-400"><?php echo ucfirst($dispositivo['tipo_dispositivo']); ?></p>
+                                </div>
+
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-center text-gray-300">
+                                        <i class="bi bi-clock text-primary mr-3"></i>
+                                        <div>
+                                            <span class="text-xs text-gray-400 block">Último acesso</span>
+                                            <span class="font-medium"><?php echo date("d/m/Y H:i", strtotime($dispositivo['data_cadastro'])); ?></span>
+                                        </div>
                                     </div>
-                                    <h6 class="card-title text-dark fw-bold text-wrap" style="font-size: 1.1rem;">
-                                        <?php echo htmlspecialchars($dispositivo['nome_dispositivo']); ?>
-                                        <?php if ($atual): ?>
-                                            <span class="badge bg-success ms-2">Atual</span>
-                                        <?php endif; ?>
-                                    </h6>
-                                    <p class="text-muted small mb-1"><strong>Último login:</strong> <?php echo date("d/m/Y H:i", strtotime($dispositivo['data_cadastro'])); ?></p>
-                                    <p class="text-muted small mb-1"><strong>IP:</strong> <?php echo htmlspecialchars($dispositivo['ip']); ?></p>
+
+                                    <div class="flex items-center text-gray-300">
+                                        <i class="bi bi-router text-primary mr-3"></i>
+                                        <div>
+                                            <span class="text-xs text-gray-400 block">Endereço IP</span>
+                                            <span class="font-medium font-mono"><?php echo htmlspecialchars($dispositivo['ip']); ?></span>
+                                        </div>
+                                    </div>
+
                                     <?php if (!empty($local)): ?>
-                                        <p class="text-muted small mb-1"><strong>Local:</strong> <?php echo htmlspecialchars($local); ?></p>
+                                        <div class="flex items-center text-gray-300">
+                                            <i class="bi bi-geo-alt text-primary mr-3"></i>
+                                            <div>
+                                                <span class="text-xs text-gray-400 block">Localização</span>
+                                                <span class="font-medium"><?php echo htmlspecialchars($local); ?></span>
+                                            </div>
+                                        </div>
                                     <?php endif; ?>
                                 </div>
-                                <div class="card-footer bg-white text-center border-0 p-3">
-                                    <form action="../../backend/remover-dispositivo.php" method="POST" id="form-remover-dispositivo">
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="pt-4 border-t border-dark-700">
+                                <?php if (!$atual): ?>
+                                    <form action="../../backend/remover-dispositivo.php" method="POST" class="remove-device-form">
                                         <input type="hidden" name="dispositivo_id" value="<?php echo $dispositivo['id']; ?>" />
-                                        <button type="submit" class="btn btn-outline-danger btn-sm px-4 py-2 rounded-pill">
-                                            <i class="bi bi-x-circle"></i> Remover
+                                        <button type="submit" class="w-full flex items-center justify-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors font-medium">
+                                            <i class="bi bi-trash mr-2"></i>
+                                            Remover Dispositivo
                                         </button>
                                     </form>
-                                </div>
+                                <?php else: ?>
+                                    <div class="w-full flex items-center justify-center px-4 py-2 bg-gray-600 text-gray-300 rounded-lg cursor-not-allowed">
+                                        <i class="bi bi-shield-check mr-2"></i>
+                                        Dispositivo Atual
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     <?php endforeach; ?>
-                <?php else: ?>
-                    <div class="col-12 text-center">
-                        <p class="text-muted fs-5">Nenhum dispositivo encontrado</p>
+                </div>
+            <?php else: ?>
+                <div class="bg-dark-800 rounded-xl p-12 text-center border border-dark-700">
+                    <div class="bg-primary bg-opacity-20 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                        <i class="bi bi-laptop text-primary text-3xl"></i>
                     </div>
-                <?php endif; ?>
-            </div>
-        </div>
-    </section>
-
-    <style>
-        /* Estilos para um design mais bonito e responsivo */
-        @media (max-width: 767px) {
-            .card {
-                width: 100%;
-                /* Cards ocuparão toda a largura da coluna */
-                margin: 0 auto;
-            }
-        }
-
-        .card {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            transition: 0.5s;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-body {
-            padding: 1.5rem;
-            flex-grow: 1;
-            /* Garante que a área do corpo ocupe o espaço disponível */
-        }
-
-        .btn-outline-danger {
-            border-radius: 30px;
-            font-size: 0.9rem;
-            padding: 0.5rem 1.5rem;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-outline-danger:hover {
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-
-        .card-title {
-            white-space: normal;
-            word-wrap: break-word;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    </style>
-
-
-    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 7%;">
-        <div class="me-5 d-none d-lg-block"></div>
-        <div class="container text-center text-md-start mt-5">
-            <div class="row mt-3">
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">
-                        <i class="bi bi-gem me-2"></i>Minhas Vacinas
-                    </h6>
-                    <p>
-                        <i class="bi bi-info-circle me-1"></i> Protegendo você e sua família com informações e
-                        controle digital de vacinas.
-                    </p>
+                    <h3 class="text-xl font-semibold text-white mb-3">Nenhum dispositivo encontrado</h3>
+                    <p class="text-gray-400 max-w-md mx-auto">Não há dispositivos conectados à sua conta no momento.</p>
                 </div>
-                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Links Úteis</h6>
-                    <p>
-                        <a href="../../../docs/Politica-de-Privacidade.php"
-                            style="text-decoration: none; color: #adb5bd;" class="text-reset">Política de
-                            Privacidade</a>
-                    </p>
-                    <p>
-                        <a href="../../../docs/Termos-de-Servico.php" style="text-decoration: none; color: #adb5bd;"
-                            class="text-reset">Termos de Serviço</a>
-                    </p>
-                </div>
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Contato</h6>
-                    <p><i class="bi bi-envelope me-2"></i>contato@minhasvacinas.online</p>
+            <?php endif; ?>
+
+            <!-- Help Section -->
+            <div class="mt-12 bg-dark-800 rounded-xl p-8 border border-dark-700">
+                <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
+                    <i class="bi bi-question-circle text-primary mr-3"></i>
+                    Perguntas Frequentes
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="border-b border-dark-700 pb-4">
+                        <h4 class="text-white font-medium mb-2">O que acontece quando removo um dispositivo?</h4>
+                        <p class="text-gray-400 text-sm">O dispositivo será desconectado da sua conta e precisará fazer login novamente para acessar.</p>
+                    </div>
+                    
+                    <div class="border-b border-dark-700 pb-4">
+                        <h4 class="text-white font-medium mb-2">Por que não consigo remover o dispositivo atual?</h4>
+                        <p class="text-gray-400 text-sm">Por segurança, você não pode remover o dispositivo que está usando atualmente. Use outro dispositivo para removê-lo.</p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-white font-medium mb-2">Como posso melhorar a segurança da minha conta?</h4>
+                        <p class="text-gray-400 text-sm">Ative a verificação em duas etapas, use senhas fortes e monitore regularmente os dispositivos conectados.</p>
+                    </div>
                 </div>
             </div>
         </div>
+    </main>
 
-        <div class="text-center p-4" style="background-color: #181a1b; color: #adb5bd;">
-            © 2025 Minhas Vacinas. Todos os direitos reservados.
-        </div>
-    </footer>
+    <script src="backend-error-handler.js"></script>
+    <script>
+        // Remove Device Handler
+        document.querySelectorAll('.remove-device-form').forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const result = await Swal.fire({
+                    title: 'Confirmar Remoção',
+                    text: 'Tem certeza que deseja remover este dispositivo? Ele precisará fazer login novamente para acessar sua conta.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#dc2626',
+                    cancelButtonColor: '#6b7280',
+                    confirmButtonText: 'Sim, remover',
+                    cancelButtonText: 'Cancelar',
+                    background: '#1e293b',
+                    color: '#ffffff'
+                });
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="remover-dispositivo.js"></script>
+                if (result.isConfirmed) {
+                    try {
+                        const formData = new FormData(form);
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData
+                        });
 
+                        if (response.ok) {
+                            await Swal.fire({
+                                title: 'Sucesso!',
+                                text: 'Dispositivo removido com sucesso.',
+                                icon: 'success',
+                                background: '#1e293b',
+                                color: '#ffffff'
+                            });
+                            location.reload();
+                        } else {
+                            throw new Error('Erro ao remover dispositivo');
+                        }
+                    } catch (error) {
+                        await Swal.fire({
+                            title: 'Erro!',
+                            text: 'Não foi possível remover o dispositivo. Tente novamente.',
+                            icon: 'error',
+                            background: '#1e293b',
+                            color: '#ffffff'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
 </html>

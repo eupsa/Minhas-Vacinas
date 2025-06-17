@@ -5,218 +5,328 @@ require_once '../../../scripts/Conexao.php';
 
 Auth($pdo);
 
-$sql = $pdo->prepare("SELECT * FROM vacinas_existentes");
+$sql = $pdo->prepare("SELECT * FROM vacinas_existentes ORDER BY nome_vac ASC");
 $sql->execute();
 $vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-if (count($vacinas) > 0) {
-    $_SESSION['vacinas'] = $vacinas;
-} else {
-    $_SESSION['vacinas'] = [];
-}
+$_SESSION['vacinas'] = $vacinas ?: [];
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <link rel="icon" href="../../../../../assets/img/img-web.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Minhas Vacinas - Cadastro de Vacinas</title>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#007bff',
+                        dark: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <title>Minhas Vacinas - Cadastrar Vacina</title>
 </head>
 
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top"
-            style="background-color: #007bff; z-index: 1081; width: 100%; left: 50%; transform: translateX(-50%);">
-            <div class="container">
-                <a class="navbar-brand" href="/index.html">
-                    <img src="../../../../assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
+<body class="bg-dark-900 text-white min-h-screen">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-primary shadow-lg">
+        <nav class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <a href="/" class="flex items-center">
+                    <img src="../../../../assets/img/logo-head.png" alt="Logo Vacinas" class="h-12">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="sidebarToggle">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <div class="flex items-center space-x-4">
+                    <a href="../" class="hidden md:flex items-center px-4 py-2 bg-white bg-opacity-20 text-white rounded-lg hover:bg-opacity-30 transition-colors">
+                        <i class="bi bi-arrow-left mr-2"></i>
+                        Voltar às Vacinas
+                    </a>
+                    <button id="sidebarToggle" class="lg:hidden text-white hover:text-gray-200 transition-colors">
+                        <i class="bi bi-list text-2xl"></i>
+                    </button>
+                </div>
             </div>
         </nav>
     </header>
 
-    <section>
-        <div>
-            <div class="sidebar d-flex flex-column flex-shrink-0 p-3 text-bg-dark">
-                <div class="d-flex align-items-center justify-content-center" style="height: 10vh;">
-                </div>
-                <hr>
-                <ul class="nav nav-pills flex-column mb-auto">
-                    <li class="nav-item">
-                        <a href="../../" class="nav-link text-white" aria-current="page">
-                            <i class="bi bi-house-door"></i>
-                            Início
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../" class="nav-link active">
-                            <i class="fas fa-syringe"></i>
-                            Vacinas
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../../perfil/" class="nav-link text-white">
-                            <i class="bi bi-person"></i>
-                            Seus Dados
-                        </a>
-                    </li>
-                    <li>
-                        <a class="nav-link text-white" href="../../perfil/dipositivos/" aria-expanded="false">
-                            <i class="bi bi-laptop"></i> Dispositivos
-                        </a>
-                    </li>
-                    <li>
-                        <hr>
-                    </li>
-                </ul>
-                <hr>
-                <div class="dropdown">
-                    <a href="" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                        id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php if (isset($_SESSION['user_foto'])): ?>
-                            <img src="<?php echo $_SESSION['user_foto']; ?>" alt="Foto do Usuário" class="rounded-circle me-2"
-                                width="40" height="40">
-                        <?php else: ?>
-                            <img src="../../../../assets/img/bx-user.svg" alt="Foto do Usuário" class="rounded-circle me-2"
-                                width="40" height="40">
-                        <?php endif; ?>
-                        <span>Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></span>
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-16 h-full w-64 bg-dark-800 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-40 border-r border-dark-700">
+        <div class="p-6">
+            <div class="flex flex-col space-y-4">
+                <nav class="space-y-2">
+                    <a href="../../" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
+                        <i class="bi bi-house-door text-lg"></i>
+                        <span>Início</span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="../../perfil/"><i class="fas fa-user"></i> Minha conta</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="../../../scripts/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
-                    </ul>
+                    <a href="../" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary text-white font-medium">
+                        <i class="bi bi-heart-pulse text-lg"></i>
+                        <span>Vacinas</span>
+                    </a>
+                    <a href="../../perfil/" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
+                        <i class="bi bi-person text-lg"></i>
+                        <span>Perfil</span>
+                    </a>
+                    <a href="../../perfil/dispositivos/" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
+                        <i class="bi bi-laptop text-lg"></i>
+                        <span>Dispositivos</span>
+                    </a>
+                </nav>
+
+                <div class="mt-auto pt-6 border-t border-dark-700">
+                    <div class="flex items-center space-x-3 p-4 rounded-lg bg-dark-700">
+                        <?php if (isset($_SESSION['user_foto'])): ?>
+                            <img src="<?php echo $_SESSION['user_foto']; ?>" alt="Foto do Usuário" class="w-10 h-10 rounded-full">
+                        <?php else: ?>
+                            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                                <i class="bi bi-person text-white"></i>
+                            </div>
+                        <?php endif; ?>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-white truncate">
+                                Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?>
+                            </p>
+                            <a href="../../../scripts/sair.php" class="text-xs text-gray-400 hover:text-white transition-colors">
+                                <i class="bi bi-box-arrow-right mr-1"></i>Sair
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-    </section>
+        </div>
+    </aside>
 
-    <section>
-        <div class="content">
-            <h2 class="fw-light mb-5 text-center">Cadastro de Vacinas</h2>
-            <form action="../../backend/cadastro-vacina.php" method="post" id="form_vacina" enctype="multipart/form-data">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-md-8 mb-4">
-                        <label for="vacina" class="form-label">Vacina<span class="required-asterisk">*</span></label>
-                        <select class="form-select" id="nomeVac" name="nomeVac" aria-label="Selecione a vacina">
-                            <option value="" disabled selected>Selecione uma vacina</option>
-                            <?php if (count($vacinas) > 0): ?>
-                                <?php foreach ($vacinas as $vacina): ?>
-                                    <option value="<?= $vacina['nome_vac'] ?>"><?= htmlspecialchars($vacina['nome_vac']) ?></option>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <option value="">Nenhuma vacina disponível</option>
-                            <?php endif; ?>
-                        </select>
-                    </div>
-                    <div class="col-12 col-md-8 mb-4">
-                        <label for="dataAplicacao" class="form-label">Data da Aplicação<span class="required-asterisk">*</span></label>
-                        <input type="date" class="form-control" id="dataAplicacao" name="dataAplicacao" autocomplete="off">
-                    </div>
-                    <div class="col-12 col-md-8 mb-4">
-                        <label for="proxima_dose" class="form-label">Próxima Dose</label>
-                        <input type="date" class="form-control" id="proxima_dose" name="proxima_dose" autocomplete="off">
-                    </div>
-                    <div class="col-12 col-md-8 mb-4">
-                        <label for="localAplicacao" class="form-label">Local de Aplicação<span class="required-asterisk">*</span></label>
-                        <input type="text" class="form-control" id="localAplicacao" name="localAplicacao" autocomplete="off">
-                    </div>
-                    <div class="col-12 col-md-8 mb-4">
-                        <label for="tipo" class="form-label">Tipo da Vacina<span class="required-asterisk">*</span></label>
-                        <select class="form-select" id="tipo" name="tipo">
-                            <option value="" disabled>Selecione o tipo</option>
-                            <option value="Imunização">Imunização</option>
-                            <option value="Vacina de Vírus Vivo Atenuado">Vacina de Vírus Vivo Atenuado</option>
-                            <option value="Vacina de Vírus Inativado">Vacina de Vírus Inativado</option>
-                            <option value="Vacina Subunitária">Vacina Subunitária</option>
-                            <option value="Vacina de RNA Mensageiro (mRNA)">Vacina de RNA Mensageiro (mRNA)</option>
-                            <option value="Vacina de Vetor Viral">Vacina de Vetor Viral</option>
-                            <option value="Vacina de Proteína Recombinante">Vacina de Proteína Recombinante</option>
-                        </select>
-                    </div>
-                    <div class="col-12 col-md-8 mb-4">
-                        <label for="dose" class="form-label">Dose<span class="required-asterisk">*</span></label>
-                        <select class="form-select" id="dose" name="dose">
-                            <option value="" disabled selected>Selecione a dose</option>
-                            <option value="1ª Dose">1ª Dose</option>
-                            <option value="2ª Dose">2ª Dose</option>
-                            <option value="Reforço">Reforço</option>
-                            <option value="Dose Única">Dose Única</option>
-                            <option value="Dose de Manutenção">Dose de Manutenção</option>
-                            <option value="Dose Adicional">Dose Adicional</option>
-                        </select>
-                    </div>
-                    <!-- <div class="col-12 col-md-8 mb-4">
-                        <label for="imagem" class="form-label">Imagem da Vacina</label>
-                        <input type="file" class="form-control" id="vac-card-img" name="vac-card-img" accept="image/*" onchange="previewImage(event)">
-                        <div id="imagePreview" style="margin-top: 10px;">
-                            <img id="preview" src="" alt="Prévia da Imagem" style="max-width: 150px; display: none;" />
+    <!-- Main Content -->
+    <main class="lg:ml-64 pt-20 min-h-screen">
+        <div class="container mx-auto px-6 py-8 max-w-4xl">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-white mb-2">Cadastrar Nova Vacina</h1>
+                <p class="text-gray-400">Preencha as informações da vacina aplicada</p>
+            </div>
+
+            <!-- Form -->
+            <div class="bg-dark-800 rounded-xl p-8 border border-dark-700">
+                <form action="../../backend/cadastro-vacina.php" method="post" id="form_vacina" enctype="multipart/form-data" class="space-y-6">
+                    <!-- Vaccine Selection -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="md:col-span-2">
+                            <label for="nomeVac" class="block text-sm font-medium text-white mb-2">
+                                Vacina <span class="text-red-400">*</span>
+                            </label>
+                            <select id="nomeVac" name="nomeVac" required class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                <option value="" disabled selected>Selecione uma vacina</option>
+                                <?php if (count($vacinas) > 0): ?>
+                                    <?php foreach ($vacinas as $vacina): ?>
+                                        <option value="<?= htmlspecialchars($vacina['nome_vac']) ?>"><?= htmlspecialchars($vacina['nome_vac']) ?></option>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <option value="">Nenhuma vacina disponível</option>
+                                <?php endif; ?>
+                            </select>
                         </div>
-                    </div> -->
-                    <script>
-                        function previewImage(event) {
-                            const file = event.target.files[0];
-                            const reader = new FileReader();
 
-                            reader.onload = function() {
-                                const preview = document.getElementById('preview');
-                                preview.src = reader.result;
-                                preview.style.display = 'block';
-                            }
+                        <!-- Application Date -->
+                        <div>
+                            <label for="dataAplicacao" class="block text-sm font-medium text-white mb-2">
+                                Data da Aplicação <span class="text-red-400">*</span>
+                            </label>
+                            <input type="date" id="dataAplicacao" name="dataAplicacao" required class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                        </div>
 
-                            if (file) {
-                                reader.readAsDataURL(file);
-                            }
-                        }
-                    </script>
-                    <div class="col-12 col-md-8 mb-4">
-                        <label for="lote" class="form-label">Lote</label>
-                        <input type="text" class="form-control" id="lote" name="lote" autocomplete="off">
+                        <!-- Next Dose -->
+                        <div>
+                            <label for="proxima_dose" class="block text-sm font-medium text-white mb-2">
+                                Próxima Dose
+                            </label>
+                            <input type="date" id="proxima_dose" name="proxima_dose" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                        </div>
+
+                        <!-- Application Location -->
+                        <div>
+                            <label for="localAplicacao" class="block text-sm font-medium text-white mb-2">
+                                Local de Aplicação <span class="text-red-400">*</span>
+                            </label>
+                            <input type="text" id="localAplicacao" name="localAplicacao" required placeholder="Ex: Hospital São Lucas" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                        </div>
+
+                        <!-- Vaccine Type -->
+                        <div>
+                            <label for="tipo" class="block text-sm font-medium text-white mb-2">
+                                Tipo da Vacina <span class="text-red-400">*</span>
+                            </label>
+                            <select id="tipo" name="tipo" required class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                <option value="" disabled selected>Selecione o tipo</option>
+                                <option value="Imunização">Imunização</option>
+                                <option value="Vacina de Vírus Vivo Atenuado">Vacina de Vírus Vivo Atenuado</option>
+                                <option value="Vacina de Vírus Inativado">Vacina de Vírus Inativado</option>
+                                <option value="Vacina Subunitária">Vacina Subunitária</option>
+                                <option value="Vacina de RNA Mensageiro (mRNA)">Vacina de RNA Mensageiro (mRNA)</option>
+                                <option value="Vacina de Vetor Viral">Vacina de Vetor Viral</option>
+                                <option value="Vacina de Proteína Recombinante">Vacina de Proteína Recombinante</option>
+                            </select>
+                        </div>
+
+                        <!-- Dose -->
+                        <div>
+                            <label for="dose" class="block text-sm font-medium text-white mb-2">
+                                Dose <span class="text-red-400">*</span>
+                            </label>
+                            <select id="dose" name="dose" required class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                                <option value="" disabled selected>Selecione a dose</option>
+                                <option value="1ª Dose">1ª Dose</option>
+                                <option value="2ª Dose">2ª Dose</option>
+                                <option value="Reforço">Reforço</option>
+                                <option value="Dose Única">Dose Única</option>
+                                <option value="Dose de Manutenção">Dose de Manutenção</option>
+                                <option value="Dose Adicional">Dose Adicional</option>
+                            </select>
+                        </div>
+
+                        <!-- Lot -->
+                        <div>
+                            <label for="lote" class="block text-sm font-medium text-white mb-2">
+                                Lote
+                            </label>
+                            <input type="text" id="lote" name="lote" placeholder="Ex: ABC123" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                        </div>
                     </div>
-                    <div class="col-12 col-md-8 mb-2">
-                        <label for="obs" class="form-label">Observações</label>
-                        <textarea class="form-control" id="obs" name="obs" rows="3" autocomplete="off"></textarea>
+
+                    <!-- Observations -->
+                    <div>
+                        <label for="obs" class="block text-sm font-medium text-white mb-2">
+                            Observações
+                        </label>
+                        <textarea id="obs" name="obs" rows="4" placeholder="Adicione observações sobre a aplicação da vacina..." class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors resize-none"></textarea>
                     </div>
-                    <div class="col-12 text-center mt-5">
-                        <button type="submit" class="btn btn-primary w-50 rounded-pill shadow-sm text-white">
-                            <i class="fa fa-plus-circle me-2"></i>Cadastrar Vacina
+
+                    <!-- Submit Button -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                        <button type="submit" class="flex-1 flex items-center justify-center px-6 py-4 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors font-medium text-lg">
+                            <i class="bi bi-plus-circle mr-2"></i>
+                            Cadastrar Vacina
                         </button>
+                        <a href="../" class="flex-1 flex items-center justify-center px-6 py-4 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium text-lg">
+                            <i class="bi bi-x-circle mr-2"></i>
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Help Section -->
+            <div class="mt-8 bg-dark-800 rounded-xl p-6 border border-dark-700">
+                <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
+                    <i class="bi bi-info-circle text-primary mr-2"></i>
+                    Dicas para o Cadastro
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-300">
+                    <div class="flex items-start space-x-3">
+                        <i class="bi bi-check-circle text-green-400 mt-0.5"></i>
+                        <p>Mantenha sempre seu cartão de vacinação em mãos para preencher as informações corretamente.</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="bi bi-check-circle text-green-400 mt-0.5"></i>
+                        <p>O número do lote pode ser encontrado no cartão de vacinação ou no comprovante.</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="bi bi-check-circle text-green-400 mt-0.5"></i>
+                        <p>Registre a data da próxima dose para receber lembretes automáticos.</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="bi bi-check-circle text-green-400 mt-0.5"></i>
+                        <p>Use as observações para anotar reações ou informações importantes.</p>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </section>
+    </main>
 
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden hidden"></div>
+
+    <script src="backend-error-handler.js"></script>
     <script>
-        document.getElementById('localAplicacao').addEventListener('change', function() {
-            var outroLocalDiv = document.getElementById('outroLocalDiv');
-            if (this.value === 'outro') {
-                outroLocalDiv.style.display = 'block';
-            } else {
-                outroLocalDiv.style.display = 'none';
+        // Sidebar Toggle
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebarOverlay.classList.toggle('hidden');
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+            sidebarOverlay.classList.add('hidden');
+        });
+
+        // Form Validation and Submission
+        document.getElementById('form_vacina').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            // Show loading state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="bi bi-hourglass-split mr-2 animate-spin"></i>Cadastrando...';
+            submitBtn.disabled = true;
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.text();
+
+                if (response.ok) {
+                    await Swal.fire({
+                        title: 'Sucesso!',
+                        text: 'Vacina cadastrada com sucesso.',
+                        icon: 'success',
+                        background: '#1e293b',
+                        color: '#ffffff'
+                    });
+                    window.location.href = '../';
+                } else {
+                    throw new Error('Erro ao cadastrar vacina');
+                }
+            } catch (error) {
+                await Swal.fire({
+                    title: 'Erro!',
+                    text: 'Não foi possível cadastrar a vacina. Verifique os dados e tente novamente.',
+                    icon: 'error',
+                    background: '#1e293b',
+                    color: '#ffffff'
+                });
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
         });
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
-    <script src="../../../../block.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

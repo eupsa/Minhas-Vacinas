@@ -12,297 +12,531 @@ $dotenv->load();
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#007bff',
+                        'primary-dark': '#0056b3',
+                        dark: '#0f172a',
+                        'dark-light': '#1e293b',
+                        'dark-lighter': '#334155'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'bounce-slow': 'bounce 2s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
+                        },
+                        slideUp: {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(40px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
+                        },
+                        glow: {
+                            '0%': {
+                                boxShadow: '0 0 20px rgba(0, 123, 255, 0.5)'
+                            },
+                            '100%': {
+                                boxShadow: '0 0 30px rgba(0, 123, 255, 0.8)'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <title>Minhas Vacinas - Cadastro</title>
 </head>
 
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #007bff; z-index: 1081; width: 100%; left: 50%; transform: translateX(-50%);">
-            <div class="container">
-                <a class="navbar-brand" href="/">
-                    <img src="/assets/img/logo-head.png" alt="Logo Vacinas" style="height: 50px;">
-                </a>
-                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse d-none d-lg-flex" id="navbarNav">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a class="nav-link" href="/">Início</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/#nossa-missao">Sobre</a></li>
-                        <li class="nav-item"><a href="../../ajuda/" class="nav-link">Suporte</a></li>
-                        <li class="nav-item"><a href="../../FAQ/" class="nav-link">FAQ</a></li>
-                    </ul>
-                    <ul class="navbar-nav ms-auto d-flex align-items-center">
-                        <?php if (isset($_SESSION['user_id'])): ?>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle btn btn-primary rounded-pill px-4 py-2 text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-person text-dark"></i>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="../painel/"><i class="bi bi-house-door text-dark me-2"></i>Painel</a></li>
-                                    <li><a class="dropdown-item" href="../painel/vacinas/"><i class="bi bi-heart-pulse-fill text-dark me-2"></i>Vacinas</a></li>
-                                    <li><a class="dropdown-item" href="../painel/perfil/"><i class="bi bi-person-circle text-dark me-2"></i>Perfil</a></li>
-                                </ul>
-                            </li>
-                        <?php else: ?>
-                            <li class="nav-item">
-                                <a class="btn btn-primary rounded-pill px-4 py-2 text-white" href="../entrar/">
-                                    <i class="bi bi-box-arrow-in-right"></i> ENTRAR
-                                </a>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
+<body class="bg-dark text-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-dark/95 backdrop-blur-md border-b border-primary/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="/" class="flex items-center space-x-2">
+                        <img src="/assets/img/logo-head.png" alt="Logo Vacinas" class="h-10 w-auto">
+                        <span class="text-xl font-bold text-primary">Minhas Vacinas</span>
+                    </a>
                 </div>
-            </div>
-        </nav>
 
-        <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="width: 75%; background: rgba(255, 255, 255, 0.95);">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body d-flex flex-column justify-content-between" style="height: 100%;">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="/" style="font-weight: 500;">
-                            <i class="bi bi-house-door text-dark me-2"></i>Início
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="/#nossa-missao" style="font-weight: 500;">
-                            <i class="bi bi-info-circle text-dark me-2"></i>Sobre
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../../ajuda/" class="nav-link text-dark" style="font-weight: 500;">
-                            <i class="bi bi-question-circle text-dark me-2"></i>Suporte
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="../../FAQ/" class="nav-link text-dark" style="font-weight: 500;">
-                            <i class="bi bi-file-earmark-text text-dark me-2"></i>FAQ
-                        </a>
-                    </li>
-                </ul>
-                <div class="d-flex flex-column align-items-center gap-3 mt-4">
-                    <?php if (isset($_SESSION['user_id'])): ?>
-                        <a class="nav-link dropdown-toggle btn btn-outline-primary rounded-pill px-4 py-2 w-100 text-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person text-dark"></i>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="../painel/"><i class="bi bi-house-door text-dark me-2"></i>Painel</a></li>
-                            <li><a class="dropdown-item" href="../painel/vacinas/"><i class="bi bi-heart-pulse-fill text-dark me-2"></i>Vacinas</a></li>
-                            <li><a class="dropdown-item" href="../painel/perfil/"><i class="bi bi-person-circle text-dark me-2"></i>Perfil</a></li>
-                        </ul>
-                    <?php else: ?>
-                        <a class="btn btn-primary rounded-pill px-4 py-2 text-white w-100 text-center" href="../entrar/">
-                            <i class="bi bi-box-arrow-in-right"></i> ENTRAR
-                        </a>
-                    <?php endif; ?>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="/" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">Início</a>
+                        <a href="/#nossa-missao" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">Sobre</a>
+                        <a href="../../ajuda/" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">Suporte</a>
+                        <a href="../../FAQ/" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">FAQ</a>
+                    </div>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="../entrar/" class="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-full transition-all duration-200 transform hover:scale-105">
+                        <i class="fas fa-sign-in-alt mr-2"></i>ENTRAR
+                    </a>
+                </div>
+
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white hover:text-primary focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
                 </div>
             </div>
         </div>
-    </header>
 
-    <section class="form-log custom-section">
-        <div class="container mt-5 rounded">
-            <h4 class="mb-4 text-center" style="margin-top: 10%;">
-                Faça seu cadastro <i class="bi bi-person-plus me-2"></i>
-            </h4>
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-8 col-lg-6">
-                    <div class="card shadow-lg border-0 rounded-lg shadow-lg p-3 mb-5 bg-white">
-                        <div class="card-body p-5">
-                            <div class="d-flex justify-content-center align-items-center mb-4">
-                                <div id="g_id_onload"
-                                    data-client_id="<?= $_ENV['GOOGLE_ID_CLIENT'] ?>"
-                                    data-context="signup"
-                                    data-ux_mode="redirect"
-                                    data-login_uri="<?= $_ENV['GOOGLE_REDIRECT_REGISTER'] ?>"
-                                    data-auto_prompt="false">
-                                </div>
-                                <div class="g_id_signin"
-                                    data-type="standard"
-                                    data-shape="circle"
-                                    data-theme="outline"
-                                    data-size="medium"
-                                    data-text="signup_with">
-                                </div>
-                            </div>
-                            <hr class="my-3 mx-4" style="border-top: 2px solid #353535;" />
-                            <p class="text-muted text-center mb-0">Ou preencha seus dados abaixo</p>
-                            <?php
-                            if (isset($_SESSION['erro_email'])) {
-                                echo "<div class='alert alert-danger' role='alert'>" . $_SESSION['erro_email'] . "</div>";
-                                unset($_SESSION['erro_email']);
-                            }
-                            ?>
-                            <?php
-                            if (isset($_SESSION['sucesso_email'])) {
-                                echo "<div class='alert alert-success' role='alert'>Cadastro realizado com sucesso!</div>";
-                                unset($_SESSION['sucesso_email']);
-                            }
-                            ?>
-                            <form action="../backend/cadastro.php" class="needs-validation" id="formcad" method="post" novalidate>
-                                <div class="mb-3">
-                                    <label for="nome" class="form-label">Nome<span class="required-asterisk">*</span></label>
-                                    <input type="text" class="form-control" id="nome" name="nome" autocomplete="new-password" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label text-dark font-weight-semibold">E-mail<span class="required-asterisk">*</span></label>
-                                    <input type="email" class="form-control" name="email" required autocomplete="new-password">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="senha" class="form-label text-dark font-weight-semibold">Senha<span class="required-asterisk">*</span></label>
-                                    <div class="input-group">
-                                        <input type="password" class="form-control" id="senha" name="senha" required>
-                                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="confSenha" class="form-label text-dark font-weight-semibold">Confirme sua senha<span class="required-asterisk">*</span></label>
-                                    <div class="input-group">
-                                        <input type="password" class="form-control" id="confSenha" name="confSenha" required>
-                                        <button class="btn btn-outline-secondary" type="button" id="ConftogglePassword">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="estado" class="form-label">Estado<span class="required-asterisk">*</span></label>
-                                    <input class="form-control" list="datalistOptions" id="exampleDataList" name="estado" placeholder="Selecione seu estado...">
-                                    <datalist id="datalistOptions" name="estado">
-                                        <option value="AC">Acre</option>
-                                        <option value="AL">Alagoas</option>
-                                        <option value="AP">Amapá</option>
-                                        <option value="AM">Amazonas</option>
-                                        <option value="BA">Bahia</option>
-                                        <option value="CE">Ceará</option>
-                                        <option value="DF">Distrito Federal</option>
-                                        <option value="ES">Espírito Santo</option>
-                                        <option value="GO">Goiás</option>
-                                        <option value="MA">Maranhão</option>
-                                        <option value="MT">Mato Grosso</option>
-                                        <option value="MS">Mato Grosso do Sul</option>
-                                        <option value="MG">Minas Gerais</option>
-                                        <option value="PA">Pará</option>
-                                        <option value="PB">Paraíba</option>
-                                        <option value="PR">Paraná</option>
-                                        <option value="PE">Pernambuco</option>
-                                        <option value="PI">Piauí</option>
-                                        <option value="RJ">Rio de Janeiro</option>
-                                        <option value="RN">Rio Grande do Norte</option>
-                                        <option value="RS">Rio Grande do Sul</option>
-                                        <option value="RO">Rondônia</option>
-                                        <option value="RR">Roraima</option>
-                                        <option value="SC">Santa Catarina</option>
-                                        <option value="SP">São Paulo</option>
-                                        <option value="SE">Sergipe</option>
-                                        <option value="TO">Tocantins</option>
-                                    </datalist>
-                                </div>
-                                <div class="form-check mt-4 mb-4">
-                                    <input type="checkbox" class="form-check-input" id="termsCheckbox" style="margin-top: 5px;" required>
-                                    <label class="form-check-label text-dark ms-2" for="termsCheckbox">
-                                        Eu li e aceito os <a href="/docs/Termos-de-Servico.php" class="text-primary" target="_blank" style="text-decoration: none;">Termos de Serviço</a> e a <a href="/docs/Politica-de-Privacidade.php" class="text-primary" target="_blank" style="text-decoration: none;">Política de Privacidade</a>.
-                                    </label>
-                                </div>
-                                <button class="btn btn-dark w-100 py-2 text-uppercase font-weight-bold" type="submit">
-                                    <i class="bi bi-person-plus"></i> CADASTRAR
-                                    <span class="spinner-border spinner-border-sm text-light" id="loadingSpinner" role="status" aria-hidden="true" style="display: none;"></span>
-                                </button>
-                            </form>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-dark-light border-t border-primary/20">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="/" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Início</a>
+                <a href="/#nossa-missao" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Sobre</a>
+                <a href="../../ajuda/" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Suporte</a>
+                <a href="../../FAQ/" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">FAQ</a>
+                <div class="border-t border-primary/20 pt-4 mt-4">
+                    <a href="../entrar/" class="bg-primary hover:bg-primary-dark text-white block text-center px-4 py-2 rounded-full transition-all duration-200">
+                        <i class="fas fa-sign-in-alt mr-2"></i>ENTRAR
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Compacta) -->
+    <section class="pt-36 pb-12 bg-gradient-to-br from-dark via-dark-light to-dark relative overflow-hidden">
+        <!-- Background elements (menores e menos chamativos) -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-20 -right-20 w-40 h-40 bg-primary/10 rounded-full blur-2xl"></div>
+            <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-primary/10 rounded-full blur-2xl" style="animation-delay: 1s;"></div>
+        </div>
+
+        <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div>
+                <div class="w-14 h-14 bg-gradient-to-br from-primary to-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user-plus text-2xl text-white"></i>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white via-primary to-white bg-clip-text text-transparent">
+                    Crie Sua Conta
+                </h1>
+                <p class="text-base text-gray-300 mb-6 max-w-xl mx-auto">
+                    Junte-se a milhares de famílias que já protegem sua saúde com nossa plataforma
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form Section -->
+    <section class="py-16 bg-gradient-to-b from-dark to-dark-light">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-dark-light/50 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-primary/20 shadow-2xl">
+
+                <!-- Google Sign In -->
+                <div class="text-center mb-8" style="align-items: center; justify-content: center; justify-items: center;">
+                    <div id="g_id_onload"
+                        data-client_id="<?= $_ENV['GOOGLE_ID_CLIENT'] ?>"
+                        data-context="signup"
+                        data-ux_mode="redirect"
+                        data-login_uri="<?= $_ENV['GOOGLE_REDIRECT_REGISTER'] ?>"
+                        data-auto_prompt="false">
+                    </div>
+                    <div class="g_id_signin"
+                        data-type="standard"
+                        data-shape="rectangular"
+                        data-theme="filled_blue"
+                        data-size="large"
+                        data-text="signup_with"
+                        data-width="300">
+                    </div>
+                </div>
+
+                <div class="relative my-8">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-primary/30"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-4 bg-dark-light text-gray-400">Ou cadastre-se com e-mail</span>
+                    </div>
+                </div>
+
+                <!-- Error/Success Messages -->
+                <?php if (isset($_SESSION['erro_email'])): ?>
+                    <div class="mb-6 bg-red-500/20 border border-red-500/30 rounded-lg p-4 animate-fade-in">
+                        <div class="flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-400 mr-3"></i>
+                            <span class="text-red-300"><?= $_SESSION['erro_email'] ?></span>
                         </div>
                     </div>
-                    <div class="text-center mt-4">
-                        <hr class="custom-hr">
-                        <p class="mb-1 text-dark">Já tem uma conta?</p>
-                        <a href="../entrar/" class="text-primary" style="text-decoration: none;">
-                            <i class="bi bi-door-open"></i> Entrar
-                        </a>
+                    <?php unset($_SESSION['erro_email']); ?>
+                <?php endif; ?>
+
+                <?php if (isset($_SESSION['sucesso_email'])): ?>
+                    <div class="mb-6 bg-green-500/20 border border-green-500/30 rounded-lg p-4 animate-fade-in">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                            <span class="text-green-300">Cadastro realizado com sucesso!</span>
+                        </div>
                     </div>
-                    <div class="text-center mt-4">
-                        <p class="mb-1 text-dark">Precisa confirmar o cadastro?</p>
-                        <a href="../confirmar-cadastro/" class="text-primary" style="text-decoration: none;">
-                            <i class="bi bi-check-circle"></i> Confirme o cadastro
-                        </a>
+                    <?php unset($_SESSION['sucesso_email']); ?>
+                <?php endif; ?>
+
+                <!-- Registration Form -->
+                <form action="../backend/cadastro.php" method="post" id="formcad" class="space-y-6">
+                    <div>
+                        <label for="nome" class="block text-sm font-medium text-gray-300 mb-2">
+                            Nome Completo <span class="text-red-400">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="nome"
+                            name="nome"
+                            required
+                            class="w-full px-4 py-3 bg-dark border border-primary/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
+                            placeholder="Seu nome completo">
                     </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-300 mb-2">
+                            E-mail <span class="text-red-400">*</span>
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            class="w-full px-4 py-3 bg-dark border border-primary/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
+                            placeholder="seu@email.com">
+                    </div>
+
+                    <div>
+                        <label for="senha" class="block text-sm font-medium text-gray-300 mb-2">
+                            Senha <span class="text-red-400">*</span>
+                        </label>
+                        <div class="relative">
+                            <input
+                                type="password"
+                                id="senha"
+                                name="senha"
+                                required
+                                class="w-full px-4 py-3 pr-12 bg-dark border border-primary/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
+                                placeholder="Sua senha segura">
+                            <button
+                                type="button"
+                                id="togglePassword"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary transition-colors">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="mt-2 space-y-1">
+                            <div class="flex items-center text-xs">
+                                <i class="fas fa-circle text-gray-600 mr-2" id="length-check"></i>
+                                <span class="text-gray-400" id="length-text">Mínimo 8 caracteres</span>
+                            </div>
+                            <div class="flex items-center text-xs">
+                                <i class="fas fa-circle text-gray-600 mr-2" id="special-check"></i>
+                                <span class="text-gray-400" id="special-text">Pelo menos 1 caractere especial</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="confSenha" class="block text-sm font-medium text-gray-300 mb-2">
+                            Confirmar Senha <span class="text-red-400">*</span>
+                        </label>
+                        <div class="relative">
+                            <input
+                                type="password"
+                                id="confSenha"
+                                name="confSenha"
+                                required
+                                class="w-full px-4 py-3 pr-12 bg-dark border border-primary/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
+                                placeholder="Confirme sua senha">
+                            <button
+                                type="button"
+                                id="ConftogglePassword"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary transition-colors">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="mt-2">
+                            <div class="flex items-center text-xs">
+                                <i class="fas fa-circle text-gray-600 mr-2" id="match-check"></i>
+                                <span class="text-gray-400" id="match-text">Senhas devem coincidir</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="estado" class="block text-sm font-medium text-gray-300 mb-2">
+                            Estado <span class="text-red-400">*</span>
+                        </label>
+                        <select
+                            id="estado"
+                            name="estado"
+                            required
+                            class="w-full px-4 py-3 bg-dark border border-primary/30 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200">
+                            <option value="">Selecione seu estado</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-start space-x-3">
+                        <input
+                            type="checkbox"
+                            id="termsCheckbox"
+                            required
+                            class="mt-1 w-4 h-4 text-primary bg-dark border-primary/30 rounded focus:ring-primary focus:ring-2">
+                        <label for="termsCheckbox" class="text-sm text-gray-300 leading-relaxed">
+                            Eu li e aceito os
+                            <a href="/docs/Termos-de-Servico.php" target="_blank" class="text-primary hover:text-blue-400 underline">Termos de Serviço</a>
+                            e a
+                            <a href="/docs/Politica-de-Privacidade.php" target="_blank" class="text-primary hover:text-blue-400 underline">Política de Privacidade</a>
+                        </label>
+                    </div>
+
+                    <button
+                        type="submit"
+                        id="submit-btn"
+                        class="w-full bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-lg font-semibold transition-all duration-200 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-user-plus mr-2"></i>
+                        <span id="btn-text">Criar Conta</span>
+                    </button>
+                </form>
+
+                <!-- Login Link -->
+                <div class="mt-8 text-center">
+                    <div class="relative my-6">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-primary/20"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-4 bg-dark-light text-gray-400">Já tem uma conta?</span>
+                        </div>
+                    </div>
+                    <a href="../entrar/" class="text-primary hover:text-blue-400 font-medium transition-colors">
+                        <i class="fas fa-sign-in-alt mr-2"></i>Fazer Login
+                    </a>
+                </div>
+
+                <!-- Confirm Registration Link -->
+                <div class="mt-4 text-center">
+                    <a href="../confirmar-cadastro/" class="text-gray-400 hover:text-primary text-sm transition-colors">
+                        <i class="fas fa-envelope-open mr-2"></i>Precisa confirmar o cadastro?
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Footer -->
+    <footer class="bg-dark-lighter border-t border-primary/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <img src="/assets/img/logo-head.png" alt="Logo" class="h-8 w-auto">
+                        <span class="text-xl font-bold text-primary">Minhas Vacinas</span>
+                    </div>
+                    <p class="text-gray-400">Protegendo você e sua família com informações e controle digital de vacinas.</p>
+                </div>
 
-    <footer style="background-color: #212529; color: #f8f9fa; padding-top: 10px; margin-top: 3%;">
-        <div class="me-5 d-none d-lg-block"></div>
-        <div class="container text-center text-md-start mt-5">
-            <div class="row mt-3">
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">
-                        <i class="bi bi-gem me-2"></i>Minhas Vacinas
-                    </h6>
-                    <p>
-                        <i class="bi bi-info-circle me-1"></i> Protegendo você e sua família com informações e
-                        controle digital de vacinas.
-                    </p>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Serviços</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/src/auth/cadastro/" class="text-gray-400 hover:text-primary transition-colors">Cadastro</a></li>
+                        <li><a href="/src/ajuda/" class="text-gray-400 hover:text-primary transition-colors">Suporte</a></li>
+                        <li><a href="/src/painel/" class="text-gray-400 hover:text-primary transition-colors">Histórico</a></li>
+                    </ul>
                 </div>
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Serviços</h6>
-                    <p>
-                        <a href="/src/auth/cadastro/" style="text-decoration: none; color: #adb5bd;" class="text-reset">Cadastro</a>
-                    </p>
-                    <p>
-                        <a href="/src/ajuda/" style="text-decoration: none; color: #adb5bd;" class="text-reset">Suporte</a>
-                    </p>
-                    <p>
-                        <a href="/src/painel/" style="text-decoration: none; color: #adb5bd;" class="text-reset">Histórico</a>
-                    </p>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Links Úteis</h3>
+                    <ul class="space-y-2">
+                        <li><a href="../../../docs/Politica-de-Privacidade.php" class="text-gray-400 hover:text-primary transition-colors">Política de Privacidade</a></li>
+                        <li><a href="../../../docs/Termos-de-Servico.php" class="text-gray-400 hover:text-primary transition-colors">Termos de Serviço</a></li>
+                    </ul>
                 </div>
-                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Links Úteis</h6>
-                    <p>
-                        <a href="../../../docs/Politica-de-Privacidade.php"
-                            style="text-decoration: none; color: #adb5bd;" class="text-reset">Política de
-                            Privacidade</a>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Contato</h3>
+                    <p class="text-gray-400">
+                        <i class="fas fa-envelope mr-2 text-primary"></i>
+                        contato@minhasvacinas.online
                     </p>
-                    <p>
-                        <a href="../../../docs/Termos-de-Servico.php" style="text-decoration: none; color: #adb5bd;"
-                            class="text-reset">Termos de Serviço</a>
-                    </p>
-                </div>
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Contato</h6>
-                    <p><i class="bi bi-envelope me-2"></i>contato@minhasvacinas.online</p>
                 </div>
             </div>
         </div>
 
-        <div class="text-center p-4" style="background-color: #181a1b; color: #adb5bd;">
-            © 2025 Minhas Vacinas. Todos os direitos reservados.
+        <div class="border-t border-primary/20 bg-dark py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <p class="text-center text-gray-400">
+                    © 2025 Minhas Vacinas. Todos os direitos reservados.
+                </p>
+            </div>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <script src="https://accounts.google.com/gsi/client" async></script>
+    <!-- Scripts -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="script.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Password visibility toggles
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const password = document.getElementById('senha');
+            const icon = this.querySelector('i');
+
+            if (password.type === 'password') {
+                password.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                password.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+
+        document.getElementById('ConftogglePassword').addEventListener('click', function() {
+            const password = document.getElementById('confSenha');
+            const icon = this.querySelector('i');
+
+            if (password.type === 'password') {
+                password.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                password.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+
+        // Password validation
+        const senhaInput = document.getElementById('senha');
+        const confSenhaInput = document.getElementById('confSenha');
+        const lengthCheck = document.getElementById('length-check');
+        const lengthText = document.getElementById('length-text');
+        const specialCheck = document.getElementById('special-check');
+        const specialText = document.getElementById('special-text');
+        const matchCheck = document.getElementById('match-check');
+        const matchText = document.getElementById('match-text');
+
+        function validatePassword() {
+            const password = senhaInput.value;
+            const confirmPassword = confSenhaInput.value;
+
+            // Length validation
+            if (password.length >= 8) {
+                lengthCheck.classList.remove('text-gray-600');
+                lengthCheck.classList.add('text-green-400');
+                lengthText.classList.remove('text-gray-400');
+                lengthText.classList.add('text-green-400');
+            } else {
+                lengthCheck.classList.remove('text-green-400');
+                lengthCheck.classList.add('text-gray-600');
+                lengthText.classList.remove('text-green-400');
+                lengthText.classList.add('text-gray-400');
+            }
+
+            // Special character validation
+            const specialRegex = /[!@#$%^&*(),.?":{}|<>]/;
+            if (specialRegex.test(password)) {
+                specialCheck.classList.remove('text-gray-600');
+                specialCheck.classList.add('text-green-400');
+                specialText.classList.remove('text-gray-400');
+                specialText.classList.add('text-green-400');
+            } else {
+                specialCheck.classList.remove('text-green-400');
+                specialCheck.classList.add('text-gray-600');
+                specialText.classList.remove('text-green-400');
+                specialText.classList.add('text-gray-400');
+            }
+
+            // Password match validation
+            if (password && confirmPassword && password === confirmPassword) {
+                matchCheck.classList.remove('text-gray-600', 'text-red-400');
+                matchCheck.classList.add('text-green-400');
+                matchText.classList.remove('text-gray-400', 'text-red-400');
+                matchText.classList.add('text-green-400');
+                matchText.textContent = 'Senhas coincidem';
+            } else if (confirmPassword) {
+                matchCheck.classList.remove('text-gray-600', 'text-green-400');
+                matchCheck.classList.add('text-red-400');
+                matchText.classList.remove('text-gray-400', 'text-green-400');
+                matchText.classList.add('text-red-400');
+                matchText.textContent = 'Senhas não coincidem';
+            } else {
+                matchCheck.classList.remove('text-green-400', 'text-red-400');
+                matchCheck.classList.add('text-gray-600');
+                matchText.classList.remove('text-green-400', 'text-red-400');
+                matchText.classList.add('text-gray-400');
+                matchText.textContent = 'Senhas devem coincidir';
+            }
+        }
+
+        senhaInput.addEventListener('input', validatePassword);
+        confSenhaInput.addEventListener('input', validatePassword);
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="universal-notifications.js"></script>
+    <?php
+    include '/src/scripts/notification-helper.php';
+    NotificationHelper::display();
+    ?>
 </body>
 
 </html>
