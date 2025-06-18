@@ -1,5 +1,5 @@
 <?php
-require '../../scripts/Conexao.php';
+require '../../utils/ConexaoDB.php';
 
 $token = $_GET['token'];
 
@@ -18,7 +18,8 @@ if ($sql->rowCount() != 1) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
+    <link rel="icon" href="/app/public/img/img-web.png" type="image/x-icon">
+    <link rel="stylesheet" href="/app/public/css/sweetalert-styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -82,7 +83,7 @@ if ($sql->rowCount() != 1) {
             <div class="flex justify-between items-center h-16">
                 <div class="flex-shrink-0">
                     <a href="/" class="flex items-center space-x-2">
-                        <img src="/assets/img/logo-head.png" alt="Logo Vacinas" class="h-10 w-auto">
+                        <img src="/app/public/img/logo-head.png" alt="Logo Vacinas" class="h-10 w-auto">
                         <span class="text-xl font-bold text-primary">Minhas Vacinas</span>
                     </a>
                 </div>
@@ -265,7 +266,7 @@ if ($sql->rowCount() != 1) {
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="space-y-4">
                     <div class="flex items-center space-x-2">
-                        <img src="/assets/img/logo-head.png" alt="Logo" class="h-8 w-auto">
+                        <img src="/app/public/img/logo-head.png" alt="Logo" class="h-8 w-auto">
                         <span class="text-xl font-bold text-primary">Minhas Vacinas</span>
                     </div>
                     <p class="text-gray-400">Protegendo você e sua família com informações e controle digital de vacinas.</p>
@@ -283,8 +284,8 @@ if ($sql->rowCount() != 1) {
                 <div>
                     <h3 class="text-lg font-semibold text-white mb-4">Links Úteis</h3>
                     <ul class="space-y-2">
-                        <li><a href="../../../docs/Politica-de-Privacidade.php" class="text-gray-400 hover:text-primary transition-colors">Política de Privacidade</a></li>
-                        <li><a href="../../../docs/Termos-de-Servico.php" class="text-gray-400 hover:text-primary transition-colors">Termos de Serviço</a></li>
+                        <li><a href="/docs/privacidade.php" class="text-gray-400 hover:text-primary transition-colors">Política de Privacidade</a></li>
+                        <li><a href="/docs/termos.php" class="text-gray-400 hover:text-primary transition-colors">Termos de Serviço</a></li>
                     </ul>
                 </div>
 
@@ -484,94 +485,10 @@ if ($sql->rowCount() != 1) {
 
         senhaInput.addEventListener('input', validatePassword);
         confSenhaInput.addEventListener('input', checkPasswordMatch);
-
-        // Form submission
-        document.getElementById('form_reset').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const submitBtn = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btn-text');
-            const loadingSpinner = document.getElementById('loading-spinner');
-
-            // Show loading state
-            submitBtn.disabled = true;
-            btnText.textContent = 'Criando senha...';
-            loadingSpinner.classList.remove('hidden');
-
-            try {
-                const formData = new FormData(this);
-                const response = await fetch(this.action, {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (response.ok) {
-                    showNotification('Senha criada com sucesso! Redirecionando...', 'success');
-                    setTimeout(() => {
-                        window.location.href = '../entrar/';
-                    }, 2000);
-                } else {
-                    throw new Error('Erro ao criar senha');
-                }
-
-            } catch (error) {
-                console.error('Error:', error);
-                showNotification('Erro ao criar nova senha. Tente novamente.', 'error');
-
-            } finally {
-                submitBtn.disabled = false;
-                btnText.textContent = 'Criar Nova Senha';
-                loadingSpinner.classList.add('hidden');
-            }
-        });
-
-        // Notification system
-        function showNotification(message, type = 'info', duration = 5000) {
-            const notification = document.createElement('div');
-            notification.className = `fixed top-4 right-4 z-50 max-w-sm p-4 rounded-lg shadow-2xl transform transition-all duration-300 translate-x-full`;
-
-            const colors = {
-                success: 'bg-green-500/20 border border-green-500/30 text-green-400',
-                error: 'bg-red-500/20 border border-red-500/30 text-red-400',
-                warning: 'bg-yellow-500/20 border border-yellow-500/30 text-yellow-400',
-                info: 'bg-blue-500/20 border border-blue-500/30 text-blue-400'
-            };
-
-            const icons = {
-                success: 'fa-check-circle',
-                error: 'fa-exclamation-triangle',
-                warning: 'fa-exclamation-circle',
-                info: 'fa-info-circle'
-            };
-
-            notification.className += ` ${colors[type]}`;
-
-            notification.innerHTML = `
-                <div class="flex items-start">
-                    <i class="fas ${icons[type]} mr-3 mt-0.5 flex-shrink-0"></i>
-                    <div class="flex-1">
-                        <p class="font-medium">${message}</p>
-                    </div>
-                    <button class="ml-3 flex-shrink-0 hover:opacity-70 transition-opacity" onclick="this.parentElement.parentElement.remove()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            `;
-
-            document.body.appendChild(notification);
-
-            setTimeout(() => {
-                notification.classList.remove('translate-x-full');
-            }, 100);
-
-            setTimeout(() => {
-                notification.classList.add('translate-x-full');
-                setTimeout(() => {
-                    notification.remove();
-                }, 300);
-            }, duration);
-        }
     </script>
+    <script type="module" src="/app/public/js/sweetalert-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

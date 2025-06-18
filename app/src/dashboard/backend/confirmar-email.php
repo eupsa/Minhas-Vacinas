@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '../../../../../libs/autoload.php';
+require_once __DIR__ . '../../../libs/autoload.php';
 require_once '../../utils/ConexaoDB.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../../');
@@ -19,29 +19,29 @@ if (empty($codigo)) {
     exit();
 } else {
     try {
-        $sql = $pdo->prepare("SELECT * FROM confirmar_cadastro WHERE codigo = :codigo");
+        $sql = $pdo->prepare("SELECT * FROM mudar_email WHERE codigo = :codigo");
         $sql->bindValue(':codigo', $codigo);
         $sql->execute();
 
         if ($sql->rowCount() === 1) {
             $usuario = $sql->fetch(PDO::FETCH_BOTH);
+            $id_usuario = $usuario['id_usuario'];
             $email = $usuario['email'];
-
-            $sql = $pdo->prepare("UPDATE usuario SET email_conf = 1 WHERE email = :email");
+            $sql = $pdo->prepare("UPDATE usuario SET email = :email WHERE id_usuario = :id_usuario");
             $sql->bindValue(':email', $email);
+            $sql->bindValue(':id_usuario', $id_usuario);
             $sql->execute();
 
             if ($sql->rowCount() === 1) {
-                enviarEmail($email);
-                $sql = $pdo->prepare("DELETE FROM confirmar_cadastro WHERE email = :email");
-                $sql->bindValue(':email', $email);
+                $sql = $pdo->prepare("DELETE FROM mudar_email WHERE id_usuario = :id_usuario");
+                $sql->bindValue(':id_usuario', $id_usuario);
                 $sql->execute();
 
-                $retorna = ['status' => true, 'msg' => "Seu e-mail foi verificado. Agora você pode acessar todos os recursos da plataforma."];
+                enviarEmail($email);
+                $_SESSION['user_id'] = $email;
+                $retorna = ['status' => true, 'msg' => "E-mail alterado e verificado com sucesso."];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
-                $_SESSION = [];
-                session_destroy();
                 exit();
             } else {
                 $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar confirmar seu cadastro. Tente novamente."];
@@ -57,7 +57,7 @@ if (empty($codigo)) {
             exit();
         }
     } catch (PDOException $e) {
-        $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar confirmar seu cadastro."];
+        $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar confirmar seu cadastro:" . $e->getMessage()];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();
@@ -66,9 +66,8 @@ if (empty($codigo)) {
 
 function enviarEmail($email)
 {
-    $email_body = file_get_contents('../../../assets/email/cadastro-confirmado.html');
+    $email_body = file_get_contents('../../../assets/email/novo-email.html');
     $mail = new PHPMailer(true);
-
     try {
         $mail->isSMTP();
         $mail->Host = $_ENV['HOST_SMTP'];
@@ -81,7 +80,7 @@ function enviarEmail($email)
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
-        $mail->Subject = 'Cadastro confirmado!';
+        $mail->Subject = 'E-mail alterado com sucesso!';
         $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img');
         $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;

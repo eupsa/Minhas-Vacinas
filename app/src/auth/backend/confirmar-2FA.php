@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once '../../../vendor/autoload.php';
-require_once '../../scripts/Conexao.php';
+require_once __DIR__ . '../../../../../libs/autoload.php';
+require_once '../../utils/ConexaoDB.php';
 
 $g = new \Sonata\GoogleAuthenticator\GoogleAuthenticator();
 

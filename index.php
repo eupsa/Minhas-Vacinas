@@ -1,7 +1,8 @@
 <?php
 session_start();
-require_once 'src/scripts/Conexao.php';
-require_once 'vendor/autoload.php';
+require_once 'app/src/utils/ConexaoDB.php';
+require_once 'libs/autoload.php';
+
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -63,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
+    <link rel="icon" href="/app/public/img/img-web.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -153,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <!-- Logo -->
                 <div class="flex-shrink-0">
                     <a href="/" class="flex items-center space-x-2">
-                        <img src="/assets/img/logo-head.png" alt="Logo Vacinas" class="h-10 w-auto">
+                        <img src="/app/public/img/logo-head.png" alt="Logo Vacinas" class="h-10 w-auto">
                         <span class="text-xl font-bold text-primary">Minhas Vacinas</span>
                     </a>
                 </div>
@@ -161,10 +162,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <!-- Desktop Menu -->
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="/" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">Início</a>
+                        <a href="" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">Início</a>
                         <a href="#nossa-missao" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">Sobre</a>
-                        <a href="src/ajuda/" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">Suporte</a>
-                        <a href="src/FAQ/" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">FAQ</a>
+                        <a href="app/src/ajuda/" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">Suporte</a>
                     </div>
                 </div>
 
@@ -177,22 +177,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <i class="fas fa-chevron-down text-xs"></i>
                             </button>
                             <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-dark-light rounded-lg shadow-xl border border-primary/20 py-2">
-                                <a href="src/painel/" class="block px-4 py-2 text-sm text-white hover:bg-primary/20 transition-colors">
+                                <a href="app/src/dashboard/" class="block px-4 py-2 text-sm text-white hover:bg-primary/20 transition-colors">
                                     <i class="fas fa-home mr-2"></i>Painel
                                 </a>
-                                <a href="src/painel/vacinas/" class="block px-4 py-2 text-sm text-white hover:bg-primary/20 transition-colors">
+                                <a href="app/src/dashboard/vacinas/" class="block px-4 py-2 text-sm text-white hover:bg-primary/20 transition-colors">
                                     <i class="fas fa-syringe mr-2"></i>Vacinas
                                 </a>
-                                <a href="src/painel/perfil/" class="block px-4 py-2 text-sm text-white hover:bg-primary/20 transition-colors">
+                                <a href="app/src/dashboard/perfil/" class="block px-4 py-2 text-sm text-white hover:bg-primary/20 transition-colors">
                                     <i class="fas fa-user-circle mr-2"></i>Perfil
                                 </a>
                             </div>
                         </div>
                     <?php else: ?>
-                        <a href="src/auth/cadastro/" class="bg-transparent border border-primary text-primary hover:bg-primary hover:text-white px-6 py-2 rounded-full transition-all duration-200 transform hover:scale-105">
+                        <a href="app/src/auth/cadastro/" class="bg-transparent border border-primary text-primary hover:bg-primary hover:text-white px-6 py-2 rounded-full transition-all duration-200 transform hover:scale-105">
                             <i class="fas fa-user-plus mr-2"></i>CADASTRE-SE
                         </a>
-                        <a href="src/auth/entrar/" class="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-full transition-all duration-200 transform hover:scale-105 animate-glow">
+                        <a href="app/src/auth/entrar/" class="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-full transition-all duration-200 transform hover:scale-105 animate-glow">
                             <i class="fas fa-sign-in-alt mr-2"></i>ENTRAR
                         </a>
                     <?php endif; ?>
@@ -220,19 +220,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <a href="src/painel/" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">
                             <i class="fas fa-home mr-2"></i>Painel
                         </a>
-                        <a href="src/painel/vacinas/" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">
+                        <a href="app/src/dashboard/vacinas/" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">
                             <i class="fas fa-syringe mr-2"></i>Vacinas
                         </a>
-                        <a href="src/painel/perfil/" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">
+                        <a href="app/src/dashboard/perfil/" class="text-white hover:text-primary block px-3 py-2 rounded-md text-base font-medium">
                             <i class="fas fa-user-circle mr-2"></i>Perfil
                         </a>
                     </div>
                 <?php else: ?>
                     <div class="border-t border-primary/20 pt-4 mt-4 space-y-2">
-                        <a href="src/auth/cadastro/" class="bg-transparent border border-primary text-primary hover:bg-primary hover:text-white block text-center px-4 py-2 rounded-full transition-all duration-200">
+                        <a href="app/src/auth/cadastro/" class="bg-transparent border border-primary text-primary hover:bg-primary hover:text-white block text-center px-4 py-2 rounded-full transition-all duration-200">
                             <i class="fas fa-user-plus mr-2"></i>CADASTRE-SE
                         </a>
-                        <a href="src/auth/entrar/" class="bg-primary hover:bg-primary-dark text-white block text-center px-4 py-2 rounded-full transition-all duration-200">
+                        <a href="app/src/auth/entrar/" class="bg-primary hover:bg-primary-dark text-white block text-center px-4 py-2 rounded-full transition-all duration-200">
                             <i class="fas fa-sign-in-alt mr-2"></i>ENTRAR
                         </a>
                     </div>
@@ -266,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <a href="src/auth/cadastro/" class="bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 animate-glow">
+                    <a href="app/src/auth/cadastro/" class="bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 animate-glow">
                         <i class="fas fa-rocket mr-2"></i>Começar Agora
                     </a>
                     <a href="#recursos" class="bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105">
@@ -502,7 +502,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <!-- Company Info -->
                 <div class="space-y-4">
                     <div class="flex items-center space-x-2">
-                        <img src="/assets/img/logo-head.png" alt="Logo" class="h-8 w-auto">
+                        <img src="/app/public/img/logo-head.png" alt="Logo" class="h-8 w-auto">
                         <span class="text-xl font-bold text-primary">Minhas Vacinas</span>
                     </div>
                     <p class="text-gray-400">Protegendo você e sua família com informações e controle digital de vacinas.</p>
@@ -523,7 +523,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div>
                     <h3 class="text-lg font-semibold text-white mb-4">Serviços</h3>
                     <ul class="space-y-2">
-                        <li><a href="/src/auth/cadastro/" class="text-gray-400 hover:text-primary transition-colors">Cadastro</a></li>
+                        <li><a href="/app/src/auth/cadastro/" class="text-gray-400 hover:text-primary transition-colors">Cadastro</a></li>
                         <li><a href="/src/ajuda/" class="text-gray-400 hover:text-primary transition-colors">Suporte</a></li>
                         <li><a href="/src/painel/" class="text-gray-400 hover:text-primary transition-colors">Histórico</a></li>
                     </ul>
@@ -533,8 +533,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div>
                     <h3 class="text-lg font-semibold text-white mb-4">Links Úteis</h3>
                     <ul class="space-y-2">
-                        <li><a href="docs/Politica-de-Privacidade.php" class="text-gray-400 hover:text-primary transition-colors">Política de Privacidade</a></li>
-                        <li><a href="docs/Termos-de-Servico.php" class="text-gray-400 hover:text-primary transition-colors">Termos de Serviço</a></li>
+                        <li><a href="docs/privacidade.php" class="text-gray-400 hover:text-primary transition-colors">Política de Privacidade</a></li>
+                        <li><a href="docs/termos.php" class="text-gray-400 hover:text-primary transition-colors">Termos de Serviço</a></li>
                     </ul>
                 </div>
 

@@ -12,7 +12,7 @@ if (isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
+    <link rel="icon" href="/app/public/img/img-web.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -77,7 +77,7 @@ if (isset($_SESSION['user_id'])) {
             <div class="flex justify-between items-center h-16">
                 <div class="flex-shrink-0">
                     <a href="/" class="flex items-center space-x-2">
-                        <img src="/assets/img/logo-head.png" alt="Logo Vacinas" class="h-10 w-auto">
+                        <img src="/app/public/img/logo-head.png" alt="Logo Vacinas" class="h-10 w-auto">
                         <span class="text-xl font-bold text-primary">Minhas Vacinas</span>
                     </a>
                 </div>
@@ -226,7 +226,7 @@ if (isset($_SESSION['user_id'])) {
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="space-y-4">
                     <div class="flex items-center space-x-2">
-                        <img src="/assets/img/logo-head.png" alt="Logo" class="h-8 w-auto">
+                        <img src="/app/public/img/logo-head.png" alt="Logo" class="h-8 w-auto">
                         <span class="text-xl font-bold text-primary">Minhas Vacinas</span>
                     </div>
                     <p class="text-gray-400">Protegendo você e sua família com informações e controle digital de vacinas.</p>
@@ -244,8 +244,8 @@ if (isset($_SESSION['user_id'])) {
                 <div>
                     <h3 class="text-lg font-semibold text-white mb-4">Links Úteis</h3>
                     <ul class="space-y-2">
-                        <li><a href="../../../docs/Politica-de-Privacidade.php" class="text-gray-400 hover:text-primary transition-colors">Política de Privacidade</a></li>
-                        <li><a href="../../../docs/Termos-de-Servico.php" class="text-gray-400 hover:text-primary transition-colors">Termos de Serviço</a></li>
+                        <li><a href="/docs/privacidade.php" class="text-gray-400 hover:text-primary transition-colors">Política de Privacidade</a></li>
+                        <li><a href="/docs/termos.php" class="text-gray-400 hover:text-primary transition-colors">Termos de Serviço</a></li>
                     </ul>
                 </div>
 

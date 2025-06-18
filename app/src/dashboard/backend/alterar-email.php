@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '../../../../../libs/autoload.php';
+require_once __DIR__ . '../../../libs/autoload.php';
 require_once '../../utils/ConexaoDB.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../../');
@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\Exception;
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $email = filter_var(strtolower(trim($dados['email'])), FILTER_SANITIZE_EMAIL);
-
+$email_atual = $_SESSION['user_email'];
 
 if (empty($email)) {
     $retorna = ['status' => false, 'msg' => "O campo e-mail não foi preenchido."];
@@ -21,61 +21,61 @@ if (empty($email)) {
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $retorna = ['status' => false, 'msg' => "E-mail inválido."];
+    $retorna = ['status' => false, 'msg' => "E-mail fornecido é inválido."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
 }
 
-$sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
+$sql = $pdo->prepare("SELECT * FROM mudar_email WHERE email = :email");
 $sql->bindValue(':email', $email);
 $sql->execute();
 
-if ($sql->rowCount() == 1) {
-    $usuario = $sql->fetch(PDO::FETCH_BOTH);
-    $email_conf = $usuario['email_conf'];
-
-    if ($email_conf == 1) {
-        $retorna = ['status' => false, 'msg' => "Seu cadastro já foi confirmado, faça login."];
-        header('Content-Type: application/json');
-        echo json_encode($retorna);
-        exit();
-    }
-
-    $sql = $pdo->prepare("SELECT * FROM confirmar_cadastro WHERE email = :email");
+if ($sql->rowCount() >= 3) {
+    $retorna = ['status' => false, 'msg' => "Máximo de solicitaçõea alcançadas. Tente novamente mais tarde ou entre em contato conosc."];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
+} else {
+    $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
     $sql->bindValue(':email', $email);
     $sql->execute();
 
-    if ($sql->rowCount() != 3) {
-        $codigo = rand(100000, 999999);
-        $sql = $pdo->prepare("INSERT INTO confirmar_cadastro (email, codigo) VALUES (:email, :codigo)");
-        $sql->bindValue(':email', $email);
-        $sql->bindValue(':codigo', $codigo);
-        $sql->execute();
-
-        email_cadastro($email, $codigo);
-        $retorna = ['status' => true, 'msg' => "Um novo código foi enviado para seu e-mail."];
-        header('Content-Type: application/json');
-        echo json_encode($retorna);
-        exit();
-    } else {
-        $retorna = ['status' => false, 'msg' => "Você excedeu o limite de códigos. Tente novamente mais tarde."];
+    if ($sql->rowCount() === 1) {
+        $retorna = ['status' => false, 'msg' => "E-mail já cadastrado."];
         header('Content-Type: application/json');
         echo json_encode($retorna);
         exit();
     }
-} else {
-    $retorna = ['status' => false, 'msg' => "Cadastro não encontrado."];
+}
+
+try {
+    $codigo = rand(100000, 999999);
+    $sql = $pdo->prepare("INSERT INTO mudar_email (email, codigo, id_usuario) VALUES (:email, :codigo, :id_usuario)");
+    $sql->bindValue(':email', $email);
+    $sql->bindValue(':codigo', $codigo);
+    $sql->bindValue(':id_usuario', $_SESSION['user_id']);
+    $sql->execute();
+
+    enviarEmail($email, $codigo);
+    $retorna = ['status' => true, 'msg' => "Código enviado com sucesso!"];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
+} catch (PDOException $e) {
+    $retorna = ['status' => false, 'msg' => $e];
+    echo json_encode($retorna);
+} finally {
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
 }
 
-function email_cadastro($email, $codigo)
+function enviarEmail($email, $codigo)
 {
-    $email_body = file_get_contents('../../../assets/email/cadastro.html');
+    $email_body = file_get_contents('../../../assets/email/alterar-email.html');
     $email_body = str_replace('{{code}}', $codigo, $email_body);
-    $mail = new PHPMailer();
+    $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
         $mail->Host = $_ENV['HOST_SMTP'];
@@ -88,11 +88,12 @@ function email_cadastro($email, $codigo)
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
-        $mail->Subject = 'Confirmação de Cadastro';
-        $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img');
+        $mail->Subject = 'Alteração de E-mail ';
+        $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img'); // Caminho da imagem e identificador CID
         $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;
         $mail->send();
+
         return true;
     } catch (Exception $e) {
         return false;

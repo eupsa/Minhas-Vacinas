@@ -1,5 +1,5 @@
 <?php
-require_once '../../scripts/Conexao.php';
+require_once '../../utils/ConexaoDB.php';
 $id_usuario = isset($_GET['id']) ? $_GET['id'] : '';
 $ip = isset($_GET['ip']) ? $_GET['ip'] : '';
 $erro = '';
@@ -41,7 +41,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
+    <link rel="icon" href="/app/public/img/img-web.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {

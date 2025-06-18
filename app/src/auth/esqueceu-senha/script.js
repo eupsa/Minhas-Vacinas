@@ -5,21 +5,23 @@ if (form_recovery) {
     e.preventDefault();
 
     const dadosForm = new FormData(form_recovery);
-
     const email = dadosForm.get("email");
 
+    // Validação de campo vazio
     if (!email) {
       Swal.fire({
-        text: "Preencha todos os campos.",
+        text: "Por favor, insira seu e-mail para recuperar sua senha.",
         icon: "error",
         confirmButtonColor: "#3085d6",
-        confirmButtonText: "Fechar",
+        confirmButtonText: "Ok",
       });
       return;
     }
 
+    // Exibe mensagem enquanto processa a solicitação
     Swal.fire({
-      title: "Processando sua solicitação...",
+      title: "Estamos processando sua solicitação...",
+      text: "Por favor, aguarde um momento. Isso pode levar alguns segundos.",
       timer: 7000,
       timerProgressBar: true,
       didOpen: () => {
@@ -27,6 +29,7 @@ if (form_recovery) {
       },
     });
 
+    // Envia a requisição para o backend
     const dados = await fetch("../backend/esqueceu_senha.php", {
       method: "POST",
       body: dadosForm,
@@ -34,22 +37,24 @@ if (form_recovery) {
 
     const resposta = await dados.json();
 
+    // Resposta de sucesso
     if (resposta["status"]) {
       Swal.fire({
         text: resposta["msg"],
         icon: "success",
         confirmButtonColor: "#3085d6",
-        confirmButtonText: "Fechar",
+        confirmButtonText: "Entendido",
       }).then(() => {
-        window.location.href = "../entrar/index.php";
+        window.location.href = "../entrar/"; // Redireciona para a página de login
       });
-      formcad.reset();
+      form_recovery.reset(); // Limpa o formulário após envio
     } else {
+      // Resposta de erro
       Swal.fire({
         text: resposta["msg"],
         icon: "error",
         confirmButtonColor: "#3085d6",
-        confirmButtonText: "Fechar",
+        confirmButtonText: "Tentar novamente",
       });
     }
   });

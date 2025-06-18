@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once '../../../vendor/autoload.php';
-require_once '../../scripts/Conexao.php';
+require_once __DIR__ . '../../../../../libs/autoload.php';
+require_once '../../utils/ConexaoDB.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '../../../../');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../../');
 $dotenv->load();
 
 use PHPMailer\PHPMailer\PHPMailer;

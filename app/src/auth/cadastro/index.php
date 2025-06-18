@@ -1,13 +1,13 @@
 <?php
-require_once '../../../vendor/autoload.php';
 session_start();
+require_once __DIR__ . '../../../../../libs/autoload.php';
 
 if (isset($_SESSION['user_id'])) {
     header("Location: ../../painel/");
     exit();
 }
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '../../../../');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../../');
 $dotenv->load();
 ?>
 
@@ -17,7 +17,8 @@ $dotenv->load();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
+    <link rel="icon" href="/app/public/img/img-web.png" type="image/x-icon">
+    <link rel="stylesheet" href="/app/public/css/sweetalert-styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -81,7 +82,7 @@ $dotenv->load();
             <div class="flex justify-between items-center h-16">
                 <div class="flex-shrink-0">
                     <a href="/" class="flex items-center space-x-2">
-                        <img src="/assets/img/logo-head.png" alt="Logo Vacinas" class="h-10 w-auto">
+                        <img src="/app/public/img/logo-head.png" alt="Logo Vacinas" class="h-10 w-auto">
                         <span class="text-xl font-bold text-primary">Minhas Vacinas</span>
                     </a>
                 </div>
@@ -91,7 +92,6 @@ $dotenv->load();
                         <a href="/" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">Início</a>
                         <a href="/#nossa-missao" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">Sobre</a>
                         <a href="../../ajuda/" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">Suporte</a>
-                        <a href="../../FAQ/" class="text-white hover:text-primary transition-colors duration-200 px-3 py-2 rounded-md text-sm font-medium">FAQ</a>
                     </div>
                 </div>
 
@@ -203,7 +203,10 @@ $dotenv->load();
                 <?php endif; ?>
 
                 <!-- Registration Form -->
-                <form action="../backend/cadastro.php" method="post" id="formcad" class="space-y-6">
+                <form action="../backend/cadastro.php" method="post" id="formcad" class="space-y-6"
+                    data-form-type="cadastro"
+                    data-backend-url="../backend/cadastro.php"
+                    data-redirect-url="../confirmar-cadastro/">
                     <div>
                         <label for="nome" class="block text-sm font-medium text-gray-300 mb-2">
                             Nome Completo <span class="text-red-400">*</span>
@@ -212,7 +215,7 @@ $dotenv->load();
                             type="text"
                             id="nome"
                             name="nome"
-                            required
+
                             class="w-full px-4 py-3 bg-dark border border-primary/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                             placeholder="Seu nome completo">
                     </div>
@@ -225,7 +228,7 @@ $dotenv->load();
                             type="email"
                             id="email"
                             name="email"
-                            required
+
                             class="w-full px-4 py-3 bg-dark border border-primary/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                             placeholder="seu@email.com">
                     </div>
@@ -239,7 +242,7 @@ $dotenv->load();
                                 type="password"
                                 id="senha"
                                 name="senha"
-                                required
+
                                 class="w-full px-4 py-3 pr-12 bg-dark border border-primary/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                                 placeholder="Sua senha segura">
                             <button
@@ -270,7 +273,7 @@ $dotenv->load();
                                 type="password"
                                 id="confSenha"
                                 name="confSenha"
-                                required
+
                                 class="w-full px-4 py-3 pr-12 bg-dark border border-primary/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                                 placeholder="Confirme sua senha">
                             <button
@@ -295,7 +298,7 @@ $dotenv->load();
                         <select
                             id="estado"
                             name="estado"
-                            required
+
                             class="w-full px-4 py-3 bg-dark border border-primary/30 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200">
                             <option value="">Selecione seu estado</option>
                             <option value="AC">Acre</option>
@@ -332,13 +335,13 @@ $dotenv->load();
                         <input
                             type="checkbox"
                             id="termsCheckbox"
-                            required
+
                             class="mt-1 w-4 h-4 text-primary bg-dark border-primary/30 rounded focus:ring-primary focus:ring-2">
                         <label for="termsCheckbox" class="text-sm text-gray-300 leading-relaxed">
                             Eu li e aceito os
-                            <a href="/docs/Termos-de-Servico.php" target="_blank" class="text-primary hover:text-blue-400 underline">Termos de Serviço</a>
+                            <a href="/docs/termos.html" target="_blank" class="text-primary hover:text-blue-400 underline">Termos de Serviço</a>
                             e a
-                            <a href="/docs/Politica-de-Privacidade.php" target="_blank" class="text-primary hover:text-blue-400 underline">Política de Privacidade</a>
+                            <a href="/docs/privacidade.html" target="_blank" class="text-primary hover:text-blue-400 underline">Política de Privacidade</a>
                         </label>
                     </div>
 
@@ -382,7 +385,7 @@ $dotenv->load();
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="space-y-4">
                     <div class="flex items-center space-x-2">
-                        <img src="/assets/img/logo-head.png" alt="Logo" class="h-8 w-auto">
+                        <img src="/app/public/img/logo-head.png" alt="Logo" class="h-8 w-auto">
                         <span class="text-xl font-bold text-primary">Minhas Vacinas</span>
                     </div>
                     <p class="text-gray-400">Protegendo você e sua família com informações e controle digital de vacinas.</p>
@@ -400,8 +403,8 @@ $dotenv->load();
                 <div>
                     <h3 class="text-lg font-semibold text-white mb-4">Links Úteis</h3>
                     <ul class="space-y-2">
-                        <li><a href="../../../docs/Politica-de-Privacidade.php" class="text-gray-400 hover:text-primary transition-colors">Política de Privacidade</a></li>
-                        <li><a href="../../../docs/Termos-de-Servico.php" class="text-gray-400 hover:text-primary transition-colors">Termos de Serviço</a></li>
+                        <li><a href="/docs/privacidade.php" class="text-gray-400 hover:text-primary transition-colors">Política de Privacidade</a></li>
+                        <li><a href="/docs/termos.php" class="text-gray-400 hover:text-primary transition-colors">Termos de Serviço</a></li>
                     </ul>
                 </div>
 
@@ -530,13 +533,9 @@ $dotenv->load();
         senhaInput.addEventListener('input', validatePassword);
         confSenhaInput.addEventListener('input', validatePassword);
     </script>
-    
+    <script type="module" src="/app/public/js/sweetalert-config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="universal-notifications.js"></script>
-    <?php
-    include '/src/scripts/notification-helper.php';
-    NotificationHelper::display();
-    ?>
+    <script src="script.js"></script>
 </body>
 
 </html>
