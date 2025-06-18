@@ -1,0 +1,151 @@
+/* SweetAlert2 Custom Styles */
+.swal2-popup {
+  background: #111827 !important;
+  border: 1px solid #374151 !important;
+  border-radius: 1rem !important;
+  font-family: "Inter", sans-serif !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.swal2-backdrop {
+  background: rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+.swal2-title {
+  color: #f9fafb !important;
+  font-weight: 700 !important;
+  font-size: 1.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.swal2-html-container {
+  color: #9ca3af !important;
+  font-size: 0.95rem !important;
+  line-height: 1.5 !important;
+}
+
+/* Buttons */
+.swal2-confirm {
+  background: #007bff !important;
+  border: none !important;
+  border-radius: 0.5rem !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  padding: 0.75rem 1.5rem !important;
+  transition: all 0.3s ease !important;
+  font-family: "Inter", sans-serif !important;
+}
+
+.swal2-confirm:hover {
+  background: #0056b3 !important;
+  transform: translateY(-1px) !important;
+}
+
+.swal2-cancel {
+  background: #374151 !important;
+  border: none !important;
+  border-radius: 0.5rem !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  padding: 0.75rem 1.5rem !important;
+  transition: all 0.3s ease !important;
+  font-family: "Inter", sans-serif !important;
+  color: #f9fafb !important;
+}
+
+.swal2-cancel:hover {
+  background: #4b5563 !important;
+  transform: translateY(-1px) !important;
+}
+
+.swal2-deny {
+  background: #dc2626 !important;
+  border: none !important;
+  border-radius: 0.5rem !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  padding: 0.75rem 1.5rem !important;
+  transition: all 0.3s ease !important;
+  font-family: "Inter", sans-serif !important;
+}
+
+.swal2-deny:hover {
+  background: #b91c1c !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Icons */
+.swal2-success .swal2-success-ring {
+  border-color: #10b981 !important;
+}
+
+.swal2-success .swal2-success-fix {
+  background-color: #111827 !important;
+}
+
+.swal2-error .swal2-error-line {
+  background-color: #ef4444 !important;
+}
+
+.swal2-warning .swal2-warning-outline {
+  border-color: #f59e0b !important;
+}
+
+.swal2-info .swal2-info-outline {
+  border-color: #007bff !important;
+}
+
+/* Input fields */
+.swal2-input {
+  background: #1f2937 !important;
+  border: 1px solid #374151 !important;
+  border-radius: 0.5rem !important;
+  color: #f9fafb !important;
+  font-family: "Inter", sans-serif !important;
+  padding: 0.75rem !important;
+}
+
+.swal2-input:focus {
+  border-color: #007bff !important;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1) !important;
+  outline: none !important;
+}
+
+.swal2-input::placeholder {
+  color: #6b7280 !important;
+}
+
+/* Close button */
+.swal2-close {
+  color: #9ca3af !important;
+  font-size: 1.5rem !important;
+  transition: color 0.3s ease !important;
+}
+
+.swal2-close:hover {
+  color: #f9fafb !important;
+}
+
+/* Progress bar */
+.swal2-timer-progress-bar {
+  background: #007bff !important;
+}
+
+/* Toast mode */
+.swal2-toast {
+  background: #111827 !important;
+  border: 1px solid #374151 !important;
+  color: #f9fafb !important;
+}
+
+.swal2-toast .swal2-title {
+  color: #f9fafb !important;
+  font-size: 1rem !important;
+}
+
+.swal2-toast .swal2-html-container {
+  color: #9ca3af !important;
+  font-size: 0.875rem !important;
+}
