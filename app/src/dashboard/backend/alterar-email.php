@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '../../../libs/autoload.php';
+require_once __DIR__ . '../../../../../libs/autoload.php';
 require_once '../../utils/ConexaoDB.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../../');
@@ -17,7 +17,7 @@ if (empty($email)) {
     $retorna = ['status' => false, 'msg' => "O campo e-mail não foi preenchido."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
-    exit();
+    exit(); 
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

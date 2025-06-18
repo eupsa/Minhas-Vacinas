@@ -240,14 +240,6 @@ $DF = ($sql->rowCount() === 1);
                             </div>
                             <div class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Ativo</div>
                         </div>
-
-                        <div class="flex items-center justify-between p-4 bg-dark-800 rounded-lg">
-                            <div class="flex items-center">
-                                <i class="bi bi-share text-primary mr-3"></i>
-                                <p class="text-white">Permitir compartilhamento de dados com o Minhas Vacinas</p>
-                            </div>
-                            <div class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Ativo</div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -394,7 +386,7 @@ $DF = ($sql->rowCount() === 1);
             <form id="form-alterar-email" action="../backend/alterar-email.php" method="post" class="space-y-6">
                 <div>
                     <label for="email" class="block text-sm font-medium text-white mb-2">Novo E-mail</label>
-                    <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                    <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4">
@@ -426,7 +418,7 @@ $DF = ($sql->rowCount() === 1);
             <form id="form-confirmar-email" action="../backend/confirmar-email.php" method="post" class="space-y-6">
                 <div>
                     <label for="codigo" class="block text-sm font-medium text-white mb-2">Código de Confirmação</label>
-                    <input type="text" id="codigo" name="codigo" required class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                    <input type="text" id="codigo" name="codigo" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4">
@@ -468,7 +460,7 @@ $DF = ($sql->rowCount() === 1);
             <form id="form-excluir-conta" action="../backend/excluir-conta.php" method="post" class="space-y-6">
                 <div>
                     <label for="email_delete" class="block text-sm font-medium text-white mb-2">Confirme seu E-mail</label>
-                    <input type="email" id="email_delete" name="email" required class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors">
+                    <input type="email" id="email_delete" name="email" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors">
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4">
@@ -503,7 +495,7 @@ $DF = ($sql->rowCount() === 1);
             <form id="form-confirmar-exclusao" action="../backend/confirmar-exclusao.php" method="post" class="space-y-6">
                 <div>
                     <label for="codigo_delete" class="block text-sm font-medium text-white mb-2">Código de Confirmação</label>
-                    <input type="text" id="codigo_delete" name="codigo" required class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors">
+                    <input type="text" id="codigo_delete" name="codigo" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors">
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4">
@@ -523,7 +515,6 @@ $DF = ($sql->rowCount() === 1);
     <!-- Mobile Sidebar Overlay -->
     <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden hidden"></div>
 
-    <script src="backend-error-handler.js"></script>
     <script>
         // Sidebar Toggle
         const sidebarToggle = document.getElementById('sidebarToggle');
@@ -635,6 +626,10 @@ $DF = ($sql->rowCount() === 1);
     <script type="module" src="/app/public/js/sweetalert-config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/script.js"></script>
+    <script src="js/confirmar-email.js"></script>
+    <script src="js/confirmar-exclusao.js"></script>
+    <script src="js/excluir-conta.js"></script>
+    <script src="js/mudar-email.js"></script>
 </body>
 
 </html>

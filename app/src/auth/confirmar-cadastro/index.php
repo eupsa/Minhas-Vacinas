@@ -178,20 +178,23 @@ if (isset($_SESSION['user_id'])) {
                 <!-- Confirmation Form -->
                 <form action="../backend/confirmar-cadastro.php" method="post" id="form-conf-cad" class="space-y-8">
                     <!-- Code Input -->
+                    <!-- Code Input -->
+                    <!-- Code Input -->
                     <div class="space-y-4">
                         <label class="block text-center text-sm font-medium text-gray-300 mb-4">
                             Digite o código de confirmação
                         </label>
-                        <div class="flex justify-center gap-3">
-                            <input type="text" class="codigo-input w-12 h-16 text-center text-2xl font-bold bg-dark border border-primary/30 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
-                            <input type="text" class="codigo-input w-12 h-16 text-center text-2xl font-bold bg-dark border border-primary/30 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
-                            <input type="text" class="codigo-input w-12 h-16 text-center text-2xl font-bold bg-dark border border-primary/30 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
-                            <input type="text" class="codigo-input w-12 h-16 text-center text-2xl font-bold bg-dark border border-primary/30 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
-                            <input type="text" class="codigo-input w-12 h-16 text-center text-2xl font-bold bg-dark border border-primary/30 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
-                            <input type="text" class="codigo-input w-12 h-16 text-center text-2xl font-bold bg-dark border border-primary/30 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                        <div class="flex justify-center gap-2">
+                            <input type="text" class="codigo-input w-9 h-16 text-center text-2xl font-bold bg-dark border border-primary/30 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                            <input type="text" class="codigo-input w-9 h-16 text-center text-2xl font-bold bg-dark border border-primary/30 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                            <input type="text" class="codigo-input w-9 h-16 text-center text-2xl font-bold bg-dark border border-primary/30 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                            <input type="text" class="codigo-input w-9 h-16 text-center text-2xl font-bold bg-dark border border-primary/30 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                            <input type="text" class="codigo-input w-9 h-16 text-center text-2xl font-bold bg-dark border border-primary/30 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
+                            <input type="text" class="codigo-input w-9 h-16 text-center text-2xl font-bold bg-dark border border-primary/30 rounded-lg text-white focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200" maxlength="1" inputmode="numeric" pattern="[0-9]*" required>
                         </div>
                         <input type="hidden" name="codigo" id="codigo-hidden">
                     </div>
+
 
                     <!-- Submit Button -->
                     <button
