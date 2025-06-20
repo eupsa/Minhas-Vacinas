@@ -5,106 +5,183 @@ require_once '../../utils/UsuarioAuth.php';
 
 Auth($pdo);
 Gerar_Session($pdo);
-
-$sql = $pdo->prepare("SELECT email FROM 2FA WHERE email = :email");
-$sql->bindValue(':email', $_SESSION['user_email']);
-$sql->execute();
-
-$DF = ($sql->rowCount() === 1);
 ?>
+
 <!DOCTYPE html>
-<html lang="pt-br" class="dark">
+<html lang="pt-br" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Vacinas - Perfil</title>
+
+    <!-- Meta Tags -->
+    <meta name="description" content="Gerencie seu perfil e configurações de segurança no Minhas Vacinas.">
+    <meta name="keywords" content="perfil, configurações, segurança, dados pessoais">
+    <meta name="theme-color" content="#007bff">
+
+    <!-- Favicon -->
     <link rel="icon" href="/app/public/img/img-web.png" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/app/public/css/sweetalert-styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
                     colors: {
                         primary: '#007bff',
-                        dark: {
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            200: '#e2e8f0',
-                            300: '#cbd5e1',
-                            400: '#94a3b8',
-                            500: '#64748b',
-                            600: '#475569',
-                            700: '#334155',
-                            800: '#1e293b',
-                            900: '#0f172a',
+                        'primary-dark': '#0056b3',
+                        'primary-light': '#66b3ff',
+                        dark: '#0a0e1a',
+                        'dark-light': '#1a1f2e',
+                        'dark-card': '#252b3d',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
                         }
                     }
                 }
             }
         }
     </script>
-    <title>Minhas Vacinas - Perfil</title>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 50%, #252b3d 100%);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #007bff 0%, #66b3ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.6);
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background: linear-gradient(135deg, #1a1f2e 0%, #252b3d 100%);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(0, 123, 255, 0.1);
+        }
+
+        .sidebar-link {
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-link:hover {
+            background: rgba(0, 123, 255, 0.1);
+            transform: translateX(4px);
+        }
+
+        .sidebar-link.active {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(0, 123, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
 </head>
 
-<body class="bg-dark-900 text-white min-h-screen">
+<body class="bg-dark text-white font-inter overflow-x-hidden">
     <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-primary shadow-lg">
-        <nav class="container mx-auto px-4 py-3">
+    <header class="fixed top-0 left-0 right-0 z-50 header">
+        <nav class="container mx-auto px-6 py-3">
             <div class="flex items-center justify-between">
-                <a href="/" class="flex items-center">
-                    <img src="/app/public/img/logo-head.png" alt="Logo Vacinas" class="h-12">
-                </a>
-                <div class="flex items-center space-x-4">
-                    <button id="sidebarToggle" class="lg:hidden text-white hover:text-gray-200 transition-colors">
-                        <i class="bi bi-list text-2xl"></i>
-                    </button>
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-opacity-20 rounded-lg flex items-center justify-center">
+                        <img src="/app/public/img/logo-head.png" alt="Logo Vacinas">
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold text-white">Minhas Vacinas</h1>
+                        <p class="text-xs text-blue-100">Perfil</p>
+                    </div>
                 </div>
+
+                <button id="sidebarToggle" class="lg:hidden text-white hover:text-blue-200 transition-colors p-2">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
             </div>
         </nav>
     </header>
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="fixed left-0 top-16 h-full w-64 bg-dark-800 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-40 border-r border-dark-700">
+    <aside id="sidebar" class="fixed left-0 top-16 h-full w-64 sidebar transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-40">
         <div class="p-6">
-            <div class="flex flex-col space-y-4">
+            <div class="flex flex-col space-y-4 h-full">
+                <!-- Navigation Links -->
                 <nav class="space-y-2">
-                    <a href="../" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
-                        <i class="bi bi-house-door text-lg"></i>
-                        <span>Início</span>
+                    <a href="../" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
+                        <i class="fas fa-home text-lg"></i>
+                        <span>Dashboard</span>
                     </a>
-                    <a href="../vacinas/" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
-                        <i class="bi bi-heart-pulse text-lg"></i>
-                        <span>Vacinas</span>
+                    <a href="../vacinas/" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
+                        <i class="fas fa-syringe text-lg"></i>
+                        <span>Minhas Vacinas</span>
                     </a>
-                    <a href="" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary text-white font-medium">
-                        <i class="bi bi-person text-lg"></i>
+                    <a href="" class="sidebar-link active flex items-center space-x-3 px-4 py-3 rounded-lg text-white font-medium">
+                        <i class="fas fa-user text-lg"></i>
                         <span>Perfil</span>
                     </a>
-                    <a href="dipositivos/" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
-                        <i class="bi bi-laptop text-lg"></i>
+                    <a href="dispositivos/" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
+                        <i class="fas fa-laptop text-lg"></i>
                         <span>Dispositivos</span>
                     </a>
                 </nav>
 
-                <div class="mt-auto pt-6 border-t border-dark-700">
-                    <div class="flex items-center space-x-3 p-4 rounded-lg bg-dark-700">
-                        <?php if (isset($_SESSION['user_foto'])): ?>
-                            <img src="<?php echo $_SESSION['user_foto']; ?>" alt="Foto do Usuário" class="w-10 h-10 rounded-full">
-                        <?php else: ?>
-                            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                                <i class="bi bi-person text-white"></i>
-                            </div>
-                        <?php endif; ?>
+                <!-- User Profile -->
+                <div class="mt-auto pt-6 border-t border-gray-600">
+                    <div class="flex items-center space-x-3 p-4 rounded-lg bg-dark-light">
+                        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
                         <div class="flex-1 min-w-0">
-                            <p class="text-sm font-medium text-white truncate">
-                                Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?>
-                            </p>
-                            <a href="../../scripts/sair.php" class="text-xs text-gray-400 hover:text-white transition-colors">
-                                <i class="bi bi-box-arrow-right mr-1"></i>Sair
-                            </a>
+                            <p class="text-sm font-medium text-white truncate"><?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></p>
+                            <button class="text-xs text-gray-400 hover:text-white transition-colors">
+                                <i class="fas fa-sign-out-alt mr-1"></i>Sair
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -116,20 +193,20 @@ $DF = ($sql->rowCount() === 1);
     <main class="lg:ml-64 pt-20 min-h-screen">
         <div class="container mx-auto px-6 py-8 max-w-4xl">
             <!-- Header -->
-            <div class="mb-8">
+            <div class="mb-8 animate-fade-in-up">
                 <h1 class="text-3xl font-bold text-white mb-2">Meu Perfil</h1>
                 <p class="text-gray-400">Gerencie suas informações pessoais e configurações de segurança</p>
             </div>
 
             <!-- User Data Card -->
-            <div class="bg-dark-800 rounded-xl p-8 border border-dark-700 mb-8">
+            <div class="bg-dark-card rounded-xl p-8 border border-gray-600 mb-8">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="text-xl font-semibold text-white flex items-center">
-                        <i class="bi bi-person-circle text-primary mr-3"></i>
+                        <i class="fas fa-user-circle text-primary mr-3"></i>
                         Dados Pessoais
                     </h2>
-                    <button onclick="openEditModal()" class="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors">
-                        <i class="bi bi-pencil mr-2"></i>
+                    <button onclick="openEditModal()" class="flex items-center px-4 py-2 btn-primary rounded-lg text-white">
+                        <i class="fas fa-edit mr-2"></i>
                         Editar
                     </button>
                 </div>
@@ -145,7 +222,7 @@ $DF = ($sql->rowCount() === 1);
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">Telefone</label>
-                        <p class="text-white font-medium"><?php echo isset($_SESSION['user_telefone']) ? '+55 ' . $_SESSION['user_telefone'] : 'Não informado'; ?></p>
+                        <p class="text-white font-medium">+55 <?php echo isset($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : 'Não informado'; ?></p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">CPF</label>
@@ -153,7 +230,7 @@ $DF = ($sql->rowCount() === 1);
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">Data de Nascimento</label>
-                        <p class="text-white font-medium"><?php echo isset($_SESSION['user_nascimento']) ? date('d/m/Y', strtotime($_SESSION['user_nascimento'])) : 'Não informado'; ?></p>
+                        <p class="text-white font-medium"><?php echo isset($_SESSION['user_nascimento']) ? $_SESSION['user_nascimento'] : 'Não informado'; ?></p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">Gênero</label>
@@ -171,20 +248,20 @@ $DF = ($sql->rowCount() === 1);
             </div>
 
             <!-- Security Settings -->
-            <div class="bg-dark-800 rounded-xl p-8 border border-dark-700 mb-8">
+            <div class="bg-dark-card rounded-xl p-8 border border-gray-600 mb-8">
                 <h2 class="text-xl font-semibold text-white mb-6 flex items-center">
-                    <i class="bi bi-shield-lock text-primary mr-3"></i>
+                    <i class="fas fa-shield-alt text-primary mr-3"></i>
                     Segurança da Conta
                 </h2>
 
                 <div class="space-y-6">
-                    <div class="bg-dark-700 rounded-lg p-6">
+                    <div class="bg-dark rounded-lg p-6">
                         <p class="text-gray-300 mb-4">A segurança da sua conta é nossa prioridade. <span class="text-primary">Mantenha suas informações de login e senha protegidas.</span></p>
 
                         <div class="space-y-4">
-                            <div class="flex items-center justify-between p-4 bg-dark-800 rounded-lg">
+                            <div class="flex items-center justify-between p-4 bg-dark-card rounded-lg">
                                 <div class="flex items-center">
-                                    <i class="bi bi-check-circle text-green-400 mr-3"></i>
+                                    <i class="fas fa-check-circle text-green-400 mr-3"></i>
                                     <div>
                                         <p class="text-white font-medium">Confirmação de novo acesso</p>
                                         <p class="text-sm text-gray-400">Ativa a confirmação do novo acesso de dispositivos com IP anormal</p>
@@ -193,21 +270,18 @@ $DF = ($sql->rowCount() === 1);
                                 <div class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Ativo</div>
                             </div>
 
-                            <div class="flex items-center justify-between p-4 bg-dark-800 rounded-lg">
+                            <div class="flex items-center justify-between p-4 bg-dark-card rounded-lg">
                                 <div class="flex items-center">
-                                    <i class="bi bi-shield-check text-primary mr-3"></i>
+                                    <i class="fas fa-shield-check text-primary mr-3"></i>
                                     <div>
                                         <p class="text-white font-medium">Verificação em Duas Etapas (2FA)</p>
                                         <p class="text-sm text-gray-400">Camada extra de segurança com código adicional no login</p>
                                     </div>
                                 </div>
-                                <?php if ($DF): ?>
-                                    <div class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Ativo</div>
-                                <?php else: ?>
-                                    <button onclick="window.location.href='2FA/'" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
-                                        Ativar
-                                    </button>
-                                <?php endif; ?>
+                                <a href="2FA/" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors inline-flex items-center">
+                                    <i class="fas fa-shield-alt mr-2"></i> <!-- FA 5, gratuito -->
+                                    Ativar
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -215,27 +289,27 @@ $DF = ($sql->rowCount() === 1);
             </div>
 
             <!-- User Preferences -->
-            <div class="bg-dark-800 rounded-xl p-8 border border-dark-700 mb-8">
+            <div class="bg-dark-card rounded-xl p-8 border border-gray-600 mb-8">
                 <h2 class="text-xl font-semibold text-white mb-6 flex items-center">
-                    <i class="bi bi-gear text-primary mr-3"></i>
+                    <i class="fas fa-cog text-primary mr-3"></i>
                     Preferências do Usuário
                 </h2>
 
-                <div class="bg-dark-700 rounded-lg p-6">
+                <div class="bg-dark rounded-lg p-6">
                     <p class="text-gray-300 mb-4">Essas preferências foram configuradas automaticamente para otimizar sua experiência. <span class="text-primary">Essas configurações são fixas e não podem ser alteradas.</span></p>
 
                     <div class="space-y-4">
-                        <div class="flex items-center justify-between p-4 bg-dark-800 rounded-lg">
+                        <div class="flex items-center justify-between p-4 bg-dark-card rounded-lg">
                             <div class="flex items-center">
-                                <i class="bi bi-envelope text-primary mr-3"></i>
+                                <i class="fas fa-envelope text-primary mr-3"></i>
                                 <p class="text-white">Receber alertas e atualizações via e-mail</p>
                             </div>
                             <div class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Ativo</div>
                         </div>
 
-                        <div class="flex items-center justify-between p-4 bg-dark-800 rounded-lg">
+                        <div class="flex items-center justify-between p-4 bg-dark-card rounded-lg">
                             <div class="flex items-center">
-                                <i class="bi bi-file-text text-primary mr-3"></i>
+                                <i class="fas fa-file-text text-primary mr-3"></i>
                                 <p class="text-white">Concordar com os Termos e Condições de Uso</p>
                             </div>
                             <div class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Ativo</div>
@@ -245,69 +319,62 @@ $DF = ($sql->rowCount() === 1);
             </div>
 
             <!-- Danger Zone -->
-            <div class="bg-red-900 bg-opacity-20 border border-red-500 border-opacity-30 rounded-xl p-8">
+            <!-- <div class="bg-red-900 bg-opacity-20 border border-red-500 border-opacity-30 rounded-xl p-8">
                 <h2 class="text-xl font-semibold text-red-400 mb-4 flex items-center">
-                    <i class="bi bi-exclamation-triangle mr-3"></i>
+                    <i class="fas fa-exclamation-triangle mr-3"></i>
                     Zona de Perigo
                 </h2>
                 <p class="text-gray-300 mb-6">Ações irreversíveis que afetam permanentemente sua conta.</p>
 
                 <div class="flex flex-col sm:flex-row gap-4">
                     <button onclick="openChangeEmailModal()" class="flex items-center justify-center px-6 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-500 transition-colors">
-                        <i class="bi bi-envelope mr-2"></i>
+                        <i class="fas fa-envelope mr-2"></i>
                         Alterar E-mail
                     </button>
                     <button onclick="openDeleteAccountModal()" class="flex items-center justify-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors">
-                        <i class="bi bi-trash mr-2"></i>
+                        <i class="fas fa-trash mr-2"></i>
                         Excluir Conta
                     </button>
                 </div>
-            </div>
+            </div> -->
         </div>
     </main>
 
     <!-- Edit Profile Modal -->
     <div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-dark-800 rounded-xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-dark-700">
+        <div class="bg-dark-card rounded-xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-600">
             <div class="flex items-center justify-between mb-6">
                 <h3 class="text-xl font-semibold text-white">Editar Perfil</h3>
                 <button onclick="closeEditModal()" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="bi bi-x-lg text-xl"></i>
+                    <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
 
-            <form id="form-perfil" action="../backend/atualizar-dados.php" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <form id="form-perfil" class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="nome" class="block text-sm font-medium text-white mb-2">Nome</label>
-                        <input type="text" id="nome" name="nome" value="<?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : ''; ?>" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                        <input type="text" id="nome" name="nome" value="<?= $_SESSION['user_nome'] ?>" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                     </div>
 
                     <div>
                         <label for="data_nascimento" class="block text-sm font-medium text-white mb-2">Data de Nascimento</label>
-                        <input type="date" id="data_nascimento" name="data_nascimento" value="<?php echo !empty($_SESSION['user_nascimento']) ? $_SESSION['user_nascimento'] : ''; ?>" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                        <input type="date" id="data_nascimento" name="data_nascimento" value="<?php echo isset($_SESSION['user_nascimento']) ? date('d/m/Y', strtotime($_SESSION['user_nascimento'])) : 'Não informado'; ?>" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                     </div>
 
                     <div>
                         <label for="telefone" class="block text-sm font-medium text-white mb-2">Telefone</label>
                         <div class="flex">
-                            <span class="inline-flex items-center px-3 text-sm text-gray-300 bg-dark-700 border border-r-0 border-dark-600 rounded-l-lg">
-                                <img src="/app/public/img/num-img-br.png" alt="BR" class="w-5 h-4 mr-2"> +55
+                            <span class="inline-flex items-center px-3 text-sm text-gray-300 bg-dark border border-r-0 border-gray-600 rounded-l-lg">
+                                🇧🇷 +55
                             </span>
-                            <input type="text" id="telefone" name="telefone" value="<?php echo isset($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : ''; ?>" class="flex-1 px-4 py-3 bg-dark-700 border border-dark-600 rounded-r-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                            <input type="text" id="telefone" name="telefone" value="<?php echo isset($_SESSION['user_telefone']) ?>" class="flex-1 px-4 py-3 bg-dark border border-gray-600 rounded-r-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                         </div>
                     </div>
 
-                    <?php if (empty($_SESSION['user_cpf'])): ?>
-                        <div>
-                            <label for="cpf" class="block text-sm font-medium text-white mb-2">CPF</label>
-                            <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
-                        </div>
-                    <?php endif; ?>
-
                     <div>
                         <label for="genero" class="block text-sm font-medium text-white mb-2">Gênero</label>
-                        <select id="genero" name="genero" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                        <select id="genero" name="genero" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                             <option value="Não Informado" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Não Informado') ? 'selected' : ''; ?>>Não Informado</option>
                             <option value="Masculino" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
                             <option value="Feminino" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Feminino') ? 'selected' : ''; ?>>Feminino</option>
@@ -317,7 +384,7 @@ $DF = ($sql->rowCount() === 1);
 
                     <div>
                         <label for="estado" class="block text-sm font-medium text-white mb-2">Estado</label>
-                        <select id="estado" name="estado" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                        <select id="estado" name="estado" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                             <option value="" disabled selected>Selecione um estado</option>
                             <option value="AC" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'AC') ? 'selected' : ''; ?>>Acre</option>
                             <option value="AL" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'AL') ? 'selected' : ''; ?>>Alagoas</option>
@@ -351,19 +418,17 @@ $DF = ($sql->rowCount() === 1);
 
                     <!-- <div>
                         <label for="cidade" class="block text-sm font-medium text-white mb-2">Cidade</label>
-                        <select id="cidade" name="cidade" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
-                            <option value="">Selecione uma cidade</option>
-                        </select>
+                        <input type="text" id="cidade" name="cidade" value="" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                     </div> -->
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4 pt-6">
-                    <button type="submit" class="flex-1 flex items-center justify-center px-6 py-3 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors font-medium">
-                        <i class="bi bi-check-circle mr-2"></i>
+                    <button type="submit" class="flex-1 flex items-center justify-center px-6 py-3 btn-primary rounded-lg text-white font-medium">
+                        <i class="fas fa-check mr-2"></i>
                         Salvar Alterações
                     </button>
                     <button type="button" onclick="closeEditModal()" class="flex-1 flex items-center justify-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium">
-                        <i class="bi bi-x-circle mr-2"></i>
+                        <i class="fas fa-times mr-2"></i>
                         Cancelar
                     </button>
                 </div>
@@ -373,81 +438,43 @@ $DF = ($sql->rowCount() === 1);
 
     <!-- Change Email Modal -->
     <div id="changeEmailModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-dark-800 rounded-xl p-8 max-w-md w-full border border-dark-700">
+        <div class="bg-dark-card rounded-xl p-8 max-w-md w-full border border-gray-600">
             <div class="flex items-center justify-between mb-6">
                 <h3 class="text-xl font-semibold text-white">Alterar E-mail</h3>
                 <button onclick="closeChangeEmailModal()" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="bi bi-x-lg text-xl"></i>
+                    <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
 
             <p class="text-gray-300 mb-6">Um código será enviado para o novo e-mail para confirmação.</p>
 
-            <form id="form-alterar-email" action="../backend/alterar-email.php" method="post" class="space-y-6">
+            <form class="space-y-6">
                 <div>
                     <label for="email" class="block text-sm font-medium text-white mb-2">Novo E-mail</label>
-                    <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                    <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                 </div>
 
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button type="submit" class="flex-1 flex items-center justify-center px-6 py-3 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors font-medium">
-                        <i class="bi bi-envelope mr-2"></i>
-                        Enviar Código
-                    </button>
-                    <button type="button" onclick="openConfirmEmailModal()" class="flex-1 flex items-center justify-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium">
-                        <i class="bi bi-check-circle mr-2"></i>
-                        Já tenho código
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Confirm Email Modal -->
-    <div id="confirmEmailModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-dark-800 rounded-xl p-8 max-w-md w-full border border-dark-700">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-xl font-semibold text-white">Confirmar E-mail</h3>
-                <button onclick="closeConfirmEmailModal()" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="bi bi-x-lg text-xl"></i>
+                <button type="submit" class="w-full flex items-center justify-center px-6 py-3 btn-primary rounded-lg text-white font-medium">
+                    <i class="fas fa-envelope mr-2"></i>
+                    Enviar Código
                 </button>
-            </div>
-
-            <p class="text-gray-300 mb-6">Digite o código enviado para seu novo e-mail.</p>
-
-            <form id="form-confirmar-email" action="../backend/confirmar-email.php" method="post" class="space-y-6">
-                <div>
-                    <label for="codigo" class="block text-sm font-medium text-white mb-2">Código de Confirmação</label>
-                    <input type="text" id="codigo" name="codigo" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
-                </div>
-
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button type="submit" class="flex-1 flex items-center justify-center px-6 py-3 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors font-medium">
-                        <i class="bi bi-check-circle mr-2"></i>
-                        Confirmar
-                    </button>
-                    <button type="button" onclick="backToChangeEmail()" class="flex-1 flex items-center justify-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium">
-                        <i class="bi bi-arrow-left mr-2"></i>
-                        Voltar
-                    </button>
-                </div>
             </form>
         </div>
     </div>
 
     <!-- Delete Account Modal -->
     <div id="deleteAccountModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-dark-800 rounded-xl p-8 max-w-md w-full border border-red-500 border-opacity-30">
+        <div class="bg-dark-card rounded-xl p-8 max-w-md w-full border border-red-500 border-opacity-30">
             <div class="flex items-center justify-between mb-6">
                 <h3 class="text-xl font-semibold text-red-400">Excluir Conta</h3>
                 <button onclick="closeDeleteAccountModal()" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="bi bi-x-lg text-xl"></i>
+                    <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
 
             <div class="bg-red-900 bg-opacity-20 border border-red-500 border-opacity-30 rounded-lg p-4 mb-6">
                 <div class="flex items-start">
-                    <i class="bi bi-exclamation-triangle text-red-400 text-xl mr-3 mt-1"></i>
+                    <i class="fas fa-exclamation-triangle text-red-400 text-xl mr-3 mt-1"></i>
                     <div>
                         <p class="text-red-400 font-medium mb-2">Atenção: Esta ação é irreversível!</p>
                         <p class="text-gray-300 text-sm">Todos os seus dados serão permanentemente excluídos e não poderão ser recuperados.</p>
@@ -455,59 +482,16 @@ $DF = ($sql->rowCount() === 1);
                 </div>
             </div>
 
-            <p class="text-gray-300 mb-6">Um código será enviado para seu e-mail para confirmar a exclusão.</p>
-
-            <form id="form-excluir-conta" action="../backend/excluir-conta.php" method="post" class="space-y-6">
+            <form class="space-y-6">
                 <div>
                     <label for="email_delete" class="block text-sm font-medium text-white mb-2">Confirme seu E-mail</label>
-                    <input type="email" id="email_delete" name="email" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors">
+                    <input type="email" id="email_delete" name="email" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors">
                 </div>
 
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button type="submit" class="flex-1 flex items-center justify-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors font-medium">
-                        <i class="bi bi-envelope mr-2"></i>
-                        Enviar Código
-                    </button>
-                    <button type="button" onclick="openConfirmDeleteModal()" class="flex-1 flex items-center justify-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium">
-                        <i class="bi bi-check-circle mr-2"></i>
-                        Já tenho código
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Confirm Delete Modal -->
-    <div id="confirmDeleteModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-dark-800 rounded-xl p-8 max-w-md w-full border border-red-500 border-opacity-30">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-xl font-semibold text-red-400">Confirmar Exclusão</h3>
-                <button onclick="closeConfirmDeleteModal()" class="text-gray-400 hover:text-white transition-colors">
-                    <i class="bi bi-x-lg text-xl"></i>
+                <button type="submit" class="w-full flex items-center justify-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors font-medium">
+                    <i class="fas fa-trash mr-2"></i>
+                    EXCLUIR CONTA
                 </button>
-            </div>
-
-            <div class="bg-red-900 bg-opacity-20 border border-red-500 border-opacity-30 rounded-lg p-4 mb-6">
-                <p class="text-red-400 font-medium text-center">ÚLTIMA CHANCE!</p>
-                <p class="text-gray-300 text-sm text-center mt-2">Esta ação não pode ser desfeita.</p>
-            </div>
-
-            <form id="form-confirmar-exclusao" action="../backend/confirmar-exclusao.php" method="post" class="space-y-6">
-                <div>
-                    <label for="codigo_delete" class="block text-sm font-medium text-white mb-2">Código de Confirmação</label>
-                    <input type="text" id="codigo_delete" name="codigo" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors">
-                </div>
-
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button type="submit" class="flex-1 flex items-center justify-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors font-medium">
-                        <i class="bi bi-trash mr-2"></i>
-                        EXCLUIR CONTA
-                    </button>
-                    <button type="button" onclick="backToDeleteAccount()" class="flex-1 flex items-center justify-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium">
-                        <i class="bi bi-arrow-left mr-2"></i>
-                        Voltar
-                    </button>
-                </div>
             </form>
         </div>
     </div>
@@ -515,22 +499,48 @@ $DF = ($sql->rowCount() === 1);
     <!-- Mobile Sidebar Overlay -->
     <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden hidden"></div>
 
+    <!-- JavaScript -->
     <script>
         // Sidebar Toggle
         const sidebarToggle = document.getElementById('sidebarToggle');
         const sidebar = document.getElementById('sidebar');
         const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-full');
-            sidebarOverlay.classList.toggle('hidden');
-        });
+        function openSidebar() {
+            sidebar.classList.remove('-translate-x-full');
+            sidebarOverlay.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
 
-        sidebarOverlay.addEventListener('click', () => {
+        function closeSidebar() {
             sidebar.classList.add('-translate-x-full');
             sidebarOverlay.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        sidebarToggle.addEventListener('click', openSidebar);
+        sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // Close sidebar when clicking on navigation links on mobile
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 1024) {
+                    closeSidebar();
+                }
+            });
         });
 
+        // Keyboard Navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeSidebar();
+                closeEditModal();
+                closeChangeEmailModal();
+                closeDeleteAccountModal();
+            }
+        });
+
+        // Modal Functions
         function openEditModal() {
             document.getElementById('editModal').classList.remove('hidden');
         }
@@ -547,20 +557,6 @@ $DF = ($sql->rowCount() === 1);
             document.getElementById('changeEmailModal').classList.add('hidden');
         }
 
-        function openConfirmEmailModal() {
-            closeChangeEmailModal();
-            document.getElementById('confirmEmailModal').classList.remove('hidden');
-        }
-
-        function closeConfirmEmailModal() {
-            document.getElementById('confirmEmailModal').classList.add('hidden');
-        }
-
-        function backToChangeEmail() {
-            closeConfirmEmailModal();
-            openChangeEmailModal();
-        }
-
         function openDeleteAccountModal() {
             document.getElementById('deleteAccountModal').classList.remove('hidden');
         }
@@ -569,58 +565,15 @@ $DF = ($sql->rowCount() === 1);
             document.getElementById('deleteAccountModal').classList.add('hidden');
         }
 
-        function openConfirmDeleteModal() {
-            closeDeleteAccountModal();
-            document.getElementById('confirmDeleteModal').classList.remove('hidden');
-        }
-
-        function closeConfirmDeleteModal() {
-            document.getElementById('confirmDeleteModal').classList.add('hidden');
-        }
-
-        function backToDeleteAccount() {
-            closeConfirmDeleteModal();
-            openDeleteAccountModal();
-        }
-
-        // IBGE API for cities
-        document.getElementById('estado').addEventListener('change', async function() {
-            const estado = this.value;
-            const cidadeSelect = document.getElementById('cidade');
-
-            cidadeSelect.innerHTML = '<option value="">Carregando...</option>';
-
-            try {
-                const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estado}/municipios`);
-                const cidades = await response.json();
-
-                cidadeSelect.innerHTML = '<option value="">Selecione uma cidade</option>';
-                cidades.forEach(cidade => {
-                    cidadeSelect.innerHTML += `<option value="${cidade.nome}">${cidade.nome}</option>`;
-                });
-            } catch (error) {
-                cidadeSelect.innerHTML = '<option value="">Erro ao carregar cidades</option>';
-            }
-        });
-
-        // Formatação do telefone
+        // Phone formatting
         document.getElementById('telefone').addEventListener('input', function(e) {
-            let telefone = e.target.value.replace(/\D/g, ''); // Remove tudo que não for número
+            let telefone = e.target.value.replace(/\D/g, '');
             if (telefone.length <= 10) {
                 telefone = telefone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
             } else {
                 telefone = telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
             }
             e.target.value = telefone;
-        });
-
-        // Formatação do CPF
-        document.getElementById('cpf').addEventListener('input', function(e) {
-            let cpf = e.target.value.replace(/\D/g, ''); // Remove tudo que não for número
-            if (cpf.length <= 11) {
-                cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-            }
-            e.target.value = cpf;
         });
     </script>
     <script type="module" src="/app/public/js/sweetalert-config.js"></script>

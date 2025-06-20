@@ -10,99 +10,182 @@ $sql->execute();
 $vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
 $_SESSION['vacinas'] = $vacinas ?: [];
 ?>
+
 <!DOCTYPE html>
-<html lang="pt-br" class="dark">
+<html lang="pt-br" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Vacinas - Nova Vacina</title>
+
+    <!-- Meta Tags -->
+    <meta name="description" content="Cadastre uma nova vacina no seu histórico de vacinação.">
+    <meta name="keywords" content="nova vacina, cadastro, registro, saúde">
+    <meta name="theme-color" content="#007bff">
+
+    <!-- Favicon -->
     <link rel="icon" href="/app/public/img/img-web.png" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/app/public/css/sweetalert-styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
                     colors: {
                         primary: '#007bff',
-                        dark: {
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            200: '#e2e8f0',
-                            300: '#cbd5e1',
-                            400: '#94a3b8',
-                            500: '#64748b',
-                            600: '#475569',
-                            700: '#334155',
-                            800: '#1e293b',
-                            900: '#0f172a',
+                        'primary-dark': '#0056b3',
+                        'primary-light': '#66b3ff',
+                        dark: '#0a0e1a',
+                        'dark-light': '#1a1f2e',
+                        'dark-card': '#252b3d',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
                         }
                     }
                 }
             }
         }
     </script>
-    <title>Minhas Vacinas - Cadastrar Vacina</title>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 50%, #252b3d 100%);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #007bff 0%, #66b3ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.6);
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background: linear-gradient(135deg, #1a1f2e 0%, #252b3d 100%);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(0, 123, 255, 0.1);
+        }
+
+        .sidebar-link {
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-link:hover {
+            background: rgba(0, 123, 255, 0.1);
+            transform: translateX(4px);
+        }
+
+        .sidebar-link.active {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(0, 123, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
 </head>
 
-<body class="bg-dark-900 text-white min-h-screen">
+<body class="bg-dark text-white font-inter overflow-x-hidden">
     <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-primary shadow-lg">
-        <nav class="container mx-auto px-4 py-3">
+    <header class="fixed top-0 left-0 right-0 z-50 header">
+        <nav class="container mx-auto px-6 py-3">
             <div class="flex items-center justify-between">
-                <a href="/" class="flex items-center">
-                    <img src="/app/public/img/logo-head.png" alt="Logo Vacinas" class="h-12">
-                </a>
-                <div class="flex items-center space-x-4">
-                    <button id="sidebarToggle" class="lg:hidden text-white hover:text-gray-200 transition-colors">
-                        <i class="bi bi-list text-2xl"></i>
-                    </button>
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-opacity-20 rounded-lg flex items-center justify-center">
+                        <img src="/app/public/img/logo-head.png" alt="">
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold text-white">Minhas Vacinas</h1>
+                        <p class="text-xs text-blue-100">Nova Vacina</p>
+                    </div>
                 </div>
+
+                <button id="sidebarToggle" class="lg:hidden text-white hover:text-blue-200 transition-colors p-2">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
             </div>
         </nav>
     </header>
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="fixed left-0 top-16 h-full w-64 bg-dark-800 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-40 border-r border-dark-700">
+    <aside id="sidebar" class="fixed left-0 top-16 h-full w-64 sidebar transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-40">
         <div class="p-6">
-            <div class="flex flex-col space-y-4">
+            <div class="flex flex-col space-y-4 h-full">
+                <!-- Navigation Links -->
                 <nav class="space-y-2">
-                    <a href="../../" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
-                        <i class="bi bi-house-door text-lg"></i>
-                        <span>Início</span>
+                    <a href="../../" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
+                        <i class="fas fa-home text-lg"></i>
+                        <span>Dashboard</span>
                     </a>
-                    <a href="../" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary text-white font-medium">
-                        <i class="bi bi-heart-pulse text-lg"></i>
-                        <span>Vacinas</span>
+                    <a href="../" class="sidebar-link active flex items-center space-x-3 px-4 py-3 rounded-lg text-white font-medium">
+                        <i class="fas fa-syringe text-lg"></i>
+                        <span>Minhas Vacinas</span>
                     </a>
-                    <a href="../../perfil/" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
-                        <i class="bi bi-person text-lg"></i>
+                    <a href="../../perfil/" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
+                        <i class="fas fa-user text-lg"></i>
                         <span>Perfil</span>
                     </a>
-                    <a href="../../perfil/dispositivos/" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
-                        <i class="bi bi-laptop text-lg"></i>
+                    <a href="../../perfil/dispositivos/" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
+                        <i class="fas fa-laptop text-lg"></i>
                         <span>Dispositivos</span>
                     </a>
                 </nav>
 
-                <div class="mt-auto pt-6 border-t border-dark-700">
-                    <div class="flex items-center space-x-3 p-4 rounded-lg bg-dark-700">
-                        <?php if (isset($_SESSION['user_foto'])): ?>
-                            <img src="<?php echo $_SESSION['user_foto']; ?>" alt="Foto do Usuário" class="w-10 h-10 rounded-full">
-                        <?php else: ?>
-                            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                                <i class="bi bi-person text-white"></i>
-                            </div>
-                        <?php endif; ?>
+                <!-- User Profile -->
+                <div class="mt-auto pt-6 border-t border-gray-600">
+                    <div class="flex items-center space-x-3 p-4 rounded-lg bg-dark-light">
+                        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
                         <div class="flex-1 min-w-0">
-                            <p class="text-sm font-medium text-white truncate">
-                                Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?>
-                            </p>
-                            <a href="../../../scripts/sair.php" class="text-xs text-gray-400 hover:text-white transition-colors">
-                                <i class="bi bi-box-arrow-right mr-1"></i>Sair
-                            </a>
+                            <p class="text-sm font-medium text-white truncate"><?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></p>
+                            <button class="text-xs text-gray-400 hover:text-white transition-colors">
+                                <i class="fas fa-sign-out-alt mr-1"></i>Sair
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -114,21 +197,21 @@ $_SESSION['vacinas'] = $vacinas ?: [];
     <main class="lg:ml-64 pt-20 min-h-screen">
         <div class="container mx-auto px-6 py-8 max-w-4xl">
             <!-- Header -->
-            <div class="mb-8">
+            <div class="mb-8 animate-fade-in-up">
                 <h1 class="text-3xl font-bold text-white mb-2">Cadastrar Nova Vacina</h1>
                 <p class="text-gray-400">Preencha as informações da vacina aplicada</p>
             </div>
 
             <!-- Form -->
-            <div class="bg-dark-800 rounded-xl p-8 border border-dark-700">
-                <form action="../../backend/cadastro-vacina.php" method="post" id="form_vacina" enctype="multipart/form-data" class="space-y-6">
+            <div class="bg-dark-card rounded-xl p-8 border border-gray-600">
+                <form id="form_vacina" class="space-y-6">
                     <!-- Vaccine Selection -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="md:col-span-2">
                             <label for="nomeVac" class="block text-sm font-medium text-white mb-2">
                                 Vacina <span class="text-red-400">*</span>
                             </label>
-                            <select id="nomeVac" name="nomeVac" required class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                            <select id="nomeVac" name="nomeVac" required class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                                 <option value="" disabled selected>Selecione uma vacina</option>
                                 <?php if (count($vacinas) > 0): ?>
                                     <?php foreach ($vacinas as $vacina): ?>
@@ -145,7 +228,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                             <label for="dataAplicacao" class="block text-sm font-medium text-white mb-2">
                                 Data da Aplicação <span class="text-red-400">*</span>
                             </label>
-                            <input type="date" id="dataAplicacao" name="dataAplicacao" required class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                            <input type="date" id="dataAplicacao" name="dataAplicacao" required class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                         </div>
 
                         <!-- Next Dose -->
@@ -153,7 +236,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                             <label for="proxima_dose" class="block text-sm font-medium text-white mb-2">
                                 Próxima Dose
                             </label>
-                            <input type="date" id="proxima_dose" name="proxima_dose" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                            <input type="date" id="proxima_dose" name="proxima_dose" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                         </div>
 
                         <!-- Application Location -->
@@ -161,7 +244,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                             <label for="localAplicacao" class="block text-sm font-medium text-white mb-2">
                                 Local de Aplicação <span class="text-red-400">*</span>
                             </label>
-                            <input type="text" id="localAplicacao" name="localAplicacao" required placeholder="Ex: Hospital São Lucas" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                            <input type="text" id="localAplicacao" name="localAplicacao" required placeholder="Ex: Hospital São Lucas" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                         </div>
 
                         <!-- Vaccine Type -->
@@ -169,7 +252,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                             <label for="tipo" class="block text-sm font-medium text-white mb-2">
                                 Tipo da Vacina <span class="text-red-400">*</span>
                             </label>
-                            <select id="tipo" name="tipo" required class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                            <select id="tipo" name="tipo" required class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                                 <option value="" disabled selected>Selecione o tipo</option>
                                 <option value="Imunização">Imunização</option>
                                 <option value="Vacina de Vírus Vivo Atenuado">Vacina de Vírus Vivo Atenuado</option>
@@ -186,7 +269,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                             <label for="dose" class="block text-sm font-medium text-white mb-2">
                                 Dose <span class="text-red-400">*</span>
                             </label>
-                            <select id="dose" name="dose" required class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                            <select id="dose" name="dose" required class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                                 <option value="" disabled selected>Selecione a dose</option>
                                 <option value="1ª Dose">1ª Dose</option>
                                 <option value="2ª Dose">2ª Dose</option>
@@ -202,7 +285,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                             <label for="lote" class="block text-sm font-medium text-white mb-2">
                                 Lote
                             </label>
-                            <input type="text" id="lote" name="lote" placeholder="Ex: ABC123" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                            <input type="text" id="lote" name="lote" placeholder="Ex: ABC123" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                         </div>
                     </div>
 
@@ -211,17 +294,20 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                         <label for="obs" class="block text-sm font-medium text-white mb-2">
                             Observações
                         </label>
-                        <textarea id="obs" name="obs" rows="4" placeholder="Adicione observações sobre a aplicação da vacina..." class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors resize-none"></textarea>
+                        <textarea id="obs" name="obs" rows="4" placeholder="Adicione observações sobre a aplicação da vacina..." class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors resize-none"></textarea>
                     </div>
 
                     <!-- Submit Button -->
                     <div class="flex flex-col sm:flex-row gap-4 pt-6">
-                        <button type="submit" class="flex-1 flex items-center justify-center px-6 py-4 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors font-medium text-lg">
-                            <i class="bi bi-plus-circle mr-2"></i>
-                            Cadastrar Vacina
+                        <button type="submit" id="submitBtn" class="flex-1 flex items-center justify-center px-6 py-4 btn-primary rounded-lg text-white font-medium text-lg">
+                            <i class="fas fa-plus mr-2"></i>
+                            <span id="btn-text">Cadastrar Vacina</span>
+                            <div id="loading-spinner" class="hidden inline-block ml-2">
+                                <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                            </div>
                         </button>
-                        <a href="../" class="flex-1 flex items-center justify-center px-6 py-4 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium text-lg">
-                            <i class="bi bi-x-circle mr-2"></i>
+                        <a href="vacinas.html" class="flex-1 flex items-center justify-center px-6 py-4 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium text-lg">
+                            <i class="fas fa-times mr-2"></i>
                             Cancelar
                         </a>
                     </div>
@@ -229,26 +315,26 @@ $_SESSION['vacinas'] = $vacinas ?: [];
             </div>
 
             <!-- Help Section -->
-            <div class="mt-8 bg-dark-800 rounded-xl p-6 border border-dark-700">
+            <div class="mt-8 bg-dark-card rounded-xl p-6 border border-gray-600">
                 <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
-                    <i class="bi bi-info-circle text-primary mr-2"></i>
+                    <i class="fas fa-info-circle text-primary mr-2"></i>
                     Dicas para o Cadastro
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-300">
                     <div class="flex items-start space-x-3">
-                        <i class="bi bi-check-circle text-green-400 mt-0.5"></i>
+                        <i class="fas fa-check-circle text-green-400 mt-0.5"></i>
                         <p>Mantenha sempre seu cartão de vacinação em mãos para preencher as informações corretamente.</p>
                     </div>
                     <div class="flex items-start space-x-3">
-                        <i class="bi bi-check-circle text-green-400 mt-0.5"></i>
+                        <i class="fas fa-check-circle text-green-400 mt-0.5"></i>
                         <p>O número do lote pode ser encontrado no cartão de vacinação ou no comprovante.</p>
                     </div>
                     <div class="flex items-start space-x-3">
-                        <i class="bi bi-check-circle text-green-400 mt-0.5"></i>
+                        <i class="fas fa-check-circle text-green-400 mt-0.5"></i>
                         <p>Registre a data da próxima dose para receber lembretes automáticos.</p>
                     </div>
                     <div class="flex items-start space-x-3">
-                        <i class="bi bi-check-circle text-green-400 mt-0.5"></i>
+                        <i class="fas fa-check-circle text-green-400 mt-0.5"></i>
                         <p>Use as observações para anotar reações ou informações importantes.</p>
                     </div>
                 </div>
@@ -256,21 +342,45 @@ $_SESSION['vacinas'] = $vacinas ?: [];
         </div>
     </main>
 
+    <!-- Mobile Sidebar Overlay -->
     <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden hidden"></div>
+
+    <!-- JavaScript -->
     <script>
         // Sidebar Toggle
         const sidebarToggle = document.getElementById('sidebarToggle');
         const sidebar = document.getElementById('sidebar');
         const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-full');
-            sidebarOverlay.classList.toggle('hidden');
-        });
+        function openSidebar() {
+            sidebar.classList.remove('-translate-x-full');
+            sidebarOverlay.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
 
-        sidebarOverlay.addEventListener('click', () => {
+        function closeSidebar() {
             sidebar.classList.add('-translate-x-full');
             sidebarOverlay.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        sidebarToggle.addEventListener('click', openSidebar);
+        sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // Close sidebar when clicking on navigation links on mobile
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 1024) {
+                    closeSidebar();
+                }
+            });
+        });
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !sidebar.classList.contains('-translate-x-full')) {
+                closeSidebar();
+            }
         });
     </script>
     <script type="module" src="/app/public/js/sweetalert-config.js"></script>

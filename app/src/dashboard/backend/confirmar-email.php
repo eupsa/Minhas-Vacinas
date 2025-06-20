@@ -66,25 +66,27 @@ if (empty($codigo)) {
 
 function enviarEmail($email)
 {
-    $email_body = file_get_contents('../../../assets/email/novo-email.html');
+    $email_body = file_get_contents('../../../public/email/novo-email.html');
     $mail = new PHPMailer(true);
+
     try {
         $mail->isSMTP();
-        $mail->Host = $_ENV['HOST_SMTP'];
+        $mail->Host = $_ENV['MAIL_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Username = $_ENV['EMAIL'];
-        $mail->Password = $_ENV['EMAIL_PASSWORD'];
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-        $mail->setFrom($_ENV['EMAIL'], 'Minhas Vacinas');
+        $mail->Username = $_ENV['MAIL_USERNAME'];
+        $mail->Password = $_ENV['MAIL_PASSWORD'];
+        $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION'] ?? PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = isset($_ENV['MAIL_PORT']) ? (int)$_ENV['MAIL_PORT'] : 587;
+        $mail->setFrom($_ENV['MAIL_USERNAME'], 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
         $mail->Subject = 'E-mail alterado com sucesso!';
-        $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img');
+        $mail->addEmbeddedImage('../../../public/img/logo-img.png', 'logo-img');
         $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;
         $mail->send();
+
         return true;
     } catch (Exception $e) {
         return false;

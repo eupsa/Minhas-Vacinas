@@ -73,18 +73,19 @@ if ($sql->rowCount() == 1) {
 
 function email_cadastro($email, $codigo)
 {
-    $email_body = file_get_contents('../../../assets/email/cadastro.html');
+    $email_body = file_get_contents('/app/public/email/cadastro.html');
     $email_body = str_replace('{{code}}', $codigo, $email_body);
-    $mail = new PHPMailer();
+    $mail = new PHPMailer(true);
+
     try {
         $mail->isSMTP();
-        $mail->Host = $_ENV['HOST_SMTP'];
+        $mail->Host = $_ENV['MAIL_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Username = $_ENV['EMAIL'];
-        $mail->Password = $_ENV['EMAIL_PASSWORD'];
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-        $mail->setFrom($_ENV['EMAIL'], 'Minhas Vacinas');
+        $mail->Username = $_ENV['MAIL_USERNAME'];
+        $mail->Password = $_ENV['MAIL_PASSWORD'];
+        $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION'] ?? PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = isset($_ENV['MAIL_PORT']) ? (int)$_ENV['MAIL_PORT'] : 587;
+        $mail->setFrom($_ENV['MAIL_USERNAME'], 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
@@ -93,6 +94,7 @@ function email_cadastro($email, $codigo)
         $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;
         $mail->send();
+
         return true;
     } catch (Exception $e) {
         return false;

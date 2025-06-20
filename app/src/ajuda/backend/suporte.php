@@ -1,8 +1,9 @@
 <?php
-require '../../../vendor/phpmailer/phpmailer/src/Exception.php';
-require '../../../vendor/phpmailer/phpmailer/src/SMTP.php';
-require '../../../vendor/autoload.php';
-require '../../scripts/Conexao.php';
+require '../../../../libs/autoload.php';
+require '../../utils/ConexaoDB.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../../');
+$dotenv->load();
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -29,7 +30,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $sql->bindValue(':motivo_contato', $motivo_contato);
             $sql->bindValue(':mensagem', $mensagem);
             $sql->execute();
-            
+
             $email_body = "
             <html>
             <head>
@@ -48,20 +49,23 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
             $mail = new PHPMailer(true);
             try {
-                $mail->isSMTP();
-                $mail->Host = 'smtp.zoho.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'contato@minhasvacinas.online';
-                $mail->Password = 'H;H6<j$Vp<wd;AgA';
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port = 587;
+                $mail = new PHPMailer(true);
 
-                $mail->setFrom('contato@minhasvacinas.online', 'Suporte Vacinas');
-                $mail->addAddress('pedruuu291@gmail.com');
+                $mail->isSMTP();
+                $mail->Host = $_ENV['MAIL_HOST'];
+                $mail->SMTPAuth = true;
+                $mail->Username = $_ENV['MAIL_USERNAME'];
+                $mail->Password = $_ENV['MAIL_PASSWORD'];
+                $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION'] ?? PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = isset($_ENV['MAIL_PORT']) ? (int)$_ENV['MAIL_PORT'] : 587;
+
+                $mail->setFrom($_ENV['MAIL_USERNAME'], 'Suporte Vacinas');
+                $mail->addAddress('pedro.s.araujo291@gmail.com');
                 $mail->isHTML(true);
                 $mail->CharSet = 'UTF-8';
                 $mail->Subject = 'Nova Mensagem de Suporte';
                 $mail->Body = $email_body;
+
                 $mail->send();
 
                 $retorna = ['status' => true, 'msg' => "E-mail enviado com sucesso! Responderemos sua mensagem o mais rápido possível."];

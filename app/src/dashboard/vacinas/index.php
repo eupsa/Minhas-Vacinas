@@ -12,99 +12,203 @@ $sql->execute();
 $vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
 $_SESSION['vacinas'] = $vacinas ?: [];
 ?>
+
 <!DOCTYPE html>
-<html lang="pt-br" class="dark">
+<html lang="pt-br" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Vacinas - Gerenciar Vacinas</title>
+
+    <!-- Meta Tags -->
+    <meta name="description" content="Gerencie suas vacinas - visualize, edite e organize seu histórico de vacinação.">
+    <meta name="keywords" content="vacinas, histórico, gerenciar, saúde">
+    <meta name="theme-color" content="#007bff">
+
+    <!-- Favicon -->
     <link rel="icon" href="/app/public/img/img-web.png" type="image/x-icon">
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/app/public/css/sweetalert-styles.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
                     colors: {
                         primary: '#007bff',
-                        dark: {
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            200: '#e2e8f0',
-                            300: '#cbd5e1',
-                            400: '#94a3b8',
-                            500: '#64748b',
-                            600: '#475569',
-                            700: '#334155',
-                            800: '#1e293b',
-                            900: '#0f172a',
+                        'primary-dark': '#0056b3',
+                        'primary-light': '#66b3ff',
+                        dark: '#0a0e1a',
+                        'dark-light': '#1a1f2e',
+                        'dark-card': '#252b3d',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out',
+                        'scale-in': 'scaleIn 0.6s ease-out',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
+                        },
+                        scaleIn: {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'scale(0.8)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'scale(1)'
+                            }
                         }
                     }
                 }
             }
         }
     </script>
-    <title>Minhas Vacinas - Gerenciar Vacinas</title>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 50%, #252b3d 100%);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #007bff 0%, #66b3ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.6);
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background: linear-gradient(135deg, #1a1f2e 0%, #252b3d 100%);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(0, 123, 255, 0.1);
+        }
+
+        .sidebar-link {
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-link:hover {
+            background: rgba(0, 123, 255, 0.1);
+            transform: translateX(4px);
+        }
+
+        .sidebar-link.active {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(0, 123, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Card Hover Effects */
+        .vaccine-card {
+            transition: all 0.3s ease;
+        }
+
+        .vaccine-card:hover {
+            transform: translateY(-4px);
+            border-color: #007bff;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
 
-<body class="bg-dark-900 text-white min-h-screen">
+<body class="bg-dark text-white font-inter overflow-x-hidden">
     <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-primary shadow-lg">
-        <nav class="container mx-auto px-4 py-3">
+    <header class="fixed top-0 left-0 right-0 z-50 header">
+        <nav class="container mx-auto px-6 py-3">
             <div class="flex items-center justify-between">
-                <a href="/" class="flex items-center">
-                    <img src="/app/public/img/logo-head.png" alt="Logo Vacinas" class="h-12">
-                </a>
-                <div class="flex items-center space-x-4">
-                    <button id="sidebarToggle" class="lg:hidden text-white hover:text-gray-200 transition-colors">
-                        <i class="bi bi-list text-2xl"></i>
-                    </button>
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-opacity-20 rounded-lg flex items-center justify-center">
+                        <img src="/app/public/img/logo-head.png" alt="">
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold text-white">Minhas Vacinas</h1>
+                        <p class="text-xs text-blue-100">Gerenciar Vacinas</p>
+                    </div>
                 </div>
+
+                <button id="sidebarToggle" class="lg:hidden text-white hover:text-blue-200 transition-colors p-2">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
             </div>
         </nav>
     </header>
 
     <!-- Sidebar -->
-    <aside id="sidebar" class="fixed left-0 top-16 h-full w-64 bg-dark-800 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-40 border-r border-dark-700">
+    <aside id="sidebar" class="fixed left-0 top-16 h-full w-64 sidebar transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-40">
         <div class="p-6">
-            <div class="flex flex-col space-y-4">
+            <div class="flex flex-col space-y-4 h-full">
+                <!-- Navigation Links -->
                 <nav class="space-y-2">
-                    <a href="../" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
-                        <i class="bi bi-house-door text-lg"></i>
-                        <span>Início</span>
+                    <a href="../" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
+                        <i class="fas fa-home text-lg"></i>
+                        <span>Dashboard</span>
                     </a>
-                    <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary text-white font-medium">
-                        <i class="bi bi-heart-pulse text-lg"></i>
-                        <span>Vacinas</span>
+                    <a href="" class="sidebar-link active flex items-center space-x-3 px-4 py-3 rounded-lg text-white font-medium">
+                        <i class="fas fa-syringe text-lg"></i>
+                        <span>Minhas Vacinas</span>
                     </a>
-                    <a href="../perfil/" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
-                        <i class="bi bi-person text-lg"></i>
+                    <a href="../perfil/" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
+                        <i class="fas fa-user text-lg"></i>
                         <span>Perfil</span>
                     </a>
-                    <a href="../perfil/dispositivos/" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-dark-700 hover:text-white transition-colors">
-                        <i class="bi bi-laptop text-lg"></i>
+                    <a href="../perfil/dispositivos/" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
+                        <i class="fas fa-laptop text-lg"></i>
                         <span>Dispositivos</span>
                     </a>
                 </nav>
 
-                <div class="mt-auto pt-6 border-t border-dark-700">
-                    <div class="flex items-center space-x-3 p-4 rounded-lg bg-dark-700">
-                        <?php if (isset($_SESSION['user_foto'])): ?>
-                            <img src="<?php echo $_SESSION['user_foto']; ?>" alt="Foto do Usuário" class="w-10 h-10 rounded-full">
-                        <?php else: ?>
-                            <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-                                <i class="bi bi-person text-white"></i>
-                            </div>
-                        <?php endif; ?>
+                <!-- User Profile -->
+                <div class="mt-auto pt-6 border-t border-gray-600">
+                    <div class="flex items-center space-x-3 p-4 rounded-lg bg-dark-light">
+                        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
                         <div class="flex-1 min-w-0">
-                            <p class="text-sm font-medium text-white truncate">
-                                Olá, <?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?>
-                            </p>
-                            <a href="../../scripts/sair.php" class="text-xs text-gray-400 hover:text-white transition-colors">
-                                <i class="bi bi-box-arrow-right mr-1"></i>Sair
-                            </a>
+                            <p class="text-sm font-medium text-white truncate"><?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></p>
+                            <button class="text-xs text-gray-400 hover:text-white transition-colors">
+                                <i class="fas fa-sign-out-alt mr-1"></i>Sair
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -116,14 +220,14 @@ $_SESSION['vacinas'] = $vacinas ?: [];
     <main class="lg:ml-64 pt-20 min-h-screen">
         <div class="container mx-auto px-6 py-8">
             <!-- Header Section -->
-            <div class="mb-8">
+            <div class="mb-8 animate-fade-in-up">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
                     <div>
                         <h1 class="text-3xl font-bold text-white mb-2">Minhas Vacinas</h1>
                         <p class="text-gray-400">Registre e visualize suas vacinas aplicadas</p>
                     </div>
-                    <a href="nova-vacina/" class="mt-4 md:mt-0 inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors font-medium">
-                        <i class="bi bi-plus-circle mr-2"></i>
+                    <a href="nova-vacina/" class="mt-4 md:mt-0 inline-flex items-center px-6 py-3 btn-primary rounded-lg text-white font-medium">
+                        <i class="fas fa-plus mr-2"></i>
                         Registrar Nova Vacina
                     </a>
                 </div>
@@ -136,32 +240,29 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                             <p class="text-3xl font-bold"><?= count($vacinas) ?></p>
                         </div>
                         <div class="bg-white bg-opacity-20 rounded-lg p-3">
-                            <i class="bi bi-heart-pulse text-2xl"></i>
+                            <i class="fas fa-syringe text-2xl"></i>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Vaccines Grid -->
-            <?php if (count($vacinas) > 0): ?>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <?php if (count($vacinas) > 0): ?>
                     <?php foreach ($vacinas as $vacina): ?>
-                        <div class="bg-dark-800 rounded-xl overflow-hidden border border-dark-700 hover:border-primary transition-all duration-300 group">
-                            <?php if (isset($vacina['path_card'])): ?>
-                                <img src="<?php echo $vacina['path_card']; ?>" alt="Vacina" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
-                            <?php else: ?>
-                                <div class="w-full h-48 bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center">
-                                    <i class="bi bi-heart-pulse text-white text-4xl"></i>
-                                </div>
-                            <?php endif; ?>
-
+                        <div class="vaccine-card bg-dark-card rounded-xl overflow-hidden border border-gray-600 group">
+                            <div class="w-full h-48 bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center">
+                                <?php if (!empty($vacina['path_card'])): ?>
+                                    <img src="<?= htmlspecialchars($vacina['path_card'], ENT_QUOTES, 'UTF-8') ?>" alt="Vacina" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+                                <?php else: ?>
+                                    <i class="fas fa-syringe text-white text-4xl"></i>
+                                <?php endif; ?>
+                            </div>
                             <div class="p-6">
                                 <h3 class="text-xl font-semibold text-white mb-4"><?= htmlspecialchars($vacina['nome_vac'], ENT_QUOTES, 'UTF-8') ?></h3>
-
                                 <div class="space-y-3 mb-6">
                                     <?php if (!empty($vacina['data_aplicacao'])): ?>
                                         <div class="flex items-center text-gray-300">
-                                            <i class="bi bi-calendar-event text-primary mr-3 text-lg"></i>
+                                            <i class="fas fa-calendar text-primary mr-3 text-lg"></i>
                                             <div>
                                                 <span class="text-xs text-gray-400 block">Data de Aplicação</span>
                                                 <span class="font-medium"><?= date('d/m/Y', strtotime($vacina['data_aplicacao'])) ?></span>
@@ -169,9 +270,9 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                                         </div>
                                     <?php endif; ?>
 
-                                    <?php if (!empty($vacina['proxima_dose']) && strtotime($vacina['proxima_dose']) > 0): ?>
+                                    <?php if (!empty($vacina['proxima_dose'])): ?>
                                         <div class="flex items-center text-gray-300">
-                                            <i class="bi bi-calendar-plus text-primary mr-3 text-lg"></i>
+                                            <i class="fas fa-calendar-plus text-primary mr-3 text-lg"></i>
                                             <div>
                                                 <span class="text-xs text-gray-400 block">Próxima Dose</span>
                                                 <span class="font-medium"><?= date('d/m/Y', strtotime($vacina['proxima_dose'])) ?></span>
@@ -181,7 +282,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
 
                                     <?php if (!empty($vacina['local_aplicacao'])): ?>
                                         <div class="flex items-center text-gray-300">
-                                            <i class="bi bi-geo-alt text-primary mr-3 text-lg"></i>
+                                            <i class="fas fa-map-marker-alt text-primary mr-3 text-lg"></i>
                                             <div>
                                                 <span class="text-xs text-gray-400 block">Local</span>
                                                 <span class="font-medium"><?= htmlspecialchars($vacina['local_aplicacao'], ENT_QUOTES, 'UTF-8') ?></span>
@@ -191,7 +292,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
 
                                     <?php if (!empty($vacina['dose'])): ?>
                                         <div class="flex items-center text-gray-300">
-                                            <i class="bi bi-heart-pulse text-primary mr-3 text-lg"></i>
+                                            <i class="fas fa-syringe text-primary mr-3 text-lg"></i>
                                             <div>
                                                 <span class="text-xs text-gray-400 block">Dose</span>
                                                 <span class="font-medium"><?= htmlspecialchars($vacina['dose'], ENT_QUOTES, 'UTF-8') ?></span>
@@ -201,7 +302,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
 
                                     <?php if (!empty($vacina['lote'])): ?>
                                         <div class="flex items-center text-gray-300">
-                                            <i class="bi bi-hash text-primary mr-3 text-lg"></i>
+                                            <i class="fas fa-hashtag text-primary mr-3 text-lg"></i>
                                             <div>
                                                 <span class="text-xs text-gray-400 block">Lote</span>
                                                 <span class="font-medium"><?= htmlspecialchars($vacina['lote'], ENT_QUOTES, 'UTF-8') ?></span>
@@ -209,64 +310,65 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                                         </div>
                                     <?php endif; ?>
                                 </div>
-
-                                <!-- Actions -->
-                                <div class="flex items-center justify-between pt-4 border-t border-dark-700">
-                                    <form action="../backend/excluir-vacina.php" method="POST" class="form-excluir-vacina" id="form-excluir-vacina">
-                                        <input type="hidden" name="id_vac" value="<?= $vacina['id_vac'] ?>">
-                                        <button type="submit" class="flex items-center px-3 py-2 text-red-400 hover:text-red-300 hover:bg-red-500 hover:bg-opacity-20 rounded-lg transition-colors">
-                                            <i class="bi bi-trash mr-2"></i>
-                                            Excluir
-                                        </button>
-                                    </form>
-
-                                    <!-- <button onclick="gerarPdf(this)" data-id="<?= $vacina['id_vac'] ?>" class="flex items-center px-3 py-2 text-primary hover:text-blue-300 hover:bg-primary hover:bg-opacity-20 rounded-lg transition-colors">
-                                        <i class="bi bi-download mr-2"></i>
-                                        Exportar
-                                    </button> -->
+                                <div class="flex items-center justify-between pt-4 border-t border-gray-600">
+                                    <button class="flex items-center px-3 py-2 text-red-400 hover:text-red-300 hover:bg-red-500 hover:bg-opacity-20 rounded-lg transition-colors"><i class="fas fa-trash mr-2"></i>
+                                    </button>
+                                    <button class="flex items-center px-3 py-2 text-green-400 hover:text-green-300 hover:bg-green-600 hover:bg-opacity-20 rounded-lg transition-colors" title="Gerar QR Code">
+                                        <i class="fas fa-qrcode text-lg"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <div class="bg-dark-800 rounded-xl p-12 text-center border border-dark-700">
-                    <div class="bg-primary bg-opacity-20 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
-                        <i class="bi bi-heart-pulse text-primary text-3xl"></i>
+                <?php else: ?>
+                    <div class="col-span-full text-center text-gray-400 py-8">
+                        Nenhuma vacina registrada até o momento.
                     </div>
-                    <h3 class="text-xl font-semibold text-white mb-3">Nenhuma vacina registrada</h3>
-                    <p class="text-gray-400 mb-8 max-w-md mx-auto">Comece seu histórico de vacinação adicionando sua primeira vacina. Mantenha sempre seu registro atualizado!</p>
-                    <a href="nova-vacina/" class="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors font-medium">
-                        <i class="bi bi-plus-circle mr-2"></i>
-                        Adicionar Primeira Vacina
-                    </a>
-                </div>
-            <?php endif; ?>
-        </div>
+                <?php endif; ?>
+            </div>
     </main>
 
     <!-- Mobile Sidebar Overlay -->
     <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden hidden"></div>
 
+    <!-- JavaScript -->
     <script>
         // Sidebar Toggle
         const sidebarToggle = document.getElementById('sidebarToggle');
         const sidebar = document.getElementById('sidebar');
         const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-full');
-            sidebarOverlay.classList.toggle('hidden');
-        });
+        function openSidebar() {
+            sidebar.classList.remove('-translate-x-full');
+            sidebarOverlay.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
 
-        sidebarOverlay.addEventListener('click', () => {
+        function closeSidebar() {
             sidebar.classList.add('-translate-x-full');
             sidebarOverlay.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        sidebarToggle.addEventListener('click', openSidebar);
+        sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // Close sidebar when clicking on navigation links on mobile
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 1024) {
+                    closeSidebar();
+                }
+            });
+        });
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !sidebar.classList.contains('-translate-x-full')) {
+                closeSidebar();
+            }
         });
     </script>
-    <script type="module" src="/app/public/js/sweetalert-config.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="excluir.js"></script>
 </body>
 
 </html>

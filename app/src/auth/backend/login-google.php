@@ -118,38 +118,40 @@ function EnviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
 {
     date_default_timezone_set('America/Sao_Paulo');
     $data_local = date('d/m/Y H:i:s');
-    $email_body = file_get_contents('../../../assets/email/alerta-login.html');
-    $email_body = str_replace('{{ip}}', $ip, $email_body);
-    $email_body = str_replace('{{cidade}}', $cidade, $email_body);
-    $email_body = str_replace('{{estado}}', $estado, $email_body);
-    $email_body = str_replace('{{pais}}', $pais, $email_body);
-    $email_body = str_replace('{{horario}}', $data_local, $email_body);
-    $email_body = str_replace('{{id}}', $id_usuario, $email_body);
-    $email_body = str_replace('{{ip}}', $ip, $email_body);
+    $email_body = file_get_contents('/app/public/email/alerta-login.html');
+
+    $email_body = str_replace(
+        ['{{ip}}', '{{cidade}}', '{{estado}}', '{{pais}}', '{{horario}}', '{{id}}'],
+        [$ip, $cidade, $estado, $pais, $data_local, $id_usuario],
+        $email_body
+    );
+
     $mail = new PHPMailer(true);
 
     try {
         $mail->isSMTP();
-        $mail->Host = $_ENV['HOST_SMTP'];
+        $mail->Host = $_ENV['MAIL_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Username = $_ENV['EMAIL'];
-        $mail->Password = $_ENV['EMAIL_PASSWORD'];
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-        $mail->setFrom($_ENV['EMAIL'], 'Minhas Vacinas');
+        $mail->Username = $_ENV['MAIL_USERNAME'];
+        $mail->Password = $_ENV['MAIL_PASSWORD'];
+        $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION'] ?? PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = isset($_ENV['MAIL_PORT']) ? (int)$_ENV['MAIL_PORT'] : 587;
+        $mail->setFrom($_ENV['MAIL_USERNAME'], 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
         $mail->Subject = 'Sua conta Minhas Vacinas foi acessada a partir de um novo endereço IP';
-        $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img');
+        $mail->addEmbeddedImage('/app/public/img/logo-img.png', 'logo-img');
         $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;
         $mail->send();
+
         return true;
     } catch (Exception $e) {
         return false;
     }
 }
+
 
 function RegistrarDispositivos($pdo, $id_usuario)
 {
