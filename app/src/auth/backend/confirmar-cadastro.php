@@ -32,17 +32,18 @@ if (empty($codigo)) {
             $sql->execute();
 
             if ($sql->rowCount() === 1) {
-                enviarEmail($email);
-                $sql = $pdo->prepare("DELETE FROM confirmar_cadastro WHERE email = :email");
-                $sql->bindValue(':email', $email);
-                $sql->execute();
+                if (enviarEmail($email)) {
+                    $sql = $pdo->prepare("DELETE FROM confirmar_cadastro WHERE email = :email");
+                    $sql->bindValue(':email', $email);
+                    $sql->execute();
 
-                $retorna = ['status' => true, 'msg' => "Seu e-mail foi verificado. Agora você pode acessar todos os recursos da plataforma."];
-                header('Content-Type: application/json');
-                echo json_encode($retorna);
-                $_SESSION = [];
-                session_destroy();
-                exit();
+                    $retorna = ['status' => true, 'msg' => "Seu e-mail foi verificado. Agora você pode acessar todos os recursos da plataforma."];
+                    header('Content-Type: application/json');
+                    echo json_encode($retorna);
+                    $_SESSION = [];
+                    session_destroy();
+                    exit();
+                }
             } else {
                 $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar confirmar seu cadastro. Tente novamente."];
                 // $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar confirmar seu cadastro:" . $e->getMessage()];
@@ -66,7 +67,7 @@ if (empty($codigo)) {
 
 function enviarEmail($email)
 {
-    $email_body = file_get_contents('/app/public/email/cadastro-confirmado.html');
+    $email_body = file_get_contents('../../../public/email/cadastro-confirmado.html');
     $mail = new PHPMailer(true);
 
     try {
@@ -82,8 +83,6 @@ function enviarEmail($email)
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
         $mail->Subject = 'Cadastro confirmado!';
-        $mail->addEmbeddedImage('/app/public/img/logo-img.png', 'logo-img');
-        $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;
         $mail->send();
         return true;

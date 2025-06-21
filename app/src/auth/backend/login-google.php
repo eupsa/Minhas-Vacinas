@@ -118,7 +118,7 @@ function EnviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
 {
     date_default_timezone_set('America/Sao_Paulo');
     $data_local = date('d/m/Y H:i:s');
-    $email_body = file_get_contents('/app/public/email/alerta-login.html');
+    $email_body = file_get_contents('../../../public/email/alerta-login.html');
 
     $email_body = str_replace(
         ['{{ip}}', '{{cidade}}', '{{estado}}', '{{pais}}', '{{horario}}', '{{id}}'],
@@ -141,8 +141,6 @@ function EnviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
         $mail->Subject = 'Sua conta Minhas Vacinas foi acessada a partir de um novo endereço IP';
-        $mail->addEmbeddedImage('/app/public/img/logo-img.png', 'logo-img');
-        $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;
         $mail->send();
 

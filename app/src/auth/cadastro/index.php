@@ -3,7 +3,7 @@ session_start();
 require_once __DIR__ . '../../../../../libs/autoload.php';
 
 if (isset($_SESSION['user_id'])) {
-    header("Location: ../../painel/");
+    header("Location: ../../dashboard/");
     exit();
 }
 

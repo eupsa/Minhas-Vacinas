@@ -73,7 +73,7 @@ if ($sql->rowCount() == 1) {
 
 function email_cadastro($email, $codigo)
 {
-    $email_body = file_get_contents('/app/public/email/cadastro.html');
+    $email_body = file_get_contents('../../../public/email/cadastro.html');
     $email_body = str_replace('{{code}}', $codigo, $email_body);
     $mail = new PHPMailer(true);
 
@@ -90,11 +90,8 @@ function email_cadastro($email, $codigo)
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
         $mail->Subject = 'Confirmação de Cadastro';
-        $mail->addEmbeddedImage('../../../assets/img/logo-img.png', 'logo-img');
-        $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;
         $mail->send();
-
         return true;
     } catch (Exception $e) {
         return false;

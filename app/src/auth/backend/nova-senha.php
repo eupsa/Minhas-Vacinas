@@ -98,7 +98,7 @@ if (empty($senha) || empty($confsenha) || empty($token)) {
 
 function enviarEmail($email)
 {
-    $email_body = file_get_contents('/app/public/email/nova-senha.html');
+    $email_body = file_get_contents('../../../public/email/nova-senha.html');
     $mail = new PHPMailer(true);
 
     try {
@@ -114,8 +114,6 @@ function enviarEmail($email)
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
         $mail->Subject = 'Senha Alterada com sucesso!';
-        $mail->addEmbeddedImage('/app/public/img/logo-img.png', 'logo-img');
-        $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;
         $mail->send();
 

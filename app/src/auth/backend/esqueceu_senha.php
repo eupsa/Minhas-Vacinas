@@ -59,7 +59,7 @@ if (empty($email)) {
 
 function enviarEmail($email, $token)
 {
-    $email_body = file_get_contents('/app/public/email/esqueceu-senha.html');
+    $email_body = file_get_contents('../../../public/email/esqueceu-senha.html');
     $email_body = str_replace('{{token}}', $token, $email_body);
 
     $mail = new PHPMailer(true);
@@ -77,8 +77,6 @@ function enviarEmail($email, $token)
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
         $mail->Subject = 'Redefinição de Senha';
-        $mail->addEmbeddedImage('/app/public/img/logo-img.png', 'logo-img');
-        $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;
         $mail->send();
 

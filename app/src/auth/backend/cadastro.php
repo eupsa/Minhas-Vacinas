@@ -106,7 +106,7 @@ try {
         $sql->bindValue(':codigo', $codigo);
         $sql->execute();
 
-        if (email_cadastro($email, $codigo)) {
+        if (email_cadastro($email, $codigo, $nome)) {
             $retorna = ['status' => true, 'msg' => "Sua conta foi criada. Um e-mail foi enviado com um código de verificação. Siga as instruções na página a seguir."];
             session_start();
         } else {
@@ -117,19 +117,26 @@ try {
         $retorna = ['status' => false, 'msg' => "Erro ao cadastrar usuário. Tente novamente."];
     }
 } catch (PDOException $e) {
-    // $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário."];
-    $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário: " . $e->getMessage()];
+    $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário."];
+    // $retorna = ['status' => false, 'msg' => "Ocorreu um erro ao tentar cadastrar o usuário: " . $e->getMessage()];
 } finally {
     echo json_encode($retorna);
     exit();
 }
 
-function email_cadastro($email, $codigo)
+function email_cadastro($email, $codigo, $nome)
 {
     $email_body = file_get_contents('../../../public/email/cadastro.html');
-    $email_body = str_replace('{{code}}', $codigo, $email_body);
+    $c = str_split($codigo, 1);
+    $email_body = str_replace('{{user}}', $nome, $email_body);
+    $email_body = str_replace('{{num1}}', $c[0], $email_body);
+    $email_body = str_replace('{{num2}}', $c[1], $email_body);
+    $email_body = str_replace('{{num3}}', $c[2], $email_body);
+    $email_body = str_replace('{{num4}}', $c[3], $email_body);
+    $email_body = str_replace('{{num5}}', $c[4], $email_body);
+    $email_body = str_replace('{{num6}}', $c[5], $email_body);
 
-    $mail = new PHPMailer(true); // Ativa lançamento de exceções
+    $mail = new PHPMailer(true);
 
     try {
         $mail->isSMTP();
@@ -144,11 +151,7 @@ function email_cadastro($email, $codigo)
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
         $mail->Subject = 'Confirmação de Cadastro';
-
-        $mail->addEmbeddedImage('../../../public/img/logo-img.png', 'logo-img');
-        $email_body = str_replace('{{logo-img}}', 'cid:logo-img', $email_body);
         $mail->Body = $email_body;
-
         $mail->send();
         return true;
     } catch (Exception $e) {
