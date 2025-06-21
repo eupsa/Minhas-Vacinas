@@ -23,11 +23,5 @@
 # Bloquear navegação em diretórios (evitar listagem)
 Options -Indexes
 
-# Configurações extras para segurança básica
-# Evitar execução de scripts PHP em uploads (se usar pasta uploads)
-<FilesMatch "\.(php|php5|phtml)$">
-    Require all denied
-</FilesMatch>
-
 # Definir charset para evitar problemas de segurança relacionados a charset
 AddDefaultCharset UTF-8
