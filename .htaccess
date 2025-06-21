@@ -1,0 +1,33 @@
+# Bloquear acesso a arquivos sensíveis comuns
+<FilesMatch "\.(env|htaccess|htpasswd|ini|log|conf|json|bak|zip|tar|rar)$">
+    Require all denied
+</FilesMatch>
+
+# Bloquear acesso a arquivos específicos (exemplo)
+<Files ".env">
+    Require all denied
+</Files>
+
+<Files "config.php">
+    Require all denied
+</Files>
+
+# Bloquear acesso à pasta "config" (não funciona em .htaccess, mas incluído para referência)
+# Para bloquear pastas inteiras via .htaccess, crie um .htaccess dentro da pasta com:
+# Require all denied
+
+# Exemplo para bloquear uma pasta específica com .htaccess dentro dela:
+# Conteúdo do .htaccess dentro da pasta "config":
+# Require all denied
+
+# Bloquear navegação em diretórios (evitar listagem)
+Options -Indexes
+
+# Configurações extras para segurança básica
+# Evitar execução de scripts PHP em uploads (se usar pasta uploads)
+<FilesMatch "\.(php|php5|phtml)$">
+    Require all denied
+</FilesMatch>
+
+# Definir charset para evitar problemas de segurança relacionados a charset
+AddDefaultCharset UTF-8
