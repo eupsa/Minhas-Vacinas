@@ -1,9 +1,8 @@
 <?php
-session_start();
-require '../../scripts/Conexao.php';
-require '../../../vendor/autoload.php';
+require_once '../../utils/ConexaoDB.php';
+require_once __DIR__ . '../../../../../libs/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '../../../../');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../../');
 $dotenv->load();
 
 use Google\Client as GoogleClient;
@@ -11,16 +10,14 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 if (empty($_POST['credential']) || empty($_POST['g_csrf_token'])) {
-    $_SESSION['erro_email'] = "Dados de login inválidos.";
-    header('Location: ../entrar/');
+    header('Location: ../entrar/?msg=erro&text=' . urlencode("Dados de login inválidos."));
     exit();
 }
 
 $cookie = $_COOKIE['g_csrf_token'];
 
 if ($_POST['g_csrf_token'] != $cookie) {
-    $_SESSION['erro_email'] = "Token CSRF inválido.";
-    header('Location: ../entrar/');
+    header('Location: ../entrar/?msg=erro&text=' . urlencode("Token CSRF inválido."));
     exit();
 }
 
@@ -50,11 +47,12 @@ if (isset($payload['email'])) {
         $sql->execute();
 
         if ($sql->rowCount() == 1) {
+            // Redirecionar com sucesso
+            header('Location: ../../painel/?msg=sucesso&text=' . urlencode("Login bem-sucedido. Bem-vindo ao painel."));
             $_SESSION['user_id'] = $usuario['id_usuario'];
             $_SESSION['user_nome'] = $usuario['nome'];
             $_SESSION['user_email'] = $usuario['email'];
             $_SESSION['user_ip'] = $ip;
-            header('Location: ../../painel/');
             exit();
         } else {
             $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip AND id_usuario = :id_usuario");
@@ -74,11 +72,11 @@ if (isset($payload['email'])) {
                     $pais = $dispostivo['pais'];
 
                     EnviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
-                    $_SESSION['sucesso-email'] = "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções.";
-                    header('Location: ../entrar/');
+                    header('Location: ../entrar/?msg=sucesso&text=' . urlencode("Para concluir o login, verifique seu e-mail e clique no link de confirmação."));
                     exit();
                 } else {
-                    header('Location: ../../painel/');
+                    // Redirecionar com sucesso
+                    header('Location: ../../painel/?msg=sucesso&text=' . urlencode("Login bem-sucedido. Bem-vindo ao painel."));
                     $_SESSION['user_id'] = $usuario['id_usuario'];
                     $_SESSION['user_nome'] = $usuario['nome'];
                     $_SESSION['user_email'] = $usuario['email'];
@@ -94,22 +92,18 @@ if (isset($payload['email'])) {
                 $cidade = $data['city'];
                 $estado = $data['region'];
                 $pais = $data['country'];
-                $email = $usuario['email'];
 
                 EnviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
-                $_SESSION['sucesso-email'] = "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções.";
-                header('Location: ../entrar/');
+                header('Location: ../entrar/?msg=sucesso&text=' . urlencode("Para concluir o login, verifique seu e-mail e clique no link de confirmação."));
                 exit();
             }
         }
     } else {
-        $_SESSION['erro_email'] = "Usuário não cadastrado ou não conectado com google.";
-        header('Location: ../entrar/');
+        header('Location: ../entrar/?msg=erro&text=' . urlencode("Usuário não cadastrado ou não conectado com o Google."));
         exit();
     }
 } else {
-    $_SESSION['erro_email'] = "Erro ao verificar o login com o Google.";
-    header('Location: ../entrar/');
+    header('Location: ../entrar/?msg=erro&text=' . urlencode("Erro ao verificar o login com o Google."));
     exit();
 }
 
@@ -150,7 +144,6 @@ function EnviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
     }
 }
 
-
 function RegistrarDispositivos($pdo, $id_usuario)
 {
     $ip = ObterIP();
@@ -184,7 +177,6 @@ function RegistrarDispositivos($pdo, $id_usuario)
     $sql->bindValue(':estado', $estado);
     $sql->bindValue(':pais', $pais);
     $sql->execute();
-
 
     return $ip;
 }

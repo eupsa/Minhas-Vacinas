@@ -2,7 +2,6 @@
 session_start();
 require_once __DIR__ . '../../../../../libs/autoload.php';
 
-session_start();
 if (isset($_SESSION['user_id'])) {
     header("Location: ../../dashboard/");
     exit();
@@ -11,29 +10,24 @@ if (isset($_SESSION['user_id'])) {
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../../');
 $dotenv->load();
 
-
-
 $client_id = $_ENV['GOOGLE_ID_CLIENT'];
-$redirect_uri = $_ENV['GOOGLE_REDIRECT_LOGIN'];
+$redirect_uri = urlencode($_ENV['GOOGLE_REDIRECT_LOGIN']);
 $scope = urlencode('openid email profile');
-$state = bin2hex(random_bytes(16)); // opcional, para segurança contra CSRF
+$state = bin2hex(random_bytes(16)); // opcional: para segurança extra
 
-// Salve o state na sessão para validar depois
-session_start();
-$_SESSION['oauth2_state'] = $state;
+$google_auth_url = "https://accounts.google.com/o/oauth2/v2/auth?" .
+    "client_id=$client_id&" .
+    "redirect_uri=$redirect_uri&" .
+    "response_type=code&" .
+    "scope=$scope&" .
+    "state=$state&" .
+    "access_type=offline&" .
+    "prompt=select_account";
 
-$auth_url = "https://accounts.google.com/o/oauth2/v2/auth?" . http_build_query([
-    'client_id' => $client_id,
-    'redirect_uri' => $redirect_uri,
-    'response_type' => 'code',
-    'scope' => $scope,
-    'state' => $state,
-    'access_type' => 'offline', // para refresh token
-    'prompt' => 'select_account', // para mostrar escolha de conta sempre
-]);
+$msg = $_GET['msg'] ?? null;
+$text = $_GET['text'] ?? null;
 
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br" class="scroll-smooth">
 
@@ -388,7 +382,7 @@ $auth_url = "https://accounts.google.com/o/oauth2/v2/auth?" . http_build_query([
                     <!-- Google Sign In Placeholder -->
                     <div class="text-center mb-6">
                         <div class="text-center mb-6">
-                            <a href="<?= htmlspecialchars($auth_url) ?>"
+                            <a href="<?= htmlspecialchars($google_auth_url) ?>"
                                 class="w-full flex items-center justify-center space-x-3 bg-white hover:bg-gray-50 text-gray-900 px-4 py-2.5 rounded-lg font-medium transition-all duration-200 border border-gray-300">
                                 <svg class="w-4 h-4" viewBox="0 0 24 24">
                                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -623,6 +617,28 @@ $auth_url = "https://accounts.google.com/o/oauth2/v2/auth?" . http_build_query([
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && !offCanvasMenu.classList.contains('translate-x-full')) {
                 closeMenu();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const msg = "<?= $msg ?>";
+            const text = "<?= $text ?>";
+
+            if (msg && text) {
+                Swal.fire({
+                    icon: msg === 'sucesso' ? 'success' : 'error',
+                    title: msg === 'sucesso' ? 'Sucesso!' : 'Erro!',
+                    text: text,
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    // Limpar os parâmetros da URL após exibir o alerta
+                    if (window.history.replaceState) {
+                        const url = new URL(window.location);
+                        url.searchParams.delete('msg');
+                        url.searchParams.delete('text');
+                        window.history.replaceState({}, document.title, url.toString());
+                    }
+                });
             }
         });
     </script>

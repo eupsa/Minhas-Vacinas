@@ -1,22 +1,19 @@
 <?php
-session_start();
-require_once '../../scripts/Conexao.php';
-require_once '../../../vendor/autoload.php';
-require_once '../../scripts/Registrar-Dispositivos.php';
+require_once '../../utils/ConexaoDB.php';
+require_once __DIR__ . '../../../../../libs/autoload.php';
+require_once '../../utils/NovoDispositivo.php';
 
 use Google\Client as GoogleClient;
 
 if (empty($_POST['credential']) || empty($_POST['g_csrf_token'])) {
-    $_SESSION['erro_email'] = "Dados de login inválidos.";
-    header('Location: ../cadastro/');
+    header('Location: ../cadastro/?msg=erro&text=' . urlencode("Dados de login inválidos."));
     exit();
 }
 
 $cookie = $_COOKIE['g_csrf_token'];
 
 if ($_POST['g_csrf_token'] != $cookie) {
-    $_SESSION['erro_email'] = "Token CSRF inválido.";
-    header('Location: ../cadastro/');
+    header('Location: ../cadastro/?msg=erro&text=' . urlencode("Token CSRF inválido."));
     exit();
 }
 
@@ -35,8 +32,7 @@ if (isset($payload['email'])) {
     $sql->execute();
 
     if ($sql->rowCount() > 0) {
-        $_SESSION['erro_email'] = "O e-mail já existe em nosso sistema.";
-        header('Location: ../cadastro/');
+        header('Location: ../cadastro/?msg=erro&text=' . urlencode("O e-mail já existe em nosso sistema."));
         exit();
     }
 
@@ -62,11 +58,10 @@ if (isset($payload['email'])) {
     }
 
     if ($sql->rowCount() === 1) {
-        header('Location: ../entrar/');
+        header('Location: ../entrar/?msg=sucesso&text=' . urlencode("Cadastro realizado com sucesso! Faça login."));
         exit();
     } else {
-        $_SESSION['erro_email'] = "Erro ao realizar o cadastro.";
-        header('Location: ../cadastro/');
+        header('Location: ../cadastro/?msg=erro&text=' . urlencode("Erro ao realizar o cadastro."));
         exit();
     }
 }

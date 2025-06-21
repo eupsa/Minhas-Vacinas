@@ -11,7 +11,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../../');
 $dotenv->load();
 
 $client_id = $_ENV['GOOGLE_ID_CLIENT'];
-$redirect_uri = urlencode($_ENV['GOOGLE_REDIRECT_LOGIN']);
+$redirect_uri = urlencode($_ENV['GOOGLE_REDIRECT_REGISTER']);
 $scope = urlencode('openid email profile');
 $state = bin2hex(random_bytes(16)); // opcional: para segurança extra
 
@@ -23,6 +23,10 @@ $google_auth_url = "https://accounts.google.com/o/oauth2/v2/auth?" .
     "state=$state&" .
     "access_type=offline&" .
     "prompt=select_account";
+
+$msg = $_GET['msg'] ?? null;
+$text = $_GET['text'] ?? null;
+
 ?>
 
 <!DOCTYPE html>
@@ -780,6 +784,29 @@ $google_auth_url = "https://accounts.google.com/o/oauth2/v2/auth?" .
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && !offCanvasMenu.classList.contains('translate-x-full')) {
                 closeMenu();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const msg = <?= json_encode($msg) ?>;
+            const text = <?= json_encode($text) ?>;
+
+            // Se a msg e o text estiverem presentes na URL
+            if (msg && text) {
+                Swal.fire({
+                    icon: msg === 'sucesso' ? 'success' : 'error',
+                    title: msg === 'sucesso' ? 'Sucesso!' : 'Erro!',
+                    text: text,
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    // Limpa os parâmetros da URL após mostrar o alerta
+                    if (window.history.replaceState) {
+                        const url = new URL(window.location);
+                        url.searchParams.delete('msg');
+                        url.searchParams.delete('text');
+                        window.history.replaceState({}, document.title, url.toString());
+                    }
+                });
             }
         });
     </script>
