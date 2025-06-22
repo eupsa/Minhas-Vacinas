@@ -159,10 +159,10 @@ $_SESSION['dispositivos'] = $dispositivos ?: [];
                 </div>
 
                 <div class="flex items-center space-x-4">
-                    <a href="../" class="hidden md:flex items-center px-4 py-2 bg-white bg-opacity-20 text-white rounded-lg hover:bg-opacity-30 transition-colors">
+                    <button onclick="window.history.back()" class="hidden md:flex items-center px-4 py-2 bg-white bg-opacity-20 text-white rounded-lg hover:bg-opacity-30 transition-colors">
                         <i class="fas fa-arrow-left mr-2"></i>
-                        Perfil
-                    </a>
+                        Voltar
+                    </button>
                     <button id="mobileMenuToggle" class="md:hidden text-white hover:text-blue-200 transition-colors p-2">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
@@ -170,10 +170,10 @@ $_SESSION['dispositivos'] = $dispositivos ?: [];
             </div>
             <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 bg-primary shadow-lg border-t border-white border-opacity-20">
                 <div class="container mx-auto px-4 py-4">
-                    <a href="../" class="flex items-center px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-lg transition-colors">
+                    <button onclick="window.history.back()" class="flex items-center px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-lg transition-colors">
                         <i class="fas fa-arrow-left mr-3"></i>
-                        Perfil
-                    </a>
+                        Voltar
+                    </button>
                 </div>
             </div>
         </nav>

@@ -28,6 +28,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
 
     <!-- Favicon -->
     <link rel="icon" href="/app/public/img/img-web.png" type="image/x-icon">
+    <link rel="stylesheet" href="/app/public/css/sweetalert-styles.css">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -206,7 +207,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-medium text-white truncate"><?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></p>
-                            <button class="text-xs text-gray-400 hover:text-white transition-colors">
+                            <button class="text-xs text-gray-400 hover:text-white transition-colors" id="btnLogout">
                                 <i class="fas fa-sign-out-alt mr-1"></i>Sair
                             </button>
                         </div>
@@ -259,6 +260,9 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                             </div>
                             <div class="p-6">
                                 <h3 class="text-xl font-semibold text-white mb-4"><?= htmlspecialchars($vacina['nome_vac'], ENT_QUOTES, 'UTF-8') ?></h3>
+                                <?php if (!empty($vacina['obs'])): ?>
+                                    <p class="text-gray-400 text-sm mb-4 leading-relaxed"><?= nl2br(htmlspecialchars($vacina['obs'], ENT_QUOTES, 'UTF-8')) ?></p>
+                                <?php endif; ?>
                                 <div class="space-y-3 mb-6">
                                     <?php if (!empty($vacina['data_aplicacao'])): ?>
                                         <div class="flex items-center text-gray-300">
@@ -311,11 +315,22 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                                     <?php endif; ?>
                                 </div>
                                 <div class="flex items-center justify-between pt-4 border-t border-gray-600">
-                                    <button class="flex items-center px-3 py-2 text-red-400 hover:text-red-300 hover:bg-red-500 hover:bg-opacity-20 rounded-lg transition-colors"><i class="fas fa-trash mr-2"></i>
-                                    </button>
-                                    <button class="flex items-center px-3 py-2 text-green-400 hover:text-green-300 hover:bg-green-600 hover:bg-opacity-20 rounded-lg transition-colors" title="Gerar QR Code">
-                                        <i class="fas fa-qrcode text-lg"></i>
-                                    </button>
+
+                                    <!-- Form para excluir vacina -->
+                                    <form method="POST" action="../backend/excluir-vacina.php" id="form-excluir-vacina">
+                                        <input type="hidden" name="id_vac" value="<?= htmlspecialchars($vacina['id_vac'], ENT_QUOTES, 'UTF-8') ?>">
+                                        <button type="submit" class="flex items-center px-3 py-2 text-red-400 hover:text-red-300 hover:bg-red-500 hover:bg-opacity-20 rounded-lg transition-colors">
+                                            <i class="fas fa-trash mr-2"></i>Excluir
+                                        </button>
+                                    </form>
+
+                                    <!-- Form para gerar QR Code -->
+                                    <form method="POST" action="gerar_qrcode.php" target="_blank">
+                                        <input type="hidden" name="id_vacina" value="<?= htmlspecialchars($vacina['id_vac'], ENT_QUOTES, 'UTF-8') ?>">
+                                        <button type="submit" class="flex items-center px-3 py-2 text-green-400 hover:text-green-300 hover:bg-green-600 hover:bg-opacity-20 rounded-lg transition-colors disabled" title="Gerar QR Code">
+                                            <i class="fa-solid fa-qrcode text-lg" style="margin-right: 5px;"></i> QR Code
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -326,6 +341,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                     </div>
                 <?php endif; ?>
             </div>
+        </div>
     </main>
 
     <!-- Mobile Sidebar Overlay -->
@@ -368,7 +384,27 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                 closeSidebar();
             }
         });
+
+        document.getElementById('btnLogout').addEventListener('click', () => {
+            Swal.fire({
+                title: 'Tem certeza que deseja sair?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sim, sair',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redireciona para a página PHP que destrói a sessão
+                    window.location.href = '/app/src/utils/Sair.php';
+                }
+            });
+        });
     </script>
+    <script type="module" src="/app/public/js/sweetalert-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="excluir.js"></script>
 </body>
 
 </html>

@@ -2,6 +2,9 @@
 session_start();
 require_once '../../utils/ConexaoDB.php';
 
+
+var_dump($_POST);
+
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $id_vac = $dados['id_vac'];
 $id_usuario = $_SESSION['user_id'];

@@ -2,43 +2,45 @@
 .swal2-popup {
   background: #111827 !important;
   border: 1px solid #374151 !important;
-  border-radius: 0.5rem !important; /* menor */
+  border-radius: 0.5rem !important;
   font-family: "Inter", sans-serif !important;
-  box-shadow: 0 12px 25px -6px rgba(0, 0, 0, 0.8) !important; /* menor sombra */
-  backdrop-filter: blur(8px) !important; /* menos blur */
-  padding: 1rem !important; /* menos padding */
-  max-width: 20rem !important; /* limite menor */
-    font-size: 0.8rem !important; /* reduz fontes e icones proporcionais */
-
+  box-shadow: 0 12px 25px -6px rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(8px) !important;
+  padding: 1rem !important;
+  max-width: 20rem !important;
+  font-size: 0.8rem !important;
 }
 
+/* Fundo escuro com blur */
 .swal2-backdrop {
   background: rgba(0, 0, 0, 0.8) !important;
   backdrop-filter: blur(2px) !important;
 }
 
+/* Título */
 .swal2-title {
   color: #f9fafb !important;
   font-weight: 700 !important;
-  font-size: 1rem !important; /* menor fonte */
-  margin-bottom: 0.25rem !important; /* menos margem */
+  font-size: 1rem !important;
+  margin-bottom: 0.25rem !important;
 }
 
+/* Texto da mensagem */
 .swal2-html-container {
   color: #9ca3af !important;
-  font-size: 0.75rem !important; /* menor fonte */
+  font-size: 0.75rem !important;
   line-height: 1.3 !important;
-  margin-bottom: 0.5rem !important; /* adiciona espaço */
+  margin-bottom: 0.5rem !important;
 }
 
-/* Buttons */
+/* Botões */
 .swal2-confirm,
 .swal2-cancel,
 .swal2-deny {
-  border-radius: 0.25rem !important; /* menor */
+  border-radius: 0.25rem !important;
   font-weight: 600 !important;
-  font-size: 0.7rem !important; /* menor */
-  padding: 0.4rem 0.8rem !important; /* menor */
+  font-size: 0.7rem !important;
+  padding: 0.4rem 0.8rem !important;
   font-family: "Inter", sans-serif !important;
   transition: all 0.3s ease !important;
 }
@@ -74,49 +76,77 @@
   transform: translateY(-1px) !important;
 }
 
-/* Icons */
+/* Ícones gerais */
+.swal2-icon {
+  width: 3rem !important;
+  height: 3rem !important;
+  margin-bottom: 0.5rem !important;
+  transform-origin: center center !important;
+  transform: none !important; /* Remove escala que distorcia */
+  box-sizing: content-box !important;
+}
+
+/* Ícone Sucesso */
 .swal2-success .swal2-success-ring {
   border-color: #10b981 !important;
-  width: 60px !important; /* menor */
-  height: 60px !important; /* menor */
+  width: 3rem !important;
+  height: 3rem !important;
+  box-sizing: content-box !important;
 }
 
 .swal2-success .swal2-success-fix {
   background-color: #111827 !important;
+  width: 0.75rem !important;
+  height: 1.5rem !important;
+  left: 1.05rem !important;
+  top: 0.75rem !important;
+}
+
+/* Ícone Erro */
+.swal2-error .swal2-x-mark {
+  width: 3rem !important;
+  height: 3rem !important;
 }
 
 .swal2-error .swal2-error-line {
   background-color: #ef4444 !important;
-  width: 40px !important; /* menor */
-  height: 40px !important; /* menor */
+  width: 0.25rem !important;
+  height: 1.5rem !important;
+  border-radius: 0.125rem !important;
 }
 
+/* Ícone Aviso */
+.swal2-warning .swal2-warning-icon,
 .swal2-warning .swal2-warning-outline {
+  width: 3rem !important;
+  height: 3rem !important;
   border-color: #f59e0b !important;
-  width: 40px !important;
-  height: 40px !important;
+  box-sizing: content-box !important;
 }
 
+/* Ícone Informação */
+.swal2-info .swal2-info-icon,
 .swal2-info .swal2-info-outline {
+  width: 3rem !important;
+  height: 3rem !important;
   border-color: #007bff !important;
-  width: 40px !important;
-  height: 40px !important;
+  box-sizing: content-box !important;
 }
 
-/* Input fields */
+/* Campos input */
 .swal2-input {
   background: #1f2937 !important;
   border: 1px solid #374151 !important;
-  border-radius: 0.25rem !important; /* menor */
+  border-radius: 0.25rem !important;
   color: #f9fafb !important;
   font-family: "Inter", sans-serif !important;
-  padding: 0.4rem !important; /* menor */
-  font-size: 0.75rem !important; /* menor */
+  padding: 0.4rem !important;
+  font-size: 0.75rem !important;
 }
 
 .swal2-input:focus {
   border-color: #007bff !important;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1) !important; /* menor */
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1) !important;
   outline: none !important;
 }
 
@@ -124,10 +154,10 @@
   color: #6b7280 !important;
 }
 
-/* Close button */
+/* Botão fechar */
 .swal2-close {
   color: #9ca3af !important;
-  font-size: 1rem !important; /* menor */
+  font-size: 1rem !important;
   transition: color 0.3s ease !important;
 }
 
@@ -135,41 +165,27 @@
   color: #f9fafb !important;
 }
 
-/* Progress bar */
+/* Barra de progresso */
 .swal2-timer-progress-bar {
   background: #007bff !important;
-  height: 4px !important; /* menor */
+  height: 4px !important;
 }
 
-/* Toast mode */
+/* Toast */
 .swal2-toast {
   background: #111827 !important;
   border: 1px solid #374151 !important;
   color: #f9fafb !important;
-  font-size: 0.75rem !important; /* menor */
-  padding: 0.5rem 1rem !important; /* menor */
+  font-size: 0.75rem !important;
+  padding: 0.5rem 1rem !important;
 }
 
 .swal2-toast .swal2-title {
   color: #f9fafb !important;
-  font-size: 0.85rem !important; /* menor */
+  font-size: 0.85rem !important;
 }
 
 .swal2-toast .swal2-html-container {
   color: #9ca3af !important;
-  font-size: 0.65rem !important; /* menor */
-}
-
-.swal2-icon {
-  transform-origin: center center !important;
-  transform: scale(0.6) !important; /* reduz pra 60% do tamanho */
-  margin-bottom: 0.5rem !important;
-}
-
-.swal2-success .swal2-success-ring,
-.swal2-error .swal2-x-mark,
-.swal2-warning .swal2-warning-icon,
-.swal2-info .swal2-info-icon {
-  width: 3rem !important;
-  height: 3rem !important;
+  font-size: 0.65rem !important;
 }

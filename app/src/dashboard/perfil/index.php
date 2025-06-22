@@ -187,7 +187,7 @@ if ($sql->rowCount() > 0) {
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-medium text-white truncate"><?php echo ($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></p>
-                            <button class="text-xs text-gray-400 hover:text-white transition-colors">
+                            <button class="text-xs text-gray-400 hover:text-white transition-colors" id="btnLogout">
                                 <i class="fas fa-sign-out-alt mr-1"></i>Sair
                             </button>
                         </div>
@@ -593,6 +593,23 @@ if ($sql->rowCount() > 0) {
                 telefone = telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
             }
             e.target.value = telefone;
+        });
+
+        document.getElementById('btnLogout').addEventListener('click', () => {
+            Swal.fire({
+                title: 'Tem certeza que deseja sair?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sim, sair',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redireciona para a página PHP que destrói a sessão
+                    window.location.href = '/app/src/utils/Sair.php';
+                }
+            });
         });
     </script>
     <script type="module" src="/app/public/js/sweetalert-config.js"></script>

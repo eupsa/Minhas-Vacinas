@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const excluirForms = document.querySelectorAll(".form-excluir-vacina");
+  const excluirForms = document.querySelectorAll("#form-excluir-vacina");
 
   excluirForms.forEach((form) => {
     form.addEventListener("submit", (event) => {
