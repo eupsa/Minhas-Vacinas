@@ -13,7 +13,9 @@ $dotenv->load();
 $client_id = $_ENV['GOOGLE_ID_CLIENT'];
 $redirect_uri = urlencode($_ENV['GOOGLE_REDIRECT_LOGIN']);
 $scope = urlencode('openid email profile');
-$state = bin2hex(random_bytes(16)); // opcional: para segurança extra
+
+$state = bin2hex(random_bytes(16)); // gera state seguro
+$_SESSION['oauth2_state'] = $state; // salva na sessão para validar depois
 
 $google_auth_url = "https://accounts.google.com/o/oauth2/v2/auth?" .
     "client_id=$client_id&" .

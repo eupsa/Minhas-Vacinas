@@ -11,18 +11,22 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../../');
 $dotenv->load();
 
 $client_id = $_ENV['GOOGLE_ID_CLIENT'];
-$redirect_uri = urlencode($_ENV['GOOGLE_REDIRECT_REGISTER']);
-$scope = urlencode('openid email profile');
-$state = bin2hex(random_bytes(16)); // opcional: para segurança extra
+$redirect_uri = $_ENV['GOOGLE_REDIRECT_REGISTER'];
+$scope = 'openid email profile';
+$state = bin2hex(random_bytes(16)); // Pode salvar isso na session para validação depois
 
-$google_auth_url = "https://accounts.google.com/o/oauth2/v2/auth?" .
-    "client_id=$client_id&" .
-    "redirect_uri=$redirect_uri&" .
-    "response_type=code&" .
-    "scope=$scope&" .
-    "state=$state&" .
-    "access_type=offline&" .
-    "prompt=select_account";
+// URL segura com http_build_query
+$params = [
+    'client_id' => $client_id,
+    'redirect_uri' => $redirect_uri,
+    'response_type' => 'code',
+    'scope' => $scope,
+    'state' => $state,
+    'access_type' => 'offline',
+    'prompt' => 'select_account'
+];
+
+$google_auth_url = 'https://accounts.google.com/o/oauth2/v2/auth?' . http_build_query($params);
 
 $msg = $_GET['msg'] ?? null;
 $text = $_GET['text'] ?? null;

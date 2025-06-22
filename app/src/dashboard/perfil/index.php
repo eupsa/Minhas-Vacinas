@@ -5,6 +5,14 @@ require_once '../../utils/UsuarioAuth.php';
 
 Auth($pdo);
 Gerar_Session($pdo);
+
+$sql = $pdo->prepare("SELECT * FROM 2fa WHERE email = :email");
+$sql->bindValue(':email', $_SESSION['user_email']);
+$sql->execute();
+
+if ($sql->rowCount() > 0) {
+    $doisFatores = TRUE;
+}
 ?>
 
 <!DOCTYPE html>
@@ -264,7 +272,7 @@ Gerar_Session($pdo);
                                     <i class="fas fa-check-circle text-green-400 mr-3"></i>
                                     <div>
                                         <p class="text-white font-medium">Confirmação de novo acesso</p>
-                                        <p class="text-sm text-gray-400">Ativa a confirmação do novo acesso de dispositivos com IP anormal</p>
+                                        <p class="text-sm text-gray-400">Ativa a confirmação do novo acesso de dispositivos</p>
                                     </div>
                                 </div>
                                 <div class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Ativo</div>
@@ -278,10 +286,17 @@ Gerar_Session($pdo);
                                         <p class="text-sm text-gray-400">Camada extra de segurança com código adicional no login</p>
                                     </div>
                                 </div>
-                                <a href="2FA/" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors inline-flex items-center">
-                                    <i class="fas fa-shield-alt mr-2"></i> <!-- FA 5, gratuito -->
-                                    Ativar
-                                </a>
+                                <?php if ($doisFatores): ?>
+                                    <form action="2FA/desativar.php" method="POST" onsubmit="return confirm('Tem certeza que deseja desativar a verificação em duas etapas?');">
+                                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors inline-flex items-center">
+                                            <i class="fas fa-ban mr-2"></i> Desativar
+                                        </button>
+                                    </form>
+                                <?php else: ?>
+                                    <a href="2FA/" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors inline-flex items-center">
+                                        <i class="fas fa-shield-alt mr-2"></i> Ativar
+                                    </a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -366,7 +381,7 @@ Gerar_Session($pdo);
                         <label for="telefone" class="block text-sm font-medium text-white mb-2">Telefone</label>
                         <div class="flex">
                             <span class="inline-flex items-center px-3 text-sm text-gray-300 bg-dark border border-r-0 border-gray-600 rounded-l-lg">
-                                🇧🇷 +55
+                                +55
                             </span>
                             <input type="text" id="telefone" name="telefone" value="<?php echo isset($_SESSION['user_telefone']) ?>" class="flex-1 px-4 py-3 bg-dark border border-gray-600 rounded-r-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                         </div>

@@ -6,6 +6,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../../');
 $dotenv->load();
 
 use Google\Client as GoogleClient;
+use Google\Service\Oauth2;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -76,7 +77,7 @@ if (isset($payload['email'])) {
                     exit();
                 } else {
                     // Redirecionar com sucesso
-                    header('Location: ../../painel/?msg=sucesso&text=' . urlencode("Login bem-sucedido. Bem-vindo ao painel."));
+                    header('Location: ../../dashboard/');
                     $_SESSION['user_id'] = $usuario['id_usuario'];
                     $_SESSION['user_nome'] = $usuario['nome'];
                     $_SESSION['user_email'] = $usuario['email'];
