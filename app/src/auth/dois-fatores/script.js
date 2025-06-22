@@ -1,73 +1,57 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const inputs = document.querySelectorAll("input[name='codigo[]']");
+document.querySelector("#form-2FA").addEventListener("submit", function (e) {
+  e.preventDefault();
 
-  inputs.forEach((input, index) => {
-    input.addEventListener("input", function () {
-      if (this.value.length === 1 && index < inputs.length - 1) {
-        inputs[index + 1].focus();
-      }
+  const inputs = document.querySelectorAll(".codigo-input");
+  const submitBtn = document.getElementById("submitBtn");
+  const spinner = document.getElementById("loadingSpinner");
+
+  const codigoConcatenado = Array.from(inputs)
+    .map((input) => input.value.trim())
+    .join("");
+
+  if (codigoConcatenado.length !== 6) {
+    Swal.fire({
+      text: "Por favor, insira todos os 6 dígitos.",
+      icon: "error",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Fechar",
     });
+    return;
+  }
 
-    input.addEventListener("keydown", function (event) {
-      if (event.key === "Backspace" && index > 0 && this.value === "") {
-        inputs[index - 1].focus();
-      }
-    });
+  submitBtn.disabled = true;
+  if (spinner) spinner.style.display = "inline-block";
 
-    input.addEventListener("paste", function (event) {
-      event.preventDefault();
-      const pasteData = (event.clipboardData || window.clipboardData).getData("text").trim();
-      
-      if (pasteData.length === inputs.length && /^\d+$/.test(pasteData)) {
-        inputs.forEach((input, i) => {
-          input.value = pasteData[i] || "";
-        });
-        inputs[inputs.length - 1].focus();
-      }
-    });
-  });
+  const dadosForm = new FormData(this);
+  dadosForm.append("codigo", codigoConcatenado);
 
-  document.querySelector("#form-2FA").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const codigoConcatenado = Array.from(inputs)
-      .map((input) => input.value)
-      .join("");
+  fetch("../backend/confirmar-2FA.php", {
+    method: "POST",
+    body: dadosForm,
+  })
+    .then((response) => response.json())
+    .then((resposta) => {
+      submitBtn.disabled = false;
+      if (spinner) spinner.style.display = "none";
 
-    if (codigoConcatenado.length !== 6) {
       Swal.fire({
-        text: "Por favor, insira todos os 6 dígitos.",
-        icon: "error",
+        text: resposta.msg,
+        icon: resposta.status ? "success" : "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "Fechar",
+      }).then(() => {
+        if (resposta.status) {
+          window.location.href = "../../dashboard/";
+        }
       });
-      return;
-    }
-
-    const dadosForm = new FormData(this);
-    dadosForm.append("codigo", codigoConcatenado);
-
-    document.getElementById("submitBtn").disabled = true;
-    document.getElementById("loadingSpinner").style.display = "inline-block";
-
-    fetch("../backend/confirmar-2FA.php", {
-      method: "POST",
-      body: dadosForm,
     })
-      .then((response) => response.json())
-      .then((resposta) => {
-        document.getElementById("submitBtn").disabled = false;
-        document.getElementById("loadingSpinner").style.display = "none";
-
-        Swal.fire({
-          text: resposta.msg,
-          icon: resposta.status ? "success" : "error",
-          confirmButtonColor: "#3085d6",
-          confirmButtonText: "Fechar",
-        }).then(() => {
-          if (resposta.status) {
-            window.location.href = "../../painel/";
-          }
-        });
+    .catch(() => {
+      submitBtn.disabled = false;
+      if (spinner) spinner.style.display = "none";
+      Swal.fire({
+        text: "Erro ao validar código. Tente novamente.",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
       });
-  });
+    });
 });

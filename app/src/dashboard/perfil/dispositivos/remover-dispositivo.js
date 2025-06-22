@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const excluirForms = document.querySelectorAll("#form-remover-dispositivo");
+  // Seleciona todos os formulários com o ID form-remover-dispositivo
+  const excluirForms = document.querySelectorAll(".remove-device-form");
 
   excluirForms.forEach((form) => {
     form.addEventListener("submit", (event) => {
-      event.preventDefault(); // Prevent the default form submission
+      event.preventDefault(); // Impede envio automático
 
       Swal.fire({
         title: "Tem certeza?",
@@ -16,8 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cancelButtonText: "Cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
-          // If confirmed, submit the form
-          form.submit();
+          form.submit(); // Envia o formulário se confirmado
         }
       });
     });

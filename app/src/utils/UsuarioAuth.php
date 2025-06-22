@@ -28,7 +28,7 @@ function Auth($pdo)
         if ($sql->rowCount() != 1) {
             $_SESSION = [];
             session_destroy();
-            header("Location: /src/auth/entrar/");
+            header("Location: /app/src/auth/entrar/");
             exit();
         }
 
@@ -40,13 +40,13 @@ function Auth($pdo)
         if ($sql->rowCount() != 1) {
             $_SESSION = [];
             session_destroy();
-            header("Location: /src/auth/entrar/");
+            header("Location: /app/src/auth/entrar/");
             exit();
         }
     } else {
         $_SESSION = [];
         session_destroy();
-        header("Location: /src/auth/entrar/");
+        header("Location: /app/src/auth/entrar/");
         exit();
     }
 }

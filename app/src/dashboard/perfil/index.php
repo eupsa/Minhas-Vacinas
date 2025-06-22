@@ -186,7 +186,7 @@ if ($sql->rowCount() > 0) {
                             <i class="fas fa-user text-white"></i>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <p class="text-sm font-medium text-white truncate"><?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></p>
+                            <p class="text-sm font-medium text-white truncate"><?php echo ($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></p>
                             <button class="text-xs text-gray-400 hover:text-white transition-colors">
                                 <i class="fas fa-sign-out-alt mr-1"></i>Sair
                             </button>
@@ -222,35 +222,35 @@ if ($sql->rowCount() > 0) {
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">Nome</label>
-                        <p class="text-white font-medium"><?php echo isset($_SESSION['user_nome']) ? $_SESSION['user_nome'] : 'Não informado'; ?></p>
+                        <p class="text-white font-medium"><?php echo ($_SESSION['user_nome']) ? $_SESSION['user_nome'] : 'Não informado'; ?></p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">E-mail</label>
-                        <p class="text-white font-medium"><?php echo isset($_SESSION['user_email']) ? $_SESSION['user_email'] : 'Não informado'; ?></p>
+                        <p class="text-white font-medium"><?php echo ($_SESSION['user_email']) ? $_SESSION['user_email'] : 'Não informado'; ?></p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">Telefone</label>
-                        <p class="text-white font-medium">+55 <?php echo isset($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : 'Não informado'; ?></p>
+                        <p class="text-white font-medium">+55 <?php echo ($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : 'Não informado'; ?></p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">CPF</label>
-                        <p class="text-white font-medium"><?php echo isset($_SESSION['user_cpf']) ? explode('.', $_SESSION['user_cpf'])[0] . '.***.***-**' : '***.***.***-**'; ?></p>
+                        <p class="text-white font-medium"><?php echo ($_SESSION['user_cpf']) ? explode('.', $_SESSION['user_cpf'])[0] . '.***.***-**' : '***.***.***-**'; ?></p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">Data de Nascimento</label>
-                        <p class="text-white font-medium"><?php echo isset($_SESSION['user_nascimento']) ? $_SESSION['user_nascimento'] : 'Não informado'; ?></p>
+                        <p class="text-white font-medium"><?php echo ($_SESSION['user_nascimento']) ? $_SESSION['user_nascimento'] : 'Não informado'; ?></p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">Gênero</label>
-                        <p class="text-white font-medium"><?php echo isset($_SESSION['user_genero']) ? $_SESSION['user_genero'] : 'Não informado'; ?></p>
+                        <p class="text-white font-medium"><?php echo ($_SESSION['user_genero']) ? $_SESSION['user_genero'] : 'Não informado'; ?></p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">Estado</label>
-                        <p class="text-white font-medium"><?php echo isset($_SESSION['user_estado']) ? $_SESSION['user_estado'] : 'Não informado'; ?></p>
+                        <p class="text-white font-medium"><?php echo ($_SESSION['user_estado']) ? $_SESSION['user_estado'] : 'Não informado'; ?></p>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">Cidade</label>
-                        <p class="text-white font-medium"><?php echo isset($_SESSION['user_cidade']) ? $_SESSION['user_cidade'] : 'Não informado'; ?></p>
+                        <p class="text-white font-medium"><?php echo ($_SESSION['user_cidade']) ? $_SESSION['user_cidade'] : 'Não informado'; ?></p>
                     </div>
                 </div>
             </div>
@@ -371,10 +371,14 @@ if ($sql->rowCount() > 0) {
                         <label for="nome" class="block text-sm font-medium text-white mb-2">Nome</label>
                         <input type="text" id="nome" name="nome" value="<?= $_SESSION['user_nome'] ?>" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                     </div>
-
                     <div>
                         <label for="data_nascimento" class="block text-sm font-medium text-white mb-2">Data de Nascimento</label>
-                        <input type="date" id="data_nascimento" name="data_nascimento" value="<?php echo isset($_SESSION['user_nascimento']) ? date('d/m/Y', strtotime($_SESSION['user_nascimento'])) : 'Não informado'; ?>" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                        <input
+                            type="date"
+                            id="data_nascimento"
+                            name="data_nascimento"
+                            value="<?php echo isset($_SESSION['user_nascimento']) ? date('Y-m-d', strtotime($_SESSION['user_nascimento'])) : ''; ?>"
+                            class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                     </div>
 
                     <div>
@@ -383,17 +387,17 @@ if ($sql->rowCount() > 0) {
                             <span class="inline-flex items-center px-3 text-sm text-gray-300 bg-dark border border-r-0 border-gray-600 rounded-l-lg">
                                 +55
                             </span>
-                            <input type="text" id="telefone" name="telefone" value="<?php echo isset($_SESSION['user_telefone']) ?>" class="flex-1 px-4 py-3 bg-dark border border-gray-600 rounded-r-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                            <input type="text" id="telefone" name="telefone" value="<?php echo ($_SESSION['user_telefone']) ?>" class="flex-1 px-4 py-3 bg-dark border border-gray-600 rounded-r-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                         </div>
                     </div>
 
                     <div>
                         <label for="genero" class="block text-sm font-medium text-white mb-2">Gênero</label>
                         <select id="genero" name="genero" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
-                            <option value="Não Informado" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Não Informado') ? 'selected' : ''; ?>>Não Informado</option>
-                            <option value="Masculino" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
-                            <option value="Feminino" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Feminino') ? 'selected' : ''; ?>>Feminino</option>
-                            <option value="Outro" <?php echo (isset($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
+                            <option value="Não Informado" <?php echo (($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Não Informado') ? 'selected' : ''; ?>>Não Informado</option>
+                            <option value="Masculino" <?php echo (($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
+                            <option value="Feminino" <?php echo (($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Feminino') ? 'selected' : ''; ?>>Feminino</option>
+                            <option value="Outro" <?php echo (($_SESSION['user_genero']) && $_SESSION['user_genero'] === 'Outro') ? 'selected' : ''; ?>>Outro</option>
                         </select>
                     </div>
 
@@ -401,33 +405,33 @@ if ($sql->rowCount() > 0) {
                         <label for="estado" class="block text-sm font-medium text-white mb-2">Estado</label>
                         <select id="estado" name="estado" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                             <option value="" disabled selected>Selecione um estado</option>
-                            <option value="AC" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'AC') ? 'selected' : ''; ?>>Acre</option>
-                            <option value="AL" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'AL') ? 'selected' : ''; ?>>Alagoas</option>
-                            <option value="AP" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'AP') ? 'selected' : ''; ?>>Amapá</option>
-                            <option value="AM" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'AM') ? 'selected' : ''; ?>>Amazonas</option>
-                            <option value="BA" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'BA') ? 'selected' : ''; ?>>Bahia</option>
-                            <option value="CE" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'CE') ? 'selected' : ''; ?>>Ceará</option>
-                            <option value="DF" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'DF') ? 'selected' : ''; ?>>Distrito Federal</option>
-                            <option value="ES" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'ES') ? 'selected' : ''; ?>>Espírito Santo</option>
-                            <option value="GO" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'GO') ? 'selected' : ''; ?>>Goiás</option>
-                            <option value="MA" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'MA') ? 'selected' : ''; ?>>Maranhão</option>
-                            <option value="MT" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'MT') ? 'selected' : ''; ?>>Mato Grosso</option>
-                            <option value="MS" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'MS') ? 'selected' : ''; ?>>Mato Grosso do Sul</option>
-                            <option value="MG" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'MG') ? 'selected' : ''; ?>>Minas Gerais</option>
-                            <option value="PA" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'PA') ? 'selected' : ''; ?>>Pará</option>
-                            <option value="PB" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'PB') ? 'selected' : ''; ?>>Paraíba</option>
-                            <option value="PR" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'PR') ? 'selected' : ''; ?>>Paraná</option>
-                            <option value="PE" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'PE') ? 'selected' : ''; ?>>Pernambuco</option>
-                            <option value="PI" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'PI') ? 'selected' : ''; ?>>Piauí</option>
-                            <option value="RJ" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'RJ') ? 'selected' : ''; ?>>Rio de Janeiro</option>
-                            <option value="RN" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'RN') ? 'selected' : ''; ?>>Rio Grande do Norte</option>
-                            <option value="RS" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'RS') ? 'selected' : ''; ?>>Rio Grande do Sul</option>
-                            <option value="RO" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'RO') ? 'selected' : ''; ?>>Rondônia</option>
-                            <option value="RR" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'RR') ? 'selected' : ''; ?>>Roraima</option>
-                            <option value="SC" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'SC') ? 'selected' : ''; ?>>Santa Catarina</option>
-                            <option value="SP" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'SP') ? 'selected' : ''; ?>>São Paulo</option>
-                            <option value="SE" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'SE') ? 'selected' : ''; ?>>Sergipe</option>
-                            <option value="TO" <?php echo (isset($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'TO') ? 'selected' : ''; ?>>Tocantins</option>
+                            <option value="AC" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'AC') ? 'selected' : ''; ?>>Acre</option>
+                            <option value="AL" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'AL') ? 'selected' : ''; ?>>Alagoas</option>
+                            <option value="AP" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'AP') ? 'selected' : ''; ?>>Amapá</option>
+                            <option value="AM" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'AM') ? 'selected' : ''; ?>>Amazonas</option>
+                            <option value="BA" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'BA') ? 'selected' : ''; ?>>Bahia</option>
+                            <option value="CE" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'CE') ? 'selected' : ''; ?>>Ceará</option>
+                            <option value="DF" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'DF') ? 'selected' : ''; ?>>Distrito Federal</option>
+                            <option value="ES" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'ES') ? 'selected' : ''; ?>>Espírito Santo</option>
+                            <option value="GO" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'GO') ? 'selected' : ''; ?>>Goiás</option>
+                            <option value="MA" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'MA') ? 'selected' : ''; ?>>Maranhão</option>
+                            <option value="MT" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'MT') ? 'selected' : ''; ?>>Mato Grosso</option>
+                            <option value="MS" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'MS') ? 'selected' : ''; ?>>Mato Grosso do Sul</option>
+                            <option value="MG" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'MG') ? 'selected' : ''; ?>>Minas Gerais</option>
+                            <option value="PA" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'PA') ? 'selected' : ''; ?>>Pará</option>
+                            <option value="PB" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'PB') ? 'selected' : ''; ?>>Paraíba</option>
+                            <option value="PR" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'PR') ? 'selected' : ''; ?>>Paraná</option>
+                            <option value="PE" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'PE') ? 'selected' : ''; ?>>Pernambuco</option>
+                            <option value="PI" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'PI') ? 'selected' : ''; ?>>Piauí</option>
+                            <option value="RJ" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'RJ') ? 'selected' : ''; ?>>Rio de Janeiro</option>
+                            <option value="RN" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'RN') ? 'selected' : ''; ?>>Rio Grande do Norte</option>
+                            <option value="RS" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'RS') ? 'selected' : ''; ?>>Rio Grande do Sul</option>
+                            <option value="RO" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'RO') ? 'selected' : ''; ?>>Rondônia</option>
+                            <option value="RR" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'RR') ? 'selected' : ''; ?>>Roraima</option>
+                            <option value="SC" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'SC') ? 'selected' : ''; ?>>Santa Catarina</option>
+                            <option value="SP" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'SP') ? 'selected' : ''; ?>>São Paulo</option>
+                            <option value="SE" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'SE') ? 'selected' : ''; ?>>Sergipe</option>
+                            <option value="TO" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'TO') ? 'selected' : ''; ?>>Tocantins</option>
                         </select>
                     </div>
 

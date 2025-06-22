@@ -8,7 +8,7 @@ $g = new \Sonata\GoogleAuthenticator\GoogleAuthenticator();
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $codigo = strtolower(trim($dados['codigo']));
 
-if (empty($codigo) || empty($_SESSION['email-temp'])) {
+if (empty($codigo) || empty($_SESSION['temp_user_email'])) {
     $retorna = ['status' => false, 'msg' => "Código ou e-mail temporário não encontrado."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
@@ -16,7 +16,7 @@ if (empty($codigo) || empty($_SESSION['email-temp'])) {
 }
 
 $sql = $pdo->prepare("SELECT chave_secreta FROM 2FA WHERE email = :email");
-$sql->bindValue(':email', $_SESSION['email-temp']);
+$sql->bindValue(':email', $_SESSION['temp_user_email']);
 $sql->execute();
 
 if ($sql->rowCount() == 1) {
@@ -24,7 +24,7 @@ if ($sql->rowCount() == 1) {
     $secret = $user['chave_secreta'];
     if ($g->checkCode($secret, $codigo)) {
         $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
-        $sql->bindValue(':email', $_SESSION['email-temp']);
+        $sql->bindValue(':email', $_SESSION['temp_user_email']);
         $sql->execute();
 
         $usuario = $sql->fetch(PDO::FETCH_BOTH);

@@ -1,144 +1,128 @@
 <?php
+session_start();
 require_once '../../utils/ConexaoDB.php';
-require_once __DIR__ . '../../../../../libs/autoload.php';
-
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../../../');
-$dotenv->load();
+require_once __DIR__ . '/../../../../libs/autoload.php';
 
 use Google\Client as GoogleClient;
 use Google\Service\Oauth2;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-if (empty($_POST['credential']) || empty($_POST['g_csrf_token'])) {
-    header('Location: ../entrar/?msg=erro&text=' . urlencode("Dados de login inválidos."));
+// 1. Recebe o código de autorização
+if (empty($_GET['code'])) {
+    header('Location: ../entrar/?msg=erro&text=' . urlencode("Código de autorização ausente."));
     exit();
 }
 
-$cookie = $_COOKIE['g_csrf_token'];
+// 2. Configura o Google Client
+$client = new GoogleClient();
+$client->setClientId($_ENV['GOOGLE_ID_CLIENT']);
+$client->setClientSecret($_ENV['GOOGLE_CLIENT_SECRET']);
+$client->setRedirectUri($_ENV['GOOGLE_REDIRECT_LOGIN']);
+$client->addScope(['openid', 'email', 'profile']);
 
-if ($_POST['g_csrf_token'] != $cookie) {
-    header('Location: ../entrar/?msg=erro&text=' . urlencode("Token CSRF inválido."));
+// 3. Troca o code por token de acesso
+$token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+if (isset($token['error'])) {
+    header('Location: ../entrar/?msg=erro&text=' . urlencode("Erro ao autenticar com o Google."));
+    exit();
+}
+$client->setAccessToken($token['access_token']);
+
+// 4. Pega dados do usuário
+$oauth = new Oauth2($client);
+$userInfo = $oauth->userinfo->get();
+
+$email    = strtolower(trim($userInfo->email));
+$googleId = $userInfo->id;
+$nome     = ucwords(trim($userInfo->name));
+$foto_url = $userInfo->picture ?? null;
+$ip       = ObterIP();
+
+// 5. Verifica se o usuário está no banco
+$sql = $pdo->prepare("
+  SELECT u.* FROM usuario u
+  JOIN usuario_google ug USING(id_usuario)
+  WHERE ug.google_id = :gid
+");
+$sql->bindValue(':gid', $googleId);
+$sql->execute();
+
+if ($sql->rowCount() === 0) {
+    header('Location: ../entrar/?msg=erro&text=' . urlencode("Usuário não cadastrado. Faça o cadastro primeiro."));
     exit();
 }
 
-$client = new GoogleClient(['client_id' => '14152276280-9pbtedkdibk5rsktetmnh32rap49a8jm.apps.googleusercontent.com']);
-$payload = $client->verifyIdToken($_POST['credential']);
+$usuario = $sql->fetch(PDO::FETCH_ASSOC);
+$id_usuario = $usuario['id_usuario'];
 
-if (isset($payload['email'])) {
-    $email = $payload['email'];
-    $googleId = $payload['sub'];
+// 6. Verifica dispositivos já registrados
+$sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip AND id_usuario = :uid");
+$sql->bindValue(':ip', $ip);
+$sql->bindValue(':uid', $id_usuario);
+$sql->execute();
 
-    $sql = $pdo->prepare("SELECT * FROM usuario_google WHERE google_id = :google_id");
-    $sql->bindValue(':google_id', $googleId);
-    $sql->execute();
-
-    if ($sql->rowCount() === 1) {
-        $sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
-        $sql->bindValue(':email', $email);
-        $sql->execute();
-
-        $usuario = $sql->fetch(PDO::FETCH_ASSOC);
-        $id_usuario = $usuario['id_usuario'];
-        $ip = ObterIP();
-
-        $sql = $pdo->prepare("SELECT * FROM usuario WHERE ip_cadastro = :ip_cadastro AND id_usuario = :id_usuario");
-        $sql->bindValue(':ip_cadastro', $ip);
-        $sql->bindValue(':id_usuario', $id_usuario);
-        $sql->execute();
-
-        if ($sql->rowCount() == 1) {
-            // Redirecionar com sucesso
-            header('Location: ../../painel/?msg=sucesso&text=' . urlencode("Login bem-sucedido. Bem-vindo ao painel."));
-            $_SESSION['user_id'] = $usuario['id_usuario'];
-            $_SESSION['user_nome'] = $usuario['nome'];
-            $_SESSION['user_email'] = $usuario['email'];
-            $_SESSION['user_ip'] = $ip;
-            exit();
-        } else {
-            $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip AND id_usuario = :id_usuario");
-            $sql->bindValue(':ip', $ip);
-            $sql->bindValue(':id_usuario', $id_usuario);
-            $sql->execute();
-
-            if ($sql->rowCount() == 1) {
-                $dispostivo = $sql->fetch(PDO::FETCH_BOTH);
-                $dispositivo_confirmado = $dispostivo['confirmado'];
-
-                if ($dispositivo_confirmado != 1) {
-                    $id_usuario = $dispostivo['id_usuario'];
-                    $ip = $dispostivo['ip'];
-                    $cidade = $dispostivo['cidade'];
-                    $estado = $dispostivo['estado'];
-                    $pais = $dispostivo['pais'];
-
-                    EnviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
-                    header('Location: ../entrar/?msg=sucesso&text=' . urlencode("Para concluir o login, verifique seu e-mail e clique no link de confirmação."));
-                    exit();
-                } else {
-                    // Redirecionar com sucesso
-                    header('Location: ../../dashboard/');
-                    $_SESSION['user_id'] = $usuario['id_usuario'];
-                    $_SESSION['user_nome'] = $usuario['nome'];
-                    $_SESSION['user_email'] = $usuario['email'];
-                    $_SESSION['user_ip'] = $ip;
-                    exit();
-                }
-            } else {
-                RegistrarDispositivos($pdo, $id_usuario);
-                $token = $_ENV['IPINFO_TOKEN'];
-                $response = file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}");
-                $data = json_decode($response, true);
-
-                $cidade = $data['city'];
-                $estado = $data['region'];
-                $pais = $data['country'];
-
-                EnviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais);
-                header('Location: ../entrar/?msg=sucesso&text=' . urlencode("Para concluir o login, verifique seu e-mail e clique no link de confirmação."));
-                exit();
-            }
-        }
-    } else {
-        header('Location: ../entrar/?msg=erro&text=' . urlencode("Usuário não cadastrado ou não conectado com o Google."));
-        exit();
-    }
-} else {
-    header('Location: ../entrar/?msg=erro&text=' . urlencode("Erro ao verificar o login com o Google."));
+if ($sql->rowCount() == 0) {
+    RegistrarDispositivos($pdo, $id_usuario);
+    EnviarEmail($id_usuario, $email, $ip, null, null, null); // você pode quer incluir local via IPInfo
+    header('Location: ../entrar/?msg=sucesso&text=' . urlencode("Novo dispositivo detectado. Verifique seu e‑mail para confirmar."));
     exit();
 }
 
+$dispositivo = $sql->fetch(PDO::FETCH_ASSOC);
+if ($dispositivo['confirmado'] != 1) {
+    EnviarEmail($id_usuario, $email, $ip, $dispositivo['cidade'], $dispositivo['estado'], $dispositivo['pais']);
+    header('Location: ../entrar/?msg=sucesso&text=' . urlencode("Para concluir o login, confirme o dispositivo pelo e‑mail."));
+    exit();
+}
+
+// 7. Verifica 2FA
+$sql2FA = $pdo->prepare("SELECT * FROM 2FA WHERE email = :email");
+$sql2FA->bindValue(':email', $email);
+$sql2FA->execute();
+
+if ($sql2FA->rowCount() > 0) {
+    $_SESSION['temp_user_email'] = $usuario['email'];
+    header('Location: ../dois-fatores/');
+    exit();
+}
+
+// 8. Tudo certo: login direto (sem 2FA)
+$_SESSION['user_id']    = $usuario['id_usuario'];
+$_SESSION['user_nome']  = $usuario['nome'];
+$_SESSION['user_email'] = $usuario['email'];
+$_SESSION['user_ip']    = $ip;
+
+header('Location: ../../dashboard/');
+exit();
+
+// ————— Funções auxiliares —————————
 
 function EnviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
 {
     date_default_timezone_set('America/Sao_Paulo');
-    $data_local = date('d/m/Y H:i:s');
-    $email_body = file_get_contents('../../../public/email/alerta-login.html');
-
-    $email_body = str_replace(
+    $data = date('d/m/Y H:i:s');
+    $body = file_get_contents('../../../public/email/alerta-login.html');
+    $body = str_replace(
         ['{{ip}}', '{{cidade}}', '{{estado}}', '{{pais}}', '{{horario}}', '{{id}}'],
-        [$ip, $cidade, $estado, $pais, $data_local, $id_usuario],
-        $email_body
+        [$ip, $cidade, $estado, $pais, $data, $id_usuario],
+        $body
     );
-
     $mail = new PHPMailer(true);
-
     try {
         $mail->isSMTP();
-        $mail->Host = $_ENV['MAIL_HOST'];
-        $mail->SMTPAuth = true;
-        $mail->Username = $_ENV['MAIL_USERNAME'];
-        $mail->Password = $_ENV['MAIL_PASSWORD'];
+        $mail->Host       = $_ENV['MAIL_HOST'];
+        $mail->SMTPAuth   = true;
+        $mail->Username   = $_ENV['MAIL_USERNAME'];
+        $mail->Password   = $_ENV['MAIL_PASSWORD'];
         $mail->SMTPSecure = $_ENV['MAIL_ENCRYPTION'] ?? PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = isset($_ENV['MAIL_PORT']) ? (int)$_ENV['MAIL_PORT'] : 587;
+        $mail->Port       = $_ENV['MAIL_PORT'] ?? 587;
         $mail->setFrom($_ENV['MAIL_USERNAME'], 'Minhas Vacinas');
         $mail->addAddress($email);
         $mail->isHTML(true);
-        $mail->CharSet = 'UTF-8';
-        $mail->Subject = 'Sua conta Minhas Vacinas foi acessada a partir de um novo endereço IP';
-        $mail->Body = $email_body;
+        $mail->Subject = 'Novo acesso detectado';
+        $mail->Body    = $body;
         $mail->send();
-
         return true;
     } catch (Exception $e) {
         return false;
@@ -148,85 +132,54 @@ function EnviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
 function RegistrarDispositivos($pdo, $id_usuario)
 {
     $ip = ObterIP();
-    $token = 'c4444d8bf12e24';
-    $response = file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}");
-    $data = json_decode($response, true);
-
-    $cidade = isset($data['city']) ? $data['city'] : 'Desconhecida';
-    $estado = isset($data['region']) ? $data['region'] : 'Desconhecido';
-    $pais = isset($data['country']) ? $data['country'] : 'Desconhecido';
-
-    $user_agent = $_SERVER['HTTP_USER_AGENT'];
-
-    $browser_info = NavegadorInfo($user_agent);
-    $navegador = $browser_info['browser'];
-    $sistema_operacional = $browser_info['os'];
-    $tipo_dispositivo = (strpos($user_agent, 'Mobile') !== false) ? 'Mobile' : 'Desktop';
-    $tipo_dispositivo = strtoupper($tipo_dispositivo);
-    $nome_dispositivo = $tipo_dispositivo . " - " . $sistema_operacional . " | " . $navegador;
-
-    $sql = $pdo->prepare("INSERT INTO dispositivos (id_usuario, nome_dispositivo, tipo_dispositivo, ip, navegador, cidade, estado, pais)
-    VALUES
-    (:id_usuario, :nome_dispositivo, :tipo_dispositivo, :ip, :navegador, :cidade, :estado, :pais)");
-
-    $sql->bindValue(':id_usuario', $id_usuario);
-    $sql->bindValue(':nome_dispositivo', $nome_dispositivo);
-    $sql->bindValue(':tipo_dispositivo', $tipo_dispositivo);
-    $sql->bindValue(':ip', $ip);
-    $sql->bindValue(':navegador', $navegador);
-    $sql->bindValue(':cidade', $cidade);
-    $sql->bindValue(':estado', $estado);
-    $sql->bindValue(':pais', $pais);
-    $sql->execute();
-
-    return $ip;
+    $token = $_ENV['IPINFO_TOKEN'];
+    $geo = @json_decode(file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}"), true);
+    $cid = $geo['city'] ?? 'Desconhecida';
+    $st  = $geo['region'] ?? 'Desconhecido';
+    $cty = $geo['country'] ?? 'Desconhecido';
+    $ua = $_SERVER['HTTP_USER_AGENT'];
+    $info = NavegadorInfo($ua);
+    $nome_disp = strtoupper((strpos($ua, 'Mobile') !== false ? 'Mobile' : 'Desktop')) . " | {$info['os']} | {$info['browser']}";
+    $sql = $pdo->prepare("
+      INSERT INTO dispositivos 
+      (id_usuario,nome_dispositivo,tipo_dispositivo,ip,navegador,cidade,estado,pais,confirmado) 
+      VALUES 
+      (:uid,:nome_disp,:tipo,:ip,:nav,:cid,:st,:cty,0)
+    ");
+    $sql->execute([
+        ':uid' => $id_usuario,
+        ':nome_disp' => $nome_disp,
+        ':tipo' => strpos($ua, 'Mobile') !== false ? 'Mobile' : 'Desktop',
+        ':ip' => $ip,
+        ':nav' => $info['browser'],
+        ':cid' => $cid,
+        ':st' => $st,
+        ':cty' => $cty
+    ]);
 }
 
 function ObterIP()
 {
-    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    } elseif (!empty($_SERVER['REMOTE_ADDR'])) {
-        $ip = $_SERVER['REMOTE_ADDR'];
-    } else {
-        $ip = '192.168.1';
-    }
-
-    return $ip;
+    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) return $_SERVER['HTTP_X_FORWARDED_FOR'];
+    if (!empty($_SERVER['REMOTE_ADDR'])) return $_SERVER['REMOTE_ADDR'];
+    return '0.0.0.0';
 }
 
-function NavegadorInfo($user_agent)
+function NavegadorInfo($ua)
 {
-    if (strpos($user_agent, 'Windows NT') !== false) {
-        $os = 'Windows';
-    } elseif (strpos($user_agent, 'Macintosh') !== false) {
-        $os = 'Mac OS';
-    } elseif (strpos($user_agent, 'Linux') !== false) {
-        $os = 'Linux';
-    } elseif (strpos($user_agent, 'Android') !== false) {
-        $os = 'Android';
-    } elseif (strpos($user_agent, 'iPhone') !== false) {
-        $os = 'iOS';
-    } else {
-        $os = 'Desconhecido';
+    $osList = ['Windows', 'Macintosh' => 'Mac OS', 'Linux', 'Android', 'iPhone' => 'iOS'];
+    foreach ($osList as $key => $val) {
+        if (strpos($ua, (is_int($key) ? $val : $key)) !== false) {
+            $os = is_int($key) ? $val : $val;
+            break;
+        }
     }
-
-    if (strpos($user_agent, 'Chrome') !== false) {
-        $browser = 'Chrome';
-    } elseif (strpos($user_agent, 'Firefox') !== false) {
-        $browser = 'Firefox';
-    } elseif (strpos($user_agent, 'Safari') !== false) {
-        $browser = 'Safari';
-    } elseif (strpos($user_agent, 'Edge') !== false) {
-        $browser = 'Edge';
-    } elseif (strpos($user_agent, 'MSIE') !== false || strpos($user_agent, 'Trident') !== false) {
-        $browser = 'Internet Explorer';
-    } else {
-        $browser = 'Desconhecido';
+    $browser = 'Desconhecido';
+    foreach (['Chrome', 'Firefox', 'Safari', 'Edge', 'MSIE', 'Trident'] as $b) {
+        if (strpos($ua, $b) !== false) {
+            $browser = $b;
+            break;
+        }
     }
-
-    return [
-        'os' => $os,
-        'browser' => $browser
-    ];
+    return compact('os', 'browser');
 }

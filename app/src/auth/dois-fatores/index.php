@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if (isset($_SESSION['user_id'])) {
     header("Location: ../../dashboard/");
     exit();
@@ -388,7 +389,7 @@ if (isset($_SESSION['user_id'])) {
                     </div>
 
                     <!-- 2FA Form -->
-                    <form id="form-2FA" class="space-y-6">
+                    <form id="form-2FA" class="space-y-6" method="post" action="../backend/confirmar-2FA.php">
                         <!-- Code Input -->
                         <div class="space-y-3">
                             <label class="block text-center text-sm font-medium text-gray-300 mb-3">
@@ -550,29 +551,25 @@ if (isset($_SESSION['user_id'])) {
             }
         });
 
-        // Code input handling
+        // ======= Código de 2FA (inputs) =======
         const codeInputs = document.querySelectorAll('.codigo-input');
 
         codeInputs.forEach((input, index) => {
             input.addEventListener('input', function(e) {
-                // Only allow numbers
+                // Permitir apenas números
                 this.value = this.value.replace(/[^0-9]/g, '');
 
-                // Add filled class
-                if (this.value) {
-                    this.classList.add('filled');
-                } else {
-                    this.classList.remove('filled');
-                }
+                // Adicionar classe se preenchido
+                this.classList.toggle('filled', !!this.value);
 
-                // Move to next input
+                // Foco próximo campo
                 if (this.value.length === 1 && index < codeInputs.length - 1) {
                     codeInputs[index + 1].focus();
                 }
             });
 
             input.addEventListener('keydown', function(e) {
-                // Handle backspace
+                // Voltar ao anterior no Backspace
                 if (e.key === 'Backspace' && this.value === '' && index > 0) {
                     codeInputs[index - 1].focus();
                 }
@@ -590,23 +587,21 @@ if (isset($_SESSION['user_id'])) {
                     }
                 });
 
-                // Focus last filled input or next empty
-                const lastIndex = Math.min(numbers.length - 1, codeInputs.length - 1);
-                if (numbers.length < 6 && lastIndex < codeInputs.length - 1) {
-                    codeInputs[lastIndex + 1].focus();
-                } else {
-                    codeInputs[lastIndex].focus();
-                }
+                const nextIndex = numbers.length < 6 ? numbers.length : 5;
+                codeInputs[nextIndex].focus();
             });
         });
 
-        // Auto-focus first input
-        codeInputs[0].focus();
+        // Auto-focus no primeiro input
+        if (codeInputs.length) {
+            codeInputs[0].focus();
+        }
 
-        // Keyboard Navigation
+        // ======= Escape fecha menu (opcional) =======
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && !offCanvasMenu.classList.contains('translate-x-full')) {
-                closeMenu();
+            const offCanvasMenu = document.getElementById('offCanvasMenu');
+            if (e.key === 'Escape' && offCanvasMenu && !offCanvasMenu.classList.contains('translate-x-full')) {
+                closeMenu(); // Sua função de fechar menu
             }
         });
     </script>

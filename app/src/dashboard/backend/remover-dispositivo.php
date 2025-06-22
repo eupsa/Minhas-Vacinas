@@ -5,7 +5,7 @@ $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $dispositivo_id = $dados['dispositivo_id'];;
 
 if (empty($dispositivo_id)) {
-    header('Location: ../perfil/');
+    header('Location: ../perfil/dispositivos/');
     exit();
 } else {
     try {
@@ -23,15 +23,15 @@ if (empty($dispositivo_id)) {
             $sql->execute();
 
             if ($sql->rowCount() === 0) {
-                header('Location: ../perfil/');
+                header('Location: ../perfil/dispositivos/');
                 exit();
             }
         } else {
-            header('Location: ../perfil/');
+            header('Location: ../perfil/dispositivos/');
             exit();
         }
     } catch (PDOException $e) {
-        header('Location: ../perfil/');
+        header('Location: ../perfil/dispositivos/');
         exit();
     }
 }
