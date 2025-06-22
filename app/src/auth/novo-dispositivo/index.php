@@ -3,7 +3,7 @@ require_once '../../utils/ConexaoDB.php';
 session_start();
 
 if (isset($_GET['deviceid']) && isset($_GET['userid'])) {
-    $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE id = :deviceid AND id_usuario = :userid");
+    $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE id = :deviceid AND id_usuario = :userid AND confirmado = 0");
     $sql->bindValue(':deviceid', $_GET['deviceid']);
     $sql->bindValue(':userid', $_GET['userid']);
     $sql->execute();
@@ -12,6 +12,9 @@ if (isset($_GET['deviceid']) && isset($_GET['userid'])) {
         $dadosDispositivos = $sql->fetch();
 
         $dadosDispositivos['data_cadastro'] = DateTime::createFromFormat('Y-m-d H:i:s', $dadosDispositivos['data_cadastro']);
+    } else {
+        header("Location: ../entrar/");
+        exit;
     }
 } else {
     header("Location: /");
@@ -408,12 +411,15 @@ if (isset($_GET['deviceid']) && isset($_GET['userid'])) {
                             <input
                                 type="text"
                                 id="deviceName"
-                                name="deviceName"
+                                name="nome_dispositivo"
                                 class="w-full px-3 py-2.5 bg-dark border border-primary/30 rounded-lg text-white text-sm placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-200"
                                 placeholder="<?= $dadosDispositivos['nome_dispositivo'] ?>">
                         </div>
 
                         <input type="hidden" name="btn_id" id="btn_id" value="">
+                        <input type="hidden" name="id_usuario" value="<?= $_GET['userid'] ?>">
+                        <input type="hidden" name="id_dispositivo" value="<?= $_GET['deviceid'] ?>">
+
                         <div class="flex flex-col sm:flex-row gap-3">
                             <button
                                 type="submit"

@@ -47,15 +47,17 @@ $estados = [
     'TO'
 ];
 
-if (preg_match('/\d/', $nome)) {
-    $retorna = ['status' => false, 'msg' => "O nome não pode conter números."];
+
+
+if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($confsenha) || empty($email)) {
+    $retorna = ['status' => false, 'msg' => "Você não preencheu todos os campos obrigatórios. Por favor, revise e envie novamente."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
 }
 
-if (empty($nome) || empty($email) || empty($estado) || empty($senha) || empty($confsenha) || empty($email)) {
-    $retorna = ['status' => false, 'msg' => "Você não preencheu todos os campos obrigatórios. Por favor, revise e envie novamente."];
+if (preg_match('/\d/', $nome)) {
+    $retorna = ['status' => false, 'msg' => "O nome não pode conter números."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
@@ -77,6 +79,17 @@ if ($senha !== $confsenha) {
 
 if (!in_array($estado, $estados)) {
     $retorna = ['status' => false, 'msg' => "A sigla do estado é inválida. Por favor, atualize a página."];
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
+}
+
+$sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
+$sql->bindValue(':email', $email);
+$sql->execute();
+
+if ($sql->rowCount() > 0) {
+    $retorna = ['status' => false, 'msg' => "E-mail já cadastrado."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();

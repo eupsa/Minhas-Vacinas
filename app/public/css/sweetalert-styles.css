@@ -6,31 +6,31 @@
   font-family: "Inter", sans-serif !important;
   box-shadow: 0 12px 25px -6px rgba(0, 0, 0, 0.8) !important;
   backdrop-filter: blur(8px) !important;
-  padding: 1rem !important;
-  max-width: 20rem !important;
-  font-size: 0.8rem !important;
+  padding: 2rem !important; /* Aumentado o padding do container */
+  max-width: 28rem !important; /* Aumentado o tamanho do container */
+  font-size: 1rem !important;
 }
 
 /* Fundo escuro com blur */
 .swal2-backdrop {
   background: rgba(0, 0, 0, 0.8) !important;
-  backdrop-filter: blur(2px) !important;
+  backdrop-filter: blur(3px) !important;
 }
 
 /* Título */
 .swal2-title {
   color: #f9fafb !important;
   font-weight: 700 !important;
-  font-size: 1rem !important;
-  margin-bottom: 0.25rem !important;
+  font-size: 1.2rem !important; /* Aumentado o tamanho da fonte do título */
+  margin-bottom: 0.5rem !important;
 }
 
 /* Texto da mensagem */
 .swal2-html-container {
   color: #9ca3af !important;
-  font-size: 0.75rem !important;
-  line-height: 1.3 !important;
-  margin-bottom: 0.5rem !important;
+  font-size: 0.85rem !important; /* Aumentado o tamanho da fonte do texto */
+  line-height: 1.5 !important;
+  margin-bottom: 1rem !important;
 }
 
 /* Botões */
@@ -39,8 +39,8 @@
 .swal2-deny {
   border-radius: 0.25rem !important;
   font-weight: 600 !important;
-  font-size: 0.7rem !important;
-  padding: 0.4rem 0.8rem !important;
+  font-size: 0.9rem !important; /* Aumentado o tamanho da fonte dos botões */
+  padding: 0.6rem 1.2rem !important; /* Aumentado o padding dos botões */
   font-family: "Inter", sans-serif !important;
   transition: all 0.3s ease !important;
 }
@@ -78,11 +78,11 @@
 
 /* Ícones gerais */
 .swal2-icon {
-  width: 3rem !important;
-  height: 3rem !important;
-  margin-bottom: 0.5rem !important;
+  width: 5rem !important; /* Aumentado o tamanho do ícone */
+  height: 5rem !important; /* Aumentado o tamanho do ícone */
+  margin-bottom: 1rem !important;
   transform-origin: center center !important;
-  transform: none !important; /* Remove escala que distorcia */
+  transform: none !important; /* Removido transform que distorce o ícone */
   box-sizing: content-box !important;
   display: flex;
   justify-content: center;
@@ -92,37 +92,37 @@
 /* Ícone Sucesso */
 .swal2-success .swal2-success-ring {
   border-color: #10b981 !important;
-  width: 3rem !important;
-  height: 3rem !important;
+  width: 5rem !important; /* Aumentado o tamanho do ícone de sucesso */
+  height: 5rem !important; /* Aumentado o tamanho do ícone de sucesso */
   box-sizing: content-box !important;
 }
 
 .swal2-success .swal2-success-fix {
   background-color: #111827 !important;
-  width: 0.75rem !important;
-  height: 1.5rem !important;
-  left: 1.05rem !important;
-  top: 0.75rem !important;
+  width: 1rem !important;
+  height: 2rem !important;
+  left: 1.4rem !important; /* Ajustado para posicionar corretamente */
+  top: 1.3rem !important; /* Ajustado para posicionar corretamente */
 }
 
 /* Ícone Erro */
 .swal2-error .swal2-x-mark {
-  width: 3rem !important;
-  height: 3rem !important;
+  width: 5rem !important; /* Aumentado o tamanho do ícone de erro */
+  height: 5rem !important; /* Aumentado o tamanho do ícone de erro */
 }
 
 .swal2-error .swal2-error-line {
   background-color: #ef4444 !important;
-  width: 0.25rem !important;
-  height: 1.5rem !important;
+  width: 0.35rem !important; /* Aumentado a espessura da linha do ícone de erro */
+  height: 2rem !important; /* Aumentado o tamanho da linha */
   border-radius: 0.125rem !important;
 }
 
 /* Ícone Aviso */
 .swal2-warning .swal2-warning-icon,
 .swal2-warning .swal2-warning-outline {
-  width: 3rem !important;
-  height: 3rem !important;
+  width: 5rem !important; /* Aumentado o tamanho do ícone de aviso */
+  height: 5rem !important; /* Aumentado o tamanho do ícone de aviso */
   border-color: #f59e0b !important;
   box-sizing: content-box !important;
 }
@@ -130,8 +130,8 @@
 /* Ícone Informação */
 .swal2-info .swal2-info-icon,
 .swal2-info .swal2-info-outline {
-  width: 3rem !important;
-  height: 3rem !important;
+  width: 5rem !important; /* Aumentado o tamanho do ícone de informação */
+  height: 5rem !important; /* Aumentado o tamanho do ícone de informação */
   border-color: #007bff !important;
   box-sizing: content-box !important;
 }
@@ -143,8 +143,8 @@
   border-radius: 0.25rem !important;
   color: #f9fafb !important;
   font-family: "Inter", sans-serif !important;
-  padding: 0.4rem !important;
-  font-size: 0.75rem !important;
+  padding: 0.6rem !important; /* Aumentado o padding do input */
+  font-size: 0.85rem !important; /* Aumentado o tamanho da fonte do input */
 }
 
 .swal2-input:focus {
@@ -160,7 +160,7 @@
 /* Botão fechar */
 .swal2-close {
   color: #9ca3af !important;
-  font-size: 1rem !important;
+  font-size: 1.2rem !important;
   transition: color 0.3s ease !important;
 }
 
@@ -171,7 +171,7 @@
 /* Barra de progresso */
 .swal2-timer-progress-bar {
   background: #007bff !important;
-  height: 4px !important;
+  height: 5px !important; /* Aumentado a altura da barra de progresso */
 }
 
 /* Toast */
@@ -179,16 +179,16 @@
   background: #111827 !important;
   border: 1px solid #374151 !important;
   color: #f9fafb !important;
-  font-size: 0.75rem !important;
-  padding: 0.5rem 1rem !important;
+  font-size: 0.85rem !important; /* Aumentado o tamanho da fonte do toast */
+  padding: 0.8rem 1.5rem !important; /* Aumentado o padding do toast */
 }
 
 .swal2-toast .swal2-title {
   color: #f9fafb !important;
-  font-size: 0.85rem !important;
+  font-size: 1rem !important; /* Aumentado o tamanho da fonte do título do toast */
 }
 
 .swal2-toast .swal2-html-container {
   color: #9ca3af !important;
-  font-size: 0.65rem !important;
+  font-size: 0.75rem !important; /* Aumentado o tamanho da fonte do texto do toast */
 }
