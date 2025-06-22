@@ -84,6 +84,9 @@
   transform-origin: center center !important;
   transform: none !important; /* Remove escala que distorcia */
   box-sizing: content-box !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Ícone Sucesso */
