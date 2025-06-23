@@ -50,7 +50,7 @@ if (empty($email) || empty($senha)) {
                 $id = $dispositivo['id'];
 
                 EmailLogin($id_usuario, $email, $id);
-                $retorna = ['status' => true, 'msg' => "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções."];
+                $retorna = ['status' => true, 'msg' => "Novo dispositivo detectado. Verifique seu e‑mail para confirmar."];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
                 exit();
@@ -81,11 +81,10 @@ if (empty($email) || empty($senha)) {
                 $_SESSION['user_ip'] = $ip;
                 exit();
             } else {
-                RegistrarDispositivo($pdo, $id_usuario);
+                $id = RegistrarDispositivo($pdo, $id_usuario);
                 $token = $_ENV['IPINFO_TOKEN'];
                 $response = file_get_contents("https://ipinfo.io/{$ip}/json?token={$token}");
                 $data = json_decode($response, true);
-
                 if (!isset($data['city']) || !isset($data['region']) || !isset($data['country'])) {
                     $cidade = 'Desconhecida';
                     $estado = 'Desconhecido';
@@ -95,8 +94,8 @@ if (empty($email) || empty($senha)) {
                     $estado = $data['region'];
                     $pais = $data['country'];
                 }
-                EmailLogin($id_usuario, $email, $id_dispositivo);
-                $retorna = ['status' => true, 'msg' => "$url"];
+                EmailLogin($id_usuario, $email, $id);
+                $retorna = ['status' => true, 'msg' => "Novo dispositivo detectado. Verifique seu e‑mail para confirmar."];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
                 exit();
@@ -180,7 +179,7 @@ function RegistrarDispositivo($pdo, $id_usuario)
 
     $id_dispositivo = $pdo->lastInsertId();
 
-    return $ip;
+    return $id_dispositivo;
 }
 
 function ObterIP()

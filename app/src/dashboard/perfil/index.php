@@ -60,6 +60,7 @@ if ($sql->rowCount() > 0) {
                     },
                     animation: {
                         'fade-in-up': 'fadeInUp 0.6s ease-out',
+                        'spin': 'spin 1s linear infinite',
                     },
                     keyframes: {
                         fadeInUp: {
@@ -131,6 +132,31 @@ if ($sql->rowCount() > 0) {
             background: rgba(0, 123, 255, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Code Input Styles */
+        .code-input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            border: 2px solid #374151;
+            border-radius: 8px;
+            background: #1f2937;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .code-input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+            outline: none;
+        }
+
+        .code-input.filled {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.1);
         }
     </style>
 </head>
@@ -291,6 +317,18 @@ if ($sql->rowCount() > 0) {
                                     </a>
                                 <?php endif; ?>
                             </div>
+
+                            <!-- New Security Actions -->
+                            <div class="flex flex-col sm:flex-row gap-4 pt-4 border-t border-gray-600">
+                                <button onclick="openChangeEmailModal()" class="flex items-center justify-center px-6 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-500 transition-colors">
+                                    <i class="fas fa-envelope mr-2"></i>
+                                    Alterar E-mail
+                                </button>
+                                <button onclick="requestPasswordChange()" class="flex items-center justify-center px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-500 transition-colors">
+                                    <i class="fas fa-key mr-2"></i>
+                                    Alterar Senha
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -325,26 +363,6 @@ if ($sql->rowCount() > 0) {
                     </div>
                 </div>
             </div>
-
-            <!-- Danger Zone -->
-            <!-- <div class="bg-red-900 bg-opacity-20 border border-red-500 border-opacity-30 rounded-xl p-8">
-                <h2 class="text-xl font-semibold text-red-400 mb-4 flex items-center">
-                    <i class="fas fa-exclamation-triangle mr-3"></i>
-                    Zona de Perigo
-                </h2>
-                <p class="text-gray-300 mb-6">Ações irreversíveis que afetam permanentemente sua conta.</p>
-
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button onclick="openChangeEmailModal()" class="flex items-center justify-center px-6 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-500 transition-colors">
-                        <i class="fas fa-envelope mr-2"></i>
-                        Alterar E-mail
-                    </button>
-                    <button onclick="openDeleteAccountModal()" class="flex items-center justify-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors">
-                        <i class="fas fa-trash mr-2"></i>
-                        Excluir Conta
-                    </button>
-                </div>
-            </div> -->
         </div>
     </main>
 
@@ -427,11 +445,6 @@ if ($sql->rowCount() > 0) {
                             <option value="TO" <?php echo (($_SESSION['user_estado']) && $_SESSION['user_estado'] == 'TO') ? 'selected' : ''; ?>>Tocantins</option>
                         </select>
                     </div>
-
-                    <!-- <div>
-                        <label for="cidade" class="block text-sm font-medium text-white mb-2">Cidade</label>
-                        <input type="text" id="cidade" name="cidade" value="" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
-                    </div> -->
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4 pt-6">
@@ -458,51 +471,133 @@ if ($sql->rowCount() > 0) {
                 </button>
             </div>
 
-            <p class="text-gray-300 mb-6">Um código será enviado para o novo e-mail para confirmação.</p>
+            <!-- Step 1: Email Form -->
+            <div id="emailStep1" class="space-y-6">
+                <p class="text-gray-300 mb-6">Um código será enviado para o novo e-mail para confirmação.</p>
 
-            <form class="space-y-6">
-                <div>
-                    <label for="email" class="block text-sm font-medium text-white mb-2">Novo E-mail</label>
-                    <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                <form id="changeEmailForm" class="space-y-6" method="POST" action="../backend/alterar-email.php">
+                    <div>
+                        <label for="currentEmail" class="block text-sm font-medium text-white mb-2">E-mail Atual</label>
+                        <input type="email" id="currentEmail" value="<?= $_SESSION['user_email'] ?>" disabled class="w-full px-4 py-3 bg-gray-600 border border-gray-500 rounded-lg text-gray-300 cursor-not-allowed">
+                    </div>
+
+                    <div>
+                        <label for="newEmail" class="block text-sm font-medium text-white mb-2">Novo E-mail</label>
+                        <input type="email" id="newEmail" name="email" required class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                    </div>
+
+                    <button type="submit" id="sendEmailBtn" class="w-full flex items-center justify-center px-6 py-3 btn-primary rounded-lg text-white font-medium">
+                        <span id="sendEmailText">
+                            <i class="fas fa-envelope mr-2"></i>
+                            Enviar Código
+                        </span>
+                        <span id="sendEmailLoading" class="hidden">
+                            <i class="fas fa-spinner fa-spin mr-2"></i>
+                            Enviando...
+                        </span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Step 2: Code Verification -->
+            <div id="emailStep2" class="hidden space-y-6">
+                <div class="text-center">
+                    <i class="fas fa-envelope-open text-primary text-3xl mb-4"></i>
+                    <h4 class="text-lg font-semibold text-white mb-2">Código Enviado!</h4>
+                    <p class="text-gray-300 text-sm">Digite o código de 6 dígitos enviado para <span id="sentToEmail" class="text-primary font-medium"></span></p>
                 </div>
 
-                <button type="submit" class="w-full flex items-center justify-center px-6 py-3 btn-primary rounded-lg text-white font-medium">
-                    <i class="fas fa-envelope mr-2"></i>
-                    Enviar Código
-                </button>
-            </form>
+                <form id="verifyEmailCodeForm" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-white mb-3 text-center">Código de Verificação</label>
+                        <div class="flex justify-center space-x-2">
+                            <input type="text" maxlength="1" class="code-input" data-index="0">
+                            <input type="text" maxlength="1" class="code-input" data-index="1">
+                            <input type="text" maxlength="1" class="code-input" data-index="2">
+                            <input type="text" maxlength="1" class="code-input" data-index="3">
+                            <input type="text" maxlength="1" class="code-input" data-index="4">
+                            <input type="text" maxlength="1" class="code-input" data-index="5">
+                        </div>
+                    </div>
+
+                    <button type="submit" id="verifyEmailBtn" class="w-full flex items-center justify-center px-6 py-3 btn-primary rounded-lg text-white font-medium">
+                        <span id="verifyEmailText">
+                            <i class="fas fa-check mr-2"></i>
+                            Confirmar Alteração
+                        </span>
+                        <span id="verifyEmailLoading" class="hidden">
+                            <i class="fas fa-spinner fa-spin mr-2"></i>
+                            Verificando...
+                        </span>
+                    </button>
+
+                    <button type="button" onclick="backToEmailStep1()" class="w-full flex items-center justify-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        Voltar
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
-    <!-- Delete Account Modal -->
-    <div id="deleteAccountModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-dark-card rounded-xl p-8 max-w-md w-full border border-red-500 border-opacity-30">
+    <!-- Change Password Modal -->
+    <div id="changePasswordModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-dark-card rounded-xl p-8 max-w-md w-full border border-gray-600">
             <div class="flex items-center justify-between mb-6">
-                <h3 class="text-xl font-semibold text-red-400">Excluir Conta</h3>
-                <button onclick="closeDeleteAccountModal()" class="text-gray-400 hover:text-white transition-colors">
+                <h3 class="text-xl font-semibold text-white">Alterar Senha</h3>
+                <button onclick="closeChangePasswordModal()" class="text-gray-400 hover:text-white transition-colors">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
 
-            <div class="bg-red-900 bg-opacity-20 border border-red-500 border-opacity-30 rounded-lg p-4 mb-6">
-                <div class="flex items-start">
-                    <i class="fas fa-exclamation-triangle text-red-400 text-xl mr-3 mt-1"></i>
-                    <div>
-                        <p class="text-red-400 font-medium mb-2">Atenção: Esta ação é irreversível!</p>
-                        <p class="text-gray-300 text-sm">Todos os seus dados serão permanentemente excluídos e não poderão ser recuperados.</p>
-                    </div>
-                </div>
+            <div class="text-center">
+                <i class="fas fa-key text-primary text-3xl mb-4"></i>
+                <h4 class="text-lg font-semibold text-white mb-2">Código Enviado!</h4>
+                <p class="text-gray-300 text-sm mb-6">Digite o código de 6 dígitos enviado para seu e-mail e defina sua nova senha</p>
             </div>
 
-            <form class="space-y-6">
+            <form id="changePasswordForm" class="space-y-6">
                 <div>
-                    <label for="email_delete" class="block text-sm font-medium text-white mb-2">Confirme seu E-mail</label>
-                    <input type="email" id="email_delete" name="email" class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-red-500 focus:border-transparent transition-colors">
+                    <label class="block text-sm font-medium text-white mb-3 text-center">Código de Verificação</label>
+                    <div class="flex justify-center space-x-2 mb-6">
+                        <input type="text" maxlength="1" class="code-input password-code" data-index="0">
+                        <input type="text" maxlength="1" class="code-input password-code" data-index="1">
+                        <input type="text" maxlength="1" class="code-input password-code" data-index="2">
+                        <input type="text" maxlength="1" class="code-input password-code" data-index="3">
+                        <input type="text" maxlength="1" class="code-input password-code" data-index="4">
+                        <input type="text" maxlength="1" class="code-input password-code" data-index="5">
+                    </div>
                 </div>
 
-                <button type="submit" class="w-full flex items-center justify-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors font-medium">
-                    <i class="fas fa-trash mr-2"></i>
-                    EXCLUIR CONTA
+                <div>
+                    <label for="newPassword" class="block text-sm font-medium text-white mb-2">Nova Senha</label>
+                    <div class="relative">
+                        <input type="password" id="newPassword" name="newPassword" required class="w-full px-4 py-3 pr-12 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                        <button type="button" onclick="togglePasswordVisibility('newPassword')" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors">
+                            <i class="fas fa-eye" id="newPasswordIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="confirmNewPassword" class="block text-sm font-medium text-white mb-2">Confirmar Nova Senha</label>
+                    <div class="relative">
+                        <input type="password" id="confirmNewPassword" name="confirmNewPassword" required class="w-full px-4 py-3 pr-12 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                        <button type="button" onclick="togglePasswordVisibility('confirmNewPassword')" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors">
+                            <i class="fas fa-eye" id="confirmNewPasswordIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" id="changePasswordBtn" class="w-full flex items-center justify-center px-6 py-3 btn-primary rounded-lg text-white font-medium">
+                    <span id="changePasswordText">
+                        <i class="fas fa-key mr-2"></i>
+                        Alterar Senha
+                    </span>
+                    <span id="changePasswordLoading" class="hidden">
+                        <i class="fas fa-spinner fa-spin mr-2"></i>
+                        Alterando...
+                    </span>
                 </button>
             </form>
         </div>
@@ -548,7 +643,7 @@ if ($sql->rowCount() > 0) {
                 closeSidebar();
                 closeEditModal();
                 closeChangeEmailModal();
-                closeDeleteAccountModal();
+                closeChangePasswordModal();
             }
         });
 
@@ -561,20 +656,294 @@ if ($sql->rowCount() > 0) {
             document.getElementById('editModal').classList.add('hidden');
         }
 
+        // Change Email Modal Functions
         function openChangeEmailModal() {
             document.getElementById('changeEmailModal').classList.remove('hidden');
+            document.getElementById('emailStep1').classList.remove('hidden');
+            document.getElementById('emailStep2').classList.add('hidden');
         }
 
         function closeChangeEmailModal() {
             document.getElementById('changeEmailModal').classList.add('hidden');
+            document.getElementById('changeEmailForm').reset();
+            document.getElementById('emailStep1').classList.remove('hidden');
+            document.getElementById('emailStep2').classList.add('hidden');
+            // Reset code inputs
+            document.querySelectorAll('.code-input').forEach(input => {
+                input.value = '';
+                input.classList.remove('filled');
+            });
         }
 
-        function openDeleteAccountModal() {
-            document.getElementById('deleteAccountModal').classList.remove('hidden');
+        function backToEmailStep1() {
+            document.getElementById('emailStep1').classList.remove('hidden');
+            document.getElementById('emailStep2').classList.add('hidden');
         }
 
-        function closeDeleteAccountModal() {
-            document.getElementById('deleteAccountModal').classList.add('hidden');
+        // Change Password Modal Functions
+        function closeChangePasswordModal() {
+            document.getElementById('changePasswordModal').classList.add('hidden');
+            document.getElementById('changePasswordForm').reset();
+            // Reset code inputs
+            document.querySelectorAll('.password-code').forEach(input => {
+                input.value = '';
+                input.classList.remove('filled');
+            });
+        }
+
+        // Request Password Change
+        async function requestPasswordChange() {
+            try {
+                const response = await fetch('', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    document.getElementById('changePasswordModal').classList.remove('hidden');
+                } else {
+                    alert('Erro ao solicitar alteração de senha: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao solicitar alteração de senha');
+            }
+        }
+
+        // Change Email Form Handler
+        document.getElementById('changeEmailForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const newEmail = document.getElementById('newEmail').value;
+            const sendBtn = document.getElementById('sendEmailBtn');
+            const sendText = document.getElementById('sendEmailText');
+            const sendLoading = document.getElementById('sendEmailLoading');
+
+            // Show loading
+            sendText.classList.add('hidden');
+            sendLoading.classList.remove('hidden');
+            sendBtn.disabled = true;
+
+            try {
+                const response = await fetch('../backend/alterar-email.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        newEmail: newEmail
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    document.getElementById('sentToEmail').textContent = newEmail;
+                    document.getElementById('emailStep1').classList.add('hidden');
+                    document.getElementById('emailStep2').classList.remove('hidden');
+                } else {
+                    alert('Erro ao enviar código: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao enviar código');
+            } finally {
+                // Hide loading
+                sendText.classList.remove('hidden');
+                sendLoading.classList.add('hidden');
+                sendBtn.disabled = false;
+            }
+        });
+
+        // Verify Email Code Form Handler
+        document.getElementById('verifyEmailCodeForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const codeInputs = document.querySelectorAll('#emailStep2 .code-input');
+            const code = Array.from(codeInputs).map(input => input.value).join('');
+            const newEmail = document.getElementById('newEmail').value;
+
+            if (code.length !== 6) {
+                alert('Por favor, digite o código completo');
+                return;
+            }
+
+            const verifyBtn = document.getElementById('verifyEmailBtn');
+            const verifyText = document.getElementById('verifyEmailText');
+            const verifyLoading = document.getElementById('verifyEmailLoading');
+
+            // Show loading
+            verifyText.classList.add('hidden');
+            verifyLoading.classList.remove('hidden');
+            verifyBtn.disabled = true;
+
+            try {
+                const response = await fetch('../backend/confirmar-email.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        code: code,
+                        newEmail: newEmail
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('E-mail alterado com sucesso!');
+                    closeChangeEmailModal();
+                    location.reload(); // Reload to update session data
+                } else {
+                    alert('Erro ao verificar código: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao verificar código');
+            } finally {
+                // Hide loading
+                verifyText.classList.remove('hidden');
+                verifyLoading.classList.add('hidden');
+                verifyBtn.disabled = false;
+            }
+        });
+
+        // Change Password Form Handler
+        document.getElementById('changePasswordForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const codeInputs = document.querySelectorAll('.password-code');
+            const code = Array.from(codeInputs).map(input => input.value).join('');
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmNewPassword').value;
+
+            if (code.length !== 6) {
+                alert('Por favor, digite o código completo');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                alert('As senhas não coincidem');
+                return;
+            }
+
+            if (newPassword.length < 8) {
+                alert('A senha deve ter pelo menos 8 caracteres');
+                return;
+            }
+
+            const changeBtn = document.getElementById('changePasswordBtn');
+            const changeText = document.getElementById('changePasswordText');
+            const changeLoading = document.getElementById('changePasswordLoading');
+
+            // Show loading
+            changeText.classList.add('hidden');
+            changeLoading.classList.remove('hidden');
+            changeBtn.disabled = true;
+
+            try {
+                const response = await fetch('../backend/al', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        code: code,
+                        newPassword: newPassword
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('Senha alterada com sucesso!');
+                    closeChangePasswordModal();
+                } else {
+                    alert('Erro ao alterar senha: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao alterar senha');
+            } finally {
+                // Hide loading
+                changeText.classList.remove('hidden');
+                changeLoading.classList.add('hidden');
+                changeBtn.disabled = false;
+            }
+        });
+
+        // Code Input Handlers
+        function setupCodeInputs(selector) {
+            const inputs = document.querySelectorAll(selector);
+
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', function(e) {
+                    const value = e.target.value;
+
+                    // Only allow numbers
+                    if (!/^\d*$/.test(value)) {
+                        e.target.value = '';
+                        return;
+                    }
+
+                    // Add filled class
+                    if (value) {
+                        e.target.classList.add('filled');
+                    } else {
+                        e.target.classList.remove('filled');
+                    }
+
+                    // Move to next input
+                    if (value && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                });
+
+                input.addEventListener('keydown', function(e) {
+                    // Move to previous input on backspace
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+
+                input.addEventListener('paste', function(e) {
+                    e.preventDefault();
+                    const paste = (e.clipboardData || window.clipboardData).getData('text');
+                    const digits = paste.replace(/\D/g, '').slice(0, 6);
+
+                    digits.split('').forEach((digit, i) => {
+                        if (inputs[i]) {
+                            inputs[i].value = digit;
+                            inputs[i].classList.add('filled');
+                        }
+                    });
+                });
+            });
+        }
+
+        // Setup code inputs for both modals
+        setupCodeInputs('#emailStep2 .code-input');
+        setupCodeInputs('.password-code');
+
+        // Password visibility toggle
+        function togglePasswordVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(inputId + 'Icon');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
         }
 
         // Phone formatting
@@ -599,7 +968,6 @@ if ($sql->rowCount() > 0) {
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Redireciona para a página PHP que destrói a sessão
                     window.location.href = '/app/src/utils/Sair.php';
                 }
             });
@@ -608,10 +976,6 @@ if ($sql->rowCount() > 0) {
     <script type="module" src="/app/public/js/sweetalert-config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/script.js"></script>
-    <script src="js/confirmar-email.js"></script>
-    <script src="js/confirmar-exclusao.js"></script>
-    <script src="js/excluir-conta.js"></script>
-    <script src="js/mudar-email.js"></script>
 </body>
 
 </html>

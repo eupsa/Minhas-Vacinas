@@ -104,6 +104,8 @@ try {
     $sql->bindValue(':senha', $senhaHash);
     $sql->execute();
 
+    $_SESSION['temp_email'] = $email;
+
     if ($sql->rowCount() === 1) {
         $id_usuario = $pdo->lastInsertId();
         $ip = RegistrarDispostivos($pdo, $id_usuario);

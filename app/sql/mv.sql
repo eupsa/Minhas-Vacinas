@@ -179,6 +179,7 @@ CREATE TABLE IF NOT EXISTS vacinas_compartilhadas (
     id_vac_FK INT NOT NULL,
     uuid VARCHAR(100) NOT NULL UNIQUE,
     link VARCHAR(100) NOT NULL UNIQUE,
+    data_expiracao DATETIME,
     data_compartilhamento TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_vac_FK) REFERENCES vacina (id_vac) ON DELETE CASCADE
 );

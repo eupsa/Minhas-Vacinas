@@ -1,6 +1,11 @@
 <?php
 require_once '../../utils/ConexaoDB.php';
 
+if ($_SERVER['REQUEST_METHOD'] !== ['POST']) {
+    header("Location: ../entrar/");
+    exit();
+}
+
 if (empty($_POST['id_usuario']) || empty($_POST['id_dispositivo'])) {
     $retorna = ['status' => false, 'msg' => "ID Usuário ou ID Dispositivo não informado."];
     header('Content-Type: application/json');

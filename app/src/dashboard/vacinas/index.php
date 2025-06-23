@@ -5,9 +5,20 @@ require_once '../../utils/UsuarioAuth.php';
 
 Auth($pdo);
 
-$sql = $pdo->prepare("SELECT * FROM vacina WHERE id_usuario = :id_usuario ORDER BY data_aplicacao DESC");
+$sql = $pdo->prepare("SELECT 
+    v.*,
+    vc.uuid,
+    vc.link AS link_compartilhamento,
+    vc.data_expiracao,
+    vc.data_compartilhamento,
+    CASE WHEN vc.id IS NOT NULL THEN 1 ELSE 0 END AS compartilhada
+FROM vacina v
+LEFT JOIN vacinas_compartilhadas vc ON vc.id_vac_FK = v.id_vac
+WHERE v.id_usuario = :id_usuario
+ORDER BY v.data_adicao DESC");
 $sql->bindValue(':id_usuario', $_SESSION['user_id']);
 $sql->execute();
+
 
 $vacinas = $sql->fetchAll(PDO::FETCH_ASSOC);
 $_SESSION['vacinas'] = $vacinas ?: [];
@@ -150,6 +161,11 @@ $_SESSION['vacinas'] = $vacinas ?: [];
             border-color: #007bff;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
+
+        /* Modal Styles */
+        .modal-backdrop {
+            backdrop-filter: blur(4px);
+        }
     </style>
 </head>
 
@@ -174,6 +190,31 @@ $_SESSION['vacinas'] = $vacinas ?: [];
             </div>
         </nav>
     </header>
+
+    <script>
+        function calcularTempoRestante(timestampAlvo) {
+            const agora = Date.now();
+            const restante = timestampAlvo - agora;
+
+            if (restante <= 0) return {
+                horas: 0,
+                minutos: 0,
+                segundos: 0,
+                expirado: true
+            };
+
+            const horas = Math.floor(restante / (1000 * 60 * 60));
+            const minutos = Math.floor((restante % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((restante % (1000 * 60)) / 1000);
+
+            return {
+                horas,
+                minutos,
+                segundos,
+                expirado: false
+            };
+        }
+    </script>
 
     <!-- Sidebar -->
     <aside id="sidebar" class="fixed left-0 top-16 h-full w-64 sidebar transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-40">
@@ -258,11 +299,14 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                                     <i class="fas fa-syringe text-white text-4xl"></i>
                                 <?php endif; ?>
                             </div>
+
                             <div class="p-6">
                                 <h3 class="text-xl font-semibold text-white mb-4"><?= htmlspecialchars($vacina['nome_vac'], ENT_QUOTES, 'UTF-8') ?></h3>
+
                                 <?php if (!empty($vacina['obs'])): ?>
                                     <p class="text-gray-400 text-sm mb-4 leading-relaxed"><?= nl2br(htmlspecialchars($vacina['obs'], ENT_QUOTES, 'UTF-8')) ?></p>
                                 <?php endif; ?>
+
                                 <div class="space-y-3 mb-6">
                                     <?php if (!empty($vacina['data_aplicacao'])): ?>
                                         <div class="flex items-center text-gray-300">
@@ -314,9 +358,10 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                                         </div>
                                     <?php endif; ?>
                                 </div>
+
                                 <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 pt-4 border-t border-gray-600">
                                     <!-- Excluir -->
-                                    <form method="POST" action="../backend/excluir-vacina.php" id="form-excluir-vacina">
+                                    <form method="POST" action="../backend/excluir-vacina.php" id="form-excluir-vacina" class="w-full sm:w-auto">
                                         <input type="hidden" name="id_vac" value="<?= htmlspecialchars($vacina['id_vac'], ENT_QUOTES, 'UTF-8') ?>">
                                         <button type="submit" class="flex items-center w-full sm:w-auto px-3 py-2 text-red-400 hover:text-red-300 hover:bg-red-500 hover:bg-opacity-20 rounded-lg transition-colors">
                                             <i class="fas fa-trash mr-2"></i>Excluir
@@ -330,12 +375,69 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                                         <i class="fa-solid fa-file-pdf mr-2"></i>PDF
                                     </button>
 
-                                    <!-- Compartilhar -->
-                                    <button type="button"
-                                        class="flex items-center w-full sm:w-auto px-3 py-2 text-green-400 hover:text-green-300 hover:bg-green-600 hover:bg-opacity-20 rounded-lg transition-colors">
-                                        <i class="fas fa-share-alt mr-2"></i>Compartilhar
-                                    </button>
+                                    <!-- Compartilhar (só mostra se NÃO foi compartilhada) -->
+                                    <?php if (empty($vacina['compartilhada']) || !$vacina['compartilhada']): ?>
+                                        <!-- Botão Compartilhar -->
+                                        <button type="button"
+                                            onclick="openShareModal('<?= $vacina['id_vac'] ?>')"
+                                            class="flex items-center w-full sm:w-auto px-3 py-2 text-green-400 hover:text-green-300 hover:bg-green-600 hover:bg-opacity-20 rounded-lg transition-colors" id="comp_vac">
+                                            <i class="fas fa-share-alt mr-2"></i>Compartilhar
+                                        </button>
+                                    <?php else: ?>
+                                        <!-- Botão Parar Compartilhamento -->
+                                        <form method="POST" action="../backend/excluir-link.php" class="w-full sm:w-auto">
+                                            <input type="hidden" name="id_vac" value="<?= htmlspecialchars($vacina['id_vac'], ENT_QUOTES, 'UTF-8') ?>">
+                                            <button type="submit"
+                                                class="flex items-center w-full sm:w-auto px-3 py-2 text-yellow-400 hover:text-yellow-300 hover:bg-yellow-600 hover:bg-opacity-20 rounded-lg transition-colors">
+                                                <i class="fas fa-ban mr-2"></i>Excluir link
+                                            </button>
+                                        </form>
+                                    <?php endif; ?>
                                 </div>
+
+                                <?php if (!empty($vacina['compartilhada']) && $vacina['compartilhada'] && !empty($vacina['link_compartilhamento']) && !empty($vacina['data_compartilhamento'])): ?>
+                                    <div class="mt-4 p-2 bg-gray-800 bg-opacity-30 border border-gray-600 rounded-md">
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="text-gray-400 text-xs flex items-center gap-1">
+                                                <i class="fas fa-share-alt text-xs"></i> Compartilhada em <?= date('d/m/Y H:i', strtotime($vacina['data_compartilhamento'])) ?>
+                                            </span>
+                                            <button onclick="copiarLink('<?= htmlspecialchars($vacina['link_compartilhamento'], ENT_QUOTES, 'UTF-8') ?>', this)" class="text-gray-400 hover:text-white text-xs flex items-center gap-1">
+                                                <i class="fas fa-copy text-xs"></i> Copiar
+                                            </button>
+                                        </div>
+
+                                        <input type="text" readonly value="<?= htmlspecialchars($vacina['link_compartilhamento'], ENT_QUOTES, 'UTF-8') ?>" class="w-full text-[10px] bg-transparent text-gray-400 border border-gray-700 px-2 py-1 rounded focus:outline-none cursor-text mb-1" onclick="this.select()">
+
+                                        <?php if (!empty($vacina['data_expiracao'])): ?>
+                                            <div class="text-gray-400 text-[10px]">
+                                                Expira em <?= date('d/m/Y H:i', strtotime($vacina['data_expiracao'])) ?> —
+                                                <span id="contador-<?= $vacina['id_vac'] ?>">calculando...</span>
+                                            </div>
+                                            <script>
+                                                (() => {
+                                                    const expiraEm = new Date("<?= date('Y-m-d H:i:s', strtotime($vacina['data_expiracao'])) ?>").getTime();
+                                                    const span = document.getElementById("contador-<?= $vacina['id_vac'] ?>");
+
+                                                    function atualizarContador() {
+                                                        const tempo = calcularTempoRestante(expiraEm);
+
+                                                        if (tempo.expirado) {
+                                                            span.textContent = "expirado";
+                                                            return;
+                                                        }
+
+                                                        span.textContent = `${tempo.horas}h ${tempo.minutos}m ${tempo.segundos}s`;
+                                                    }
+
+                                                    atualizarContador();
+                                                    setInterval(atualizarContador, 1000);
+                                                })();
+                                            </script>
+                                        <?php else: ?>
+                                            <div class="text-gray-400 text-[10px]">Link sem expiração</div>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -348,78 +450,178 @@ $_SESSION['vacinas'] = $vacinas ?: [];
         </div>
     </main>
 
-    <div id="certificado-<?= $vacina['id_vac'] ?>" class="hidden" style="
-  width: 800px;
-  margin: 0 auto;
-  background: #f9fafb;
-  color: #1f2937;
-  padding: 50px 60px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 17px;
-  line-height: 1.6;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-  border: 1px solid #e5e7eb;
-  box-sizing: border-box;
-">
-        <style>
-            .page-break {
-                page-break-after: always;
-            }
-        </style>
-
-        <!-- LOGO -->
-        <div style="text-align: center; margin-bottom: 40px;">
-            <img src="/app/public/img/logo-head.png" alt="Logo" style="height: 70px; object-fit: contain; margin-bottom: 15px;">
-            <h1 style="font-size: 34px; font-weight: 700; margin: 0; color: #111827;">Certificado de Vacinação</h1>
-            <p style="color: #6b7280; font-size: 15px; margin-top: 8px;">Comprovante de dose registrada no sistema Minhas Vacinas</p>
-        </div>
-
-        <!-- INFORMAÇÕES DA VACINA -->
-        <div style="margin-bottom: 50px; text-align: left; color: #374151;">
-            <p style="margin: 8px 0;"><strong style="color:#111827;">Nome da Vacina:</strong> <?= htmlspecialchars($vacina['nome_vac']) ?></p>
-            <p style="margin: 8px 0;"><strong style="color:#111827;">Data de Aplicação:</strong> <?= date('d/m/Y', strtotime($vacina['data_aplicacao'])) ?></p>
-            <p style="margin: 8px 0;"><strong style="color:#111827;">Próxima Dose:</strong> <?= date('d/m/Y', strtotime($vacina['proxima_dose'])) ?></p>
-            <p style="margin: 8px 0;"><strong style="color:#111827;">Local da Aplicação:</strong> <?= htmlspecialchars($vacina['local_aplicacao']) ?></p>
-            <p style="margin: 8px 0;"><strong style="color:#111827;">Dose:</strong> <?= htmlspecialchars($vacina['dose']) ?></p>
-            <p style="margin: 8px 0;"><strong style="color:#111827;">Lote:</strong> <?= htmlspecialchars($vacina['lote']) ?></p>
-        </div>
-
-        <!-- QR CODE -->
-        <div style="text-align: center; margin-bottom: 50px;">
-            <div style="display: inline-block; background: white; padding: 8px; border: 2px solid #e5e7eb; border-radius: 12px;">
-                <img src="qrcode_localhost.png" alt="QR Code" style="width: 150px; height: 150px; object-fit: contain;">
+    <!-- Share Modal -->
+    <div id="shareModal" class="no-print fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
+        <div class="bg-dark-card rounded-xl p-8 max-w-md w-full border border-gray-600 animate-scale-in">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold text-white">Compartilhar Cartão</h3>
+                <button onclick="closeShareModal()" class="text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-lg">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
             </div>
-            <p style="font-size: 13px; color: #6b7280; margin-top: 12px;">Escaneie para verificar a validade no sistema</p>
-        </div>
 
+            <form action="../backend/gerar_link.php" method="POST" id="compartilharForm">
+                <div class="space-y-6">
+                    <div class="bg-dark rounded-lg p-4">
+                        <label class="block text-sm font-medium text-white mb-3">
+                            <i class="fas fa-calendar mr-2 text-primary"></i>
+                            Data de Expiração do Link:
+                        </label>
+                        <select id="expirationSelect" name="link_expiracao" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option value="">Selecione quando o link expira</option>
+                            <option value="24">24 horas</option>
+                            <option value="7">7 dias</option>
+                            <option value="30">30 dias</option>
+                            <option value="never">Nunca expira</option>
+                        </select>
+                    </div>
 
-        <!-- ASSINATURA -->
-        <div style="text-align: center; margin-bottom: 30px;">
-            <p style="font-size: 16px; font-weight: 700; margin-bottom: 4px; color: #374151;">
-                <?= htmlspecialchars($_SESSION['user_nome'] ?? 'Nome do Usuário') ?>
-            </p>
-            <p style="font-size: 14px; color: #6b7280;">
-                <?= htmlspecialchars($_SESSION['user_email'] ?? 'email@usuario.com') ?>
-            </p>
-        </div>
+                    <input type="hidden" id="id_vac_share" name="id_vac_comp">
 
-        <!-- RODAPÉ -->
-        <div style="text-align: center; font-size: 13px; color: #9ca3af; border-top: 1px solid #d1d5db; padding-top: 14px;">
-            Documento gerado pelo sistema <strong>Minhas Vacinas</strong><br>
-        </div>
-        <div style="text-align: center; font-size: 12px; color: #888; margin-bottom: 20px;">
-            Exportado em: <?= date('d/m/Y \à\s H:i:s') ?>
+                    <div class="bg-blue-900 bg-opacity-20 border border-blue-500 border-opacity-30 rounded-lg p-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-primary rounded-full p-1 mt-0.5">
+                                <i class="fas fa-share-alt text-white text-xs"></i>
+                            </div>
+                            <div class="text-sm text-blue-200">
+                                <p class="font-medium mb-1">Sobre o compartilhamento:</p>
+                                <ul class="space-y-1 text-xs">
+                                    <li>• O link permite visualizar apenas este cartão de vacina</li>
+                                    <li>• Após a expiração, o link não funcionará mais</li>
+                                    <li>• Você pode revogar o acesso a qualquer momento</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" id="generateBtn" disabled class="w-full px-6 py-3 bg-gray-600 text-gray-400 rounded-lg font-medium cursor-not-allowed transition-all duration-300">
+                        <i class="fas fa-link mr-2"></i>
+                        Gerar Link de Compartilhamento
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
+    <!-- Copy Link Modal -->
+    <div id="copyModal" class="no-print fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
+        <div class="bg-dark-card rounded-xl p-8 max-w-md w-full border border-gray-600 animate-scale-in">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold text-white">Link Gerado</h3>
+                <button onclick="closeCopyModal()" class="text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-lg">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-dark rounded-lg p-4">
+                    <label class="block text-sm font-medium text-white mb-2">Link para compartilhar:</label>
+                    <div class="flex">
+                        <input type="text" id="shareLink" readonly class="flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-l-lg text-white text-sm focus:outline-none">
+                        <button onclick="copyLink()" id="copyBtn" class="px-4 py-2 bg-primary text-white rounded-r-lg hover:bg-primary-dark transition-colors">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <div id="copySuccess" class="hidden text-green-400 text-xs mt-2 flex items-center">
+                        <i class="fas fa-check mr-1"></i>
+                        Link copiado com sucesso!
+                    </div>
+                </div>
+
+                <div class="bg-dark rounded-lg p-4">
+                    <div class="text-sm text-gray-300">
+                        <p class="font-medium mb-2">Detalhes do compartilhamento:</p>
+                        <div class="space-y-1 text-xs">
+                            <p>
+                                <span class="text-gray-400">Expira em:</span>
+                                <span id="expirationInfo"></span>
+                            </p>
+                            <p>
+                                <span class="text-gray-400">Criado em:</span>
+                                <span id="createdInfo"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Templates (existing code) -->
+    <?php foreach ($vacinas as $vacina): ?>
+        <div id="certificado-<?= $vacina['id_vac'] ?>" class="hidden" style="
+      width: 800px;
+      margin: 0 auto;
+      background: #f9fafb;
+      color: #1f2937;
+      padding: 50px 60px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 17px;
+      line-height: 1.6;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      border: 1px solid #e5e7eb;
+      box-sizing: border-box;
+    ">
+            <style>
+                .page-break {
+                    page-break-after: always;
+                }
+            </style>
+
+            <!-- LOGO -->
+            <div style="text-align: center; margin-bottom: 40px;">
+                <img src="/app/public/img/logo-head.png" alt="Logo" style="height: 70px; object-fit: contain; margin-bottom: 15px;">
+                <h1 style="font-size: 34px; font-weight: 700; margin: 0; color: #111827;">Certificado de Vacinação</h1>
+                <p style="color: #6b7280; font-size: 15px; margin-top: 8px;">Comprovante de dose registrada no sistema Minhas Vacinas</p>
+            </div>
+
+            <!-- INFORMAÇÕES DA VACINA -->
+            <div style="margin-bottom: 50px; text-align: left; color: #374151;">
+                <p style="margin: 8px 0;"><strong style="color:#111827;">Nome da Vacina:</strong> <?= htmlspecialchars($vacina['nome_vac']) ?></p>
+                <p style="margin: 8px 0;"><strong style="color:#111827;">Data de Aplicação:</strong> <?= date('d/m/Y', strtotime($vacina['data_aplicacao'])) ?></p>
+                <p style="margin: 8px 0;"><strong style="color:#111827;">Próxima Dose:</strong> <?= date('d/m/Y', strtotime($vacina['proxima_dose'])) ?></p>
+                <p style="margin: 8px 0;"><strong style="color:#111827;">Local da Aplicação:</strong> <?= htmlspecialchars($vacina['local_aplicacao']) ?></p>
+                <p style="margin: 8px 0;"><strong style="color:#111827;">Dose:</strong> <?= htmlspecialchars($vacina['dose']) ?></p>
+                <p style="margin: 8px 0;"><strong style="color:#111827;">Lote:</strong> <?= htmlspecialchars($vacina['lote']) ?></p>
+            </div>
+
+            <!-- QR CODE -->
+            <div style="text-align: center; margin-bottom: 50px;">
+                <div style="display: inline-block; background: white; padding: 8px; border: 2px solid #e5e7eb; border-radius: 12px;">
+                    <img src="qrcode_localhost.png" alt="QR Code" style="width: 150px; height: 150px; object-fit: contain;">
+                </div>
+                <p style="font-size: 13px; color: #6b7280; margin-top: 12px;">Escaneie para verificar a validade no sistema</p>
+            </div>
+
+            <!-- ASSINATURA -->
+            <div style="text-align: center; margin-bottom: 30px;">
+                <p style="font-size: 16px; font-weight: 700; margin-bottom: 4px; color: #374151;">
+                    <?= htmlspecialchars($_SESSION['user_nome'] ?? 'Nome do Usuário') ?>
+                </p>
+                <p style="font-size: 14px; color: #6b7280;">
+                    <?= htmlspecialchars($_SESSION['user_email'] ?? 'email@usuario.com') ?>
+                </p>
+            </div>
+
+            <!-- RODAPÉ -->
+            <div style="text-align: center; font-size: 13px; color: #9ca3af; border-top: 1px solid #d1d5db; padding-top: 14px;">
+                Documento gerado pelo sistema <a href="https://minhasvacinas.pedrotech.cloud" style="color: #007bff; text-decoration: underline">Minhas Vacinas</a><br>
+            </div>
+            <div style="text-align: center; font-size: 12px; color: #888; margin-bottom: 20px;">
+                Exportado em: <?= date('d/m/Y \à\s H:i:s') ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
 
     <!-- Mobile Sidebar Overlay -->
     <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden hidden"></div>
 
     <!-- JavaScript -->
     <script>
-        // Sidebar Toggle
+        // Global variables
+        let currentVaccineId = null;
+
+        // Existing sidebar functionality
         const sidebarToggle = document.getElementById('sidebarToggle');
         const sidebar = document.getElementById('sidebar');
         const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -439,7 +641,6 @@ $_SESSION['vacinas'] = $vacinas ?: [];
         sidebarToggle.addEventListener('click', openSidebar);
         sidebarOverlay.addEventListener('click', closeSidebar);
 
-        // Close sidebar when clicking on navigation links on mobile
         document.querySelectorAll('.sidebar-link').forEach(link => {
             link.addEventListener('click', () => {
                 if (window.innerWidth < 1024) {
@@ -448,13 +649,122 @@ $_SESSION['vacinas'] = $vacinas ?: [];
             });
         });
 
-        // Keyboard Navigation
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && !sidebar.classList.contains('-translate-x-full')) {
-                closeSidebar();
+            if (e.key === 'Escape') {
+                if (!sidebar.classList.contains('-translate-x-full')) {
+                    closeSidebar();
+                }
+                closeShareModal();
+                closeCopyModal();
             }
         });
 
+        // Share Modal Functions
+        function openShareModal(vaccineId) {
+            currentVaccineId = vaccineId;
+            document.getElementById('id_vac_share').value = vaccineId;
+            document.getElementById('shareModal').classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeShareModal() {
+            document.getElementById('shareModal').classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('expirationSelect').value = '';
+            updateGenerateButton();
+        }
+
+        function closeCopyModal() {
+            document.getElementById('copyModal').classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('copySuccess').classList.add('hidden');
+            location.reload();
+        }
+
+        function updateGenerateButton() {
+            const select = document.getElementById('expirationSelect');
+            const btn = document.getElementById('generateBtn');
+
+            if (select.value) {
+                btn.disabled = false;
+                btn.classList.remove('bg-gray-600', 'text-gray-400', 'cursor-not-allowed');
+                btn.classList.add('bg-primary', 'hover:bg-primary-dark', 'text-white', 'cursor-pointer');
+            } else {
+                btn.disabled = true;
+                btn.classList.add('bg-gray-600', 'text-gray-400', 'cursor-not-allowed');
+                btn.classList.remove('bg-primary', 'hover:bg-primary-dark', 'text-white', 'cursor-pointer');
+            }
+        }
+
+        function generateShareLink() {
+            const expiration = document.getElementById('expirationSelect').value;
+            if (!expiration || !currentVaccineId) return;
+
+            const baseUrl = `https://minhasvacinas.pedrotech.cloud/app/vacinas/${currentVaccineId}`;
+            const expirationParam = expiration !== 'never' ? `?expires=${expiration}` : '';
+            const shareLink = `${baseUrl}${expirationParam}`;
+
+            document.getElementById('shareLink').value = shareLink;
+
+            // Update expiration info
+            const expirationOptions = {
+                '1h': '1 hora',
+                '24h': '24 horas',
+                '7d': '7 dias',
+                '30d': '30 dias',
+                '90d': '90 dias',
+                'never': 'Nunca expira'
+            };
+
+            document.getElementById('expirationInfo').textContent = expirationOptions[expiration];
+            document.getElementById('createdInfo').textContent = new Date().toLocaleString('pt-BR');
+
+            closeShareModal();
+            document.getElementById('copyModal').classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        async function copyLink() {
+            const shareLink = document.getElementById('shareLink').value;
+            const copyBtn = document.getElementById('copyBtn');
+            const copySuccess = document.getElementById('copySuccess');
+
+            try {
+                await navigator.clipboard.writeText(shareLink);
+
+                // Visual feedback
+                copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+                copyBtn.classList.remove('bg-primary', 'hover:bg-primary-dark');
+                copyBtn.classList.add('bg-green-600');
+
+                copySuccess.classList.remove('hidden');
+
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-copy"></i>';
+                    copyBtn.classList.remove('bg-green-600');
+                    copyBtn.classList.add('bg-primary', 'hover:bg-primary-dark');
+                    copySuccess.classList.add('hidden');
+                }, 2000);
+
+            } catch (err) {
+                console.error('Erro ao copiar:', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = shareLink;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+
+                copySuccess.classList.remove('hidden');
+                setTimeout(() => copySuccess.classList.add('hidden'), 2000);
+            }
+        }
+
+        // Event listeners
+        document.getElementById('expirationSelect').addEventListener('change', updateGenerateButton);
+
+        // Existing logout functionality
         document.getElementById('btnLogout').addEventListener('click', () => {
             Swal.fire({
                 title: 'Tem certeza que deseja sair?',
@@ -466,16 +776,15 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                 cancelButtonText: 'Cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Redireciona para a página PHP que destrói a sessão
                     window.location.href = '/app/src/utils/Sair.php';
                 }
             });
         });
 
-
+        // Existing PDF generation function
         function gerarCertificadoPDF(id) {
             const el = document.getElementById('certificado-' + id);
-            el.classList.remove('hidden'); // mostra antes de capturar
+            el.classList.remove('hidden');
 
             const opt = {
                 margin: [20, 20, 20, 20],
@@ -500,8 +809,42 @@ $_SESSION['vacinas'] = $vacinas ?: [];
             };
 
             html2pdf().set(opt).from(el).save().then(() => {
-                el.classList.add('hidden'); // esconde depois
+                el.classList.add('hidden');
             });
+        }
+
+        function copiarLink(link, btn) {
+            navigator.clipboard.writeText(link).then(() => {
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> Copiado!';
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-copy"></i> Copiar link';
+                }, 2000);
+            }).catch(() => {
+                alert('Erro ao copiar o link.');
+            });
+        }
+
+        function calcularTempoRestante(timestampAlvo) {
+            const agora = Date.now();
+            const restante = timestampAlvo - agora;
+
+            if (restante <= 0) return {
+                horas: 0,
+                minutos: 0,
+                segundos: 0,
+                expirado: true
+            };
+
+            const horas = Math.floor(restante / (1000 * 60 * 60));
+            const minutos = Math.floor((restante % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((restante % (1000 * 60)) / 1000);
+
+            return {
+                horas,
+                minutos,
+                segundos,
+                expirado: false
+            };
         }
     </script>
 
@@ -509,6 +852,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="excluir.js"></script>
+    <script src="compartilhar-vacina.js"></script>
 </body>
 
 </html>

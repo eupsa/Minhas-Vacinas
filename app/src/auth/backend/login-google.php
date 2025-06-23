@@ -8,20 +8,17 @@ use Google\Service\Oauth2;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// 1. Recebe o código de autorização
 if (empty($_GET['code'])) {
     header('Location: ../entrar/?msg=erro&text=' . urlencode("Código de autorização ausente."));
     exit();
 }
 
-// 2. Configura o Google Client
 $client = new GoogleClient();
 $client->setClientId($_ENV['GOOGLE_ID_CLIENT']);
 $client->setClientSecret($_ENV['GOOGLE_CLIENT_SECRET']);
 $client->setRedirectUri($_ENV['GOOGLE_REDIRECT_LOGIN']);
 $client->addScope(['openid', 'email', 'profile']);
 
-// 3. Troca o code por token de acesso
 $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
 if (isset($token['error'])) {
     header('Location: ../entrar/?msg=erro&text=' . urlencode("Erro ao autenticar com o Google."));
@@ -29,7 +26,6 @@ if (isset($token['error'])) {
 }
 $client->setAccessToken($token['access_token']);
 
-// 4. Pega dados do usuário
 $oauth = new Oauth2($client);
 $userInfo = $oauth->userinfo->get();
 
@@ -39,7 +35,6 @@ $nome     = ucwords(trim($userInfo->name));
 $foto_url = $userInfo->picture ?? null;
 $ip       = ObterIP();
 
-// 5. Verifica se o usuário está no banco
 $sql = $pdo->prepare("
   SELECT u.* FROM usuario u
   JOIN usuario_google ug USING(id_usuario)
@@ -56,7 +51,6 @@ if ($sql->rowCount() === 0) {
 $usuario = $sql->fetch(PDO::FETCH_ASSOC);
 $id_usuario = $usuario['id_usuario'];
 
-// 6. Verifica dispositivos já registrados
 $sql = $pdo->prepare("SELECT * FROM dispositivos WHERE ip = :ip AND id_usuario = :uid");
 $sql->bindValue(':ip', $ip);
 $sql->bindValue(':uid', $id_usuario);
@@ -64,7 +58,8 @@ $sql->execute();
 
 if ($sql->rowCount() == 0) {
     RegistrarDispositivos($pdo, $id_usuario);
-    EnviarEmail($id_usuario, $email, $ip, null, null, null); // você pode quer incluir local via IPInfo
+    $id_dispositivo = RegistrarDispositivos($pdo, $id_usuario);
+    EnviarEmail($id_usuario, $email, $id_dispositivo);
     header('Location: ../entrar/?msg=sucesso&text=' . urlencode("Novo dispositivo detectado. Verifique seu e‑mail para confirmar."));
     exit();
 }
@@ -96,19 +91,15 @@ $_SESSION['user_ip']    = $ip;
 header('Location: ../../dashboard/');
 exit();
 
-// ————— Funções auxiliares —————————
-
-function EnviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
+function EnviarEmail($id_usuario, $email, $id_dispositivo)
 {
-    date_default_timezone_set('America/Sao_Paulo');
-    $data = date('d/m/Y H:i:s');
-    $body = file_get_contents('../../../public/email/alerta-login.html');
-    $body = str_replace(
-        ['{{ip}}', '{{cidade}}', '{{estado}}', '{{pais}}', '{{horario}}', '{{id}}'],
-        [$ip, $cidade, $estado, $pais, $data, $id_usuario],
-        $body
-    );
+    $email_body = file_get_contents('../../../public/email/alerta-login.html');
+    $url = $_ENV['APP_URL'] . "/app/src/auth/novo-dispositivo?deviceid={$id_dispositivo}&userid={$id_usuario}";
+    $email_body = str_replace('{{url}}', $url, $email_body);
     $mail = new PHPMailer(true);
+
+    $mail = new PHPMailer(true);
+
     try {
         $mail->isSMTP();
         $mail->Host       = $_ENV['MAIL_HOST'];
@@ -121,7 +112,7 @@ function EnviarEmail($id_usuario, $email, $ip, $cidade, $estado, $pais)
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->Subject = 'Novo acesso detectado';
-        $mail->Body    = $body;
+        $mail->Body    = $email_body;
         $mail->send();
         return true;
     } catch (Exception $e) {
@@ -156,6 +147,9 @@ function RegistrarDispositivos($pdo, $id_usuario)
         ':st' => $st,
         ':cty' => $cty
     ]);
+
+    $id_dispositivo = $pdo->lastInsertId();
+    return $id_dispositivo;
 }
 
 function ObterIP()

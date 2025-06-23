@@ -403,7 +403,7 @@ if (isset($_GET['deviceid']) && isset($_GET['userid'])) {
                     </div>
 
                     <!-- Confirmation Form -->
-                    <form id="deviceForm" class="space-y-6" method="POST" action="../backend/novo-dispositivo.php">
+                    <form id="formNovoDispositivo" class="space-y-6" method="POST" action="../backend/novo-dispositivo.php">
                         <div>
                             <label for="deviceName" class="block text-xs font-medium text-gray-300 mb-2 text-left">
                                 Nome do dispositivo (opcional)
