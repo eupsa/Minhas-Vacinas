@@ -4,7 +4,7 @@ require_once '../src/utils/ConexaoDB.php';
 // $uri = $_SERVER['REQUEST_URI'];
 // $partes = explode('/', trim($uri, '/'));
 // $uuid = end($partes);
-    
+
 $uuid = $_GET['uuid'];
 
 $sql = $pdo->prepare("SELECT * FROM vacinas_compartilhadas WHERE uuid = :uuid");
@@ -288,8 +288,15 @@ if ($sql->rowCount() > 0) {
                                 <h3 class="text-white font-semibold">Data de Aplicação</h3>
                             </div>
                             <?php
-                            setlocale(LC_TIME, 'pt_BR.utf8', 'pt_BR', 'Portuguese_Brazil'); // garante português
-                            $dataFormatada = strftime('%d de %B, %Y', strtotime($vacina['data_aplicacao']));
+                            $data = new IntlDateFormatter(
+                                'pt_BR',
+                                IntlDateFormatter::LONG,
+                                IntlDateFormatter::NONE,
+                                'America/Sao_Paulo',
+                                IntlDateFormatter::GREGORIAN
+                            );
+
+                            $dataFormatada = $data->format(new DateTime($vacina['data_aplicacao']));
                             ?>
                             <p class="text-gray-300 text-lg font-medium"><?= $dataFormatada ?></p>
                         </div>
