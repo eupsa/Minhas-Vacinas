@@ -440,8 +440,6 @@ $text = $_GET['text'] ?? null;
                             </div>
                         </div>
 
-     
-
                         <button
                             type="submit"
                             id="submitBtn"

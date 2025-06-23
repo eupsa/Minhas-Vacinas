@@ -96,7 +96,7 @@ if (empty($email) || empty($senha)) {
                     $pais = $data['country'];
                 }
                 EmailLogin($id_usuario, $email, $id_dispositivo);
-                $retorna = ['status' => true, 'msg' => "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções."];
+                $retorna = ['status' => true, 'msg' => "$url"];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
                 exit();
