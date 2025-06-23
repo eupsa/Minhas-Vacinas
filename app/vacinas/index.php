@@ -387,9 +387,17 @@ if ($sql->rowCount() > 0) {
                                 <p class="text-gray-400 text-sm">Compartilhado em</p>
                                 <p class="text-white font-medium">
                                     <?php
-                                    setlocale(LC_TIME, 'pt_BR.utf8', 'pt_BR');
                                     $dataHora = $vacinasCompartilhadas['data_compartilhamento'] ?? date('Y-m-d H:i:s');
-                                    echo strftime('%d de %B, %Y às %H:%M', strtotime($dataHora));
+
+                                    $formatter = new IntlDateFormatter(
+                                        'pt_BR',
+                                        IntlDateFormatter::LONG,
+                                        IntlDateFormatter::SHORT, // mostra data e hora
+                                        'America/Sao_Paulo',
+                                        IntlDateFormatter::GREGORIAN
+                                    );
+
+                                    echo $formatter->format(new DateTime($dataHora));
                                     ?>
                                 </p>
                             </div>
