@@ -1,0 +1,92 @@
+/* Remover ícone padrão */
+.swal2-icon {
+  display: none !important;
+}
+
+/* Container principal com blur e transparência */
+.swal2-popup {
+  background-color: rgba(15, 23, 42, 0.6); /* bg-slate-900/60 */
+  backdrop-filter: blur(16px); /* blur-md */
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 1rem; /* rounded-2xl */
+  border: 1px solid rgba(51, 65, 85, 0.6); /* border-slate-700/60 */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* shadow-xl */
+  padding: 1.5rem; /* p-6 */
+  width: 100%;
+  max-width: 24rem !important; /* max-w-md */
+  font-family: "Inter", sans-serif;
+  font-size: 0.925rem; /* text-[0.925rem] */
+}
+
+/* Título */
+.swal2-title {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+  color: #60a5fa; /* text-blue-400 */
+  text-align: center;
+  margin-bottom: 0.75rem; /* mb-3 */
+}
+
+/* Texto do corpo */
+.swal2-html-container {
+  color: #cbd5e1; /* text-slate-300 */
+  font-size: 0.95rem; /* text-sm */
+  line-height: 1.5rem; /* leading-6 */
+  text-align: center;
+  margin-bottom: 1.25rem; /* mb-5 */
+}
+
+/* Botões */
+.swal2-confirm,
+.swal2-cancel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border-radius: 0.5rem; /* rounded-md */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500; /* font-medium */
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/* Botão confirmar (azul) */
+.swal2-confirm {
+  background-color: #3b82f6 !important; /* bg-blue-500 */
+  color: #f8fafc !important; /* text-slate-50 */
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3); /* shadow-md */
+}
+
+.swal2-confirm:hover {
+  background-color: #2563eb !important; /* hover:bg-blue-600 */
+}
+
+/* Botão cancelar (escuro) */
+.swal2-cancel {
+  background-color: #1e293b !important; /* bg-slate-800 */
+  color: #cbd5e1 !important; /* text-slate-300 */
+  border: 1px solid #334155 !important; /* border-slate-700 */
+  margin-left: 0.5rem; /* ml-2 */
+}
+
+.swal2-cancel:hover {
+  background-color: #334155 !important; /* hover:bg-slate-700 */
+}
+
+/* Input (se usar) */
+.swal2-input {
+  background-color: #0f172a; /* bg-slate-950 */
+  border: 1px solid #334155; /* border-slate-700 */
+  color: #e2e8f0; /* text-slate-200 */
+  padding: 0.5rem 0.75rem; /* px-3 py-2 */
+  border-radius: 0.375rem; /* rounded */
+  width: 100%;
+  margin-top: 0.5rem; /* mt-2 */
+  font-size: 0.875rem; /* text-sm */
+}
+
+.swal2-input:focus {
+  outline: none;
+  border-color: #60a5fa; /* focus:border-blue-400 */
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3); /* ring */
+}
