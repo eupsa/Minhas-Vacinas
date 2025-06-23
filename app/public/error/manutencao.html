@@ -1,84 +1,205 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
-    <title>Em Manutenção</title>
-    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+    <title>Sistema em Manutenção | Minhas Vacinas</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Sistema temporariamente indisponível para manutenção programada.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#007bff">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/app/public/img/img-web.png" type="image/x-icon">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#007bff',
+                        'primary-dark': '#0056b3',
+                        dark: '#0a0e1a',
+                        'dark-light': '#1a1f2e',
+                        'dark-card': '#252b3d',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'pulse-slow': 'pulse 2s infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
     <style>
-        * {
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-        }
-
         body {
-            padding: 0;
-            margin: 0;
-            background: #0056b3;
-            font-family: "Montserrat", sans-serif;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 50%, #252b3d 100%);
         }
-
-        #maintenance {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            text-align: center;
+        
+        .maintenance-icon {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.3);
         }
-
-        .maintenance-content {
-            max-width: 90%;
-            width: 520px;
-            text-align: center;
-            line-height: 1.4;
-            padding: 20px;
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.4);
+            transition: all 0.3s ease;
         }
-
-        .maintenance-content h1 {
-            font-size: 50px;
-            font-weight: 700;
-            margin: 0;
-            color: #fff;
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.6);
         }
-
-        .maintenance-content p {
-            color: #fff;
-            font-weight: 300;
-            padding: 0 20px;
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #007bff 0%, #66b3ff 100%);
+            animation: progress 3s ease-in-out infinite;
         }
-
-        .maintenance-content a {
-            display: inline-block;
-            padding: 12px 30px;
-            font-weight: 700;
-            background-color: #fff;
-            color: #232323;
-            border-radius: 40px;
-            text-decoration: none;
-            transition: 0.2s all;
-            margin-top: 20px;
-        }
-
-        .maintenance-content a:hover {
-            opacity: 0.8;
+        
+        @keyframes progress {
+            0%, 100% { width: 30%; }
+            50% { width: 70%; }
         }
     </style>
 </head>
 
-<body>
-    <div id="maintenance">
-        <dotlottie-player src="https://lottie.host/34516c5c-3d9d-412f-9c38-23baf0d842c4/DpVURw3j7y.lottie"
-            background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay></dotlottie-player>
-        <div class="maintenance-content">
-            <p style="font-size: 1.5rem; display: inline;">O site está temporariamente fora do ar.</p>
-            <p>Estamos realizando algumas atualizações para melhorar sua experiência. Voltaremos em breve!</p>
-            <a href="">contato@minhasvacinas.online</a>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-lg w-full text-center animate-fade-in">
+        <!-- Maintenance Icon -->
+        <div class="maintenance-icon w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 animate-pulse-slow">
+            <i class="fas fa-tools text-white text-4xl"></i>
+        </div>
+        
+        <!-- Title -->
+        <h1 class="text-4xl font-bold text-white mb-4">Sistema em Manutenção</h1>
+        
+        <!-- Description -->
+        <p class="text-gray-400 mb-8 leading-relaxed">
+            Estamos realizando uma manutenção programada para melhorar nossos serviços. O sistema estará disponível novamente em breve.
+        </p>
+        
+        <!-- Progress Indicator -->
+        <div class="bg-gray-700 rounded-full h-2 mb-8 overflow-hidden">
+            <div class="progress-bar h-full rounded-full"></div>
+        </div>
+        
+        <!-- Estimated Time -->
+        <div class="bg-dark-card rounded-lg p-6 mb-8">
+            <h3 class="text-white font-semibold mb-4 flex items-center justify-center">
+                <i class="fas fa-clock text-primary mr-2"></i>
+                Tempo Estimado
+            </h3>
+            
+            <div id="countdown" class="text-2xl font-bold text-primary mb-2">
+                --:--:--
+            </div>
+            
+            <p class="text-sm text-gray-400">
+                Previsão de retorno: <span class="text-white font-medium">Hoje às 14:00</span>
+            </p>
+        </div>
+        
+        <!-- Updates -->
+        <div class="bg-dark-card rounded-lg p-6 mb-8">
+            <h3 class="text-white font-semibold mb-4 flex items-center justify-center">
+                <i class="fas fa-info-circle text-primary mr-2"></i>
+                O que estamos fazendo
+            </h3>
+            
+            <div class="space-y-3 text-sm text-gray-400">
+                <div class="flex items-center">
+                    <i class="fas fa-check text-green-400 mr-3"></i>
+                    <span>Atualização do sistema de segurança</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-check text-green-400 mr-3"></i>
+                    <span>Otimização do banco de dados</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-spinner fa-spin text-primary mr-3"></i>
+                    <span>Implementação de novas funcionalidades</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-clock text-gray-500 mr-3"></i>
+                    <span>Testes finais do sistema</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="space-y-4">
+            <button onclick="window.location.reload()" class="btn-primary w-full inline-flex items-center justify-center px-6 py-3 rounded-lg text-white font-medium">
+                <i class="fas fa-redo mr-2"></i>
+                Verificar Novamente
+            </button>
+        </div>
+        
+        <!-- Contact Info -->
+        <div class="mt-8 pt-6 border-t border-gray-700">
+            <p class="text-sm text-gray-500 mb-4">
+                Precisa de ajuda urgente?
+            </p>
+            
+            <div class="flex justify-center space-x-6 text-sm">
+                <a href="mailto:suporte@minhasvacinas.com" class="text-primary hover:text-blue-400 transition-colors flex items-center">
+                    <i class="fas fa-envelope mr-2"></i>
+                    E-mail
+                </a>
+                <a href="tel:+5511999999999" class="text-primary hover:text-blue-400 transition-colors flex items-center">
+                    <i class="fas fa-phone mr-2"></i>
+                    Telefone
+                </a>
+            </div>
         </div>
     </div>
+    
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            // Set target time (example: 2 hours from now)
+            const targetTime = new Date();
+            targetTime.setHours(targetTime.getHours() + 2);
+            
+            const now = new Date();
+            const difference = targetTime - now;
+            
+            if (difference > 0) {
+                const hours = Math.floor(difference / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                
+                document.getElementById('countdown').textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            } else {
+                document.getElementById('countdown').textContent = '00:00:00';
+            }
+        }
+        
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+        
+        // Auto-refresh every 5 minutes
+        setTimeout(() => {
+            window.location.reload();
+        }, 300000); // 5 minutes
+    </script>
 </body>
-
 </html>

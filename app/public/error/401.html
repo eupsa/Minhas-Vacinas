@@ -1,159 +1,115 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/img/img-web.png" type="image/x-icon">
-    <title>401 - Acesso não autorizado</title>
+    <title>401 - Acesso Não Autorizado | Minhas Vacinas</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="Acesso não autorizado. Faça login para continuar.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#007bff">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/app/public/img/img-web.png" type="image/x-icon">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#007bff',
+                        'primary-dark': '#0056b3',
+                        dark: '#0a0e1a',
+                        'dark-light': '#1a1f2e',
+                        'dark-card': '#252b3d',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 50%, #252b3d 100%);
+        }
+        
+        .error-icon {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.3);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            box-shadow: 0 10px 30px rgba(0, 123, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 123, 255, 0.6);
+        }
+    </style>
 </head>
 
-<style>
-    * {
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
-    body {
-        padding: 0;
-        margin: 0;
-        background: #0056b3;
-        font-family: "Montserrat", sans-serif;
-    }
-
-    #notfound {
-        position: relative;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0 20px;
-        /* Adicionando padding nas laterais para evitar que o conteúdo fique colado */
-    }
-
-    .notfound {
-        max-width: 90%;
-        width: 520px;
-        text-align: center;
-        line-height: 1.4;
-        padding: 20px;
-        /* Adicionando padding interno */
-    }
-
-    .notfound .notfound-404 {
-        height: 190px;
-    }
-
-    .notfound .notfound-404 h1 {
-        font-size: 146px;
-        font-weight: 700;
-        margin: 0;
-        color: #232323;
-    }
-
-    .notfound .notfound-404 h1>span {
-        display: inline-block;
-        width: 120px;
-        height: 120px;
-        background-image: url("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/mozilla/36/pensive-face_1f614.png");
-        background-size: cover;
-        transform: scale(1.4);
-        z-index: -1;
-        animation-name: floating;
-        animation-duration: 4s;
-        animation-iteration-count: infinite;
-        animation-timing-function: ease-in-out;
-    }
-
-    .notfound h2 {
-        font-size: 22px;
-        font-weight: 700;
-        margin: 0;
-        text-transform: uppercase;
-        color: #232323;
-    }
-
-    .notfound p {
-        color: #787878;
-        font-weight: 300;
-        padding: 0 20px;
-        /* Adicionando padding nas laterais */
-    }
-
-    .notfound a {
-        display: inline-block;
-        padding: 12px 30px;
-        font-weight: 700;
-        background-color: #fff;
-        color: #232323;
-        border-radius: 40px;
-        text-decoration: none;
-        transition: 0.2s all;
-        margin-top: 20px;
-        /* Adicionando margem superior para separar o botão do texto */
-    }
-
-    .notfound a:hover {
-        opacity: 0.8;
-    }
-
-    @media only screen and (max-width: 767px) {
-        .notfound .notfound-404 {
-            height: 115px;
-        }
-
-        .notfound .notfound-404 h1 {
-            font-size: 86px;
-        }
-
-        .notfound .notfound-404 h1>span {
-            width: 86px;
-            height: 86px;
-        }
-
-        .notfound h2 {
-            font-size: 18px;
-        }
-
-        .notfound p {
-            font-size: 14px;
-            padding: 0 20px;
-        }
-
-        .notfound a {
-            padding: 10px 20px;
-            font-size: 14px;
-        }
-    }
-
-    @keyframes floating {
-        from {
-            transform: scale(1.4) translate(0, 0);
-        }
-
-        50% {
-            transform: scale(1.4) translate(0, 15px);
-        }
-
-        to {
-            transform: scale(1.4) translate(0, 0);
-        }
-    }
-</style>
-
-<body>
-    <div id="notfound">
-        <div class="notfound">
-            <div class="notfound-404">
-                <h1>401</h1>
-            </div>
-            <h2>Erro 401 - Acesso não autorizado</h2>
-            <p style="color: #fff;">Desculpe, você não tem permissão para acessar esta página. Verifique se você tem as
-                credenciais necessárias ou entre em contato com o administrador.</p>
-            <a href="https://www.minhasvacinas.online">Voltar para a página inicial</a>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-md w-full text-center animate-fade-in">
+        <!-- Error Icon -->
+        <div class="error-icon w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 animate-pulse-slow">
+            <i class="fas fa-lock text-white text-4xl"></i>
+        </div>
+        
+        <!-- Error Code -->
+        <h1 class="text-6xl font-bold text-white mb-4">401</h1>
+        
+        <!-- Error Title -->
+        <h2 class="text-2xl font-semibold text-white mb-4">Acesso Não Autorizado</h2>
+        
+        <!-- Error Description -->
+        <p class="text-gray-400 mb-8 leading-relaxed">
+            Você precisa estar logado para acessar esta página. Por favor, faça login com suas credenciais para continuar.
+        </p>
+        
+        <!-- Action Buttons -->
+        <div class="space-y-4">
+            <a href="/app//src/auth/entrar/" class="btn-primary w-full inline-flex items-center justify-center px-6 py-3 rounded-lg text-white font-medium">
+                <i class="fas fa-sign-in-alt mr-2"></i>
+                Fazer Login
+            </a>
+            
+            <a href="/" class="w-full inline-flex items-center justify-center px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium">
+                <i class="fas fa-home mr-2"></i>
+                Voltar ao Início
+            </a>
+        </div>
+        
+        <!-- Help Text -->
+        <div class="mt-8 pt-6 border-t border-gray-700">
+            <p class="text-sm text-gray-500">
+                Esqueceu sua senha? 
+                <a href="/recuperar-senha" class="text-primary hover:text-blue-400 transition-colors">
+                    Clique aqui para recuperar
+                </a>
+            </p>
         </div>
     </div>
 </body>
-
-
 </html>

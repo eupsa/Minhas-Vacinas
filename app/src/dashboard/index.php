@@ -497,27 +497,11 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                             </div>
                             <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full">Disponível</span>
                         </div>
-                        <h3 class="text-lg font-semibold text-white mb-2">Lembretes</h3>
-                        <p class="text-gray-400 mb-4 text-sm">Receba notificações de próximas doses</p>
+                        <h3 class="text-lg font-semibold text-white mb-2">Compartilhar Vacina</h3>
+                        <p class="text-gray-400 mb-4 text-sm">Compartilhe suas vacinas com quem precisar</p>
                         <button class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors text-sm">
                             <i class="fas fa-bell mr-2"></i>
                             Configurar
-                        </button>
-                    </div>
-
-                    <!-- In Development -->
-                    <div class="feature-card bg-dark-card rounded-xl p-6 border border-gray-600 hover:border-yellow-500 transition-all duration-300">
-                        <div class="flex items-center mb-4">
-                            <div class="bg-yellow-500 bg-opacity-20 rounded-lg p-2 mr-3">
-                                <i class="fas fa-clock text-yellow-400 text-xl"></i>
-                            </div>
-                            <span class="bg-yellow-500 text-white text-xs px-2 py-1 rounded-full">Em breve</span>
-                        </div>
-                        <h3 class="text-lg font-semibold text-white mb-2">App Mobile</h3>
-                        <p class="text-gray-400 mb-4 text-sm">Aplicativo para iOS e Android</p>
-                        <button class="inline-flex items-center px-4 py-2 bg-gray-600 text-gray-400 rounded-lg cursor-not-allowed text-sm">
-                            <i class="fas fa-mobile-alt mr-2"></i>
-                            Indisponível
                         </button>
                     </div>
                 </div>

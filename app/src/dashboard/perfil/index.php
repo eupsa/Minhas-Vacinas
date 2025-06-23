@@ -146,8 +146,7 @@ if ($sql->rowCount() > 0) {
                         <h1 class="text-lg font-bold text-white">Minhas Vacinas</h1>
                         <p class="text-xs text-blue-100">Perfil</p>
                     </div>
-                </div>
-
+                </div>  
                 <button id="sidebarToggle" class="lg:hidden text-white hover:text-blue-200 transition-colors p-2">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
@@ -233,10 +232,6 @@ if ($sql->rowCount() > 0) {
                         <p class="text-white font-medium">+55 <?php echo ($_SESSION['user_telefone']) ? $_SESSION['user_telefone'] : 'Não informado'; ?></p>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-400 mb-1">CPF</label>
-                        <p class="text-white font-medium"><?php echo ($_SESSION['user_cpf']) ? explode('.', $_SESSION['user_cpf'])[0] . '.***.***-**' : '***.***.***-**'; ?></p>
-                    </div>
-                    <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">Data de Nascimento</label>
                         <p class="text-white font-medium"><?php echo ($_SESSION['user_nascimento']) ? $_SESSION['user_nascimento'] : 'Não informado'; ?></p>
                     </div>
@@ -247,10 +242,6 @@ if ($sql->rowCount() > 0) {
                     <div>
                         <label class="block text-sm font-medium text-gray-400 mb-1">Estado</label>
                         <p class="text-white font-medium"><?php echo ($_SESSION['user_estado']) ? $_SESSION['user_estado'] : 'Não informado'; ?></p>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-400 mb-1">Cidade</label>
-                        <p class="text-white font-medium"><?php echo ($_SESSION['user_cidade']) ? $_SESSION['user_cidade'] : 'Não informado'; ?></p>
                     </div>
                 </div>
             </div>

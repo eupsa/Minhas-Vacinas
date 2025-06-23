@@ -57,6 +57,7 @@ $_SESSION['dispositivos'] = $dispositivos ?: [];
                     },
                     animation: {
                         'fade-in-up': 'fadeInUp 0.6s ease-out',
+                        'slide-in': 'slideIn 0.3s ease-out',
                     },
                     keyframes: {
                         fadeInUp: {
@@ -67,6 +68,14 @@ $_SESSION['dispositivos'] = $dispositivos ?: [];
                             '100%': {
                                 opacity: '1',
                                 transform: 'translateY(0)'
+                            }
+                        },
+                        slideIn: {
+                            '0%': {
+                                transform: 'translateX(-100%)'
+                            },
+                            '100%': {
+                                transform: 'translateX(0)'
                             }
                         }
                     }
@@ -107,6 +116,7 @@ $_SESSION['dispositivos'] = $dispositivos ?: [];
             background: linear-gradient(135deg, #1a1f2e 0%, #252b3d 100%);
             backdrop-filter: blur(20px);
             border-right: 1px solid rgba(0, 123, 255, 0.1);
+            transition: transform 0.3s ease-in-out;
         }
 
         .sidebar-link {
@@ -140,47 +150,105 @@ $_SESSION['dispositivos'] = $dispositivos ?: [];
             border-color: #007bff;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
+
+        /* Modal Styles */
+        .modal {
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        /* Mobile Sidebar */
+        @media (max-width: 1023px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 1024px) {
+            .main-content {
+                margin-left: 16rem;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-dark text-white font-inter overflow-x-hidden">
-    <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 header">
         <nav class="container mx-auto px-6 py-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 bg-opacity-20 rounded-lg flex items-center justify-center">
-                        <img src="/app/public/img/logo-head.png" alt="Logo Vacinas">
+                        <img src="/app/public/img/logo-head.png" alt="">
                     </div>
                     <div>
                         <h1 class="text-lg font-bold text-white">Minhas Vacinas</h1>
-                        <p class="text-xs text-blue-100">Dispositivos</p>
+                        <p class="text-xs text-blue-100">Dashboard</p>
                     </div>
                 </div>
 
-                <div class="flex items-center space-x-4">
-                    <button onclick="window.history.back()" class="hidden md:flex items-center px-4 py-2 bg-white bg-opacity-20 text-white rounded-lg hover:bg-opacity-30 transition-colors">
-                        <i class="fas fa-arrow-left mr-2"></i>
-                        Voltar
-                    </button>
-                    <button id="mobileMenuToggle" class="md:hidden text-white hover:text-blue-200 transition-colors p-2">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-            <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 bg-primary shadow-lg border-t border-white border-opacity-20">
-                <div class="container mx-auto px-4 py-4">
-                    <button onclick="window.history.back()" class="flex items-center px-4 py-3 text-white hover:bg-white hover:bg-opacity-10 rounded-lg transition-colors">
-                        <i class="fas fa-arrow-left mr-3"></i>
-                        Voltar
-                    </button>
-                </div>
+                <button id="sidebarToggle" class="lg:hidden text-white hover:text-blue-200 transition-colors p-2">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
             </div>
         </nav>
     </header>
 
+    <aside id="sidebar" class="fixed left-0 top-16 h-full w-64 sidebar transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-40">
+        <div class="p-6">
+            <div class="flex flex-col space-y-4 h-full">
+                <!-- Navigation Links -->
+                <nav class="space-y-2">
+                    <a href="../../" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
+                        <i class="fas fa-home text-lg"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="../../vacinas/" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
+                        <i class="fas fa-syringe text-lg"></i>
+                        <span>Minhas Vacinas</span>
+                    </a>
+                    <a href="../" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white">
+                        <i class="fas fa-user text-lg"></i>
+                        <span>Perfil</span>
+                    </a>
+                    <a href="" class="sidebar-link active flex items-center space-x-3 px-4 py-3 rounded-lg text-white font-medium">
+                        <i class="fas fa-laptop text-lg"></i>
+                        <span>Dispositivos</span>
+                    </a>
+                </nav>
+
+                <!-- User Profile -->
+                <div class="mt-auto pt-6 border-t border-gray-600">
+                    <div class="flex items-center space-x-3 p-4 rounded-lg bg-dark-light">
+                        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-white truncate"><?php echo isset($_SESSION['user_nome']) ? explode(' ', $_SESSION['user_nome'])[0] : 'Usuário'; ?></p>
+                            <button class="text-xs text-gray-400 hover:text-white transition-colors" id="btnLogout">
+                                <i class="fas fa-sign-out-alt mr-1"></i>Sair
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden hidden"></div>
+
+    ''
+
     <!-- Main Content -->
-    <main class="pt-20 min-h-screen">
+    <main class="main-content pt-20 min-h-screen">
         <div class="container mx-auto px-6 py-8">
             <!-- Header Section -->
             <div class="mb-8 animate-fade-in-up">
@@ -295,7 +363,6 @@ $_SESSION['dispositivos'] = $dispositivos ?: [];
                 </div>
             <?php endif; ?>
 
-
             <!-- Help Section -->
             <div class="bg-dark-card rounded-xl p-8 border border-gray-600">
                 <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
@@ -323,47 +390,84 @@ $_SESSION['dispositivos'] = $dispositivos ?: [];
         </div>
     </main>
 
-    <!-- JavaScript -->
+    <!-- Remove Device Modal -->
+    <div id="removeModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4 modal">
+        <div class="bg-dark-card rounded-xl p-8 max-w-md w-full border border-gray-600 modal-content">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-semibold text-white">Remover Dispositivo</h3>
+                <button onclick="closeRemoveModal()" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <p class="text-gray-300 mb-6">Tem certeza que deseja remover este dispositivo? Esta ação não pode ser desfeita.</p>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button id="confirmRemove" class="flex-1 flex items-center justify-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors font-medium">
+                    <i class="fas fa-trash mr-2"></i>
+                    Remover
+                </button>
+                <button onclick="closeRemoveModal()" class="flex-1 flex items-center justify-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium">
+                    <i class="fas fa-times mr-2"></i>
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Mobile Menu Toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-            const mobileMenu = document.getElementById('mobileMenu');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-            if (mobileMenuToggle && mobileMenu) {
-                mobileMenuToggle.addEventListener('click', function() {
-                    mobileMenu.classList.toggle('hidden');
+        function openSidebar() {
+            sidebar.classList.add('open');
+            sidebarOverlay.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
 
-                    // Change button icon
-                    const icon = mobileMenuToggle.querySelector('i');
-                    if (mobileMenu.classList.contains('hidden')) {
-                        icon.className = 'fas fa-bars text-xl';
-                    } else {
-                        icon.className = 'fas fa-times text-xl';
-                    }
-                });
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
 
-                // Close menu when clicking outside
-                document.addEventListener('click', function(event) {
-                    if (!mobileMenuToggle.contains(event.target) && !mobileMenu.contains(event.target)) {
-                        mobileMenu.classList.add('hidden');
-                        const icon = mobileMenuToggle.querySelector('i');
-                        icon.className = 'fas fa-bars text-xl';
-                    }
-                });
+        function toggleSidebar() {
+            if (sidebar.classList.contains('open')) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
+        }
+
+        // Toggle no botão
+        sidebarToggle.addEventListener('click', toggleSidebar);
+
+        // Fecha ao clicar no overlay
+        sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // Fecha no ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeSidebar();
             }
         });
 
-        // Keyboard Navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const mobileMenu = document.getElementById('mobileMenu');
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    const icon = document.getElementById('mobileMenuToggle').querySelector('i');
-                    icon.className = 'fas fa-bars text-xl';
+        document.getElementById('btnLogout').addEventListener('click', () => {
+            Swal.fire({
+                title: 'Tem certeza que deseja sair?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sim, sair',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redireciona para a página PHP que destrói a sessão
+                    window.location.href = '/app/src/utils/Sair.php';
                 }
-            }
+            });
         });
     </script>
     <script type="module" src="/app/public/js/sweetalert-config.js"></script>

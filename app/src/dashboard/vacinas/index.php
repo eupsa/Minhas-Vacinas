@@ -250,7 +250,7 @@ $_SESSION['vacinas'] = $vacinas ?: [];
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <?php if (count($vacinas) > 0): ?>
                     <?php foreach ($vacinas as $vacina): ?>
-                        <div class="vaccine-card bg-dark-card rounded-xl overflow-hidden border border-gray-600 group">
+                        <div id="vacina-<?= $vacina['id_vac'] ?>" class="vaccine-card bg-dark-card rounded-xl overflow-hidden border border-gray-600 group">
                             <div class="w-full h-48 bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center">
                                 <?php if (!empty($vacina['path_card'])): ?>
                                     <img src="<?= htmlspecialchars($vacina['path_card'], ENT_QUOTES, 'UTF-8') ?>" alt="Vacina" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
@@ -314,23 +314,27 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                                         </div>
                                     <?php endif; ?>
                                 </div>
-                                <div class="flex items-center justify-between pt-4 border-t border-gray-600">
-
-                                    <!-- Form para excluir vacina -->
+                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 pt-4 border-t border-gray-600">
+                                    <!-- Excluir -->
                                     <form method="POST" action="../backend/excluir-vacina.php" id="form-excluir-vacina">
                                         <input type="hidden" name="id_vac" value="<?= htmlspecialchars($vacina['id_vac'], ENT_QUOTES, 'UTF-8') ?>">
-                                        <button type="submit" class="flex items-center px-3 py-2 text-red-400 hover:text-red-300 hover:bg-red-500 hover:bg-opacity-20 rounded-lg transition-colors">
+                                        <button type="submit" class="flex items-center w-full sm:w-auto px-3 py-2 text-red-400 hover:text-red-300 hover:bg-red-500 hover:bg-opacity-20 rounded-lg transition-colors">
                                             <i class="fas fa-trash mr-2"></i>Excluir
                                         </button>
                                     </form>
 
-                                    <!-- Form para gerar QR Code -->
-                                    <form method="POST" action="gerar_qrcode.php" target="_blank">
-                                        <input type="hidden" name="id_vacina" value="<?= htmlspecialchars($vacina['id_vac'], ENT_QUOTES, 'UTF-8') ?>">
-                                        <button type="submit" class="flex items-center px-3 py-2 text-green-400 hover:text-green-300 hover:bg-green-600 hover:bg-opacity-20 rounded-lg transition-colors disabled" title="Gerar QR Code">
-                                            <i class="fa-solid fa-qrcode text-lg" style="margin-right: 5px;"></i> QR Code
-                                        </button>
-                                    </form>
+                                    <!-- PDF -->
+                                    <button type="button"
+                                        onclick="gerarCertificadoPDF('<?= $vacina['id_vac'] ?>')"
+                                        class="flex items-center w-full sm:w-auto px-3 py-2 text-blue-400 hover:text-blue-300 hover:bg-blue-600 hover:bg-opacity-20 rounded-lg transition-colors">
+                                        <i class="fa-solid fa-file-pdf mr-2"></i>PDF
+                                    </button>
+
+                                    <!-- Compartilhar -->
+                                    <button type="button"
+                                        class="flex items-center w-full sm:w-auto px-3 py-2 text-green-400 hover:text-green-300 hover:bg-green-600 hover:bg-opacity-20 rounded-lg transition-colors">
+                                        <i class="fas fa-share-alt mr-2"></i>Compartilhar
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -343,6 +347,72 @@ $_SESSION['vacinas'] = $vacinas ?: [];
             </div>
         </div>
     </main>
+
+    <div id="certificado-<?= $vacina['id_vac'] ?>" class="hidden" style="
+  width: 800px;
+  margin: 0 auto;
+  background: #f9fafb;
+  color: #1f2937;
+  padding: 50px 60px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  border: 1px solid #e5e7eb;
+  box-sizing: border-box;
+">
+        <style>
+            .page-break {
+                page-break-after: always;
+            }
+        </style>
+
+        <!-- LOGO -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <img src="/app/public/img/logo-head.png" alt="Logo" style="height: 70px; object-fit: contain; margin-bottom: 15px;">
+            <h1 style="font-size: 34px; font-weight: 700; margin: 0; color: #111827;">Certificado de Vacinação</h1>
+            <p style="color: #6b7280; font-size: 15px; margin-top: 8px;">Comprovante de dose registrada no sistema Minhas Vacinas</p>
+        </div>
+
+        <!-- INFORMAÇÕES DA VACINA -->
+        <div style="margin-bottom: 50px; text-align: left; color: #374151;">
+            <p style="margin: 8px 0;"><strong style="color:#111827;">Nome da Vacina:</strong> <?= htmlspecialchars($vacina['nome_vac']) ?></p>
+            <p style="margin: 8px 0;"><strong style="color:#111827;">Data de Aplicação:</strong> <?= date('d/m/Y', strtotime($vacina['data_aplicacao'])) ?></p>
+            <p style="margin: 8px 0;"><strong style="color:#111827;">Próxima Dose:</strong> <?= date('d/m/Y', strtotime($vacina['proxima_dose'])) ?></p>
+            <p style="margin: 8px 0;"><strong style="color:#111827;">Local da Aplicação:</strong> <?= htmlspecialchars($vacina['local_aplicacao']) ?></p>
+            <p style="margin: 8px 0;"><strong style="color:#111827;">Dose:</strong> <?= htmlspecialchars($vacina['dose']) ?></p>
+            <p style="margin: 8px 0;"><strong style="color:#111827;">Lote:</strong> <?= htmlspecialchars($vacina['lote']) ?></p>
+        </div>
+
+        <!-- QR CODE -->
+        <div style="text-align: center; margin-bottom: 50px;">
+            <div style="display: inline-block; background: white; padding: 8px; border: 2px solid #e5e7eb; border-radius: 12px;">
+                <img src="qrcode_localhost.png" alt="QR Code" style="width: 150px; height: 150px; object-fit: contain;">
+            </div>
+            <p style="font-size: 13px; color: #6b7280; margin-top: 12px;">Escaneie para verificar a validade no sistema</p>
+        </div>
+
+
+        <!-- ASSINATURA -->
+        <div style="text-align: center; margin-bottom: 30px;">
+            <p style="font-size: 16px; font-weight: 700; margin-bottom: 4px; color: #374151;">
+                <?= htmlspecialchars($_SESSION['user_nome'] ?? 'Nome do Usuário') ?>
+            </p>
+            <p style="font-size: 14px; color: #6b7280;">
+                <?= htmlspecialchars($_SESSION['user_email'] ?? 'email@usuario.com') ?>
+            </p>
+        </div>
+
+        <!-- RODAPÉ -->
+        <div style="text-align: center; font-size: 13px; color: #9ca3af; border-top: 1px solid #d1d5db; padding-top: 14px;">
+            Documento gerado pelo sistema <strong>Minhas Vacinas</strong><br>
+        </div>
+        <div style="text-align: center; font-size: 12px; color: #888; margin-bottom: 20px;">
+            Exportado em: <?= date('d/m/Y \à\s H:i:s') ?>
+        </div>
+    </div>
+
 
     <!-- Mobile Sidebar Overlay -->
     <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden hidden"></div>
@@ -401,8 +471,42 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                 }
             });
         });
+
+
+        function gerarCertificadoPDF(id) {
+            const el = document.getElementById('certificado-' + id);
+            el.classList.remove('hidden'); // mostra antes de capturar
+
+            const opt = {
+                margin: [20, 20, 20, 20],
+                filename: `certificado-vacina-${id}.pdf`,
+                image: {
+                    type: 'jpeg',
+                    quality: 1
+                },
+                html2canvas: {
+                    scale: 1.5,
+                    useCORS: true,
+                    scrollX: 0,
+                    scrollY: 0,
+                    windowWidth: document.body.scrollWidth,
+                    windowHeight: document.body.scrollHeight,
+                },
+                jsPDF: {
+                    unit: 'pt',
+                    format: 'a4',
+                    orientation: 'portrait'
+                }
+            };
+
+            html2pdf().set(opt).from(el).save().then(() => {
+                el.classList.add('hidden'); // esconde depois
+            });
+        }
     </script>
+
     <script type="module" src="/app/public/js/sweetalert-config.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="excluir.js"></script>
 </body>
