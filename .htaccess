@@ -1,9 +1,18 @@
-# Bloquear acesso a arquivos sensíveis comuns
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-z0-9\-]+)$ index.php?uuid=$1 [QSA,L]
+
+ErrorDocument 401 /app/error/401.html
+ErrorDocument 403 /app/error/403.html
+ErrorDocument 404 /app/error/404.html
+ErrorDocument 500 /app/error/500.html
+
 <FilesMatch "\.(env|htaccess|htpasswd|ini|log|conf|json|bak|zip|tar|rar)$">
     Require all denied
 </FilesMatch>
 
-# Bloquear acesso a arquivos específicos (exemplo)
 <Files ".env">
     Require all denied
 </Files>
@@ -12,16 +21,4 @@
     Require all denied
 </Files>
 
-# Bloquear acesso à pasta "config" (não funciona em .htaccess, mas incluído para referência)
-# Para bloquear pastas inteiras via .htaccess, crie um .htaccess dentro da pasta com:
-# Require all denied
-
-# Exemplo para bloquear uma pasta específica com .htaccess dentro dela:
-# Conteúdo do .htaccess dentro da pasta "config":
-# Require all denied
-
-# Bloquear navegação em diretórios (evitar listagem)
 Options -Indexes
-
-# Definir charset para evitar problemas de segurança relacionados a charset
-AddDefaultCharset UTF-8

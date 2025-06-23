@@ -309,8 +309,14 @@ if ($sql->rowCount() > 0) {
                             <p class="text-gray-300 text-lg font-medium">
                                 <?php
                                 if (!empty($vacina['proxima_dose'])) {
-                                    setlocale(LC_TIME, 'pt_BR.utf8', 'pt_BR');
-                                    echo strftime('%d de %B, %Y', strtotime($vacina['proxima_dose']));
+                                    $formatter = new IntlDateFormatter(
+                                        'pt_BR',
+                                        IntlDateFormatter::LONG,
+                                        IntlDateFormatter::NONE,
+                                        'America/Sao_Paulo',
+                                        IntlDateFormatter::GREGORIAN
+                                    );
+                                    echo $formatter->format(new DateTime($vacina['proxima_dose']));
                                 } else {
                                     echo 'Não definida';
                                 }
