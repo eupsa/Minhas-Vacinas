@@ -256,7 +256,7 @@ if ($sql->rowCount() > 0) {
                 </div>
                 <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Cartão de Vacinação Digital</h1>
                 <p class="text-gray-400 max-w-2xl mx-auto">
-                    Este cartão foi compartilhado por <strong class="text-primary"><?= $usuario['nome'] ?></strong> e contém informações verificadas sobre sua vacinação.
+                    Este cartão foi compartilhado por <strong class="text-primary"><?= $usuario['nome'] ?></strong> e contém informações sobre sua vacinação.
                 </p>
             </div>
 
