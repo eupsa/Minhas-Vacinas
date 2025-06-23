@@ -47,12 +47,9 @@ if (empty($email) || empty($senha)) {
 
             if ($dispositivo_confirmado === 0) {
                 $id_usuario = $dispositivo['id_usuario'];
-                $ip = $dispositivo['ip'];
-                $cidade = $dispositivo['cidade'] ?? 'Desconhecido';
-                $estado = $dispositivo['estado'] ?? 'Desconhecido';
-                $pais = $dispositivo['pais'] ?? 'Desconhecido';
+                $id = $dispositivo['id'];
 
-                EmailLogin($id_usuario, $email, $ip, $cidade, $estado, $pais);
+                EmailLogin($id_usuario, $email, $id);
                 $retorna = ['status' => true, 'msg' => "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções."];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
@@ -98,7 +95,7 @@ if (empty($email) || empty($senha)) {
                     $estado = $data['region'];
                     $pais = $data['country'];
                 }
-                EmailLogin($id_usuario, $email, $ip, $cidade, $estado, $pais);
+                EmailLogin($id_usuario, $email, $id_dispositivo);
                 $retorna = ['status' => true, 'msg' => "Para concluir o login, verifique seu e-mail e clique no link de confirmação. Um e-mail foi enviado com as instruções."];
                 header('Content-Type: application/json');
                 echo json_encode($retorna);
@@ -118,27 +115,11 @@ if (empty($email) || empty($senha)) {
     }
 }
 
-function EmailLogin($id_usuario, $email, $ip, $cidade, $estado, $pais)
+function EmailLogin($id_usuario, $email, $id_dispositivo)
 {
-    date_default_timezone_set('America/Sao_Paulo');
-    $data_local = date('d/m/Y H:i:s');
     $email_body = file_get_contents('../../../public/email/alerta-login.html');
-    $email_body = str_replace([
-        '{{ip}}',
-        '{{cidade}}',
-        '{{estado}}',
-        '{{pais}}',
-        '{{horario}}',
-        '{{id}}'
-    ], [
-        $ip,
-        $cidade,
-        $estado,
-        $pais,
-        $data_local,
-        $id_usuario
-    ], $email_body);
-
+    $url = $_ENV['APP_URL'] . "/app/src/auth/novo-dispositivo?deviceid={$id_dispositivo}&userid={$id_usuario}";
+    $email_body = str_replace('{{url}}', $url, $email_body);
     $mail = new PHPMailer(true);
 
     try {
@@ -196,6 +177,8 @@ function RegistrarDispositivo($pdo, $id_usuario)
     $sql->bindValue(':estado', $estado);
     $sql->bindValue(':pais', $pais);
     $sql->execute();
+
+    $id_dispositivo = $pdo->lastInsertId();
 
     return $ip;
 }

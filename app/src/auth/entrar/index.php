@@ -440,19 +440,7 @@ $text = $_GET['text'] ?? null;
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between text-sm">
-                            <div class="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    id="remember"
-                                    name="remember"
-                                    class="w-3 h-3 text-primary bg-dark border-primary/30 rounded focus:ring-primary focus:ring-1">
-                                <label for="remember" class="ml-2 text-xs text-gray-300">Lembrar de mim</label>
-                            </div>
-                            <a href="../esqueceu-senha/" class="text-primary hover:text-blue-400 text-xs transition-colors">
-                                <i class="fas fa-question-circle mr-1"></i>Esqueceu a senha?
-                            </a>
-                        </div>
+     
 
                         <button
                             type="submit"

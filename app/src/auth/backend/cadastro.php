@@ -119,7 +119,7 @@ try {
         $sql->bindValue(':codigo', $codigo);
         $sql->execute();
 
-        if (email_cadastro($email, $codigo, $nome)) {
+        if (email_cadastro($email, $codigo)) {
             $retorna = ['status' => true, 'msg' => "Sua conta foi criada. Um e-mail foi enviado com um código de verificação. Siga as instruções na página a seguir."];
             session_start();
         } else {
@@ -137,17 +137,10 @@ try {
     exit();
 }
 
-function email_cadastro($email, $codigo, $nome)
+function email_cadastro($email, $codigo)
 {
     $email_body = file_get_contents('../../../public/email/cadastro.html');
-    $c = str_split($codigo, 1);
-    $email_body = str_replace('{{user}}', $nome, $email_body);
-    $email_body = str_replace('{{num1}}', $c[0], $email_body);
-    $email_body = str_replace('{{num2}}', $c[1], $email_body);
-    $email_body = str_replace('{{num3}}', $c[2], $email_body);
-    $email_body = str_replace('{{num4}}', $c[3], $email_body);
-    $email_body = str_replace('{{num5}}', $c[4], $email_body);
-    $email_body = str_replace('{{num6}}', $c[5], $email_body);
+    $email_body = str_replace('{{code}}', $codigo, $email_body);
 
     $mail = new PHPMailer(true);
 
