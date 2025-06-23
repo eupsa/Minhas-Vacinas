@@ -1,9 +1,11 @@
 <?php
 require_once '../src/utils/ConexaoDB.php';
 
-$uri = $_SERVER['REQUEST_URI'];
-$partes = explode('/', trim($uri, '/'));
-$uuid = end($partes);
+// $uri = $_SERVER['REQUEST_URI'];
+// $partes = explode('/', trim($uri, '/'));
+// $uuid = end($partes);
+    
+$uuid = $_GET['uuid'];
 
 $sql = $pdo->prepare("SELECT * FROM vacinas_compartilhadas WHERE uuid = :uuid");
 $sql->bindValue(':uuid', $uuid);
