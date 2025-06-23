@@ -12,6 +12,8 @@ $sql->execute();
 
 if ($sql->rowCount() > 0) {
     $doisFatores = TRUE;
+} else {
+    $doisFatores = FALSE;
 }
 ?>
 
@@ -146,7 +148,7 @@ if ($sql->rowCount() > 0) {
                         <h1 class="text-lg font-bold text-white">Minhas Vacinas</h1>
                         <p class="text-xs text-blue-100">Perfil</p>
                     </div>
-                </div>  
+                </div>
                 <button id="sidebarToggle" class="lg:hidden text-white hover:text-blue-200 transition-colors p-2">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
