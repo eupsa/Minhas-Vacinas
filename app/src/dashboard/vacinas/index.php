@@ -585,14 +585,6 @@ $_SESSION['vacinas'] = $vacinas ?: [];
                 <p style="margin: 8px 0;"><strong style="color:#111827;">Lote:</strong> <?= htmlspecialchars($vacina['lote']) ?></p>
             </div>
 
-            <!-- QR CODE -->
-            <div style="text-align: center; margin-bottom: 50px;">
-                <div style="display: inline-block; background: white; padding: 8px; border: 2px solid #e5e7eb; border-radius: 12px;">
-                    <img src="qrcode_localhost.png" alt="QR Code" style="width: 150px; height: 150px; object-fit: contain;">
-                </div>
-                <p style="font-size: 13px; color: #6b7280; margin-top: 12px;">Escaneie para verificar a validade no sistema</p>
-            </div>
-
             <!-- ASSINATURA -->
             <div style="text-align: center; margin-bottom: 30px;">
                 <p style="font-size: 16px; font-weight: 700; margin-bottom: 4px; color: #374151;">
