@@ -1,3 +1,21 @@
+<?php
+session_start();
+require_once '../../utils/ConexaoDB.php';
+require_once '../../utils/UsuarioAuth.php';
+
+Auth($pdo);
+Gerar_Session($pdo);
+
+$sql = $pdo->prepare("SELECT * FROM 2fa WHERE email = :email");
+$sql->bindValue(':email', $_SESSION['user_email']);
+$sql->execute();
+
+if ($sql->rowCount() > 0) {
+    $doisFatores = TRUE;
+} else {
+    $doisFatores = FALSE;
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br" class="scroll-smooth">
 
@@ -783,6 +801,10 @@
     <script type="module" src="/app/public/js/sweetalert-config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/script.js"></script>
+    <script src="js/confirmar-email.js"></script>
+    <script src="js/confirmar-exclusao.js"></script>
+    <script src="js/excluir-conta.js"></script>
+    <script src="js/mudar-email.js"></script>
 </body>
 
 </html>
