@@ -439,6 +439,12 @@ $text = $_GET['text'] ?? null;
                                 </button>
                             </div>
                         </div>
+                        <div class="flex items-center justify-between text-sm">
+
+                            <a href="../esqueceu-senha/" class="text-primary hover:text-blue-400 text-xs transition-colors">
+                                <i class="fas fa-question-circle mr-1"></i>Esqueceu a senha?
+                            </a>
+                        </div>
 
                         <button
                             type="submit"

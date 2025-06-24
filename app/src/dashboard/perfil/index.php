@@ -1,22 +1,3 @@
-<?php
-session_start();
-require_once '../../utils/ConexaoDB.php';
-require_once '../../utils/UsuarioAuth.php';
-
-Auth($pdo);
-Gerar_Session($pdo);
-
-$sql = $pdo->prepare("SELECT * FROM 2fa WHERE email = :email");
-$sql->bindValue(':email', $_SESSION['user_email']);
-$sql->execute();
-
-if ($sql->rowCount() > 0) {
-    $doisFatores = TRUE;
-} else {
-    $doisFatores = FALSE;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br" class="scroll-smooth">
 
@@ -320,14 +301,14 @@ if ($sql->rowCount() > 0) {
 
                             <!-- New Security Actions -->
                             <div class="flex flex-col sm:flex-row gap-4 pt-4 border-t border-gray-600">
-                                <button onclick="openChangeEmailModal()" class="flex items-center justify-center px-6 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-500 transition-colors">
+                                <button id="btnAlterarEmail" class="flex items-center justify-center px-6 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-500 transition-colors">
                                     <i class="fas fa-envelope mr-2"></i>
                                     Alterar E-mail
                                 </button>
-                                <button onclick="requestPasswordChange()" class="flex items-center justify-center px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-500 transition-colors">
+                                <a href="../../auth/esqueceu-senha/" class="flex items-center justify-center px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-500 transition-colors">
                                     <i class="fas fa-key mr-2"></i>
                                     Alterar Senha
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -466,7 +447,7 @@ if ($sql->rowCount() > 0) {
         <div class="bg-dark-card rounded-xl p-8 max-w-md w-full border border-gray-600">
             <div class="flex items-center justify-between mb-6">
                 <h3 class="text-xl font-semibold text-white">Alterar E-mail</h3>
-                <button onclick="closeChangeEmailModal()" class="text-gray-400 hover:text-white transition-colors">
+                <button class="text-gray-400 hover:text-white transition-colors">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -483,7 +464,7 @@ if ($sql->rowCount() > 0) {
 
                     <div>
                         <label for="newEmail" class="block text-sm font-medium text-white mb-2">Novo E-mail</label>
-                        <input type="email" id="newEmail" name="email" required class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                        <input type="email" id="newEmail" name="novoEmail" required class="w-full px-4 py-3 bg-dark border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
                     </div>
 
                     <button type="submit" id="sendEmailBtn" class="w-full flex items-center justify-center px-6 py-3 btn-primary rounded-lg text-white font-medium">
@@ -496,6 +477,13 @@ if ($sql->rowCount() > 0) {
                             Enviando...
                         </span>
                     </button>
+                    <button
+                        type="button"
+                        id="btnJaTenhoCodigo"
+                        class="w-full flex items-center justify-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors">
+                        Já tenho um código
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
                 </form>
             </div>
 
@@ -507,16 +495,18 @@ if ($sql->rowCount() > 0) {
                     <p class="text-gray-300 text-sm">Digite o código de 6 dígitos enviado para <span id="sentToEmail" class="text-primary font-medium"></span></p>
                 </div>
 
-                <form id="verifyEmailCodeForm" class="space-y-6">
+                <form id="verifyEmailCodeForm" class="space-y-6" method="POST" action="../backend/confirmar-email.php">
                     <div>
                         <label class="block text-sm font-medium text-white mb-3 text-center">Código de Verificação</label>
                         <div class="flex justify-center space-x-2">
-                            <input type="text" maxlength="1" class="code-input" data-index="0">
-                            <input type="text" maxlength="1" class="code-input" data-index="1">
-                            <input type="text" maxlength="1" class="code-input" data-index="2">
-                            <input type="text" maxlength="1" class="code-input" data-index="3">
-                            <input type="text" maxlength="1" class="code-input" data-index="4">
-                            <input type="text" maxlength="1" class="code-input" data-index="5">
+                            <input type="tel" maxlength="1" class="code-input" data-index="0" inputmode="numeric" pattern="\d*">
+                            <input type="tel" maxlength="1" class="code-input" data-index="1" inputmode="numeric" pattern="\d*">
+                            <input type="tel" maxlength="1" class="code-input" data-index="2" inputmode="numeric" pattern="\d*">
+                            <input type="tel" maxlength="1" class="code-input" data-index="3" inputmode="numeric" pattern="\d*">
+                            <input type="tel" maxlength="1" class="code-input" data-index="4" inputmode="numeric" pattern="\d*">
+                            <input type="tel" maxlength="1" class="code-input" data-index="5" inputmode="numeric" pattern="\d*">
+                            <input type="hidden" name="codigo" id="codigoCompleto">
+
                         </div>
                     </div>
 
@@ -531,7 +521,10 @@ if ($sql->rowCount() > 0) {
                         </span>
                     </button>
 
-                    <button type="button" onclick="backToEmailStep1()" class="w-full flex items-center justify-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors">
+                    <button
+                        type="button"
+                        onclick="backToEmailStep1()"
+                        class="w-full flex items-center justify-center px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors">
                         <i class="fas fa-arrow-left mr-2"></i>
                         Voltar
                     </button>
@@ -539,6 +532,123 @@ if ($sql->rowCount() > 0) {
             </div>
         </div>
     </div>
+
+    <script>
+        function setupCodeInputs(selector) {
+            const inputs = document.querySelectorAll(selector);
+
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    const value = e.target.value.replace(/\D/g, '');
+
+                    // Só aceita número
+                    e.target.value = value;
+
+                    if (value && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+
+                    atualizarCodigoCompleto(inputs);
+                });
+
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+
+                input.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const paste = (e.clipboardData || window.clipboardData).getData('text');
+                    const digits = paste.replace(/\D/g, '').slice(0, inputs.length);
+
+                    digits.split('').forEach((digit, i) => {
+                        if (inputs[i]) {
+                            inputs[i].value = digit;
+                        }
+                    });
+
+                    if (inputs[digits.length - 1]) {
+                        inputs[digits.length - 1].focus();
+                    }
+
+                    atualizarCodigoCompleto(inputs);
+                });
+            });
+        }
+
+        function atualizarCodigoCompleto(inputs) {
+            const codigo = Array.from(inputs).map(i => i.value).join('');
+            document.getElementById('codigoCompleto').value = codigo;
+        }
+
+        // Chamar essa função com o seletor correto
+        setupCodeInputs('.code-input');
+
+        function backToEmailStep1() {
+            document.getElementById('emailStep2').classList.add('hidden');
+            document.getElementById('emailStep1').classList.remove('hidden');
+        }
+
+        document.getElementById('btnJaTenhoCodigo').addEventListener('click', () => {
+            document.getElementById('emailStep1').classList.add('hidden');
+            document.getElementById('emailStep2').classList.remove('hidden');
+        });
+
+
+        document.getElementById('btnAlterarEmail').addEventListener('click', () => {
+            document.getElementById('changeEmailModal').classList.remove('hidden');
+        });
+
+        document.getElementById('changeEmailForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const email = document.getElementById('newEmail').value;
+            const btn = document.getElementById('sendEmailBtn');
+            const text = document.getElementById('sendEmailText');
+            const loading = document.getElementById('sendEmailLoading');
+
+            // Mostra o loader
+            text.classList.add('hidden');
+            loading.classList.remove('hidden');
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                });
+
+                const data = await response.json();
+
+                if (data.status === true) {
+                    // Vai para o passo 2
+                    document.getElementById('emailStep1').classList.add('hidden');
+                    document.getElementById('emailStep2').classList.remove('hidden');
+                    document.getElementById('sentToEmail').textContent = email;
+                } else {
+                    // Exibe erro do PHP
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro',
+                        text: data.msg || 'Falha ao enviar o e-mail.',
+                    });
+                }
+            } catch (err) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro inesperado',
+                    text: 'Não foi possível processar a solicitação.',
+                });
+            } finally {
+                // Restaura o botão
+                text.classList.remove('hidden');
+                loading.classList.add('hidden');
+                btn.disabled = false;
+            }
+        });
+    </script>
 
     <!-- Change Password Modal -->
     <div id="changePasswordModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
@@ -589,16 +699,12 @@ if ($sql->rowCount() > 0) {
                     </div>
                 </div>
 
-                <button type="submit" id="changePasswordBtn" class="w-full flex items-center justify-center px-6 py-3 btn-primary rounded-lg text-white font-medium">
+                <a href="../../auth/esqueceu-senha/" id="changePasswordBtn" class="w-full flex items-center justify-center px-6 py-3 btn-primary rounded-lg text-white font-medium">
                     <span id="changePasswordText">
                         <i class="fas fa-key mr-2"></i>
                         Alterar Senha
                     </span>
-                    <span id="changePasswordLoading" class="hidden">
-                        <i class="fas fa-spinner fa-spin mr-2"></i>
-                        Alterando...
-                    </span>
-                </button>
+                </a>
             </form>
         </div>
     </div>
@@ -628,350 +734,51 @@ if ($sql->rowCount() > 0) {
         sidebarToggle.addEventListener('click', openSidebar);
         sidebarOverlay.addEventListener('click', closeSidebar);
 
-        // Close sidebar when clicking on navigation links on mobile
+        // Fecha sidebar se clicar em link no mobile
         document.querySelectorAll('.sidebar-link').forEach(link => {
             link.addEventListener('click', () => {
-                if (window.innerWidth < 1024) {
-                    closeSidebar();
-                }
+                if (window.innerWidth < 1024) closeSidebar();
             });
         });
 
-        // Keyboard Navigation
+        // ESC fecha sidebar
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeSidebar();
-                closeEditModal();
-                closeChangeEmailModal();
-                closeChangePasswordModal();
-            }
+            if (e.key === 'Escape') closeSidebar();
         });
 
-        // Modal Functions
-        function openEditModal() {
-            document.getElementById('editModal').classList.remove('hidden');
-        }
-
-        function closeEditModal() {
-            document.getElementById('editModal').classList.add('hidden');
-        }
-
-        // Change Email Modal Functions
-        function openChangeEmailModal() {
-            document.getElementById('changeEmailModal').classList.remove('hidden');
-            document.getElementById('emailStep1').classList.remove('hidden');
-            document.getElementById('emailStep2').classList.add('hidden');
-        }
-
-        function closeChangeEmailModal() {
-            document.getElementById('changeEmailModal').classList.add('hidden');
-            document.getElementById('changeEmailForm').reset();
-            document.getElementById('emailStep1').classList.remove('hidden');
-            document.getElementById('emailStep2').classList.add('hidden');
-            // Reset code inputs
-            document.querySelectorAll('.code-input').forEach(input => {
-                input.value = '';
-                input.classList.remove('filled');
+        // Input de telefone
+        const telefoneInput = document.getElementById('telefone');
+        if (telefoneInput) {
+            telefoneInput.addEventListener('input', function(e) {
+                let telefone = e.target.value.replace(/\D/g, '');
+                if (telefone.length <= 10) {
+                    telefone = telefone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+                } else {
+                    telefone = telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+                }
+                e.target.value = telefone;
             });
         }
 
-        function backToEmailStep1() {
-            document.getElementById('emailStep1').classList.remove('hidden');
-            document.getElementById('emailStep2').classList.add('hidden');
-        }
-
-        // Change Password Modal Functions
-        function closeChangePasswordModal() {
-            document.getElementById('changePasswordModal').classList.add('hidden');
-            document.getElementById('changePasswordForm').reset();
-            // Reset code inputs
-            document.querySelectorAll('.password-code').forEach(input => {
-                input.value = '';
-                input.classList.remove('filled');
-            });
-        }
-
-        // Request Password Change
-        async function requestPasswordChange() {
-            try {
-                const response = await fetch('', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
+        // Logout
+        const btnLogout = document.getElementById('btnLogout');
+        if (btnLogout) {
+            btnLogout.addEventListener('click', () => {
+                Swal.fire({
+                    title: 'Tem certeza que deseja sair?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sim, sair',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/app/src/utils/Sair.php';
                     }
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    document.getElementById('changePasswordModal').classList.remove('hidden');
-                } else {
-                    alert('Erro ao solicitar alteração de senha: ' + result.message);
-                }
-            } catch (error) {
-                console.error('Erro:', error);
-                alert('Erro ao solicitar alteração de senha');
-            }
-        }
-
-        // Change Email Form Handler
-        document.getElementById('changeEmailForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const newEmail = document.getElementById('newEmail').value;
-            const sendBtn = document.getElementById('sendEmailBtn');
-            const sendText = document.getElementById('sendEmailText');
-            const sendLoading = document.getElementById('sendEmailLoading');
-
-            // Show loading
-            sendText.classList.add('hidden');
-            sendLoading.classList.remove('hidden');
-            sendBtn.disabled = true;
-
-            try {
-                const response = await fetch('../backend/alterar-email.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        newEmail: newEmail
-                    })
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    document.getElementById('sentToEmail').textContent = newEmail;
-                    document.getElementById('emailStep1').classList.add('hidden');
-                    document.getElementById('emailStep2').classList.remove('hidden');
-                } else {
-                    alert('Erro ao enviar código: ' + result.message);
-                }
-            } catch (error) {
-                console.error('Erro:', error);
-                alert('Erro ao enviar código');
-            } finally {
-                // Hide loading
-                sendText.classList.remove('hidden');
-                sendLoading.classList.add('hidden');
-                sendBtn.disabled = false;
-            }
-        });
-
-        // Verify Email Code Form Handler
-        document.getElementById('verifyEmailCodeForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const codeInputs = document.querySelectorAll('#emailStep2 .code-input');
-            const code = Array.from(codeInputs).map(input => input.value).join('');
-            const newEmail = document.getElementById('newEmail').value;
-
-            if (code.length !== 6) {
-                alert('Por favor, digite o código completo');
-                return;
-            }
-
-            const verifyBtn = document.getElementById('verifyEmailBtn');
-            const verifyText = document.getElementById('verifyEmailText');
-            const verifyLoading = document.getElementById('verifyEmailLoading');
-
-            // Show loading
-            verifyText.classList.add('hidden');
-            verifyLoading.classList.remove('hidden');
-            verifyBtn.disabled = true;
-
-            try {
-                const response = await fetch('../backend/confirmar-email.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        code: code,
-                        newEmail: newEmail
-                    })
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    alert('E-mail alterado com sucesso!');
-                    closeChangeEmailModal();
-                    location.reload(); // Reload to update session data
-                } else {
-                    alert('Erro ao verificar código: ' + result.message);
-                }
-            } catch (error) {
-                console.error('Erro:', error);
-                alert('Erro ao verificar código');
-            } finally {
-                // Hide loading
-                verifyText.classList.remove('hidden');
-                verifyLoading.classList.add('hidden');
-                verifyBtn.disabled = false;
-            }
-        });
-
-        // Change Password Form Handler
-        document.getElementById('changePasswordForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const codeInputs = document.querySelectorAll('.password-code');
-            const code = Array.from(codeInputs).map(input => input.value).join('');
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmNewPassword').value;
-
-            if (code.length !== 6) {
-                alert('Por favor, digite o código completo');
-                return;
-            }
-
-            if (newPassword !== confirmPassword) {
-                alert('As senhas não coincidem');
-                return;
-            }
-
-            if (newPassword.length < 8) {
-                alert('A senha deve ter pelo menos 8 caracteres');
-                return;
-            }
-
-            const changeBtn = document.getElementById('changePasswordBtn');
-            const changeText = document.getElementById('changePasswordText');
-            const changeLoading = document.getElementById('changePasswordLoading');
-
-            // Show loading
-            changeText.classList.add('hidden');
-            changeLoading.classList.remove('hidden');
-            changeBtn.disabled = true;
-
-            try {
-                const response = await fetch('../backend/al', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        code: code,
-                        newPassword: newPassword
-                    })
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    alert('Senha alterada com sucesso!');
-                    closeChangePasswordModal();
-                } else {
-                    alert('Erro ao alterar senha: ' + result.message);
-                }
-            } catch (error) {
-                console.error('Erro:', error);
-                alert('Erro ao alterar senha');
-            } finally {
-                // Hide loading
-                changeText.classList.remove('hidden');
-                changeLoading.classList.add('hidden');
-                changeBtn.disabled = false;
-            }
-        });
-
-        // Code Input Handlers
-        function setupCodeInputs(selector) {
-            const inputs = document.querySelectorAll(selector);
-
-            inputs.forEach((input, index) => {
-                input.addEventListener('input', function(e) {
-                    const value = e.target.value;
-
-                    // Only allow numbers
-                    if (!/^\d*$/.test(value)) {
-                        e.target.value = '';
-                        return;
-                    }
-
-                    // Add filled class
-                    if (value) {
-                        e.target.classList.add('filled');
-                    } else {
-                        e.target.classList.remove('filled');
-                    }
-
-                    // Move to next input
-                    if (value && index < inputs.length - 1) {
-                        inputs[index + 1].focus();
-                    }
-                });
-
-                input.addEventListener('keydown', function(e) {
-                    // Move to previous input on backspace
-                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
-                        inputs[index - 1].focus();
-                    }
-                });
-
-                input.addEventListener('paste', function(e) {
-                    e.preventDefault();
-                    const paste = (e.clipboardData || window.clipboardData).getData('text');
-                    const digits = paste.replace(/\D/g, '').slice(0, 6);
-
-                    digits.split('').forEach((digit, i) => {
-                        if (inputs[i]) {
-                            inputs[i].value = digit;
-                            inputs[i].classList.add('filled');
-                        }
-                    });
                 });
             });
         }
-
-        // Setup code inputs for both modals
-        setupCodeInputs('#emailStep2 .code-input');
-        setupCodeInputs('.password-code');
-
-        // Password visibility toggle
-        function togglePasswordVisibility(inputId) {
-            const input = document.getElementById(inputId);
-            const icon = document.getElementById(inputId + 'Icon');
-
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                input.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        }
-
-        // Phone formatting
-        document.getElementById('telefone').addEventListener('input', function(e) {
-            let telefone = e.target.value.replace(/\D/g, '');
-            if (telefone.length <= 10) {
-                telefone = telefone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
-            } else {
-                telefone = telefone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-            }
-            e.target.value = telefone;
-        });
-
-        document.getElementById('btnLogout').addEventListener('click', () => {
-            Swal.fire({
-                title: 'Tem certeza que deseja sair?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Sim, sair',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '/app/src/utils/Sair.php';
-                }
-            });
-        });
     </script>
     <script type="module" src="/app/public/js/sweetalert-config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

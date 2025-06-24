@@ -6,40 +6,19 @@ require_once '../../utils/ConexaoDB.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-$email = filter_var(strtolower(trim($_POST['novoEmail'])), FILTER_SANITIZE_EMAIL);
-
-if (empty($email)) {
-    $retorna = ['status' => false, 'msg' => "O campo e-mail não foi preenchido."];
-    header('Content-Type: application/json');
-    echo json_encode($retorna);
-    exit();
-}
+$email = filter_var($_POST['novoEmail'], FILTER_SANITIZE_EMAIL);
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $retorna = ['status' => false, 'msg' => "E-mail fornecido é inválido."];
+    $retorna = ['status' => false, 'msg' => "E-mail inválido."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
 }
 
-$sql = $pdo->prepare("SELECT * FROM usuario WHERE email = :email");
-$sql->bindValue(':email', $email);
-$sql->execute();
+$_SESSION['temp_codigo'] = rand(100000, 999999);
 
-if ($sql->rowCount() === 1) {
-    $retorna = ['status' => false, 'msg' => "E-mail já cadastrado."];
-    header('Content-Type: application/json');
-    echo json_encode($retorna);
-    exit();
-}
-
-$codigo = rand(100000, 999999);
-$_SESSION['temp_codigo'] = $codigo;
-$_SESSION['temp_email'] = $email;
-
-if (EnviarEmail($email, $codigo)) {
-    $retorna = ['status' => true, 'msg' => "Código enviado com sucesso!"];
+if (EnviarEmail($email, $_SESSION['temp_codigo'])) {
+    $retorna = ['status' => true, 'msg' => "Um código foi enviado para seu e-mail com um código de verificação."];
     header('Content-Type: application/json');
     echo json_encode($retorna);
     exit();
@@ -47,7 +26,7 @@ if (EnviarEmail($email, $codigo)) {
 
 function EnviarEmail($email, $codigo)
 {
-    $email_body = file_get_contents('../../../public/email/alterar-email.html');
+    $email_body = file_get_contents('../../../public/email/cadastro.html');
     $email_body = str_replace('{{code}}', $codigo, $email_body);
     $mail = new PHPMailer(true);
 
@@ -63,7 +42,7 @@ function EnviarEmail($email, $codigo)
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->CharSet = 'UTF-8';
-        $mail->Subject = 'Alteração de E-mail';
+        $mail->Subject = 'Alteração de Senha';
         $mail->Body = $email_body;
         $mail->send();
 
