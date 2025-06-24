@@ -797,6 +797,14 @@ if ($sql->rowCount() > 0) {
                 });
             });
         }
+
+        function openEditModal() {
+            document.getElementById('editModal').classList.remove('hidden');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+        }
     </script>
     <script type="module" src="/app/public/js/sweetalert-config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
