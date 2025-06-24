@@ -5,7 +5,7 @@ require_once '../../utils/ConexaoDB.php';
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 $nome = ucwords(trim($dados['nome']));
 $cpf_formatado = isset($dados['cpf']) ? trim($dados['cpf']) : ($_SESSION['user_cpf'] ?? null);
-$cpf = preg_replace('/[^0-9]/', '', $cpf_formatado);
+$cpf = preg_replace('/[^0-9]/is', '', (string) $cpf);
 $data_nascimento = trim($dados['data_nascimento']);
 $telefone = trim($dados['telefone']);
 $estado = isset($dados['estado']) ? trim($dados['estado']) : 'N/A';
