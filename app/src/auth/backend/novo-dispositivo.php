@@ -1,7 +1,7 @@
 <?php
 require_once '../../utils/ConexaoDB.php';
 
-if ($_SERVER['REQUEST_METHOD'] !== ['POST']) {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: ../entrar/");
     exit();
 }
@@ -26,28 +26,27 @@ if ($sql->rowCount() <= 0) {
 
 $dadosDispositivo = $sql->fetch();
 
-if ($dadosDispositivo['id_usuario'] !== $_POST['id_usuario']) {
+// Agora checamos se o dispositivo pertence ao usuário corretamente
+if ($dadosDispositivo['id_usuario'] === $_POST['id_usuario']) {
+    // Se nome do dispositivo foi enviado, atualiza também
     if (!empty($_POST['nome_dispositivo'])) {
         $sql = $pdo->prepare("UPDATE dispositivos SET nome_dispositivo = :nome, confirmado = 1 WHERE id = :id");
         $sql->bindValue(':nome', $_POST['nome_dispositivo']);
-        $sql->bindValue(':id', $_POST['id_dispositivo']);
-
-        if ($sql->execute()) {
-            $retorna = ['status' => true, 'msg' => "O dispositivo foi confirmado."];
-            header('Content-Type: application/json');
-            echo json_encode($retorna);
-            exit();
-        }
+    } else {
+        $sql = $pdo->prepare("UPDATE dispositivos SET confirmado = 1 WHERE id = :id");
     }
 
-    $sql = $pdo->prepare("UPDATE dispositivos SET confirmado = 1 WHERE id = :id");
     $sql->bindValue(':id', $_POST['id_dispositivo']);
+
     if ($sql->execute()) {
         $retorna = ['status' => true, 'msg' => "O dispositivo foi confirmado."];
-        header('Content-Type: application/json');
-        echo json_encode($retorna);
-        exit();
+    } else {
+        $retorna = ['status' => false, 'msg' => "Erro ao confirmar o dispositivo."];
     }
+
+    header('Content-Type: application/json');
+    echo json_encode($retorna);
+    exit();
 } else {
     $retorna = ['status' => false, 'msg' => "Você não tem permissão para manipular este dispositivo."];
     header('Content-Type: application/json');

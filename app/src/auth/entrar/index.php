@@ -469,7 +469,7 @@ $text = $_GET['text'] ?? null;
                             </div>
                         </div>
 
-                        <a href="../confirmar-cadastro/" class="inline-flex items-center text-primary hover:text-blue-400 transition-colors font-semibold text-sm">
+                        <a href="../cadastro/" class="inline-flex items-center text-primary hover:text-blue-400 transition-colors font-semibold text-sm">
                             <i class="fas fa-user-plus mr-2"></i>
                             Criar conta gratuita
                         </a>

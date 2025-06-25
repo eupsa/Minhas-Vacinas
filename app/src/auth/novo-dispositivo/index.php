@@ -13,7 +13,7 @@ if (isset($_GET['deviceid']) && isset($_GET['userid'])) {
 
         $dadosDispositivos['data_cadastro'] = DateTime::createFromFormat('Y-m-d H:i:s', $dadosDispositivos['data_cadastro']);
     } else {
-        header("Location: ../entrar/");
+        header("Location: / ");
         exit;
     }
 } else {
@@ -264,7 +264,7 @@ if (isset($_GET['deviceid']) && isset($_GET['userid'])) {
                     <!-- Desktop Menu -->
                     <div class="hidden md:flex items-center space-x-8">
                         <a href="/" class="text-gray-300 hover:text-primary transition-colors font-medium">Início</a>
-                        <a href="/app/src/ajuda/" class="text-gray-300 hover:text-primary transition-colors font-medium">Suporte</a>
+                        <a href="   ajuda/" class="text-gray-300 hover:text-primary transition-colors font-medium">Suporte</a>
                         <a href="../cadastro/" class="text-gray-300 hover:text-primary transition-colors font-medium">Cadastro</a>
                     </div>
 
@@ -403,7 +403,7 @@ if (isset($_GET['deviceid']) && isset($_GET['userid'])) {
                     </div>
 
                     <!-- Confirmation Form -->
-                    <form id="formNovoDispositivo" class="space-y-6" method="POST" action="../backend/novo-dispositivo.php">
+                    <form id="formNovoDispositivo" action="/app/src/auth/backend/novo-dispositivo.php" class="space-y-6" method="POST">
                         <div>
                             <label for="deviceName" class="block text-xs font-medium text-gray-300 mb-2 text-left">
                                 Nome do dispositivo (opcional)
@@ -521,7 +521,6 @@ if (isset($_GET['deviceid']) && isset($_GET['userid'])) {
             }
         });
 
-
         // Data-id
         document.querySelectorAll('#deviceForm button[type="submit"]').forEach(button => {
             button.addEventListener('click', function(event) {
@@ -533,6 +532,8 @@ if (isset($_GET['deviceid']) && isset($_GET['userid'])) {
             });
         });
     </script>
+    <script type="module" src="/app/public/js/sweetalert-config.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
